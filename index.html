@@ -1,6 +1,18 @@
 <!DOCTYPE html>
 
-<html class="dark" lang="es"><head>
+<html lang="es"><head>
+<script>
+  (function() {
+    var wantsDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    var wantsMoreContrast = window.matchMedia && window.matchMedia('(prefers-contrast: more)').matches;
+    if (wantsMoreContrast) {
+      document.documentElement.classList.add('a11y');
+    } else if (wantsDark) {
+      document.documentElement.classList.add('dark');
+    }
+  })();
+</script>
+
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
@@ -8,281 +20,523 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <style>
+    :root {
+      --c-accent-yellow: #f59e0b;
+      --c-background: #fcf8ff;
+      --c-bg-canvas: #fcf8ff;
+      --c-bg-deep: #fcf8ff;
+      --c-border-glow: #c8c4d7;
+      --c-border-subtle: #c8c4d7;
+      --c-error: #ba1a1a;
+      --c-error-container: #ffdad6;
+      --c-inverse-on-surface: #f3eeff;
+      --c-inverse-primary: #c5c0ff;
+      --c-inverse-surface: #302e45;
+      --c-neon-cyan: #006a66;
+      --c-neon-magenta: #4b3bcb;
+      --c-neon-magenta-alt: #4b3bcb;
+      --c-on-background: #1b192f;
+      --c-on-error: #ffffff;
+      --c-on-error-container: #93000a;
+      --c-on-primary: #ffffff;
+      --c-on-primary-container: #f2edff;
+      --c-on-primary-fixed: #140067;
+      --c-on-primary-fixed-variant: #3c29bd;
+      --c-on-secondary: #ffffff;
+      --c-on-secondary-container: #00716d;
+      --c-on-secondary-fixed: #00201f;
+      --c-on-secondary-fixed-variant: #00504d;
+      --c-on-surface: #1b192f;
+      --c-on-surface-variant: #474554;
+      --c-on-tertiary: #ffffff;
+      --c-on-tertiary-container: #ffebe9;
+      --c-on-tertiary-fixed: #410003;
+      --c-on-tertiary-fixed-variant: #86211e;
+      --c-outline: #787586;
+      --c-outline-variant: #c8c4d7;
+      --c-primary: #4b3bcb;
+      --c-primary-container: #6457e5;
+      --c-primary-fixed: #e3dfff;
+      --c-primary-fixed-dim: #c5c0ff;
+      --c-secondary: #006a66;
+      --c-secondary-container: #6bf8f1;
+      --c-secondary-fixed: #6bf8f1;
+      --c-secondary-fixed-dim: #47dbd5;
+      --c-surface: #fcf8ff;
+      --c-surface-bright: #fcf8ff;
+      --c-surface-container: #f0ebff;
+      --c-surface-container-high: #eae5ff;
+      --c-surface-container-highest: #e4dffe;
+      --c-surface-container-low: #f6f1ff;
+      --c-surface-container-lowest: #ffffff;
+      --c-surface-dim: #dbd6f5;
+      --c-surface-tier-1: #f6f1ff;
+      --c-surface-tier-2: #f0ebff;
+      --c-surface-tier-3: #eae5ff;
+      --c-surface-tint: #5547d6;
+      --c-surface-variant: #e4dffe;
+      --c-tertiary: #992f2a;
+      --c-tertiary-container: #ba4640;
+      --c-tertiary-fixed: #ffdad6;
+      --c-tertiary-fixed-dim: #ffb3ac;
+      --c-text-primary: #1b192f;
+      --c-text-secondary: #474554;
+      --c-text-tertiary: #787586;
+    }
+    .dark {
+      --c-accent-yellow: #f6c744;
+      --c-background: #050B1D;
+      --c-bg-canvas: #08122B;
+      --c-bg-deep: #050B1D;
+      --c-border-glow: rgba(196, 92, 255, 0.25);
+      --c-border-subtle: rgba(255, 255, 255, 0.08);
+      --c-error: #ffb4ab;
+      --c-error-container: #93000a;
+      --c-inverse-on-surface: #050B1D;
+      --c-inverse-primary: #9020cb;
+      --c-inverse-surface: #F7F8FC;
+      --c-neon-cyan: #3dd9f5;
+      --c-neon-magenta: #ff3fb4;
+      --c-neon-magenta-alt: #e84698;
+      --c-on-background: #F7F8FC;
+      --c-on-error: #690005;
+      --c-on-error-container: #ffdad6;
+      --c-on-primary: #ffffff;
+      --c-on-primary-container: #ffffff;
+      --c-on-primary-fixed: #30004a;
+      --c-on-primary-fixed-variant: #7100a5;
+      --c-on-secondary: #003737;
+      --c-on-secondary-container: #004141;
+      --c-on-secondary-fixed: #002020;
+      --c-on-secondary-fixed-variant: #004f50;
+      --c-on-surface: #F7F8FC;
+      --c-on-surface-variant: #A8B0C5;
+      --c-on-tertiary: #620041;
+      --c-on-tertiary-container: #560039;
+      --c-on-tertiary-fixed: #3d0027;
+      --c-on-tertiary-fixed-variant: #8a005d;
+      --c-outline: #747F9B;
+      --c-outline-variant: rgba(255, 255, 255, 0.12);
+      --c-primary: #C45CFF;
+      --c-primary-container: #A94FCE;
+      --c-primary-fixed: #f5d9ff;
+      --c-primary-fixed-dim: #e7b4ff;
+      --c-secondary: #2BC5C7;
+      --c-secondary-container: #00b5b7;
+      --c-secondary-fixed: #6ef7f8;
+      --c-secondary-fixed-dim: #4bdadc;
+      --c-surface: #050B1D;
+      --c-surface-bright: #1E2A4F;
+      --c-surface-container: #0D1733;
+      --c-surface-container-high: #111D3D;
+      --c-surface-container-highest: #172344;
+      --c-surface-container-low: #08122B;
+      --c-surface-container-lowest: #030716;
+      --c-surface-dim: #050B1D;
+      --c-surface-tier-1: #0D1733;
+      --c-surface-tier-2: #111D3D;
+      --c-surface-tier-3: #172344;
+      --c-surface-tint: #C45CFF;
+      --c-surface-variant: #111D3D;
+      --c-tertiary: #ffafd4;
+      --c-tertiary-container: #ff3fb4;
+      --c-tertiary-fixed: #ffd8e7;
+      --c-tertiary-fixed-dim: #ffafd4;
+      --c-text-primary: #F7F8FC;
+      --c-text-secondary: #A8B0C5;
+      --c-text-tertiary: #747F9B;
+    }
+
+
+    .a11y {
+      /* Paleta de alto contraste real (no ligada a la marca) */
+      --c-surface: #ffffff;
+      --c-background: #ffffff;
+      --c-surface-container-lowest: #ffffff;
+      --c-surface-container-low: #f5f5f5;
+      --c-surface-container: #eeeeee;
+      --c-surface-container-high: #e2e2e2;
+      --c-surface-container-highest: #d6d6d6;
+      --c-surface-dim: #e6e6e6;
+      --c-surface-bright: #ffffff;
+      --c-on-surface: #000000;
+      --c-on-background: #000000;
+      --c-on-surface-variant: #1a1a1a;
+      --c-outline: #1a1a1a;
+      --c-outline-variant: #333333;
+      --c-primary: #1e1266;
+      --c-on-primary: #ffffff;
+    }
+    /* Bordes de tarjetas: forzados a un gris con contraste real (>=3:1), no la variable de fill */
+    .a11y .border-surface-container { border-color: #333333 !important; border-width: 2px !important; }
+    .a11y [class*="text-amber-"] { color: #78350f !important; }
+    .a11y [class*="text-emerald-"] { color: #064e3b !important; }
+    .a11y [class*="text-indigo-"] { color: #312e81 !important; }
+    .a11y [class*="text-teal-"] { color: #134e4a !important; }
+    .a11y [class*="text-cyan-"] { color: #164e63 !important; }
+    .a11y [class*="text-rose-"] { color: #881337 !important; }
+
+    /* Foco de teclado más visible todavia en este modo */
+    .a11y :focus-visible { outline-width: 3px !important; outline-color: #2f1f9e !important; }
+
+    /* Sin blobs decorativos de fondo: menos ruido visual para baja visión */
+    .a11y [class*="blur-3xl"] { display: none !important; }
+
+    /* Tipografía ~14% más grande en todos los tamaños de texto del sistema */
+    .a11y .text-display-lg { font-size: 55px !important; line-height: 64px !important; }
+    .a11y .text-headline-lg-mobile { font-size: 30px !important; line-height: 39px !important; }
+    .a11y .text-headline-md { font-size: 25px !important; line-height: 34px !important; }
+    .a11y .text-headline-sm { font-size: 21px !important; line-height: 30px !important; }
+    .a11y .text-label-lg { font-size: 16px !important; line-height: 23px !important; }
+    .a11y .text-body-md { font-size: 17px !important; line-height: 27px !important; }
+    .a11y .text-headline-lg { font-size: 36px !important; line-height: 46px !important; }
+    .a11y .text-label-sm { font-size: 13px !important; line-height: 16px !important; }
+    .a11y .text-label-md { font-size: 14px !important; line-height: 18px !important; }
+    .a11y .text-body-sm { font-size: 15px !important; line-height: 23px !important; }
+    .a11y .text-display-lg-mobile { font-size: 41px !important; line-height: 50px !important; }
+    .a11y .text-body-lg { font-size: 19px !important; line-height: 30px !important; }
+
+    /* Zoom al pasar el mouse o el foco: botones y links */
+    .a11y button, .a11y a { transition: transform .15s ease, box-shadow .15s ease; }
+    .a11y button:hover, .a11y button:focus-visible,
+    .a11y a:hover, .a11y a:focus-visible {
+      transform: scale(1.18);
+      position: relative; z-index: 30;
+      box-shadow: 0 12px 28px -8px rgba(0,0,0,0.35);
+    }
+    /* Zoom en tarjetas (features, FAQ, capturas de pantalla) */
+    .a11y .rounded-3xl, .a11y .faq-item { transition: transform .15s ease, box-shadow .15s ease; }
+    .a11y .rounded-3xl:hover, .a11y .rounded-3xl:focus-within,
+    .a11y .faq-item:hover, .a11y .faq-item:focus-within {
+      transform: scale(1.09);
+      position: relative; z-index: 25;
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.35);
+    }
+    /* Zoom en bloques de texto sueltos (párrafos y listas) */
+    .a11y p, .a11y li {
+      transition: transform .15s ease, background-color .15s ease;
+      transform-origin: top left;
+    }
+    .a11y p:hover, .a11y li:hover {
+      transform: scale(1.16);
+      position: relative; z-index: 20;
+      background-color: rgba(0,0,0,0.05);
+      border-radius: 0.5rem;
+    }
+
+    .theme-toggle {
+      width: 44px; height: 44px; border-radius: 9999px;
+      display: inline-flex; align-items: center; justify-content: center;
+      border: 1px solid var(--c-outline-variant);
+      background: var(--c-surface-container);
+      color: var(--c-on-surface);
+      cursor: pointer;
+      transition: background .15s ease, border-color .15s ease;
+    }
+    .theme-toggle:hover { background: var(--c-surface-container-high); }
+
+    .theme-menu {
+      position: absolute; right: 0; top: calc(100% + 8px); z-index: 60;
+      background: var(--c-surface-container-lowest);
+      border: 1px solid var(--c-outline-variant);
+      border-radius: 1rem;
+      box-shadow: 0 20px 40px -12px rgba(0,0,0,0.25);
+      padding: 6px; min-width: 168px;
+    }
+    .theme-menu-item {
+      display: flex; align-items: center; gap: 8px;
+      width: 100%; text-align: left; padding: 10px 12px; border-radius: 0.75rem;
+      background: none; border: none; cursor: pointer;
+      color: var(--c-on-surface-variant); font-size: 14px; font-weight: 600;
+      min-height: 44px;
+    }
+    .theme-menu-item:hover { background: var(--c-surface-container); color: var(--c-on-surface); }
+    .theme-menu-item[aria-current="true"] { background: var(--c-primary-container); color: var(--c-on-primary-container); }
+
+    .theme-toggle .icon-dark { display: none; }
+    .dark .theme-toggle .icon-light { display: none; }
+    .dark .theme-toggle .icon-dark { display: inline-block; }
+
     @layer base {
-      html, body { margin: 0; padding: 0; background-color: #050B1D; }
+      html, body { margin: 0; padding: 0; }
       body { overscroll-behavior: none; }
       main > :first-child { margin-top: 0 !important; }
       main > :last-child { margin-bottom: 0 !important; }
     }
     ::-webkit-scrollbar { display: none; }
-    .gradient-text {
-      background: linear-gradient(90deg, #C45CFF 0%, #FF3FB4 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .btn-gradient {
-      background: linear-gradient(135deg, #A94FCE 0%, #E84698 55%, #FF3FB4 100%);
-      box-shadow: 0 10px 30px -6px rgba(232, 70, 152, 0.45);
-    }
-    .btn-gradient:hover {
-      box-shadow: 0 14px 35px -4px rgba(255, 63, 180, 0.6);
-      filter: brightness(1.06);
-    }
-    .phone-mockup-glow {
-      box-shadow: 0 25px 65px -12px rgba(196, 92, 255, 0.28), 0 0 0 1px rgba(196, 92, 255, 0.2);
-    }
   </style>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <script id="tailwind-config">
-  tailwind.config = {
-    darkMode: "class",
-    theme: {
-      extend: {
-        "colors": {
-          "on-tertiary-fixed": "#3d0027",
-          "primary-fixed": "#f5d9ff",
-          "on-secondary": "#003737",
-          "surface-variant": "#111D3D",
-          "inverse-primary": "#9020cb",
-          "bg-canvas": "#08122B",
-          "on-surface": "#F7F8FC",
-          "on-error": "#690005",
-          "tertiary-fixed-dim": "#ffafd4",
-          "tertiary": "#ffafd4",
-          "surface-tier-1": "#0D1733",
-          "secondary-container": "#00b5b7",
-          "surface": "#050B1D",
-          "on-primary": "#ffffff",
-          "surface-bright": "#1E2A4F",
-          "border-subtle": "rgba(255, 255, 255, 0.08)",
-          "secondary-fixed-dim": "#4bdadc",
-          "bg-deep": "#050B1D",
-          "on-tertiary": "#620041",
-          "surface-container-low": "#08122B",
-          "on-tertiary-container": "#560039",
-          "tertiary-container": "#ff3fb4",
-          "primary-fixed-dim": "#e7b4ff",
-          "neon-cyan": "#3dd9f5",
-          "inverse-on-surface": "#050B1D",
-          "on-primary-fixed-variant": "#7100a5",
-          "surface-tier-2": "#111D3D",
-          "primary": "#C45CFF",
-          "surface-tier-3": "#172344",
-          "outline": "#747F9B",
-          "inverse-surface": "#F7F8FC",
-          "text-primary": "#F7F8FC",
-          "accent-yellow": "#f6c744",
-          "outline-variant": "rgba(255, 255, 255, 0.12)",
-          "primary-container": "#A94FCE",
-          "text-tertiary": "#747F9B",
-          "on-error-container": "#ffdad6",
-          "neon-magenta-alt": "#e84698",
-          "on-secondary-fixed-variant": "#004f50",
-          "surface-dim": "#050B1D",
-          "neon-magenta": "#ff3fb4",
-          "border-glow": "rgba(196, 92, 255, 0.25)",
-          "error-container": "#93000a",
-          "surface-container-lowest": "#030716",
-          "secondary": "#2BC5C7",
-          "text-secondary": "#A8B0C5",
-          "on-secondary-fixed": "#002020",
-          "error": "#ffb4ab",
-          "surface-container": "#0D1733",
-          "background": "#050B1D",
-          "on-background": "#F7F8FC",
-          "tertiary-fixed": "#ffd8e7",
-          "secondary-fixed": "#6ef7f8",
-          "on-primary-container": "#ffffff",
-          "surface-container-high": "#111D3D",
-          "on-secondary-container": "#004141",
-          "on-primary-fixed": "#30004a",
-          "surface-container-highest": "#172344",
-          "on-tertiary-fixed-variant": "#8a005d",
-          "on-surface-variant": "#A8B0C5",
-          "surface-tint": "#C45CFF"
-        },
-        "borderRadius": {
-          "DEFAULT": "0.5rem",
-          "lg": "1rem",
-          "xl": "1.5rem",
-          "2xl": "1.75rem",
-          "3xl": "2.25rem",
-          "full": "9999px"
-        },
-        "spacing": {
-          "gutter-desktop": "2rem",
-          "space-md": "1rem",
-          "gutter-tablet": "1.5rem",
-          "space-2xs": "0.25rem",
-          "gutter-mobile": "1rem",
-          "space-lg": "1.5rem",
-          "margin-tablet": "2rem",
-          "margin-desktop": "3rem",
-          "margin-mobile": "1.25rem",
-          "space-xl": "2rem",
-          "space-xs": "0.5rem",
-          "space-2xl": "3rem",
-          "space-3xl": "4.5rem",
-          "space-sm": "0.75rem"
-        },
-        "fontFamily": {
-          "display-lg": ["Plus Jakarta Sans"],
-          "headline-lg-mobile": ["Plus Jakarta Sans"],
-          "headline-md": ["Plus Jakarta Sans"],
-          "headline-sm": ["Plus Jakarta Sans"],
-          "label-lg": ["Plus Jakarta Sans"],
-          "body-md": ["Plus Jakarta Sans"],
-          "headline-lg": ["Plus Jakarta Sans"],
-          "label-sm": ["Plus Jakarta Sans"],
-          "label-md": ["Plus Jakarta Sans"],
-          "body-sm": ["Plus Jakarta Sans"],
-          "display-lg-mobile": ["Plus Jakarta Sans"],
-          "body-lg": ["Plus Jakarta Sans"]
-        },
-        "fontSize": {
-          "display-lg": ["48px", { lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "800" }],
-          "display-lg-mobile": ["36px", { lineHeight: "44px", letterSpacing: "-0.02em", fontWeight: "800" }],
-          "headline-lg": ["32px", { lineHeight: "40px", letterSpacing: "-0.015em", fontWeight: "700" }],
-          "headline-lg-mobile": ["26px", { lineHeight: "34px", letterSpacing: "-0.015em", fontWeight: "700" }],
-          "headline-md": ["22px", { lineHeight: "30px", letterSpacing: "-0.01em", fontWeight: "700" }],
-          "headline-sm": ["18px", { lineHeight: "26px", fontWeight: "600" }],
-          "label-lg": ["15px", { lineHeight: "20px", letterSpacing: "0.01em", fontWeight: "600" }],
-          "label-md": ["13px", { lineHeight: "18px", letterSpacing: "0.02em", fontWeight: "600" }],
-          "label-sm": ["11px", { lineHeight: "14px", letterSpacing: "0.04em", fontWeight: "700" }],
-          "body-lg": ["16px", { lineHeight: "26px", fontWeight: "400" }],
-          "body-md": ["14px", { lineHeight: "22px", fontWeight: "400" }],
-          "body-sm": ["12px", { lineHeight: "18px", fontWeight: "400" }]
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "accent-yellow": "var(--c-accent-yellow)",
+            "background": "var(--c-background)",
+            "bg-canvas": "var(--c-bg-canvas)",
+            "bg-deep": "var(--c-bg-deep)",
+            "border-glow": "var(--c-border-glow)",
+            "border-subtle": "var(--c-border-subtle)",
+            "error": "var(--c-error)",
+            "error-container": "var(--c-error-container)",
+            "inverse-on-surface": "var(--c-inverse-on-surface)",
+            "inverse-primary": "var(--c-inverse-primary)",
+            "inverse-surface": "var(--c-inverse-surface)",
+            "neon-cyan": "var(--c-neon-cyan)",
+            "neon-magenta": "var(--c-neon-magenta)",
+            "neon-magenta-alt": "var(--c-neon-magenta-alt)",
+            "on-background": "var(--c-on-background)",
+            "on-error": "var(--c-on-error)",
+            "on-error-container": "var(--c-on-error-container)",
+            "on-primary": "var(--c-on-primary)",
+            "on-primary-container": "var(--c-on-primary-container)",
+            "on-primary-fixed": "var(--c-on-primary-fixed)",
+            "on-primary-fixed-variant": "var(--c-on-primary-fixed-variant)",
+            "on-secondary": "var(--c-on-secondary)",
+            "on-secondary-container": "var(--c-on-secondary-container)",
+            "on-secondary-fixed": "var(--c-on-secondary-fixed)",
+            "on-secondary-fixed-variant": "var(--c-on-secondary-fixed-variant)",
+            "on-surface": "var(--c-on-surface)",
+            "on-surface-variant": "var(--c-on-surface-variant)",
+            "on-tertiary": "var(--c-on-tertiary)",
+            "on-tertiary-container": "var(--c-on-tertiary-container)",
+            "on-tertiary-fixed": "var(--c-on-tertiary-fixed)",
+            "on-tertiary-fixed-variant": "var(--c-on-tertiary-fixed-variant)",
+            "outline": "var(--c-outline)",
+            "outline-variant": "var(--c-outline-variant)",
+            "primary": "var(--c-primary)",
+            "primary-container": "var(--c-primary-container)",
+            "primary-fixed": "var(--c-primary-fixed)",
+            "primary-fixed-dim": "var(--c-primary-fixed-dim)",
+            "secondary": "var(--c-secondary)",
+            "secondary-container": "var(--c-secondary-container)",
+            "secondary-fixed": "var(--c-secondary-fixed)",
+            "secondary-fixed-dim": "var(--c-secondary-fixed-dim)",
+            "surface": "var(--c-surface)",
+            "surface-bright": "var(--c-surface-bright)",
+            "surface-container": "var(--c-surface-container)",
+            "surface-container-high": "var(--c-surface-container-high)",
+            "surface-container-highest": "var(--c-surface-container-highest)",
+            "surface-container-low": "var(--c-surface-container-low)",
+            "surface-container-lowest": "var(--c-surface-container-lowest)",
+            "surface-dim": "var(--c-surface-dim)",
+            "surface-tier-1": "var(--c-surface-tier-1)",
+            "surface-tier-2": "var(--c-surface-tier-2)",
+            "surface-tier-3": "var(--c-surface-tier-3)",
+            "surface-tint": "var(--c-surface-tint)",
+            "surface-variant": "var(--c-surface-variant)",
+            "tertiary": "var(--c-tertiary)",
+            "tertiary-container": "var(--c-tertiary-container)",
+            "tertiary-fixed": "var(--c-tertiary-fixed)",
+            "tertiary-fixed-dim": "var(--c-tertiary-fixed-dim)",
+            "text-primary": "var(--c-text-primary)",
+            "text-secondary": "var(--c-text-secondary)",
+            "text-tertiary": "var(--c-text-tertiary)"
+          },
+          borderRadius: {
+            "DEFAULT": "1rem",
+            "lg": "2rem",
+            "xl": "3rem",
+            "full": "9999px"
+          },
+          spacing: {
+            "gutter-desktop": "2rem",
+            "space-md": "1rem",
+            "gutter-tablet": "1.5rem",
+            "space-2xs": "0.25rem",
+            "gutter-mobile": "1rem",
+            "space-lg": "1.5rem",
+            "margin-tablet": "2rem",
+            "margin-desktop": "3rem",
+            "margin-mobile": "1.25rem",
+            "space-xl": "2rem",
+            "space-xs": "0.5rem",
+            "space-2xl": "2.5rem",
+            "space-3xl": "3.5rem",
+            "space-sm": "0.75rem"
+          },
+          fontFamily: {
+            "display-lg": ["Plus Jakarta Sans"],
+            "headline-lg-mobile": ["Plus Jakarta Sans"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "headline-sm": ["Plus Jakarta Sans"],
+            "label-lg": ["Plus Jakarta Sans"],
+            "body-md": ["Plus Jakarta Sans"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "label-sm": ["Plus Jakarta Sans"],
+            "label-md": ["Plus Jakarta Sans"],
+            "body-sm": ["Plus Jakarta Sans"],
+            "display-lg-mobile": ["Plus Jakarta Sans"],
+            "body-lg": ["Plus Jakarta Sans"]
+          },
+          fontSize: {
+            "display-lg": ["48px", { lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "800" }],
+            "headline-lg-mobile": ["26px", { lineHeight: "34px", letterSpacing: "-0.015em", fontWeight: "700" }],
+            "headline-md": ["22px", { lineHeight: "30px", letterSpacing: "-0.01em", fontWeight: "700" }],
+            "headline-sm": ["18px", { lineHeight: "26px", fontWeight: "600" }],
+            "label-lg": ["14px", { lineHeight: "20px", letterSpacing: "0.01em", fontWeight: "600" }],
+            "body-md": ["15px", { lineHeight: "24px", fontWeight: "400" }],
+            "headline-lg": ["32px", { lineHeight: "40px", letterSpacing: "-0.015em", fontWeight: "700" }],
+            "label-sm": ["11px", { lineHeight: "14px", letterSpacing: "0.04em", fontWeight: "600" }],
+            "label-md": ["12px", { lineHeight: "16px", letterSpacing: "0.03em", fontWeight: "700" }],
+            "body-sm": ["13px", { lineHeight: "20px", fontWeight: "500" }],
+            "display-lg-mobile": ["36px", { lineHeight: "44px", letterSpacing: "-0.02em", fontWeight: "800" }],
+            "body-lg": ["17px", { lineHeight: "26px", fontWeight: "500" }]
+          }
         }
       }
-    }
-  };
-</script>
+    };
+  </script>
 </head>
-<body class="bg-bg-deep font-body-md text-body-md text-on-surface antialiased selection:bg-neon-magenta selection:text-white">
+<body class="bg-surface font-body-md text-body-md text-on-surface antialiased">
 <!-- HEADER CON LOGO OFICIAL REAL -->
-<header class="fixed top-0 left-0 w-full z-50 bg-[#050B1D]/85 backdrop-blur-xl border-b border-white/[0.08] shadow-[0_10px_35px_-10px_rgba(0,0,0,0.6)]">
+<header class="fixed top-0 left-0 w-full z-50 bg-surface/90 backdrop-blur-xl shadow-[0_10px_30px_-10px_rgba(100,87,229,0.08)] border-b border-surface-container">
 <div class="h-20 max-w-[1200px] mx-auto px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop flex items-center justify-between gap-space-md">
 <a class="flex items-center gap-2 group" data-path="home" href="#">
-<div class="p-1.5 rounded-xl bg-white/[0.05] border border-white/10 group-hover:border-primary/40 transition-colors">
-<img alt="SugarCoach Logo Oficial" class="h-8 md:h-9 w-auto object-contain transition-transform group-hover:scale-105 filter drop-shadow-[0_2px_8px_rgba(196,92,255,0.3)]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8eBq5eQzruXAMaTMxS_mzvsFb1bqQZoOJo_sgOORoLvheBayGVtP9dU7nDlzZYdwZNQVwTFYYgeROtKpHUd1AImgnm6weuGvK1fVq8Rte1_6VEX-q6TbSPSXGHx6Ci4lM-0u6rOEMnhiK0p02cLKkkUgEoaJA6YZL42b_J_b_Q6_OlBBhwX0Gl4_PGoGXnzigYnGuFOeFzt-FYxPdTaszPfoxlDiG_Cm7bBP6Wak5E5MbhnWDv7ctpxYvr0LgzU8JkQ"/>
-</div>
+<img alt="SugarCoach Logo Oficial" class="h-10 md:h-11 w-auto object-contain transition-transform group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFZm0thCmmQiPDtaWr0bChOKpScRGT8p1X7sC6grLXO-g3KvANuFYNQN7kunE7Yd1VlnsuzC7sqxTGifV1HnigDTfp07lN3P2Tmnfwjs80dZUNXR465alau64HEpkawgkZzkIy5mkU2T__Kl8HfyRF2g8mCPe1Ei4EO5Jz4R2f55MbC5bdBNpyrdTJhWJgNSuUpvfcqeyiBy3FHb13G2ehV948SsnrL6jRNBqQgfxOpbJi8d4D3LfWCVvsl03nua_dqg"/>
 </a>
+<button id="mobileNavToggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobileNavPanel" class="lg:hidden inline-flex items-center justify-center w-11 h-11 rounded-full hover:bg-surface-container transition-colors" type="button">
+<span class="material-symbols-outlined" id="mobileNavIcon" style="font-size:26px">menu</span>
+</button>
 <nav class="hidden lg:flex items-center gap-space-lg">
-<a class="font-label-lg text-label-lg text-text-secondary hover:text-white transition-colors" data-path="como-funciona" href="#como-funciona">Cómo funciona</a>
-<a class="font-label-lg text-label-lg text-text-secondary hover:text-white transition-colors" data-path="para-familias" href="#familias">Para familias</a>
-<a class="font-label-lg text-label-lg text-text-secondary hover:text-white transition-colors" data-path="profesionales" href="#profesionales">Profesionales</a>
-<a class="font-label-lg text-label-lg text-text-secondary hover:text-white transition-colors" data-path="gamificacion" href="#gamificacion">Logros</a>
-<a class="font-label-lg text-label-lg text-text-secondary hover:text-white transition-colors" data-path="tratamiento" href="#tratamiento">Tratamiento</a>
-<a class="font-label-lg text-label-lg text-text-secondary hover:text-white transition-colors" data-path="preguntas-frecuentes" href="#preguntas-frecuentes">Preguntas frecuentes</a>
+<a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors" data-path="como-funciona" href="#como-funciona">Cómo funciona</a>
+<a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors" data-path="para-familias" href="#familias">Para familias</a>
+<a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors" data-path="profesionales" href="#profesionales">Profesionales</a>
+<a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors" data-path="preguntas-frecuentes" href="#preguntas-frecuentes">Preguntas frecuentes</a>
 </nav>
 <div class="flex items-center gap-space-md">
-<a class="hidden sm:inline-flex font-label-lg text-label-lg text-text-secondary hover:text-white transition-colors" data-path="login" href="#">Iniciar sesión</a>
-<a class="inline-flex items-center justify-center px-space-lg py-space-xs min-h-[44px] rounded-full btn-gradient text-white font-label-lg text-label-lg transition-all active:scale-95 gap-2 border border-white/20" data-path="descargar" href="#descargar">
+<div class="relative">
+<button aria-haspopup="true" aria-expanded="false" aria-controls="themeMenu" class="theme-toggle" id="themeMenuBtn" type="button">
+<span class="material-symbols-outlined" style="font-size:20px">contrast</span>
+</button>
+<div id="themeMenu" role="menu" aria-label="Modo de color" class="theme-menu hidden" hidden>
+<button role="menuitemradio" data-theme="light" class="theme-menu-item" type="button">
+<span class="material-symbols-outlined" style="font-size:18px">light_mode</span> Claro
+</button>
+<button role="menuitemradio" data-theme="dark" class="theme-menu-item" type="button">
+<span class="material-symbols-outlined" style="font-size:18px">dark_mode</span> Oscuro
+</button>
+<button role="menuitemradio" data-theme="a11y" class="theme-menu-item" type="button">
+<span class="material-symbols-outlined" style="font-size:18px">accessibility_new</span> Accesible
+</button>
+</div>
+</div>
+<a class="hidden sm:inline-flex font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors" data-path="login" href="#">Iniciar sesión</a>
+<a class="inline-flex items-center justify-center px-space-lg py-space-xs min-h-[46px] rounded-full bg-primary text-on-primary dark:bg-gradient-to-br dark:from-[#A94FCE] dark:via-[#E84698] dark:to-[#FF3FB4] dark:text-white dark:shadow-[0_10px_30px_-6px_rgba(232,70,152,0.45)] dark:hover:bg-none dark:hover:brightness-110 dark:border dark:border-white/20 font-label-lg text-label-lg shadow-[0_10px_25px_-5px_rgba(75,59,203,0.4)] hover:bg-primary-container transition-all active:scale-95 gap-2" data-path="descargar" href="#descargar">
 <span class="material-symbols-outlined text-[18px]">download</span>
-          Descargar SugarCoach
+          Descargar app
         </a>
 </div>
 </div>
 </header>
-<main class="w-full pt-20 bg-bg-deep min-h-[calc(100vh-80px)]">
+<div id="mobileNavPanel" class="lg:hidden hidden fixed top-20 left-0 w-full z-40 bg-surface border-b border-surface-container shadow-xl">
+<nav class="flex flex-col px-gutter-mobile py-space-md">
+<a class="py-space-sm text-body-lg text-on-surface-variant hover:text-primary transition-colors border-b border-surface-container" href="#como-funciona">Cómo funciona</a>
+<a class="py-space-sm text-body-lg text-on-surface-variant hover:text-primary transition-colors border-b border-surface-container" href="#familias">Para familias</a>
+<a class="py-space-sm text-body-lg text-on-surface-variant hover:text-primary transition-colors border-b border-surface-container" href="#profesionales">Profesionales</a>
+<a class="py-space-sm text-body-lg text-on-surface-variant hover:text-primary transition-colors border-b border-surface-container" href="#gamificacion">Logros</a>
+<a class="py-space-sm text-body-lg text-on-surface-variant hover:text-primary transition-colors border-b border-surface-container" href="#tratamiento">Tratamiento</a>
+<a class="py-space-sm text-body-lg text-on-surface-variant hover:text-primary transition-colors" href="#preguntas-frecuentes">Preguntas frecuentes</a>
+</nav>
+</div>
+<main class="w-full pt-20 bg-surface min-h-[calc(100vh-80px)]">
 <div class="flex flex-col w-full">
 <!-- 1. HERO SECTION CON PANTALLAS REALES -->
-<div class="relative w-full overflow-hidden bg-bg-deep">
-<!-- Subtle radial ambient glow halos behind hero -->
-<div class="absolute -top-24 left-1/4 w-[520px] h-[520px] bg-[#C45CFF]/15 rounded-full blur-[140px] pointer-events-none"></div>
-<div class="absolute top-48 right-10 w-[460px] h-[460px] bg-[#FF3FB4]/15 rounded-full blur-[150px] pointer-events-none"></div>
-<div class="absolute top-72 left-[-100px] w-[400px] h-[400px] bg-[#2BC5C7]/10 rounded-full blur-[130px] pointer-events-none"></div>
-<section class="max-w-[1200px] mx-auto px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop pt-space-xl md:pt-space-2xl pb-space-3xl relative z-10">
+<div class="relative w-full overflow-hidden bg-gradient-to-b from-surface via-surface-container-low/40 to-surface">
+<div class="absolute -top-32 -left-32 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
+<div class="absolute top-24 right-0 w-96 h-96 bg-secondary-container/25 rounded-full blur-3xl pointer-events-none"></div>
+<section class="max-w-[1200px] mx-auto px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop pt-space-xl md:pt-space-2xl pb-space-3xl">
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-2xl items-center">
 <!-- Hero Left: Propuesta de Valor -->
 <div class="lg:col-span-6 flex flex-col gap-space-lg">
-<div class="inline-flex items-center gap-space-xs px-3.5 py-1.5 rounded-full bg-surface-tier-1 text-primary w-fit shadow-md border border-white/[0.08] backdrop-blur-md">
-<span class="material-symbols-outlined text-[18px] text-accent-yellow" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="font-label-md text-label-md font-bold tracking-tight text-text-primary">Compañero diario para niños, jóvenes y familias</span>
+<div class="inline-flex items-center gap-space-xs px-space-md py-space-xs rounded-full bg-surface-container text-primary w-fit shadow-sm border border-primary/10">
+<span class="material-symbols-outlined text-[18px] text-amber-500 dark:text-amber-400" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-label-md text-label-md font-bold tracking-tight">Compañero diario para niños, jóvenes y familias</span>
 </div>
-<h1 class="font-display-lg text-display-lg-mobile md:text-display-lg text-text-primary font-extrabold tracking-tight">
-                Cuidar tu diabetes puede sentirse más <span class="gradient-text underline decoration-secondary decoration-wavy underline-offset-8">simple</span>.
+<h1 class="font-display-lg text-display-lg-mobile md:text-display-lg text-on-surface font-extrabold tracking-tight">
+                Cuidar tu diabetes puede sentirse más <span class="text-primary underline decoration-secondary decoration-wavy underline-offset-8 dark:bg-gradient-to-r dark:from-[#C45CFF] dark:to-[#FF3FB4] dark:bg-clip-text dark:text-transparent">simple</span>.
               </h1>
-<p class="font-body-lg text-body-lg text-text-secondary max-w-xl">
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl">
                 SugarCoach te ayuda a registrar tus controles, sumar puntos por tu constancia, organizar reportes médicos y mantener conectada a tu familia. Con calidez, gamificación positiva y sin estrés clínico.
               </p>
 <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-space-md pt-space-xs">
-<a class="inline-flex items-center justify-center gap-space-xs px-space-xl py-4 rounded-full btn-gradient text-white font-label-lg text-label-lg active:scale-[0.98] transition-all border border-white/20" href="#descargar">
+<a class="inline-flex items-center justify-center gap-space-xs px-space-xl py-4 rounded-full bg-primary text-on-primary dark:bg-gradient-to-br dark:from-[#A94FCE] dark:via-[#E84698] dark:to-[#FF3FB4] dark:text-white dark:shadow-[0_10px_30px_-6px_rgba(232,70,152,0.45)] dark:hover:bg-none dark:hover:brightness-110 dark:border dark:border-white/20 font-label-lg text-label-lg shadow-xl hover:bg-primary-container active:scale-[0.98] transition-all" href="#descargar">
 <span class="material-symbols-outlined text-[20px]">download</span>
-                  Descargar SugarCoach gratis
+                  Descargar app
                 </a>
-<a class="inline-flex items-center justify-center gap-space-xs px-space-xl py-4 rounded-full bg-white/[0.04] text-text-primary border border-white/[0.18] font-label-lg text-label-lg hover:bg-white/[0.08] hover:border-white/30 active:scale-[0.98] transition-all" href="#como-funciona">
-<span class="material-symbols-outlined text-[20px] text-primary">play_circle</span>
+<a class="inline-flex items-center justify-center gap-space-xs px-space-xl py-4 rounded-full bg-surface-container text-primary font-label-lg text-label-lg hover:bg-surface-container-high active:scale-[0.98] transition-all" href="#como-funciona">
+<span class="material-symbols-outlined text-[20px]">play_circle</span>
                   Ver cómo funciona
                 </a>
 </div>
 <!-- Social Proof y Métricas Reales -->
 <div class="flex items-center gap-space-lg pt-space-md">
 <div class="flex -space-x-3">
-<div class="w-10 h-10 rounded-full bg-[#1A3B4E] border-2 border-bg-deep flex items-center justify-center text-secondary font-label-md font-bold shadow-sm">LF</div>
-<div class="w-10 h-10 rounded-full bg-[#3B1E54] border-2 border-bg-deep flex items-center justify-center text-primary font-label-md font-bold shadow-sm">MA</div>
-<div class="w-10 h-10 rounded-full bg-[#4E1E3B] border-2 border-bg-deep flex items-center justify-center text-neon-magenta font-label-md font-bold shadow-sm">SR</div>
-<div class="w-10 h-10 rounded-full bg-surface-tier-2 border-2 border-bg-deep flex items-center justify-center text-white font-label-md font-bold shadow-sm">+8k</div>
+<div class="w-10 h-10 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed font-label-md font-bold shadow-sm">LF</div>
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center text-on-primary-fixed font-label-md font-bold shadow-sm">MA</div>
+<div class="w-10 h-10 rounded-full bg-tertiary-fixed flex items-center justify-center text-on-tertiary-fixed font-label-md font-bold shadow-sm">SR</div>
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center text-primary font-label-md font-bold shadow-sm">+8k</div>
 </div>
 <div class="flex flex-col">
-<div class="flex items-center gap-1 text-accent-yellow">
+<div class="flex items-center gap-1 text-amber-500 dark:text-amber-400">
 <span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
 <span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
 <span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
 <span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
 <span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="font-label-md text-label-md text-text-primary font-bold ml-1">4.9 / 5</span>
+<span class="font-label-md text-label-md text-on-surface font-bold ml-1">4.9 / 5</span>
 </div>
-<span class="font-body-sm text-body-sm text-text-secondary">Familias y pacientes más tranquilos cada día</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Familias y pacientes más tranquilos cada día</span>
 </div>
 </div>
 </div>
 <!-- Hero Right: Composición con Teléfonos Modernos y Pantallas Reales -->
 <div class="lg:col-span-6 relative flex justify-center items-center pt-8 lg:pt-0">
 <!-- Halo de fondo -->
-<div class="absolute w-80 md:w-96 h-80 md:h-96 rounded-full bg-gradient-to-tr from-[#C45CFF]/25 via-[#FF3FB4]/20 to-[#2BC5C7]/15 blur-3xl"></div>
+<div class="absolute w-80 md:w-96 h-80 md:h-96 rounded-full bg-primary-fixed/50 blur-3xl"></div>
 <!-- Tarjeta Flotante 1: Métricas reales de la app -->
-<div class="absolute -top-6 left-2 sm:-left-4 z-30 bg-surface-tier-2/90 backdrop-blur-xl shadow-2xl px-4 py-3 rounded-2xl flex items-center gap-3 border border-white/[0.12] animate-bounce" style="animation-duration: 5s;">
-<div class="w-9 h-9 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center border border-emerald-500/30">
+<div class="absolute -top-6 left-2 sm:-left-4 z-30 bg-surface-container-lowest shadow-2xl px-4 py-3 rounded-2xl flex items-center gap-3 border border-surface-container animate-bounce" style="animation-duration: 5s;">
+<div class="w-9 h-9 rounded-xl bg-emerald-100 dark:bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 flex items-center justify-center">
 <span class="material-symbols-outlined text-[20px]">trending_down</span>
 </div>
 <div class="flex flex-col">
-<span class="font-label-sm text-text-tertiary text-[11px]">Última medición</span>
-<span class="font-label-md text-text-primary font-extrabold text-[15px]">116 mg/dL • En rango</span>
+<span class="font-label-sm text-outline text-[11px]">Última medición</span>
+<span class="font-label-md text-on-surface font-extrabold text-[15px]">116 mg/dL • En rango</span>
 </div>
 </div>
 <!-- Tarjeta Flotante 2: Puntos y Nivel -->
-<div class="absolute bottom-10 -left-6 sm:-left-8 z-30 bg-surface-tier-2/90 backdrop-blur-xl shadow-2xl px-4 py-3 rounded-2xl flex items-center gap-3 border border-white/[0.12]">
-<div class="w-9 h-9 rounded-xl bg-amber-400/20 text-accent-yellow flex items-center justify-center font-bold border border-amber-400/30">
+<div class="absolute bottom-10 -left-6 sm:-left-8 z-30 bg-surface-container-lowest shadow-2xl px-4 py-3 rounded-2xl flex items-center gap-3 border border-surface-container">
+<div class="w-9 h-9 rounded-xl bg-amber-100 dark:bg-amber-500/15 text-amber-600 dark:text-amber-400 flex items-center justify-center font-bold">
 <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
 </div>
 <div class="flex flex-col">
-<span class="font-label-md text-text-primary font-bold">1100 pts • Nivel 1</span>
-<span class="font-label-sm text-text-tertiary text-[11px]">¡Racha y constancia activa!</span>
+<span class="font-label-md text-on-surface font-bold">1100 pts • Nivel 1</span>
+<span class="font-label-sm text-outline text-[11px]">¡Racha y constancia activa!</span>
 </div>
 </div>
 <!-- Tarjeta Flotante 3: Familia conectada -->
-<div class="absolute top-1/3 -right-6 z-30 bg-surface-tier-2/90 backdrop-blur-xl shadow-2xl px-4 py-3 rounded-2xl flex items-center gap-3 border border-white/[0.12] hidden sm:flex">
-<div class="w-9 h-9 rounded-xl bg-secondary/20 text-secondary flex items-center justify-center border border-secondary/30">
+<div class="absolute top-1/3 -right-6 z-30 bg-surface-container-lowest shadow-2xl px-4 py-3 rounded-2xl flex items-center gap-3 border border-surface-container hidden sm:flex">
+<div class="w-9 h-9 rounded-xl bg-secondary-fixed/50 text-secondary flex items-center justify-center">
 <span class="material-symbols-outlined text-[20px]">family_restroom</span>
 </div>
 <div class="flex flex-col">
-<span class="font-label-md text-text-primary font-bold">Familia conectada</span>
-<span class="font-label-sm text-text-tertiary text-[11px]">Sincronización al instante</span>
+<span class="font-label-md text-on-surface font-bold">Familia conectada</span>
+<span class="font-label-sm text-outline text-[11px]">Sincronización al instante</span>
 </div>
 </div>
-<!-- Teléfono de Apoyo (Daily Log Real IMAGE_14) -->
-<div class="hidden sm:block absolute -right-6 top-8 w-[240px] rounded-[36px] bg-[#070D1F] p-2.5 shadow-2xl border-2 border-white/[0.1] transform rotate-6 hover:rotate-2 transition-transform duration-300 opacity-85 z-10">
+<!-- Teléfono de Apoyo (Daily Log Real) -->
+<div class="hidden sm:block absolute -right-6 top-8 w-[240px] rounded-[36px] bg-[#110e2d] p-2.5 shadow-2xl border-4 border-surface-container-highest/60 transform rotate-6 hover:rotate-2 transition-transform duration-300 opacity-90 z-10">
 <div class="overflow-hidden rounded-[28px] aspect-[9/19.5] bg-black">
-<img alt="Pantalla real SugarCoach Daily Log" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7QGWmPhs6LVP9QiaVBTX7fZv-pmWeiEPHhR_zPPO9OhY2vdfoPYEaIP2gKJ9c8txBEpJL8ECxdrg44CUr-lPy6C8DM9gzIuh7yfd2DHKY4NhseZUvs84aUXY2_rDth5ayxrUtaIG_hpy0jdGmDtQ-3NjlPlMyff8M4U9ydq56ua-1V7ex7O7rlV0XlgM1uHS3ETNed1TTDpSAUPUuhxcyNOaazxOgYp0cjdTNFRIGOcTLl0SEFl7V6K58TxSIJJVedg"/>
+<img alt="Pantalla real SugarCoach Daily Log" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOKNY9Y6vBhoxK4JjWD2JyVyxRMF8Y5qkiFwuNWyNdAjHkTC_Zs6gi_dZz8obBkDKkMFITmb3GZ9XIoY_5jEP2dE8FtRvnUAdlMONsO9W03vayF4y8179BuyZBDjPsO-VmfesJk-VBMX9pPZKtHohj6WE6EtJrgTLuxRh2FhklwzeiWJHO-R45-qijLnZUF3N_N8V5uocl0MRbp97qUH9JrM_NQZhH4LgFCsaVgn9Ie3GRX9zVfQ3_y2yJHlqOnBjrNw"/>
 </div>
 </div>
-<!-- Teléfono Principal (Home Real IMAGE_15) -->
-<div class="relative w-[280px] sm:w-[310px] rounded-[44px] bg-[#0A1024] p-3 phone-mockup-glow border-2 border-white/[0.16] z-20 hover:scale-[1.01] transition-transform">
+<!-- Teléfono Principal (Home Real con Nivel 1, 1100 pts, 37% En Rango) -->
+<div class="relative w-[280px] sm:w-[310px] rounded-[44px] bg-[#110e2d] p-3 shadow-[0_25px_60px_-15px_rgba(75,59,203,0.35)] border-4 border-surface-container-lowest z-20 hover:scale-[1.01] transition-transform">
 <!-- Notch / speaker -->
-<div class="w-24 h-4 bg-black/80 rounded-full mx-auto mb-2 border border-white/[0.05]"></div>
+<div class="w-24 h-4 bg-black rounded-full mx-auto mb-2 opacity-80"></div>
 <div class="overflow-hidden rounded-[32px] aspect-[9/19.5] bg-black shadow-inner">
-<img alt="Pantalla real SugarCoach Home" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAex2vzhfou00QMX_UHpJkArnuepiuiC7zoTm8UrX5jY4Olv5EfE-EQwvQ3YconGOz8mDUnvnQ5U6ImGinNwMkC4CH5zYvaz1bMdO6-2K67zYz75QITOoIh4IFOXkdXTM8DcRr09gk_03lu6duLPkdeWGSMD5Dwhnnm5tWY8kRqXzcrrORS8x795JD9hONYGzlrXv6HImhrdLr98iw-CcsfvwuNrLpI1djgvbAU6AXBL1WvcFPP8LiX0D9fnI9okr2pKA"/>
+<img alt="Pantalla real SugarCoach Home" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDAUxECht-DyjY5g3YYpJnw4ALiFAr5UNdls8v-UgONHdL212w7SJW3ABSHMkppuj9UxENd6g8DLgIaO3ZFXNS8u4zNKLgyaTWjhiu2zZZ09nUXQvckW2CkqP8PGAYc8T5jo0OvDtdS09kx2NL6rHwMjBezbbbjTK0dxISi10r0I_8GL7inR4zeW4qdF4aKicBfJAk3wEt4D-DHobyUqaVcaMBqgoON8x-JS0Oqzb9jFJ8VOZKFTNzBxW4ne9RGSe5zbw"/>
 </div>
 </div>
 </div>
@@ -290,81 +544,80 @@
 </section>
 </div>
 <!-- 2. SECTION: TRES TIPOS DE USUARIOS -->
-<section class="w-full py-space-3xl bg-bg-canvas relative overflow-hidden" id="familias">
-<div class="absolute top-1/2 left-0 w-96 h-96 bg-[#C45CFF]/10 rounded-full blur-[140px] pointer-events-none"></div>
-<div class="max-w-[1200px] mx-auto px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop relative z-10">
+<section class="w-full py-space-3xl bg-surface-container-low" id="familias">
+<div class="max-w-[1200px] mx-auto px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop">
 <div class="flex flex-col items-center text-center max-w-2xl mx-auto mb-space-2xl">
 <span class="font-label-md text-label-md text-primary font-bold uppercase tracking-wider mb-2">Diseñado para convivir</span>
-<h2 class="font-headline-lg text-headline-lg text-text-primary font-extrabold tracking-tight">
+<h2 class="font-headline-lg text-headline-lg text-on-surface font-extrabold tracking-tight">
               Una app, distintas formas de acompañar
             </h2>
-<p class="font-body-md text-body-md text-text-secondary mt-space-xs">
+<p class="font-body-md text-body-md text-on-surface-variant mt-space-xs">
               Porque cada persona vive el cuidado desde un lugar diferente, SugarCoach se adapta con empatía, precisión y autonomía a quien lo use.
             </p>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-space-lg">
 <!-- Card 1: Para vos -->
-<div class="bg-surface-tier-1 rounded-3xl p-space-xl shadow-lg flex flex-col justify-between hover:bg-surface-tier-2 hover:border-primary/30 transition-all border border-white/[0.08] group">
+<div class="bg-surface-container-lowest rounded-3xl p-space-xl shadow-md flex flex-col justify-between hover:shadow-xl transition-all border border-surface-container">
 <div>
-<div class="w-14 h-14 rounded-2xl bg-primary/15 border border-primary/30 flex items-center justify-center text-primary mb-space-md group-hover:scale-105 transition-transform">
+<div class="w-14 h-14 rounded-2xl bg-primary-fixed flex items-center justify-center text-primary mb-space-md">
 <span class="material-symbols-outlined text-[30px]">favorite</span>
 </div>
-<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.05] text-primary font-label-sm text-label-sm font-bold mb-space-xs border border-white/[0.08]">
+<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container text-primary font-label-sm text-label-sm font-bold mb-space-xs">
                   Autonomía diaria
                 </div>
-<h3 class="font-headline-md text-headline-md text-text-primary font-bold">Para vos</h3>
-<p class="font-body-md text-body-md text-text-secondary mt-2">
+<h3 class="font-headline-md text-headline-md text-on-surface font-bold">Para vos</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">
                   Registrá glucosa, insulina basal y rápida, carbohidratos, comidas y actividad física en segundos. Ganá estrellas y aprendé a conocer tu cuerpo a tu propio compás.
                 </p>
 </div>
-<div class="mt-space-lg p-space-md rounded-2xl bg-bg-deep/80 border border-white/[0.06] flex items-center justify-between">
+<div class="mt-space-lg p-space-md rounded-2xl bg-surface-container-low flex items-center justify-between">
 <div class="flex items-center gap-space-xs">
 <span class="material-symbols-outlined text-primary text-[20px]">verified</span>
-<span class="font-label-md text-label-md font-bold text-text-primary">116 mg/dL último valor</span>
+<span class="font-label-md text-label-md font-bold text-on-surface">116 mg/dL último valor</span>
 </div>
-<span class="px-2.5 py-0.5 rounded-full bg-secondary/20 text-secondary border border-secondary/30 font-label-sm font-bold">En rango</span>
+<span class="px-2 py-0.5 rounded-full bg-secondary-fixed/60 text-secondary font-label-sm font-bold">En rango</span>
 </div>
 </div>
 <!-- Card 2: Para tu familia -->
-<div class="bg-surface-tier-1 rounded-3xl p-space-xl shadow-lg flex flex-col justify-between hover:bg-surface-tier-2 hover:border-secondary/30 transition-all border border-white/[0.08] group">
+<div class="bg-surface-container-lowest rounded-3xl p-space-xl shadow-md flex flex-col justify-between hover:shadow-xl transition-all border border-surface-container">
 <div>
-<div class="w-14 h-14 rounded-2xl bg-secondary/15 border border-secondary/30 flex items-center justify-center text-secondary mb-space-md group-hover:scale-105 transition-transform">
+<div class="w-14 h-14 rounded-2xl bg-secondary-fixed flex items-center justify-center text-secondary mb-space-md">
 <span class="material-symbols-outlined text-[30px]">group</span>
 </div>
-<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.05] text-secondary font-label-sm text-label-sm font-bold mb-space-xs border border-white/[0.08]">
+<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary-fixed/40 text-secondary font-label-sm text-label-sm font-bold mb-space-xs">
                   Tranquilidad compartida
                 </div>
-<h3 class="font-headline-md text-headline-md text-text-primary font-bold">Para tu familia</h3>
-<p class="font-body-md text-body-md text-text-secondary mt-2">
+<h3 class="font-headline-md text-headline-md text-on-surface font-bold">Para tu familia</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">
                   Mantené conectadas a las personas que forman parte de tu cuidado. Sin llamadas insistentes ni invasión a la independencia de los chicos. Sincronización instantánea con cuidadores.
                 </p>
 </div>
-<div class="mt-space-lg p-space-md rounded-2xl bg-bg-deep/80 border border-white/[0.06] flex items-center justify-between">
+<div class="mt-space-lg p-space-md rounded-2xl bg-surface-container-low flex items-center justify-between">
 <div class="flex items-center gap-2">
-<div class="w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]"></div>
-<span class="font-label-md text-label-md font-bold text-text-primary">Mamá y Papá sincronizados</span>
+<div class="w-3 h-3 rounded-full bg-emerald-400"></div>
+<span class="font-label-md text-label-md font-bold text-on-surface">Mamá y Papá sincronizados</span>
 </div>
-<span class="font-label-sm text-text-tertiary text-[12px]">En tiempo real</span>
+<span class="font-label-sm text-outline text-[12px]">En tiempo real</span>
 </div>
 </div>
 <!-- Card 3: Para profesionales -->
-<div class="bg-surface-tier-1 rounded-3xl p-space-xl shadow-lg flex flex-col justify-between hover:bg-surface-tier-2 hover:border-tertiary-container/30 transition-all border border-white/[0.08] group">
+<div class="bg-surface-container-lowest rounded-3xl p-space-xl shadow-md flex flex-col justify-between hover:shadow-xl transition-all border border-surface-container">
 <div>
-<div class="w-14 h-14 rounded-2xl bg-tertiary-container/15 border border-tertiary-container/30 flex items-center justify-center text-tertiary-container mb-space-md group-hover:scale-105 transition-transform">
+<div class="w-14 h-14 rounded-2xl bg-surface-container-high flex items-center justify-center text-primary-container mb-space-md">
 <span class="material-symbols-outlined text-[30px]">clinical_notes</span>
 </div>
-<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.05] text-neon-magenta font-label-sm text-label-sm font-bold mb-space-xs border border-white/[0.08]">
+<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container text-primary font-label-sm text-label-sm font-bold mb-space-xs">
                   Consultas claras
                 </div>
-<h3 class="font-headline-md text-headline-md text-text-primary font-bold">Para profesionales</h3>
-<p class="font-body-md text-body-md text-text-secondary mt-2">
+<h3 class="font-headline-md text-headline-md text-on-surface font-bold">Para profesionales</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">
                   Organizá tus registros y compartí información clara en tus citas médicas. Gráficos de Tiempo en Rango (TIR) y relaciones precisas de glucosa versus insulina.
                 </p>
 </div>
-<div class="mt-space-lg p-space-md rounded-2xl bg-bg-deep/80 border border-white/[0.06] flex items-center justify-between">
+<div class="mt-space-lg p-space-md rounded-2xl bg-surface-container-low flex items-center justify-between">
 <div class="flex items-center gap-2">
 <span class="material-symbols-outlined text-primary text-[18px]">analytics</span>
-<span class="font-label-md text-label-md font-bold text-text-primary">Tiempo en Rango: 70%</span>
+<span class="font-label-md text-label-md font-bold text-on-surface">Tiempo en Rango: 70%</span>
 </div>
 <span class="font-label-sm text-primary font-bold">Reporte listo</span>
 </div>
@@ -376,124 +629,124 @@
 <section class="max-w-[1200px] mx-auto px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop py-space-3xl" id="como-funciona">
 <div class="flex flex-col items-center text-center max-w-2xl mx-auto mb-space-2xl">
 <span class="font-label-md text-label-md text-secondary font-bold uppercase tracking-wider mb-2">Paso a paso con capturas reales</span>
-<h2 class="font-headline-lg text-headline-lg text-text-primary font-extrabold tracking-tight">
+<h2 class="font-headline-lg text-headline-lg text-on-surface font-extrabold tracking-tight">
             Simple desde el primer día
           </h2>
-<p class="font-body-md text-body-md text-text-secondary mt-space-xs">
+<p class="font-body-md text-body-md text-on-surface-variant mt-space-xs">
             Sin curvas de aprendizaje complejas. Pantallas intuitivas con colores claros, íconos y respuestas inmediatas para tu día a día.
           </p>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-space-xl">
-<!-- Paso 1: Registrá (Pantalla Real Snack Quick Log IMAGE_9) -->
-<div class="bg-surface-tier-1 rounded-3xl shadow-xl border border-white/[0.08] overflow-hidden flex flex-col group hover:border-primary/40 transition-all">
+<!-- Paso 1: Registrá (Pantalla Real de Registro de Comida / Carbohidratos IMAGE_4) -->
+<div class="bg-surface-container-lowest rounded-3xl shadow-lg border border-surface-container overflow-hidden flex flex-col group hover:-translate-y-1 transition-all">
 <div class="p-space-lg pb-0 flex flex-col items-start">
 <div class="flex items-center justify-between w-full mb-3">
-<span class="w-9 h-9 rounded-full bg-primary/20 text-primary border border-primary/30 font-headline-sm font-extrabold flex items-center justify-center">1</span>
+<span class="w-9 h-9 rounded-full bg-primary-fixed text-primary font-headline-sm font-extrabold flex items-center justify-center">1</span>
 <span class="font-label-sm text-secondary font-bold uppercase tracking-wider">Entrada rápida</span>
 </div>
-<h3 class="font-headline-sm text-headline-sm font-bold text-text-primary">Registrá en segundos</h3>
-<p class="font-body-sm text-body-sm text-text-secondary mt-1">
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">Registrá en segundos</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
                 Anotá glucosa, insulina basal y rápida, gramos de carbohidratos, colaciones y tu estado de ánimo con un par de toques.
               </p>
 </div>
-<!-- Mockup device con captura real IMAGE_9 -->
-<div class="mt-4 px-6 pt-4 pb-0 bg-gradient-to-b from-transparent to-[#070D1F] flex justify-center">
-<div class="w-[200px] rounded-t-3xl bg-[#070D1F] p-2 shadow-xl border-t-2 border-x-2 border-white/[0.12] group-hover:border-primary/40 transition-colors">
+<!-- Mockup device con captura real IMAGE_4 -->
+<div class="mt-4 px-6 pt-4 pb-0 bg-gradient-to-b from-surface-container-low to-surface-container flex justify-center">
+<div class="w-[200px] rounded-t-3xl bg-[#0d0926] p-2 shadow-xl border-t-2 border-x-2 border-primary/20">
 <div class="rounded-t-2xl overflow-hidden aspect-[9/13]">
-<img alt="Pantalla real de registro de alimentos y carbohidratos SugarCoach" class="w-full h-full object-cover object-top" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCexdqpO1nW-_rc-YcI6jfp6ETSWQmPc7Pokml6fFYN10fD6a2Htt7pvny-NH_RK1ESfqv1nxHnqNlUJ1WKhd8hEVWLSkQylW4B0jaHsCknjnJhbB0rMwtDHIxNI7TGN_ilwjI0CeP8vl0PuKXLu2jqnFplts1DywkPhlhwtQn3EfFKTsTPHIttArKJg-NdrxpMLzWG9Qo1TdCPhC-T15wmJsh1221Mg6LxsiSsDZwgF7DJEDlgzw3UPsCLNt-AR5_w7g"/>
+<img alt="Pantalla real de registro de alimentos y carbohidratos SugarCoach" class="w-full h-full object-cover object-top" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZA1wht4KFyxGF3Y9JmY3LTfXeiskio5Pc3FNEr-3fuy-OaL514xD2SSr-273zrb-ZkraTE-4nzDu3_MkMdBaWc2KVBMos-MU8AeaqBxHSLoMZ-8UJIAqNw21XVNaKFN5TyLiUWr_5E1zSoRxP8e2deW5nzX_UFFSA7Ll7a5PkHAri1AEDXKTz0NVo7xJWPUxDRBZcyYQcsAZuudmgYag9O0t0nu1CRRSrqIw16tzgcB-Bx_EOkFuXR5_UilPDqNwRSg"/>
 </div>
 </div>
 </div>
 </div>
-<!-- Paso 2: Organizá (Pantalla Real Daily Log IMAGE_14) -->
-<div class="bg-surface-tier-1 rounded-3xl shadow-xl border border-white/[0.08] overflow-hidden flex flex-col group hover:border-secondary/40 transition-all">
+<!-- Paso 2: Organizá (Pantalla Real Daily Log IMAGE_9) -->
+<div class="bg-surface-container-lowest rounded-3xl shadow-lg border border-surface-container overflow-hidden flex flex-col group hover:-translate-y-1 transition-all">
 <div class="p-space-lg pb-0 flex flex-col items-start">
 <div class="flex items-center justify-between w-full mb-3">
-<span class="w-9 h-9 rounded-full bg-secondary/20 text-secondary border border-secondary/30 font-headline-sm font-extrabold flex items-center justify-center">2</span>
+<span class="w-9 h-9 rounded-full bg-secondary-fixed text-secondary font-headline-sm font-extrabold flex items-center justify-center">2</span>
 <span class="font-label-sm text-primary font-bold uppercase tracking-wider">Historial claro</span>
 </div>
-<h3 class="font-headline-sm text-headline-sm font-bold text-text-primary">Organizá tu día</h3>
-<p class="font-body-sm text-body-sm text-text-secondary mt-1">
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">Organizá tu día</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
                 El <em>Daily Log</em> agrupa cronológicamente almuerzos, cenas, correcciones y actividades con etiquetas de colores claros y comprensibles.
               </p>
 </div>
-<!-- Mockup device con captura real IMAGE_14 -->
-<div class="mt-4 px-6 pt-4 pb-0 bg-gradient-to-b from-transparent to-[#070D1F] flex justify-center">
-<div class="w-[200px] rounded-t-3xl bg-[#070D1F] p-2 shadow-xl border-t-2 border-x-2 border-white/[0.12] group-hover:border-secondary/40 transition-colors">
+<!-- Mockup device con captura real IMAGE_9 -->
+<div class="mt-4 px-6 pt-4 pb-0 bg-gradient-to-b from-surface-container-low to-surface-container flex justify-center">
+<div class="w-[200px] rounded-t-3xl bg-[#0d0926] p-2 shadow-xl border-t-2 border-x-2 border-secondary/20">
 <div class="rounded-t-2xl overflow-hidden aspect-[9/13]">
-<img alt="Pantalla real Daily Log diario SugarCoach" class="w-full h-full object-cover object-top" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDxbxgnOUN9JkBjTOtqfvSjDMibVwkfxjPU783r0-mfX1hRfKf0ekAw3XqcqmtcQgUhS_16i5hhzDEWvUsjbvjkkUk-RazLxVCZkwatNeFNWC51UHcj2fO4V-MuKQ9LjZzmoEhqQtxIzjUEVLWMMvGvXqz1aKZvXLgIE5GMFFcmsyCfkjEF60Mr8hHYthNN-wivg__PTN_0Xw53xPyXY813N7DbtLoLM0QvEZJLJNfv4QgulA29ppRO076fzJ6oOIwdYQ"/>
+<img alt="Pantalla real Daily Log diario SugarCoach" class="w-full h-full object-cover object-top" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeSfZJJvhpuCdxg2ThhC562CjuV_YHbHjTgojbFO3K9pV9Vw3XnlNFBiARxuJFh4g8TE8E0pe--z1P892diEJU6RqvxXHVUrjk1li_N0_E8sbbA8eOziHWOZkgITJZ-OtdEXB7g575vDn6uJTX8bwZKP6g2_75eEZMF_GuDXh_JLGWTH84OLPjIH_-NtRB8hPVUlQag8lwFu6mqs9_RkDZOdLCeWVwI3ckwjOYEEro-6WAaWKtS-Mf_ENHrdSdvAXRiQ"/>
 </div>
 </div>
 </div>
 </div>
-<!-- Paso 3: Esquematizá y Compartí (Pantalla Real Treatment IMAGE_12) -->
-<div class="bg-surface-tier-1 rounded-3xl shadow-xl border border-white/[0.08] overflow-hidden flex flex-col group hover:border-tertiary-container/40 transition-all">
+<!-- Paso 3: Esquematizá y Compartí (Pantalla Real Treatment IMAGE_7) -->
+<div class="bg-surface-container-lowest rounded-3xl shadow-lg border border-surface-container overflow-hidden flex flex-col group hover:-translate-y-1 transition-all">
 <div class="p-space-lg pb-0 flex flex-col items-start">
 <div class="flex items-center justify-between w-full mb-3">
-<span class="w-9 h-9 rounded-full bg-tertiary-container/20 text-neon-magenta border border-tertiary-container/30 font-headline-sm font-extrabold flex items-center justify-center">3</span>
-<span class="font-label-sm text-neon-magenta font-bold uppercase tracking-wider">Tratamiento claro</span>
+<span class="w-9 h-9 rounded-full bg-tertiary-fixed text-tertiary font-headline-sm font-extrabold flex items-center justify-center">3</span>
+<span class="font-label-sm text-tertiary font-bold uppercase tracking-wider">Tratamiento claro</span>
 </div>
-<h3 class="font-headline-sm text-headline-sm font-bold text-text-primary">Controlá tu esquema</h3>
-<p class="font-body-sm text-body-sm text-text-secondary mt-1">
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">Controlá tu esquema</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
                 Visualizá rangos personalizados (Hipo 70, Target 100, Híper 180 mg/dL), bombas o lapiceras y compartí el reporte con un clic.
               </p>
 </div>
-<!-- Mockup device con captura real IMAGE_12 -->
-<div class="mt-4 px-6 pt-4 pb-0 bg-gradient-to-b from-transparent to-[#070D1F] flex justify-center">
-<div class="w-[200px] rounded-t-3xl bg-[#070D1F] p-2 shadow-xl border-t-2 border-x-2 border-white/[0.12] group-hover:border-tertiary-container/40 transition-colors">
+<!-- Mockup device con captura real IMAGE_7 -->
+<div class="mt-4 px-6 pt-4 pb-0 bg-gradient-to-b from-surface-container-low to-surface-container flex justify-center">
+<div class="w-[200px] rounded-t-3xl bg-[#0d0926] p-2 shadow-xl border-t-2 border-x-2 border-tertiary/20">
 <div class="rounded-t-2xl overflow-hidden aspect-[9/13]">
-<img alt="Pantalla real de tratamiento y rangos objetivos SugarCoach" class="w-full h-full object-cover object-top" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHDz723sKM5bQoQ5GGuOKzCGjZ4vJOAvJBMPkw1tyVPWP2cbLWkQ1H6qQWLqRz6oSYcEJnReEPt_CXEj6vV9B3VWpog_je-9L1ZeQWJZznjczPoqV5eGZ6le7_PdEVzvGZrv04ajnHrOWlonKYOhM-kEsqTYWY32Y2g7UAp9gDTsjUKtNDvuTNvkvm5RoR-Zqf0IFqxtpyBlnlhe0EMVL9M5MLaqIH37Ec6p45sZiqMok4C6WVff7Y49c6gZlTO0Xv-w"/>
+<img alt="Pantalla real de tratamiento y rangos objetivos SugarCoach" class="w-full h-full object-cover object-top" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsvhA_jkEYXre6VNQ5JBaejTvHd74DseW81xWlt-Bco6oDX6J8PvPG9aW-ry_MCadt824okk0EW_Dg6e6iSArxvtresJNGIrPN-Ef-gx5YBr10uYgKQGzUzWImXqms0N3tRWBKWjma0pAQo9daVO6tEI4IiO1YZ5HdzTm2w0MFYoTB5iqGzXhwOGC6u1P07Ta74AtbnNO7BwU6b-dgwNhkJHgK0ghfP1P57AtreT4x6zHeA4ZMS2Ov9f2cSTWDqQgfdQ"/>
 </div>
 </div>
 </div>
 </div>
 </div>
 </section>
-<!-- 4. SECTION: GAMIFICACIÓN SALUDABLE CON PANTALLA REAL DE LOGROS (IMAGE_10) -->
+<!-- 4. SECTION: GAMIFICACIÓN SALUDABLE CON PANTALLA REAL DE LOGROS (IMAGE_5) -->
 <section class="max-w-[1200px] mx-auto px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop py-space-2xl" id="gamificacion">
-<div class="bg-gradient-to-br from-[#121A3B] via-[#0D1733] to-[#070D1F] rounded-3xl p-space-xl md:p-space-3xl text-white shadow-2xl relative overflow-hidden border border-white/[0.1]">
-<div class="absolute -right-20 -bottom-20 w-96 h-96 bg-[#C45CFF]/20 rounded-full blur-3xl pointer-events-none"></div>
-<div class="absolute top-0 left-1/3 w-64 h-64 bg-[#FF3FB4]/15 rounded-full blur-3xl pointer-events-none"></div>
+<div class="bg-gradient-to-br from-[#24174d] via-[#1a143b] to-[#120d2c] rounded-3xl p-space-xl md:p-space-3xl text-white shadow-2xl relative overflow-hidden">
+<div class="absolute -right-20 -bottom-20 w-96 h-96 bg-primary-container/30 rounded-full blur-3xl pointer-events-none"></div>
+<div class="absolute top-0 left-1/3 w-64 h-64 bg-secondary/20 rounded-full blur-3xl pointer-events-none"></div>
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-2xl items-center relative z-10">
 <!-- Left Info -->
 <div class="lg:col-span-6 flex flex-col gap-space-md">
-<div class="inline-flex items-center gap-space-xs px-3.5 py-1.5 rounded-full bg-white/[0.06] text-secondary font-label-md text-label-md font-bold backdrop-blur-md w-fit border border-white/[0.12]">
+<div class="inline-flex items-center gap-space-xs px-3 py-1 rounded-full bg-white/10 text-secondary-fixed font-label-md text-label-md font-bold backdrop-blur-md w-fit border border-white/10">
 <span>🎮</span> Gamificación respetuosa y humana
               </div>
 <h2 class="font-display-lg text-display-lg-mobile md:text-headline-lg font-extrabold tracking-tight text-white leading-tight">
-                Cada pequeño hábito suma <span class="gradient-text">puntos y estrellas</span>
-</h2>
-<p class="font-body-lg text-body-lg text-text-secondary">
-                Inspirado en la psicología positiva: premiamos tu constancia y el compromiso de registrarte. <strong class="text-white">Nunca juzgamos ni castigamos valores de glucosa</strong>, porque los números son información médica para cuidarte, no calificaciones morales.
+                Cada pequeño hábito suma puntos y estrellas
+              </h2>
+<p class="font-body-lg text-body-lg text-white/80">
+                Inspirado en la psicología positiva: premiamos tu constancia y el compromiso de registrarte. <strong>Nunca juzgamos ni castigamos valores de glucosa</strong>, porque los números son información médica para cuidarte, no calificaciones morales.
               </p>
 <!-- Badges de la app -->
 <div class="grid grid-cols-2 gap-space-sm pt-2">
-<div class="bg-surface-tier-2/70 border border-white/[0.1] rounded-2xl p-space-md flex items-center gap-3">
-<div class="w-11 h-11 rounded-xl bg-amber-400/20 text-accent-yellow border border-amber-400/30 flex items-center justify-center font-bold text-xl">
+<div class="bg-white/5 border border-white/10 rounded-2xl p-space-md flex items-center gap-3">
+<div class="w-11 h-11 rounded-xl bg-amber-400/20 text-amber-300 flex items-center justify-center font-bold text-xl">
                     ⭐
                   </div>
 <div>
 <h4 class="font-headline-sm text-[16px] font-bold text-white">+100 Puntos</h4>
-<p class="font-body-sm text-[12px] text-text-secondary">Por cada registro diario completo</p>
+<p class="font-body-sm text-[12px] text-white/70">Por cada registro diario completo</p>
 </div>
 </div>
-<div class="bg-surface-tier-2/70 border border-white/[0.1] rounded-2xl p-space-md flex items-center gap-3">
-<div class="w-11 h-11 rounded-xl bg-emerald-400/20 text-emerald-300 border border-emerald-400/30 flex items-center justify-center font-bold text-xl">
+<div class="bg-white/5 border border-white/10 rounded-2xl p-space-md flex items-center gap-3">
+<div class="w-11 h-11 rounded-xl bg-emerald-400/20 text-emerald-300 flex items-center justify-center font-bold text-xl">
                     🚀
                   </div>
 <div>
 <h4 class="font-headline-sm text-[16px] font-bold text-white">Startup Explorer</h4>
-<p class="font-body-sm text-[12px] text-text-secondary">Subí de nivel con constancia</p>
+<p class="font-body-sm text-[12px] text-white/70">Subí de nivel con constancia</p>
 </div>
 </div>
 </div>
 </div>
-<!-- Right: Pantalla Real de Felicitaciones "Bravo! +100 POINTS" IMAGE_10 -->
+<!-- Right: Pantalla Real de Felicitaciones "Bravo! +100 POINTS" IMAGE_5 -->
 <div class="lg:col-span-6 flex justify-center items-center">
-<div class="relative w-[270px] sm:w-[300px] rounded-[42px] bg-[#070D1F] p-3 phone-mockup-glow border-2 border-white/[0.16] hover:scale-[1.02] transition-transform">
-<div class="w-20 h-3.5 bg-black rounded-full mx-auto mb-2 opacity-70 border border-white/[0.05]"></div>
+<div class="relative w-[270px] sm:w-[300px] rounded-[42px] bg-[#0c0920] p-3 shadow-2xl border-4 border-white/20 hover:scale-[1.02] transition-transform">
+<div class="w-20 h-3.5 bg-black rounded-full mx-auto mb-2 opacity-70"></div>
 <div class="rounded-[30px] overflow-hidden aspect-[9/19.5] bg-black shadow-inner">
-<img alt="Pantalla real SugarCoach Bravo +100 puntos y monstruo verde" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHWsdvemnMofeQsiVPWVhCP2IhL0TqmEyRJnhzeR-cOUtf0AlglAKpv9tbrMO59QfZtFLWnYaDHi3yG3-KoEwPZbknB7kYz4uRmpKngVlMXjixjAw87HXs9mIuObMyT6h61r4yu1SrxOn74uK-suADZ3oqL-7rMci2Uf3q5_IWjYhEyM3wspwaVX8FBNEQTFTd3fWOKarJ4eZtnSunqkay4v5eldvJq5W1wbhd66-5Du_StXAKuLyjYv2aUxJX2zYT8Q"/>
+<img alt="Pantalla real SugarCoach Bravo +100 puntos y monstruo verde" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAitB1ifDaIsgnR01xvzrmmoJkFD7F1Gw_bVXX9TIw9SI5sJx3nZ5k1VvzxZBGnaahjSVuT7k73IlF49aQ8CyD5nKSuCFZULuh1WI41Dm4_z3S9fXTmoYWVy6fve4vqxnCYGrLNr2VFZ-8JT6jQccX8Xe5VXjIL9YguDna5-yVfFQFsMWG8wlPS_anPWcAdTtqBZSA6AmbIgBk1-NMCNi1KFnXqWHyxwQ2ExX1fBxFsRVBXDeesKlT34h2VlTLFVwCNnA"/>
 </div>
 </div>
 </div>
@@ -504,77 +757,77 @@
 <section class="max-w-[1200px] mx-auto px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop py-space-3xl">
 <div class="flex flex-col items-center text-center max-w-2xl mx-auto mb-space-2xl">
 <span class="font-label-md text-label-md text-primary font-bold uppercase tracking-wider mb-2">Acompañamiento en cada momento</span>
-<h2 class="font-headline-lg text-headline-lg text-text-primary font-extrabold tracking-tight">
+<h2 class="font-headline-lg text-headline-lg text-on-surface font-extrabold tracking-tight">
             SugarCoach en tu día a día
           </h2>
-<p class="font-body-md text-body-md text-text-secondary mt-space-xs">
+<p class="font-body-md text-body-md text-on-surface-variant mt-space-xs">
             Desde la actividad física y los juegos hasta las colaciones, todo se registra de forma visual y divertida.
           </p>
 </div>
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-2xl items-center">
-<!-- Teléfono con Pantalla de Actividad y Planeta 3D (IMAGE_13) -->
+<!-- Teléfono con Pantalla de Actividad y Planeta 3D (IMAGE_8) -->
 <div class="lg:col-span-5 flex justify-center order-2 lg:order-1">
-<div class="relative w-[260px] sm:w-[290px] rounded-[40px] bg-[#070D1F] p-3 phone-mockup-glow border-2 border-emerald-500/30 hover:scale-[1.02] transition-transform">
-<div class="w-20 h-3.5 bg-black rounded-full mx-auto mb-2 opacity-70 border border-white/[0.05]"></div>
+<div class="relative w-[260px] sm:w-[290px] rounded-[40px] bg-[#0f2413] p-3 shadow-2xl border-4 border-emerald-500/30 hover:scale-[1.02] transition-transform">
+<div class="w-20 h-3.5 bg-black rounded-full mx-auto mb-2 opacity-70"></div>
 <div class="rounded-[28px] overflow-hidden aspect-[9/19.5] bg-[#3e683b]">
-<img alt="Pantalla real de actividad con planeta 3D SugarCoach" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuARIikUJ0usGTC40TatKdme_Pn18uQeAuoNetqc48cN1_RAww8nqXYvl4K-tMABr68f-yYkyhHCgq-w6lXHqb2ztm99dclh0xLQgqtbT158mlFICbrfjVo4E8AlH9gZxn0oLdn0LetZe_VxVi03iF4nonCz7mAtzPnwCPVCYIk4yoFgGATP-UqptsxnN9aA5p5fjPTgle5sWItPr2hZX9ETBYM-I7G0L7G6ZQplDpdfG86EzyUQs8lH2NVrqt8Ec5C29g"/>
+<img alt="Pantalla real de actividad con planeta 3D SugarCoach" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_vZ1LWpDwTcUav726T2uFFX_XNUwO7V0IUz-Ms8BLdcGWOYQgVmdGL8JdRHp5SgIg1agw3ThcGJWLXRs4wGdvqpct_R7id8b-AbJIQ3kjc2hNwRis9cIsAI7khuWi3pMpp1JoFFGCmU3SuQijudRms9WUpvfcvG8RKVQvJA69GkRTIt-Zb9bFQqKxPQ943v5AKgZbRBKFAtqs87IyFQVcApbzEHQE4zYjjjs61q8mx6zMxyv7rr5orLuNljn0gy0pOw"/>
 </div>
 </div>
 </div>
 <!-- Cuatro momentos claves del día -->
 <div class="lg:col-span-7 flex flex-col gap-space-md order-1 lg:order-2">
-<div class="bg-surface-tier-1 rounded-2xl p-space-md border border-white/[0.08] flex items-start gap-4 hover:border-primary/40 hover:bg-surface-tier-2 transition-all">
-<div class="w-12 h-12 rounded-xl bg-amber-400/15 border border-amber-400/30 text-accent-yellow flex items-center justify-center shrink-0">
+<div class="bg-surface-container-lowest rounded-2xl p-space-md shadow-sm border border-surface-container flex items-start gap-4 hover:border-primary/40 transition-colors">
+<div class="w-12 h-12 rounded-xl bg-amber-100 dark:bg-amber-500/15 text-amber-700 dark:text-amber-400 flex items-center justify-center shrink-0">
 <span class="material-symbols-outlined text-[24px]">wb_sunny</span>
 </div>
 <div class="flex-1">
 <div class="flex items-center justify-between">
-<h4 class="font-headline-sm text-headline-sm font-bold text-text-primary">07:30 • Antes de empezar</h4>
-<span class="px-2.5 py-0.5 rounded-full bg-amber-400/15 text-accent-yellow border border-amber-400/30 text-[11px] font-bold">Desayuno</span>
+<h4 class="font-headline-sm text-headline-sm font-bold text-on-surface">07:30 • Antes de empezar</h4>
+<span class="px-2 py-0.5 rounded-full bg-amber-50 dark:bg-amber-500/10 text-amber-800 dark:text-amber-300 text-[11px] font-bold">Desayuno</span>
 </div>
-<p class="font-body-sm text-body-sm text-text-secondary mt-1">
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
                   Revisás tu basal, anotás la glucosa en ayunas y sumás tus primeros puntos del día.
                 </p>
 </div>
 </div>
-<div class="bg-surface-tier-1 rounded-2xl p-space-md border border-white/[0.08] flex items-start gap-4 hover:border-secondary/40 hover:bg-surface-tier-2 transition-all">
-<div class="w-12 h-12 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 flex items-center justify-center shrink-0">
+<div class="bg-surface-container-lowest rounded-2xl p-space-md shadow-sm border border-surface-container flex items-start gap-4 hover:border-primary/40 transition-colors">
+<div class="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 flex items-center justify-center shrink-0">
 <span class="material-symbols-outlined text-[24px]">restaurant</span>
 </div>
 <div class="flex-1">
 <div class="flex items-center justify-between">
-<h4 class="font-headline-sm text-headline-sm font-bold text-text-primary">12:30 • Hora del almuerzo</h4>
-<span class="px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 text-[11px] font-bold">Carbohidratos</span>
+<h4 class="font-headline-sm text-headline-sm font-bold text-on-surface">12:30 • Hora del almuerzo</h4>
+<span class="px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-500/10 text-emerald-800 dark:text-emerald-300 text-[11px] font-bold">Carbohidratos</span>
 </div>
-<p class="font-body-sm text-body-sm text-text-secondary mt-1">
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
                   Cargás las porciones con fotos o gramos, la insulina rápida aplicada y tu estado de tranquilidad.
                 </p>
 </div>
 </div>
-<div class="bg-surface-tier-1 rounded-2xl p-space-md border border-white/[0.08] flex items-start gap-4 hover:border-primary/40 hover:bg-surface-tier-2 transition-all">
-<div class="w-12 h-12 rounded-xl bg-teal-500/15 border border-teal-500/30 text-secondary flex items-center justify-center shrink-0">
+<div class="bg-surface-container-lowest rounded-2xl p-space-md shadow-sm border border-surface-container flex items-start gap-4 hover:border-primary/40 transition-colors">
+<div class="w-12 h-12 rounded-xl bg-teal-100 dark:bg-teal-500/15 text-teal-700 dark:text-teal-400 flex items-center justify-center shrink-0">
 <span class="material-symbols-outlined text-[24px]">public</span>
 </div>
 <div class="flex-1">
 <div class="flex items-center justify-between">
-<h4 class="font-headline-sm text-headline-sm font-bold text-text-primary">17:00 • Actividad y Movimiento</h4>
-<span class="px-2.5 py-0.5 rounded-full bg-teal-500/15 text-secondary border border-teal-500/30 text-[11px] font-bold">Planeta 3D</span>
+<h4 class="font-headline-sm text-headline-sm font-bold text-on-surface">17:00 • Actividad y Movimiento</h4>
+<span class="px-2 py-0.5 rounded-full bg-teal-50 dark:bg-teal-500/10 text-teal-800 dark:text-teal-300 text-[11px] font-bold">Planeta 3D</span>
 </div>
-<p class="font-body-sm text-body-sm text-text-secondary mt-1">
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
                   Elegí el nivel de tu tarde en el planeta interactivo: <em>Sedentary</em>, <em>Moderate</em>, <em>Celebration</em> o <em>Intense</em>.
                 </p>
 </div>
 </div>
-<div class="bg-surface-tier-1 rounded-2xl p-space-md border border-white/[0.08] flex items-start gap-4 hover:border-primary/40 hover:bg-surface-tier-2 transition-all">
-<div class="w-12 h-12 rounded-xl bg-indigo-500/15 border border-indigo-500/30 text-primary-fixed-dim flex items-center justify-center shrink-0">
+<div class="bg-surface-container-lowest rounded-2xl p-space-md shadow-sm border border-surface-container flex items-start gap-4 hover:border-primary/40 transition-colors">
+<div class="w-12 h-12 rounded-xl bg-indigo-100 dark:bg-indigo-500/15 text-indigo-700 dark:text-indigo-400 flex items-center justify-center shrink-0">
 <span class="material-symbols-outlined text-[24px]">bedtime</span>
 </div>
 <div class="flex-1">
 <div class="flex items-center justify-between">
-<h4 class="font-headline-sm text-headline-sm font-bold text-text-primary">21:30 • Noche y descanso</h4>
-<span class="px-2.5 py-0.5 rounded-full bg-indigo-500/15 text-primary-fixed-dim border border-indigo-500/30 text-[11px] font-bold">Tranquilidad</span>
+<h4 class="font-headline-sm text-headline-sm font-bold text-on-surface">21:30 • Noche y descanso</h4>
+<span class="px-2 py-0.5 rounded-full bg-indigo-50 dark:bg-indigo-500/10 text-indigo-800 dark:text-indigo-300 text-[11px] font-bold">Tranquilidad</span>
 </div>
-<p class="font-body-sm text-body-sm text-text-secondary mt-1">
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
                   Tu Daily Log queda cerrado, tu familia notificada y todo ordenado para un descanso reparador.
                 </p>
 </div>
@@ -582,53 +835,52 @@
 </div>
 </div>
 </section>
-<!-- 6. SECTION: ESTADÍSTICAS Y CONSULTA MÉDICA CON PANTALLA REAL (IMAGE_11) -->
-<section class="w-full py-space-3xl bg-bg-canvas relative" id="profesionales">
-<div class="absolute top-1/3 right-0 w-96 h-96 bg-[#2BC5C7]/10 rounded-full blur-[140px] pointer-events-none"></div>
-<div class="max-w-[1200px] mx-auto px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop relative z-10">
+<!-- 6. SECTION: ESTADÍSTICAS Y CONSULTA MÉDICA CON PANTALLA REAL (IMAGE_6) -->
+<section class="w-full py-space-3xl bg-surface-container-low" id="profesionales">
+<div class="max-w-[1200px] mx-auto px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop">
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-2xl items-center">
-<!-- Left Mockup con pantalla real IMAGE_11 (Blood Glucose 70% En Rango & Glucose vs Insulin) -->
+<!-- Left Mockup con pantalla real IMAGE_6 (Blood Glucose 70% En Rango & Glucose vs Insulin) -->
 <div class="lg:col-span-6 flex justify-center order-2 lg:order-1">
-<div class="relative w-[280px] sm:w-[310px] rounded-[42px] bg-[#070D1F] p-3 phone-mockup-glow border-2 border-white/[0.16] hover:scale-[1.01] transition-transform">
-<div class="w-20 h-3.5 bg-black rounded-full mx-auto mb-2 opacity-70 border border-white/[0.05]"></div>
+<div class="relative w-[280px] sm:w-[310px] rounded-[42px] bg-[#120d2c] p-3 shadow-2xl border-4 border-surface-container-lowest hover:scale-[1.01] transition-transform">
+<div class="w-20 h-3.5 bg-black rounded-full mx-auto mb-2 opacity-70"></div>
 <div class="rounded-[30px] overflow-hidden aspect-[9/19.5] bg-black">
-<img alt="Pantalla real de estadísticas Glucose vs Insulin SugarCoach" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBV5yOs9xtXD5p_0nyDgrmCUCQL77HdzGdWhwkOaNOfyvKEU_XmD1oBRWLOJfBQXclF35ieOI_WnAQtQ3kQXTpcpDNr62TIVhj_4ZNmVnpALOJ-7IrXngV1EBkGZXbUOWwmWlGfhQdsLsxiD3PG-y-oZWdN8PiVYESJ4zwjm6CeZxnjdC28a8FOY1EcPYHY3T3-DLmRn5nqEJ6o6KTdd9n-RA986INlrfWu0lONqd2ACTLJamDgtD1aXoc1kVkQ90LKZg"/>
+<img alt="Pantalla real de estadísticas Glucose vs Insulin SugarCoach" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAOWuw4rEq-6WDmot3EbigoKqvgFFDxKdIVYHBMS_rAv5o6JPqZmSV41L2rB8uPICBbHJ4uqyO3trNiWPYwPi8PTmjQpRC3hTvBj1pq7wcyu4DlCUWlm0hMHYepTT0U_g30okIpEz67x6TrpVianyqJLUo7x5YLzlAlv60Za-nw7OQpSsWVATpXeInsJmbmv0a7v9dxrMux5payUdYIsTQyqwzg5iD6GfBy5UGfqW7ZYTh_Ld8aoiwtuizExSx8jmhKSw"/>
 </div>
 </div>
 </div>
 <!-- Right Text -->
 <div class="lg:col-span-6 flex flex-col gap-space-md order-1 lg:order-2">
-<div class="inline-flex items-center gap-space-xs px-3.5 py-1.5 rounded-full bg-surface-tier-1 text-primary font-label-md text-label-md font-bold shadow-md w-fit border border-white/[0.08]">
+<div class="inline-flex items-center gap-space-xs px-3 py-1 rounded-full bg-surface-container text-primary font-label-md text-label-md font-bold shadow-sm w-fit border border-primary/10">
 <span class="material-symbols-outlined text-[18px]">stethoscope</span> Diálogo médico fluido
               </div>
-<h2 class="font-headline-lg text-headline-lg text-text-primary font-extrabold tracking-tight">
+<h2 class="font-headline-lg text-headline-lg text-on-surface font-extrabold tracking-tight">
                 Estadísticas claras para llevar a tu consulta
               </h2>
-<p class="font-body-lg text-body-lg text-text-secondary">
+<p class="font-body-lg text-body-lg text-on-surface-variant">
                 Olvidate de las libretas de papel dobladas o de intentar recordar qué pasó semanas atrás. SugarCoach genera gráficos mensuales automáticos:
               </p>
 <div class="flex flex-col gap-space-sm pt-2">
-<div class="flex items-start gap-3 bg-surface-tier-1 p-space-sm rounded-2xl border border-white/[0.08]">
-<div class="w-8 h-8 rounded-full bg-secondary/20 border border-secondary/30 flex items-center justify-center text-secondary font-bold shrink-0">
+<div class="flex items-start gap-3 bg-surface-container-lowest p-space-sm rounded-2xl border border-surface-container">
+<div class="w-8 h-8 rounded-full bg-secondary-fixed/50 flex items-center justify-center text-secondary font-bold shrink-0">
 <span class="material-symbols-outlined text-[18px]">donut_large</span>
 </div>
 <div>
-<span class="font-label-md text-label-md font-bold text-text-primary">Tiempo en Rango (TIR) en anillo:</span>
-<span class="font-body-sm text-body-sm text-text-secondary block">Muestra exactamente el 70% en rango óptimo, hipo y valores sobre rango.</span>
+<span class="font-label-md text-label-md font-bold text-on-surface">Tiempo en Rango (TIR) en anillo:</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant block">Muestra exactamente el 70% en rango óptimo, hipo y valores sobre rango.</span>
 </div>
 </div>
-<div class="flex items-start gap-3 bg-surface-tier-1 p-space-sm rounded-2xl border border-white/[0.08]">
-<div class="w-8 h-8 rounded-full bg-primary/20 border border-primary/30 flex items-center justify-center text-primary font-bold shrink-0">
+<div class="flex items-start gap-3 bg-surface-container-lowest p-space-sm rounded-2xl border border-surface-container">
+<div class="w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center text-primary font-bold shrink-0">
 <span class="material-symbols-outlined text-[18px]">bar_chart</span>
 </div>
 <div>
-<span class="font-label-md text-label-md font-bold text-text-primary">Curvas cruzadas Glucosa vs. Insulina:</span>
-<span class="font-body-sm text-body-sm text-text-secondary block">Permite a tu diabetólogo/a ajustar dosis basales y correcciones con datos reales.</span>
+<span class="font-label-md text-label-md font-bold text-on-surface">Curvas cruzadas Glucosa vs. Insulina:</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant block">Permite a tu diabetólogo/a ajustar dosis basales y correcciones con datos reales.</span>
 </div>
 </div>
 </div>
 <div class="pt-space-xs">
-<a class="inline-flex items-center gap-space-xs px-space-xl py-space-sm rounded-full btn-gradient text-white font-label-lg text-label-lg transition-all border border-white/20" href="#descargar">
+<a class="inline-flex items-center gap-space-xs px-space-xl py-space-sm rounded-full bg-primary text-on-primary dark:bg-gradient-to-br dark:from-[#A94FCE] dark:via-[#E84698] dark:to-[#FF3FB4] dark:text-white dark:shadow-[0_10px_30px_-6px_rgba(232,70,152,0.45)] dark:hover:bg-none dark:hover:brightness-110 dark:border dark:border-white/20 font-label-lg text-label-lg hover:bg-primary-container shadow-md transition-all" href="#descargar">
                   Ver reportes completos
                   <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
 </a>
@@ -637,47 +889,47 @@
 </div>
 </div>
 </section>
-<!-- 7. SECTION: TRATAMIENTO Y RANGOS OBJETIVOS (IMAGE_12) -->
+<!-- 7. SECTION: TRATAMIENTO Y RANGOS OBJETIVOS (IMAGE_7) -->
 <section class="max-w-[1200px] mx-auto px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop py-space-3xl" id="tratamiento">
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-2xl items-center">
 <!-- Left Text Content -->
 <div class="lg:col-span-6 flex flex-col gap-space-md">
-<div class="inline-flex items-center gap-space-xs px-3.5 py-1.5 rounded-full bg-surface-tier-1 text-secondary font-label-md text-label-md font-bold shadow-md w-fit border border-white/[0.08]">
+<div class="inline-flex items-center gap-space-xs px-3 py-1 rounded-full bg-surface-container text-secondary font-label-md text-label-md font-bold shadow-sm w-fit border border-secondary/10">
 <span class="material-symbols-outlined text-[18px]">tune</span> Tratamiento individualizado
             </div>
-<h2 class="font-headline-lg text-headline-lg text-text-primary font-extrabold tracking-tight">
+<h2 class="font-headline-lg text-headline-lg text-on-surface font-extrabold tracking-tight">
               Personalizá tus rangos y modo de terapia
             </h2>
-<p class="font-body-lg text-body-lg text-text-secondary">
+<p class="font-body-lg text-body-lg text-on-surface-variant">
               Cada tratamiento es único. En la sección <strong>Treatment</strong> configurás tus objetivos de glucosa con máxima claridad y seleccionás si usás lapiceras o bomba de insulina.
             </p>
 <div class="grid grid-cols-3 gap-space-sm pt-space-xs text-center">
-<div class="bg-surface-tier-1 rounded-2xl p-space-sm border border-cyan-500/30">
-<span class="font-label-sm text-secondary font-bold block">HIPO</span>
-<span class="font-headline-sm text-headline-sm font-extrabold text-text-primary">70</span>
-<span class="font-label-sm text-[10px] text-text-tertiary">mg/dL</span>
+<div class="bg-surface-container-lowest rounded-2xl p-space-sm border border-cyan-200 dark:border-cyan-500/30">
+<span class="font-label-sm text-cyan-600 dark:text-cyan-400 font-bold block">HIPO</span>
+<span class="font-headline-sm text-headline-sm font-extrabold text-on-surface">70</span>
+<span class="font-label-sm text-[10px] text-outline">mg/dL</span>
 </div>
-<div class="bg-surface-tier-1 rounded-2xl p-space-sm border border-emerald-500/30">
-<span class="font-label-sm text-emerald-400 font-bold block">TARGET</span>
-<span class="font-headline-sm text-headline-sm font-extrabold text-emerald-300">100</span>
-<span class="font-label-sm text-[10px] text-text-tertiary">mg/dL</span>
+<div class="bg-surface-container-lowest rounded-2xl p-space-sm border border-emerald-200 dark:border-emerald-500/30">
+<span class="font-label-sm text-emerald-600 dark:text-emerald-400 font-bold block">TARGET</span>
+<span class="font-headline-sm text-headline-sm font-extrabold text-emerald-700 dark:text-emerald-400">100</span>
+<span class="font-label-sm text-[10px] text-outline">mg/dL</span>
 </div>
-<div class="bg-surface-tier-1 rounded-2xl p-space-sm border border-rose-500/30">
-<span class="font-label-sm text-rose-400 font-bold block">HYPER</span>
-<span class="font-headline-sm text-headline-sm font-extrabold text-rose-400">180</span>
-<span class="font-label-sm text-[10px] text-text-tertiary">mg/dL</span>
+<div class="bg-surface-container-lowest rounded-2xl p-space-sm border border-rose-200 dark:border-rose-500/30">
+<span class="font-label-sm text-rose-600 dark:text-rose-400 font-bold block">HYPER</span>
+<span class="font-headline-sm text-headline-sm font-extrabold text-rose-600 dark:text-rose-400">180</span>
+<span class="font-label-sm text-[10px] text-outline">mg/dL</span>
 </div>
 </div>
-<p class="font-body-sm text-body-sm text-text-secondary">
+<p class="font-body-sm text-body-sm text-on-surface-variant">
               Compatible con múltiples marcas de insulina (Novolin R, Lantus, Humalog, Fiasp, etc.) y esquemas flexibles de aplicación.
             </p>
 </div>
-<!-- Right Mockup: Treatment Screen IMAGE_12 -->
+<!-- Right Mockup: Treatment Screen IMAGE_7 -->
 <div class="lg:col-span-6 flex justify-center">
-<div class="relative w-[280px] sm:w-[310px] rounded-[42px] bg-[#070D1F] p-3 phone-mockup-glow border-2 border-white/[0.16] hover:scale-[1.01] transition-transform">
-<div class="w-20 h-3.5 bg-black rounded-full mx-auto mb-2 opacity-70 border border-white/[0.05]"></div>
+<div class="relative w-[280px] sm:w-[310px] rounded-[42px] bg-[#120d2c] p-3 shadow-2xl border-4 border-surface-container-lowest hover:scale-[1.01] transition-transform">
+<div class="w-20 h-3.5 bg-black rounded-full mx-auto mb-2 opacity-70"></div>
 <div class="rounded-[30px] overflow-hidden aspect-[9/19.5] bg-black">
-<img alt="Pantalla real de configuración de tratamiento e insulina SugarCoach" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdnL9hueeM7B6w2_vgqGKhKBXQpsz_itiH2gNZZv8WEWJqmWNQiSUwIV-6Oz-3n8pRglXEV9hXPtqVPgpseL3rXsBAQtDkqpLgY9E_LQ-MWvJAWV0lNjd8VXeaWvHzIwkgvF7xlNgc3Jnf71dksv8YC1V7l7QypaIiInR5BP4CFtaNxYFmBM3yNdCKcNgPJ9_471EZaevIaFZF_o7tLq86M_ksxEQBGwHNq-JiZsPezTTM0t0maLKTh-MgG0byB_XjJQ"/>
+<img alt="Pantalla real de configuración de tratamiento e insulina SugarCoach" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCL8UpTxYIZo-vTbAqmZK8c4nY-zZR5sJnwh3A0Yh6YLmRps2s-XJ84TAJ9GcwvhOyK_Ry7F0wFVmlXFOehmt9BUacO0_dcHBTN8DRJ-_LFw05wLSbDefv307cwjtzuYMtKvW24XYxvLv-a3u1U5RqngHYJa6iO7AWyHSiEqlxqMScUm_M2jbhv5ovjA4-jp4Ql-h2JSceplSNPgtCtjbc-r-kDAT_en9RMXm82rhWRYK7kycuJfU8r114C2C22KppbnA"/>
 </div>
 </div>
 </div>
@@ -687,38 +939,38 @@
 <section class="max-w-[1200px] mx-auto px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop py-space-3xl">
 <div class="flex flex-col items-center text-center max-w-2xl mx-auto mb-space-2xl">
 <span class="font-label-md text-label-md text-primary font-bold uppercase tracking-wider mb-2">Confianza y serenidad</span>
-<h2 class="font-headline-lg text-headline-lg text-text-primary font-extrabold tracking-tight">
+<h2 class="font-headline-lg text-headline-lg text-on-surface font-extrabold tracking-tight">
             Tus datos de salud protegidos
           </h2>
-<p class="font-body-md text-body-md text-text-secondary mt-space-xs">
+<p class="font-body-md text-body-md text-on-surface-variant mt-space-xs">
             La información médica merece la mayor privacidad. Diseñamos SugarCoach bajo principios éticos irrenunciables.
           </p>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-space-lg">
-<div class="bg-surface-tier-1 rounded-3xl p-space-xl border border-white/[0.08] flex flex-col gap-space-sm hover:border-secondary/30 transition-colors">
-<div class="w-12 h-12 rounded-2xl bg-secondary/15 border border-secondary/30 flex items-center justify-center text-secondary">
+<div class="bg-surface-container-lowest rounded-3xl p-space-xl shadow-sm flex flex-col gap-space-sm border border-surface-container">
+<div class="w-12 h-12 rounded-2xl bg-secondary-fixed/50 flex items-center justify-center text-secondary">
 <span class="material-symbols-outlined text-[28px]">shield</span>
 </div>
-<h3 class="font-headline-sm text-headline-sm font-bold text-text-primary">Privacidad por diseño</h3>
-<p class="font-body-md text-body-md text-text-secondary">
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">Privacidad por diseño</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
               Tus registros viajan cifrados bajo estrictos estándares de ciberseguridad y resguardo de datos médicos.
             </p>
 </div>
-<div class="bg-surface-tier-1 rounded-3xl p-space-xl border border-white/[0.08] flex flex-col gap-space-sm hover:border-primary/30 transition-colors">
-<div class="w-12 h-12 rounded-2xl bg-primary/15 border border-primary/30 flex items-center justify-center text-primary">
+<div class="bg-surface-container-lowest rounded-3xl p-space-xl shadow-sm flex flex-col gap-space-sm border border-surface-container">
+<div class="w-12 h-12 rounded-2xl bg-primary-fixed flex items-center justify-center text-primary">
 <span class="material-symbols-outlined text-[28px]">lock</span>
 </div>
-<h3 class="font-headline-sm text-headline-sm font-bold text-text-primary">Control de acceso</h3>
-<p class="font-body-md text-body-md text-text-secondary">
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">Control de acceso</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
               Vos decidís qué familiar o profesional tiene visibilidad. Podés revocar accesos en cualquier momento.
             </p>
 </div>
-<div class="bg-surface-tier-1 rounded-3xl p-space-xl border border-white/[0.08] flex flex-col gap-space-sm hover:border-tertiary-container/30 transition-colors">
-<div class="w-12 h-12 rounded-2xl bg-tertiary-container/15 border border-tertiary-container/30 flex items-center justify-center text-neon-magenta">
+<div class="bg-surface-container-lowest rounded-3xl p-space-xl shadow-sm flex flex-col gap-space-sm border border-surface-container">
+<div class="w-12 h-12 rounded-2xl bg-tertiary-fixed flex items-center justify-center text-tertiary">
 <span class="material-symbols-outlined text-[28px]">person_off</span>
 </div>
-<h3 class="font-headline-sm text-headline-sm font-bold text-text-primary">Sin comercialización</h3>
-<p class="font-body-md text-body-md text-text-secondary">
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">Sin comercialización</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
               Tus datos no se venden a aseguradoras ni intermediarios. Son tuyos y de tus seres queridos.
             </p>
 </div>
@@ -726,49 +978,47 @@
 </section>
 <!-- 9. SECTION: CTA FINAL CON LOGO OFICIAL Y BOTONES DE TIENDAS -->
 <section class="max-w-[1200px] mx-auto px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop py-space-3xl" id="descargar">
-<div class="bg-gradient-to-r from-[#172344] via-[#111D3D] to-[#0A1024] border border-white/[0.12] rounded-[40px] p-space-xl md:p-space-3xl text-white shadow-2xl relative overflow-hidden">
-<div class="absolute -top-24 -right-24 w-80 h-80 bg-[#C45CFF]/25 rounded-full blur-3xl pointer-events-none"></div>
-<div class="absolute -bottom-24 left-1/3 w-80 h-80 bg-[#FF3FB4]/20 rounded-full blur-3xl pointer-events-none"></div>
+<div class="bg-gradient-to-r from-primary via-primary-container to-[#382aa6] rounded-[40px] p-space-xl md:p-space-3xl text-on-primary shadow-2xl relative overflow-hidden">
+<div class="absolute -top-24 -right-24 w-80 h-80 bg-secondary-container/20 rounded-full blur-3xl pointer-events-none"></div>
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-2xl items-center relative z-10">
 <div class="lg:col-span-8 flex flex-col gap-space-md">
-<div class="inline-flex items-center gap-space-xs px-3.5 py-1.5 rounded-full bg-white/[0.08] text-primary font-label-md text-label-md font-bold backdrop-blur-sm w-fit border border-white/[0.1]">
+<div class="inline-flex items-center gap-space-xs px-3 py-1 rounded-full bg-on-primary/10 text-on-primary font-label-md text-label-md font-bold backdrop-blur-sm w-fit">
 <span>✨</span> Empezá hoy mismo
               </div>
-<h2 class="font-display-lg text-display-lg-mobile md:text-display-lg font-extrabold tracking-tight leading-tight text-white">
-                Tu día ya tiene suficientes cosas. Cuidarte puede ser <span class="gradient-text">una menos complicada</span>.
+<h2 class="font-display-lg text-display-lg-mobile md:text-display-lg font-extrabold tracking-tight leading-tight">
+                Tu día ya tiene suficientes cosas. Cuidarte puede ser una menos complicada.
               </h2>
-<p class="font-body-lg text-body-lg text-text-secondary max-w-2xl">
+<p class="font-body-lg text-body-lg text-on-primary-container max-w-2xl">
                 Registrá, sumá puntos, organizá tus mediciones y compartí tu información desde SugarCoach. Disponible gratis para iOS y Android.
               </p>
 <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-space-md pt-space-md">
-<a class="inline-flex items-center justify-center gap-space-xs px-space-2xl py-4 rounded-full btn-gradient text-white font-headline-sm text-headline-sm font-bold shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all border border-white/20" href="#">
+<a class="inline-flex items-center justify-center gap-space-xs px-space-2xl py-4 rounded-full bg-surface-container-lowest text-primary font-headline-sm text-headline-sm font-bold shadow-lg hover:bg-surface-container hover:scale-[1.02] active:scale-[0.98] transition-all" href="#">
 <span class="material-symbols-outlined text-[24px]">download</span>
-                  Descargar SugarCoach gratis
+                  Descargar app
                 </a>
 </div>
 <!-- Official Store Badges -->
 <div class="flex flex-wrap items-center gap-space-sm pt-space-xs">
-<a class="inline-flex items-center gap-space-xs px-space-md py-space-xs rounded-xl bg-white/[0.06] hover:bg-white/[0.12] border border-white/[0.12] backdrop-blur-md transition-colors" href="#">
-<span class="material-symbols-outlined text-[22px] text-white">phone_iphone</span>
+<a class="inline-flex items-center gap-space-xs px-space-md py-space-xs rounded-xl bg-on-primary/10 hover:bg-on-primary/20 backdrop-blur-md transition-colors" href="#">
+<span class="material-symbols-outlined text-[22px]">phone_iphone</span>
 <div class="flex flex-col text-left">
-<span class="font-label-sm text-[10px] leading-tight text-text-tertiary">Disponible en</span>
-<span class="font-label-md text-label-md font-bold leading-tight text-white">App Store</span>
+<span class="font-label-sm text-[10px] leading-tight text-on-primary-container">Disponible en</span>
+<span class="font-label-md text-label-md font-bold leading-tight">App Store</span>
 </div>
 </a>
-<a class="inline-flex items-center gap-space-xs px-space-md py-space-xs rounded-xl bg-white/[0.06] hover:bg-white/[0.12] border border-white/[0.12] backdrop-blur-md transition-colors" href="#">
-<span class="material-symbols-outlined text-[22px] text-white">shop</span>
+<a class="inline-flex items-center gap-space-xs px-space-md py-space-xs rounded-xl bg-on-primary/10 hover:bg-on-primary/20 backdrop-blur-md transition-colors" href="#">
+<span class="material-symbols-outlined text-[22px]">shop</span>
 <div class="flex flex-col text-left">
-<span class="font-label-sm text-[10px] leading-tight text-text-tertiary">Disponible en</span>
-<span class="font-label-md text-label-md font-bold leading-tight text-white">Google Play</span>
+<span class="font-label-sm text-[10px] leading-tight text-on-primary-container">Disponible en</span>
+<span class="font-label-md text-label-md font-bold leading-tight">Google Play</span>
 </div>
 </a>
 </div>
 </div>
 <!-- Logo Oficial de SugarCoach como Emblema en el CTA -->
 <div class="lg:col-span-4 flex justify-center items-center">
-<div class="relative w-52 h-52 md:w-64 md:h-64 p-6 rounded-3xl bg-surface-tier-2/60 backdrop-blur-xl border border-white/20 shadow-[0_20px_50px_rgba(196,92,255,0.25)] flex items-center justify-center group hover:scale-105 transition-transform">
-<div class="absolute inset-0 rounded-3xl bg-gradient-to-tr from-[#C45CFF]/20 to-[#FF3FB4]/20 blur-xl pointer-events-none"></div>
-<img alt="SugarCoach Logo Oficial" class="w-full h-full object-contain drop-shadow-2xl relative z-10" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCR9N-z6VZiIC6v1JczWYnPJidEFwtREYNsDm6kFnvFOo3Igk6I44lCHPLpvzP-jEDCEu1gXlnrAus1axlxghjdo1dJI3DVxR9aPjPSJLEfgDOKyU8dPvEjwe41GoFDTo41hTtqqr-9iIRxJvm5dDR7SSJy6EDWp1ODRArIOKbf5uATtrPF_xUZ_CsqCNVgyug0WPSpr3i8FrDRQ5dcGFaZQC-xWsfopnUSKgvCo-E4mVrA6KxvN8tvaRWmy1v4YuH_iQ"/>
+<div class="relative w-52 h-52 md:w-64 md:h-64 p-4 rounded-3xl bg-white/10 backdrop-blur-md border border-white/20 shadow-2xl flex items-center justify-center">
+<img alt="SugarCoach Logo Oficial" class="w-full h-full object-contain drop-shadow-xl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBxr4kNQwYG15YrJW8oumTZrJT4XiMhqrN_M0eM-Wp7yhdK8TjnyPbhvcnCmsCa9l_DXJzLV-LGGHaYWCFgqoHrWy4ok9M6Az6DEjuZRDwrV7veZsOK_fQApt3bwWS-ztUq7UTYSNk5ZtDWoaF4KUgqpay14FZd56qqIYYZi_PkaDgFFDOtC43K9b92IjO-tOOgBG1wVMjbgpYca4BQRM5vTXTv0Gw_Z4DdJ4pUrxTrdkzmbGq-NCOZVR5m9LBlM9RurQ"/>
 </div>
 </div>
 </div>
@@ -778,47 +1028,47 @@
 <section class="max-w-[860px] mx-auto px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop py-space-3xl" id="preguntas-frecuentes">
 <div class="flex flex-col items-center text-center mb-space-2xl">
 <span class="font-label-md text-label-md text-primary font-bold uppercase tracking-wider mb-2">Despejá tus dudas</span>
-<h2 class="font-headline-lg text-headline-lg text-text-primary font-extrabold tracking-tight">
+<h2 class="font-headline-lg text-headline-lg text-on-surface font-extrabold tracking-tight">
             Preguntas frecuentes
           </h2>
-<p class="font-body-md text-body-md text-text-secondary mt-space-xs">
+<p class="font-body-md text-body-md text-on-surface-variant mt-space-xs">
             Todo lo que necesitás saber sobre cómo SugarCoach se suma a tu rutina.
           </p>
 </div>
 <div class="flex flex-col gap-space-sm" id="faq-container">
-<div class="faq-item bg-surface-tier-1 rounded-2xl shadow-sm border border-white/[0.08] overflow-hidden transition-colors">
-<button class="faq-btn w-full px-space-lg py-space-lg flex items-center justify-between text-left focus:outline-none" type="button">
-<span class="font-headline-sm text-headline-sm text-text-primary font-bold">¿SugarCoach es solo para niños?</span>
-<span class="material-symbols-outlined text-text-tertiary faq-icon transition-transform">expand_more</span>
+<div class="faq-item bg-surface-container-lowest rounded-2xl shadow-sm border border-surface-container overflow-hidden">
+<button class="faq-btn w-full px-space-lg py-space-lg flex items-center justify-between text-left focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary" type="button">
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">¿SugarCoach es solo para niños?</span>
+<span class="material-symbols-outlined text-outline faq-icon transition-transform">expand_more</span>
 </button>
-<div class="faq-content hidden px-space-lg pb-space-lg pt-0 text-text-secondary font-body-md border-t border-white/[0.04]">
+<div class="faq-content hidden px-space-lg pb-space-lg pt-0 text-on-surface-variant font-body-md">
               No, está pensado tanto para niños y adolescentes como para adultos independientes y familias que acompañan. Su diseño es cálido y motivador sin caer en infantilismos.
             </div>
 </div>
-<div class="faq-item bg-surface-tier-1 rounded-2xl shadow-sm border border-white/[0.08] overflow-hidden transition-colors">
-<button class="faq-btn w-full px-space-lg py-space-lg flex items-center justify-between text-left focus:outline-none" type="button">
-<span class="font-headline-sm text-headline-sm text-text-primary font-bold">¿Mi familia puede ver mis datos en tiempo real?</span>
-<span class="material-symbols-outlined text-text-tertiary faq-icon transition-transform">expand_more</span>
+<div class="faq-item bg-surface-container-lowest rounded-2xl shadow-sm border border-surface-container overflow-hidden">
+<button class="faq-btn w-full px-space-lg py-space-lg flex items-center justify-between text-left focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary" type="button">
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">¿Mi familia puede ver mis datos en tiempo real?</span>
+<span class="material-symbols-outlined text-outline faq-icon transition-transform">expand_more</span>
 </button>
-<div class="faq-content hidden px-space-lg pb-space-lg pt-0 text-text-secondary font-body-md border-t border-white/[0.04]">
+<div class="faq-content hidden px-space-lg pb-space-lg pt-0 text-on-surface-variant font-body-md">
               Sí, podés vincular a padres, cuidadores o parejas para que reciban avisos o vean resúmenes según los permisos que configures, garantizando tranquilidad sin invadir la privacidad.
             </div>
 </div>
-<div class="faq-item bg-surface-tier-1 rounded-2xl shadow-sm border border-white/[0.08] overflow-hidden transition-colors">
-<button class="faq-btn w-full px-space-lg py-space-lg flex items-center justify-between text-left focus:outline-none" type="button">
-<span class="font-headline-sm text-headline-sm text-text-primary font-bold">¿Puedo compartir información con mi médico?</span>
-<span class="material-symbols-outlined text-text-tertiary faq-icon transition-transform">expand_more</span>
+<div class="faq-item bg-surface-container-lowest rounded-2xl shadow-sm border border-surface-container overflow-hidden">
+<button class="faq-btn w-full px-space-lg py-space-lg flex items-center justify-between text-left focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary" type="button">
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">¿Puedo compartir información con mi médico?</span>
+<span class="material-symbols-outlined text-outline faq-icon transition-transform">expand_more</span>
 </button>
-<div class="faq-content hidden px-space-lg pb-space-lg pt-0 text-text-secondary font-body-md border-t border-white/[0.04]">
+<div class="faq-content hidden px-space-lg pb-space-lg pt-0 text-on-surface-variant font-body-md">
               Totalmente. Podés exportar resúmenes claros con Tiempo en Rango (TIR) y relaciones de glucosa vs. insulina para agilizar la consulta clínica.
             </div>
 </div>
-<div class="faq-item bg-surface-tier-1 rounded-2xl shadow-sm border border-white/[0.08] overflow-hidden transition-colors">
-<button class="faq-btn w-full px-space-lg py-space-lg flex items-center justify-between text-left focus:outline-none" type="button">
-<span class="font-headline-sm text-headline-sm text-text-primary font-bold">¿Qué datos puedo registrar en la app?</span>
-<span class="material-symbols-outlined text-text-tertiary faq-icon transition-transform">expand_more</span>
+<div class="faq-item bg-surface-container-lowest rounded-2xl shadow-sm border border-surface-container overflow-hidden">
+<button class="faq-btn w-full px-space-lg py-space-lg flex items-center justify-between text-left focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary" type="button">
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">¿Qué datos puedo registrar en la app?</span>
+<span class="material-symbols-outlined text-outline faq-icon transition-transform">expand_more</span>
 </button>
-<div class="faq-content hidden px-space-lg pb-space-lg pt-0 text-text-secondary font-body-md border-t border-white/[0.04]">
+<div class="faq-content hidden px-space-lg pb-space-lg pt-0 text-on-surface-variant font-body-md">
               Glucosa capilar o continua, dosis de insulina basal y rápida, carbohidratos consumidos con fotos opcionales, tipo de actividad física y estado de ánimo diario.
             </div>
 </div>
@@ -854,81 +1104,145 @@
       </script>
 </div>
 </main>
-<!-- FOOTER CON LOGO OFICIAL REAL EN DEEP DARK -->
-<footer class="w-full bg-[#030716] border-t border-white/[0.08] pt-space-3xl pb-space-xl">
+<!-- FOOTER CON LOGO OFICIAL REAL -->
+<footer class="w-full bg-surface-container-lowest shadow-[0_-1px_15px_rgba(100,87,229,0.04)] pt-space-3xl pb-space-xl border-t border-surface-container">
 <div class="max-w-[1200px] mx-auto px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop">
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-space-2xl pb-space-2xl">
 <div class="lg:col-span-2 flex flex-col gap-space-md">
 <a class="flex items-center gap-2" href="#">
-<div class="p-1.5 rounded-xl bg-white/[0.05] border border-white/10 w-fit">
-<img alt="SugarCoach Logo Oficial" class="h-9 w-auto object-contain filter drop-shadow-[0_2px_8px_rgba(196,92,255,0.3)]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVp6dwZ6capBrTpJoWQ8qISgBRfXggRsXUJ2cwjrZ3Qi6Za1rjgUDhOaJmoZ3Pflg19Vxzoz6iADk8Gr7cpyk9KiP0JAFRRhMrf6ckeJoI0YZu2ct9n6IyHxC3X-fr2GpqBIV1-6mF2dJJWQYqksBFBBZLdb_J9yI-gckTogOOUMbBd7SE4sG5inFzOP64nQtG8ehn3zNYCJ0g3us9CcAgX9TPD99XQatC7ppbZXJmIdItosSY5tpYMOgSG_El54XExw"/>
-</div>
+<img alt="SugarCoach Logo Oficial" class="h-10 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCyJo2nG7sEvn3_NEwBVYmBjFYFJzEvk2IsrxSoJvXRhWdMmpNSyHpfPyQT7M3JQFvCUTW23TW9fquOb8BcAxLjUh46G_sQPe4bv418XhWK-UjV4nCbydEJ-r2wC2pb3cNcogHeq-tA721Q-mtj5OIgfNZyzRvJnb_bT1Srd64uXe4e9Yj-F0xhDOMo_E7GLIqLGRdo9ru4OedbBXzQz6QaUGUx_8AjeMUNM3vOt9wUbdJGu103sQEI6N1hD349ZwDd4w"/>
 </a>
-<p class="font-body-md text-body-md text-text-secondary max-w-sm">
+<p class="font-body-md text-body-md text-on-surface-variant max-w-sm">
             Un compañero cotidiano para vivir con la diabetes de una manera más simple, acompañada, motivadora y organizada.
           </p>
 <div class="flex flex-wrap gap-space-sm pt-space-xs">
-<a class="inline-flex items-center gap-space-xs px-space-md py-space-xs rounded-xl bg-white/[0.06] hover:bg-white/[0.12] border border-white/[0.1] text-white transition-colors" href="#">
+<a class="inline-flex items-center gap-space-xs px-space-md py-space-xs rounded-lg bg-inverse-surface text-inverse-on-surface shadow-sm hover:opacity-90 transition-opacity" href="#">
 <span class="material-symbols-outlined text-[20px]">phone_iphone</span>
 <div class="flex flex-col text-left">
-<span class="font-label-sm text-[10px] leading-tight text-text-tertiary">Descárgalo en</span>
+<span class="font-label-sm text-[10px] leading-tight text-outline-variant">Descárgalo en</span>
 <span class="font-label-md text-label-md font-bold leading-tight">App Store</span>
 </div>
 </a>
-<a class="inline-flex items-center gap-space-xs px-space-md py-space-xs rounded-xl bg-white/[0.06] hover:bg-white/[0.12] border border-white/[0.1] text-white transition-colors" href="#">
+<a class="inline-flex items-center gap-space-xs px-space-md py-space-xs rounded-lg bg-inverse-surface text-inverse-on-surface shadow-sm hover:opacity-90 transition-opacity" href="#">
 <span class="material-symbols-outlined text-[20px]">shop</span>
 <div class="flex flex-col text-left">
-<span class="font-label-sm text-[10px] leading-tight text-text-tertiary">Disponible en</span>
+<span class="font-label-sm text-[10px] leading-tight text-outline-variant">Disponible en</span>
 <span class="font-label-md text-label-md font-bold leading-tight">Google Play</span>
 </div>
 </a>
 </div>
 </div>
 <div class="flex flex-col gap-space-sm">
-<span class="font-label-lg text-label-lg text-text-primary font-bold tracking-tight">Producto</span>
+<span class="font-label-lg text-label-lg text-on-surface font-bold tracking-tight">Producto</span>
 <nav class="flex flex-col gap-space-xs">
-<a class="font-body-sm text-body-sm text-text-secondary hover:text-white transition-colors" href="#como-funciona">Cómo funciona</a>
-<a class="font-body-sm text-body-sm text-text-secondary hover:text-white transition-colors" href="#familias">Para familias</a>
-<a class="font-body-sm text-body-sm text-text-secondary hover:text-white transition-colors" href="#profesionales">Profesionales</a>
-<a class="font-body-sm text-body-sm text-text-secondary hover:text-white transition-colors" href="#gamificacion">Logros y Niveles</a>
-<a class="font-body-sm text-body-sm text-text-secondary hover:text-white transition-colors" href="#tratamiento">Tratamiento</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#como-funciona">Cómo funciona</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#familias">Para familias</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#profesionales">Profesionales</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#gamificacion">Logros y Niveles</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#tratamiento">Tratamiento</a>
 </nav>
 </div>
 <div class="flex flex-col gap-space-sm">
-<span class="font-label-lg text-label-lg text-text-primary font-bold tracking-tight">Comunidad</span>
+<span class="font-label-lg text-label-lg text-on-surface font-bold tracking-tight">Comunidad</span>
 <nav class="flex flex-col gap-space-xs">
-<a class="font-body-sm text-body-sm text-text-secondary hover:text-white transition-colors" href="#">Blog</a>
-<a class="font-body-sm text-body-sm text-text-secondary hover:text-white transition-colors" href="#">Familias conectadas</a>
-<a class="font-body-sm text-body-sm text-text-secondary hover:text-white transition-colors" href="#">Historias de progreso</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Blog</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Familias conectadas</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Historias de progreso</a>
 </nav>
 </div>
 <div class="flex flex-col gap-space-sm">
-<span class="font-label-lg text-label-lg text-text-primary font-bold tracking-tight">Legal &amp; Soporte</span>
+<span class="font-label-lg text-label-lg text-on-surface font-bold tracking-tight">Legal &amp; Soporte</span>
 <nav class="flex flex-col gap-space-xs">
-<a class="font-body-sm text-body-sm text-text-secondary hover:text-white transition-colors" href="#">Centro de ayuda</a>
-<a class="font-body-sm text-body-sm text-text-secondary hover:text-white transition-colors" href="#">Privacidad</a>
-<a class="font-body-sm text-body-sm text-text-secondary hover:text-white transition-colors" href="#">Términos de servicio</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Centro de ayuda</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Privacidad</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Términos de servicio</a>
 </nav>
 </div>
 </div>
-<div class="pt-space-lg flex flex-col md:flex-row items-center justify-between gap-space-md border-t border-white/[0.08]">
+<div class="pt-space-lg flex flex-col md:flex-row items-center justify-between gap-space-md border-t border-surface-container">
 <div class="flex flex-col sm:flex-row items-center gap-space-xs sm:gap-space-md text-center sm:text-left">
-<p class="font-body-sm text-body-sm text-text-tertiary">© 2024 SugarCoach. Todos los derechos reservados.</p>
-<span class="hidden sm:inline text-white/[0.2]">•</span>
-<p class="font-body-sm text-body-sm text-text-tertiary">Diseñado con empatía para familias y profesionales de la salud.</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">© 2024 SugarCoach. Todos los derechos reservados.</p>
+<span class="hidden sm:inline text-outline-variant">•</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Diseñado con empatía para familias y profesionales de la salud.</p>
 </div>
 <div class="flex items-center gap-space-md">
-<a aria-label="Comunidad" class="w-10 h-10 rounded-full bg-white/[0.05] border border-white/10 flex items-center justify-center text-text-secondary hover:text-white hover:bg-white/[0.1] transition-colors" href="#">
+<a aria-label="Comunidad" class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors" href="#">
 <span class="material-symbols-outlined text-[20px]">forum</span>
 </a>
-<a aria-label="Novedades" class="w-10 h-10 rounded-full bg-white/[0.05] border border-white/10 flex items-center justify-center text-text-secondary hover:text-white hover:bg-white/[0.1] transition-colors" href="#">
+<a aria-label="Novedades" class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors" href="#">
 <span class="material-symbols-outlined text-[20px]">campaign</span>
 </a>
-<a aria-label="Contacto" class="w-10 h-10 rounded-full bg-white/[0.05] border border-white/10 flex items-center justify-center text-text-secondary hover:text-white hover:bg-white/[0.1] transition-colors" href="#">
+<a aria-label="Contacto" class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors" href="#">
 <span class="material-symbols-outlined text-[20px]">mail</span>
 </a>
 </div>
 </div>
 </div>
 </footer>
+
+<script>
+  // ---- Selector de modo de color (claro / oscuro / accesible) ----
+  const themeMenuBtn = document.getElementById('themeMenuBtn');
+  const themeMenu = document.getElementById('themeMenu');
+  const themeItems = themeMenu.querySelectorAll('.theme-menu-item');
+  const labels = { light: 'Claro', dark: 'Oscuro', a11y: 'Accesible' };
+
+  function currentTheme() {
+    if (document.documentElement.classList.contains('dark')) return 'dark';
+    if (document.documentElement.classList.contains('a11y')) return 'a11y';
+    return 'light';
+  }
+  function applyTheme(mode) {
+    document.documentElement.classList.remove('dark', 'a11y');
+    if (mode === 'dark') document.documentElement.classList.add('dark');
+    if (mode === 'a11y') document.documentElement.classList.add('a11y');
+    themeItems.forEach(b => b.setAttribute('aria-current', b.dataset.theme === mode ? 'true' : 'false'));
+    themeMenuBtn.setAttribute('aria-label', 'Modo de color: ' + labels[mode] + '. Cambiar modo');
+  }
+  applyTheme(currentTheme());
+
+  function closeMenu() {
+    themeMenu.classList.add('hidden');
+    themeMenu.hidden = true;
+    themeMenuBtn.setAttribute('aria-expanded', 'false');
+  }
+  themeMenuBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const open = themeMenuBtn.getAttribute('aria-expanded') === 'true';
+    if (open) { closeMenu(); return; }
+    themeMenu.classList.remove('hidden');
+    themeMenu.hidden = false;
+    themeMenuBtn.setAttribute('aria-expanded', 'true');
+  });
+  themeItems.forEach(btn => {
+    btn.addEventListener('click', () => {
+      applyTheme(btn.dataset.theme);
+      closeMenu();
+      themeMenuBtn.focus();
+    });
+  });
+  document.addEventListener('click', (e) => {
+    if (!themeMenu.contains(e.target) && e.target !== themeMenuBtn) closeMenu();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') { closeMenu(); }
+  });
+</script>
+<script>
+  // ---- Menú de navegación mobile ----
+  const mobileNavToggle = document.getElementById('mobileNavToggle');
+  const mobileNavPanel = document.getElementById('mobileNavPanel');
+  const mobileNavIcon = document.getElementById('mobileNavIcon');
+  mobileNavToggle.addEventListener('click', () => {
+    const open = mobileNavToggle.getAttribute('aria-expanded') === 'true';
+    mobileNavToggle.setAttribute('aria-expanded', String(!open));
+    mobileNavPanel.classList.toggle('hidden', open);
+    mobileNavIcon.textContent = open ? 'menu' : 'close';
+  });
+  mobileNavPanel.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    mobileNavToggle.setAttribute('aria-expanded', 'false');
+    mobileNavPanel.classList.add('hidden');
+    mobileNavIcon.textContent = 'menu';
+  }));
+</script>
 </body></html>
