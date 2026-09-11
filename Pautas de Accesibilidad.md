@@ -20,7 +20,58 @@
         3. Proporcionar sugerencias claras si el usuario se equivoca al rellenar un campo de formulario para prevenir y tolerar errores.
 
 ---
-- **Características Generales**
-    
 
-    
+### Características Generales
+
+> **Entender rápidamente qué es Sugar Coach, hacia quién está dirigido, qué beneficio obtiene (según su perfil) y qué puede continuar haciendo (loguearse o descargar la app).**
+
+### Flujo sugerido de navegación
+
+#### Header
+
+- Sugar Coach logo (botón para regresar al inicio)
+- Nuestra APP
+- ¿Quiénes somos?
+- Premium (Planes)
+- Soporte
+
+#### HERO
+
+- **Título:** Propuesta de valor
+- **Descripción**
+- **CTA:** Descargar gratis
+- **CTA secundario:** Ver cómo funciona
+- **Mockup de la app**
+- **Aviso educativo:** SugarCoach no reemplaza la atención médica profesional.
+
+#### FUNCIONES
+
+- Educación
+- Seguimiento
+- Gamificación
+
+#### BENEFICIOS
+
+- **Niños / jóvenes**
+- **Familias / cuidadores**
+- **Instituciones / aliados**
+
+#### SCREENSHOTS / APP
+
+- Capturas de pantalla de la aplicación
+- Visualización de funcionalidades principales
+
+#### FAQ
+
+- Preguntas frecuentes
+
+#### CTA FINAL
+
+- **Descargar gratis**
+
+#### FOOTER
+
+- Información complementaria
+- Enlaces de navegación
+- Redes sociales
+- Contacto
