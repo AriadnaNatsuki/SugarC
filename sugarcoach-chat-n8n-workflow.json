@@ -1,0 +1,93 @@
+{
+  "name": "SugarCoach - Asistente funcional",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "sugarcoach-chat",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-trigger",
+      "name": "Webhook (Trigger)",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [-1120, 300],
+      "notes": "Recibe { message, sessionId } desde el BFF (.NET/NestJS). NUNCA exponer esta URL directo al browser — el widget le habla al BFF, y el BFF reenvía acá dentro de la red privada."
+    },
+    {
+      "parameters": {
+        "jsCode": "// ---- Validar el mensaje ----\nconst body = $input.first().json.body || $input.first().json;\nconst raw = (body.message || '').toString();\nconst sessionId = body.sessionId || null;\nconst trimmed = raw.trim();\n\nlet valid = true;\nlet reply = null;\n\nif (!trimmed) {\n  valid = false;\n  reply = 'Escribime tu consulta primero \\ud83d\\ude42';\n} else if (trimmed.length > 400) {\n  valid = false;\n  reply = 'Tu mensaje es un poco largo, ¿podés resumirlo?';\n}\n\n// sanitizacion basica: sin tags HTML\nconst clean = trimmed.replace(/<[^>]*>/g, '');\n\nreturn [{ json: { valid, reply, message: clean, sessionId } }];"
+      },
+      "id": "validate",
+      "name": "Validar mensaje",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [-900, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
+          "conditions": [
+            {
+              "id": "cond-valid",
+              "leftValue": "={{ $json.valid }}",
+              "rightValue": true,
+              "operator": { "type": "boolean", "operation": "true" }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "if-valid",
+      "name": "¿Es válido?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [-680, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// ---- Clasificar intención (misma lógica que el mock del widget) ----\nconst text = ($json.message || '').toLowerCase();\n\nconst CLINICAL_KEYWORDS = ['dosis','cuanta insulina','cuánta insulina','me pongo','sintoma','síntoma','me siento mal','hipoglucemia','hiperglucemia','desmay','emergencia','me duele','dolor'];\n\nconst TOPICS = [\n  { id: 'registro', keywords: ['registrar','registro','cargar','carga','anotar','glucosa','insulina','comida','carbohidr'],\n    reply: 'Podés registrar glucosa, insulina, comidas y actividad desde el botón \"+\" en la pantalla principal. Se guarda en segundos y suma puntos a tu racha.',\n    options: ['Puntos y logros', 'Ver mis reportes'] },\n  { id: 'puntos', keywords: ['punto','puntos','nivel','logro','recompensa','racha','estrella'],\n    reply: 'Ganás puntos por cada registro diario completo. Los puntos suben tu nivel y desbloquean logros — nunca califican tus valores de glucosa, solo tu constancia.',\n    options: ['Cómo registrar mis datos', 'Planes y precios'] },\n  { id: 'reportes', keywords: ['reporte','grafico','gráfico','tiempo en rango','tir','estadistica','estadística','historial'],\n    reply: 'En la sección de Reportes vas a encontrar tu Tiempo en Rango (TIR) y el cruce de glucosa vs. insulina, listos para compartir en tu consulta.',\n    options: ['Hablar con soporte'] },\n  { id: 'tratamiento', keywords: ['tratamiento','rango','hipo','hiper','target','dosis basal','esquema'],\n    reply: 'En \"Tratamiento\" configurás tus rangos objetivo (hipo, target, hiper) junto con tu profesional de salud. Yo no puedo definir esos valores por vos.',\n    options: ['Hablar con soporte'] },\n  { id: 'telemedicina', keywords: ['telemedicina','turno','consulta','medico','médico','doctora','doctor','videollamada','cita'],\n    reply: 'Podés agendar una consulta de telemedicina desde la sección \"Mi equipo\". Vas a ver los horarios disponibles de tu profesional asignado.',\n    options: ['Hablar con soporte'] },\n  { id: 'planes', keywords: ['plan','precio','premium','gratis','suscripcion','suscripción','pagar','costo'],\n    reply: 'El plan gratuito incluye registro y reportes básicos por 60 días. El plan Premium suma telemedicina ilimitada y reportes avanzados.',\n    options: ['Hablar con soporte'] },\n  { id: 'familia', keywords: ['familia','padre','madre','cuidador','conectar','vincular','compartir acceso'],\n    reply: 'Desde \"Mi familia\" podés invitar a un cuidador para que vea tus resúmenes, con los permisos que vos elijas.',\n    options: ['Cómo registrar mis datos'] },\n  { id: 'soporte', keywords: ['soporte','ayuda humana','hablar con alguien','contacto','persona','humano'],\n    reply: 'Te dejo el contacto de soporte: soporte@sugar.coach. Un humano te responde a la brevedad.',\n    options: [] },\n];\n\nconst TOP_LEVEL_OPTIONS = ['Cómo registrar mis datos','Puntos y logros','Ver mis reportes','Planes y precios','Hablar con soporte'];\n\nlet result;\nif (CLINICAL_KEYWORDS.some(k => text.includes(k))) {\n  result = {\n    intent: 'clinical_redirect',\n    reply: 'No puedo darte indicaciones médicas — eso lo tiene que ver tu equipo de salud. Puedo ayudarte con cómo usar la app, o coordinar que hables con tu equipo.',\n    options: ['Hablar con soporte', 'Cómo registrar mis datos'],\n  };\n} else {\n  const topic = TOPICS.find(tp => tp.keywords.some(k => text.includes(k)));\n  if (topic) {\n    result = { intent: topic.id, reply: topic.reply, options: topic.options };\n  } else {\n    result = {\n      intent: 'unknown',\n      reply: 'No estoy seguro de haber entendido. Elegí una opción, o contame con otras palabras:',\n      options: TOP_LEVEL_OPTIONS,\n    };\n  }\n}\n\nreturn [{ json: { ...result, sessionId: $json.sessionId, message: $json.message } }];"
+      },
+      "id": "classify",
+      "name": "Clasificar intención",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [-460, 220]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { reply: $json.reply, options: $json.options } }}"
+      },
+      "id": "respond-valid",
+      "name": "Responder (válido)",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [-240, 220]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { reply: $json.reply, options: [] } }}"
+      },
+      "id": "respond-invalid",
+      "name": "Responder (inválido)",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [-460, 400]
+    }
+  ],
+  "connections": {
+    "Webhook (Trigger)": { "main": [[{ "node": "Validar mensaje", "type": "main", "index": 0 }]] },
+    "Validar mensaje": { "main": [[{ "node": "¿Es válido?", "type": "main", "index": 0 }]] },
+    "¿Es válido?": {
+      "main": [
+        [{ "node": "Clasificar intención", "type": "main", "index": 0 }],
+        [{ "node": "Responder (inválido)", "type": "main", "index": 0 }]
+      ]
+    },
+    "Clasificar intención": { "main": [[{ "node": "Responder (válido)", "type": "main", "index": 0 }]] }
+  }
+}
