@@ -234,6 +234,7 @@
       transition: background .15s ease, border-color .15s ease;
     }
     .theme-toggle:hover { background: var(--c-surface-container-high); }
+     #langToggleBtn { font-weight: 700; font-size: 13px; letter-spacing: 0.02em; }
 
     .theme-menu {
       position: absolute; right: 0; top: calc(100% + 8px); z-index: 60;
@@ -388,6 +389,7 @@
       }
     };
   </script>
+<link rel="stylesheet" href="chatbot/sugarcoach-chat-widget.css">
 </head>
 <body class="bg-surface font-body-md text-body-md text-on-surface antialiased">
 <!-- HEADER CON LOGO OFICIAL REAL -->
@@ -417,11 +419,13 @@
 <button role="menuitemradio" data-theme="dark" class="theme-menu-item" type="button">
 <span class="material-symbols-outlined" style="font-size:18px">dark_mode</span> Oscuro
 </button>
-<button role="menuitemradio" data-theme="a11y" class="theme-menu-item" type="button">
-<span class="material-symbols-outlined" style="font-size:18px">accessibility_new</span> Accesible
+<button role="menuitemradio" data-theme="a11y" class="theme-menu-item" type="button"></span> Accesible
 </button>
 </div>
 </div>
+<button id="langToggleBtn" class="theme-toggle" type="button" aria-label="Switch to English">
+<span id="langToggleLabel">ES</span>
+</button>
 <a class="hidden sm:inline-flex font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors" data-path="login" href="#">Iniciar sesión</a>
 <a class="inline-flex items-center justify-center px-space-lg py-space-xs min-h-[46px] rounded-full bg-primary text-on-primary dark:bg-gradient-to-br dark:from-[#A94FCE] dark:via-[#E84698] dark:to-[#FF3FB4] dark:text-white dark:shadow-[0_10px_30px_-6px_rgba(232,70,152,0.45)] dark:hover:bg-none dark:hover:brightness-110 dark:border dark:border-white/20 font-label-lg text-label-lg shadow-[0_10px_25px_-5px_rgba(75,59,203,0.4)] hover:bg-primary-container transition-all active:scale-95 gap-2" data-path="descargar" href="#descargar">
 <span class="material-symbols-outlined text-[18px]">download</span>
@@ -1242,7 +1246,30 @@
   mobileNavPanel.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
     mobileNavToggle.setAttribute('aria-expanded', 'false');
     mobileNavPanel.classList.add('hidden');
-    mobileNavIcon.textContent = 'menu';
+     mobileNavIcon.textContent = 'menu';
   }));
 </script>
+<script>
+  // ---- Selector de idioma (ES / EN) ----
+  const langToggleBtn = document.getElementById('langToggleBtn');
+  const langToggleLabel = document.getElementById('langToggleLabel');
+  function currentLang() {
+    return (document.documentElement.getAttribute('lang') || 'es').toLowerCase().startsWith('en') ? 'en' : 'es';
+  }
+  function applyLangButton() {
+    const lang = currentLang();
+    const next = lang === 'en' ? 'es' : 'en';
+    langToggleLabel.textContent = lang.toUpperCase();
+    langToggleBtn.setAttribute('aria-label', lang === 'en' ? 'Cambiar a español' : 'Switch to English');
+    langToggleBtn.dataset.next = next;
+  }
+  langToggleBtn.addEventListener('click', () => {
+    document.documentElement.setAttribute('lang', langToggleBtn.dataset.next || 'en');
+    applyLangButton();
+  });
+  applyLangButton();
+</script>
+
+
+<script src="chatbot/sugarcoach-chat-widget.js" defer></script>
 </body></html>
