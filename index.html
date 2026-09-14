@@ -282,6 +282,23 @@
     .phone-mockup-glow {
       box-shadow: 0 25px 65px -12px rgba(196, 92, 255, 0.28), 0 0 0 1px rgba(196, 92, 255, 0.2);
     }
+    /* ===== FAQ: acordeón suave sin cambios de ancho ===== */
+    /* Reserva el espacio del scrollbar para que abrir/cerrar no desplace la página */
+    html { scrollbar-gutter: stable; }
+    #faq-container { width: 100%; }
+    .faq-item { width: 100%; max-width: 100%; min-width: 0; }
+    .faq-icon { transition: transform .3s cubic-bezier(.4, 0, .2, 1); }
+    /* Anima la altura sin medir nada en JS: grid-template-rows 0fr -> 1fr */
+    .faq-answer {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows .4s cubic-bezier(.4, 0, .2, 1);
+    }
+    .faq-answer-inner { overflow: hidden; min-height: 0; }
+    .faq-content { opacity: 0; transition: opacity .25s ease; }
+    .faq-item.open .faq-icon { transform: rotate(180deg); }
+    .faq-item.open .faq-answer { grid-template-rows: 1fr; }
+    .faq-item.open .faq-content { opacity: 1; }
   </style>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <script id="tailwind-config">
@@ -1265,41 +1282,49 @@
           </p>
 </div>
 <div class="flex flex-col gap-space-sm" id="faq-container">
-<div class="faq-item bg-surface-tier-1 rounded-2xl shadow-sm border border-border-subtle overflow-hidden transition-colors">
+<div class="faq-item open bg-surface-tier-1 rounded-2xl shadow-sm border border-border-subtle overflow-hidden transition-colors">
 <button class="faq-btn w-full px-space-lg py-space-lg flex items-center justify-between text-left focus:outline-none" type="button">
 <span class="font-headline-sm text-headline-sm text-text-primary font-bold">¿SugarCoach es solo para niños?</span>
 <span class="material-symbols-outlined text-text-tertiary faq-icon transition-transform">expand_more</span>
 </button>
-<div class="faq-content hidden px-space-lg pb-space-lg pt-0 text-text-secondary font-body-md border-t border-border-subtle">
+<div class="faq-answer"><div class="faq-answer-inner">
+<div class="faq-content px-space-lg pb-space-lg pt-0 text-text-secondary font-body-md border-t border-border-subtle">
               No, está pensado tanto para niños y adolescentes como para adultos independientes y familias que acompañan. Su diseño es cálido y motivador sin caer en infantilismos.
             </div>
+</div></div>
 </div>
 <div class="faq-item bg-surface-tier-1 rounded-2xl shadow-sm border border-border-subtle overflow-hidden transition-colors">
 <button class="faq-btn w-full px-space-lg py-space-lg flex items-center justify-between text-left focus:outline-none" type="button">
 <span class="font-headline-sm text-headline-sm text-text-primary font-bold">¿Mi familia puede ver mis datos en tiempo real?</span>
 <span class="material-symbols-outlined text-text-tertiary faq-icon transition-transform">expand_more</span>
 </button>
-<div class="faq-content hidden px-space-lg pb-space-lg pt-0 text-text-secondary font-body-md border-t border-border-subtle">
+<div class="faq-answer"><div class="faq-answer-inner">
+<div class="faq-content px-space-lg pb-space-lg pt-0 text-text-secondary font-body-md border-t border-border-subtle">
               Sí, podés vincular a padres, cuidadores o parejas para que reciban avisos o vean resúmenes según los permisos que configures, garantizando tranquilidad sin invadir la privacidad.
             </div>
+</div></div>
 </div>
 <div class="faq-item bg-surface-tier-1 rounded-2xl shadow-sm border border-border-subtle overflow-hidden transition-colors">
 <button class="faq-btn w-full px-space-lg py-space-lg flex items-center justify-between text-left focus:outline-none" type="button">
 <span class="font-headline-sm text-headline-sm text-text-primary font-bold">¿Puedo compartir información con mi médico?</span>
 <span class="material-symbols-outlined text-text-tertiary faq-icon transition-transform">expand_more</span>
 </button>
-<div class="faq-content hidden px-space-lg pb-space-lg pt-0 text-text-secondary font-body-md border-t border-border-subtle">
+<div class="faq-answer"><div class="faq-answer-inner">
+<div class="faq-content px-space-lg pb-space-lg pt-0 text-text-secondary font-body-md border-t border-border-subtle">
               Totalmente. Podés exportar resúmenes claros con Tiempo en Rango (TIR) y relaciones de glucosa vs. insulina para agilizar la consulta clínica.
             </div>
+</div></div>
 </div>
 <div class="faq-item bg-surface-tier-1 rounded-2xl shadow-sm border border-border-subtle overflow-hidden transition-colors">
 <button class="faq-btn w-full px-space-lg py-space-lg flex items-center justify-between text-left focus:outline-none" type="button">
 <span class="font-headline-sm text-headline-sm text-text-primary font-bold">¿Qué datos puedo registrar en la app?</span>
 <span class="material-symbols-outlined text-text-tertiary faq-icon transition-transform">expand_more</span>
 </button>
-<div class="faq-content hidden px-space-lg pb-space-lg pt-0 text-text-secondary font-body-md border-t border-border-subtle">
+<div class="faq-answer"><div class="faq-answer-inner">
+<div class="faq-content px-space-lg pb-space-lg pt-0 text-text-secondary font-body-md border-t border-border-subtle">
               Glucosa capilar o continua, dosis de insulina basal y rápida, carbohidratos consumidos con fotos opcionales, tipo de actividad física y estado de ánimo diario.
             </div>
+</div></div>
 </div>
 </div>
 </section>
@@ -1307,26 +1332,13 @@
 <script>
         document.addEventListener('DOMContentLoaded', () => {
           const items = document.querySelectorAll('.faq-item');
-          items.forEach((item, index) => {
+          items.forEach(item => {
             const btn = item.querySelector('.faq-btn');
-            const content = item.querySelector('.faq-content');
-            const icon = item.querySelector('.faq-icon');
-            
-            if (index === 0) {
-              content.classList.remove('hidden');
-              icon.style.transform = 'rotate(180deg)';
-            }
-
+            if (!btn) return;
             btn.addEventListener('click', () => {
-              const isOpen = !content.classList.contains('hidden');
-              items.forEach(otherItem => {
-                otherItem.querySelector('.faq-content').classList.add('hidden');
-                otherItem.querySelector('.faq-icon').style.transform = 'rotate(0deg)';
-              });
-              if (!isOpen) {
-                content.classList.remove('hidden');
-                icon.style.transform = 'rotate(180deg)';
-              }
+              const isOpen = item.classList.contains('open');
+              items.forEach(otherItem => otherItem.classList.remove('open'));
+              if (!isOpen) item.classList.add('open');
             });
           });
         });
