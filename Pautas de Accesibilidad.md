@@ -1,5 +1,6 @@
 # Lineamientos de Accesibilidad a Seguir 
 1. Diabetes
+2. Daltonismo
 
 ### Diabetes
 ---
@@ -20,6 +21,22 @@
         2. Evitar límites de tiempo en formularios, o permitir extender el tiempo fácilmente.
         3. Proporcionar sugerencias claras si el usuario se equivoca al rellenar un campo de formulario para prevenir y tolerar errores.
 
+### Daltonismo
+---
+- Al igual que con las personas diabéticas. Un **alto contraste en los colores** es un buen accionar al momento de desarrollar para mejorar la experiencia de personas daltónicas al navegar la página.
+- **Principales combinaciones de colores a evitar**:  
+    - Verde y Negro
+    - Azul y Gris
+    - Verde y Azul
+    - Verde y Marrón
+    - Verde y Gris
+    - Azul y Violeta
+    - Verde claro y Amarillo
+    - Verde y Rojo
+- **NO depender exclusivamente de los colores para transmitir información o diferenciar elementos interactivos.** Usar etiquetas de texto, patrones o símbolos.
+- Incorporar en la medida de lo posible labels para destacar los diferentes elementos de la página.
+-  Subrayar links como complemento a el color para facilitar la detección de los mismos dentro de la página.
+- Usar múltiples sombras de un conjunto de pocos colores en lugar de usar demasiados colores diferentes cuando se trata de *daltonismo monocromático* (la persona ve en una única dimesión de color o escala de grises).
 ---
 
 ### Características Generales
