@@ -8,7 +8,8 @@
     > Visual:  
         1. Mitigada con un alto contraste (4.5:1 para texto normal y 3:1 para texto grande).  
         2. Se recomienda perrmitir texto escalable con un aumento de fuente de hasta un 200% sin romper el diseño de la página.  
-    
+        Probador de contraste: https://coddy.tech/tools/es/contrast-checker  
+        
     > Motriz:  
         1. Botones y enlaces grandes de mínimo 44x44px de área interactiva.  
         2. Navegación por teclado completa (la página debe ser operable por medio de las teclas Tab, Enter y las flechas de dirección).  
@@ -34,6 +35,12 @@
 - ¿Quiénes somos?
 - Premium (Planes)
 - Soporte
+- Botón modos Accesibilidad
+- Botón ES/EN
+- Iniciar Sesión
+- Descargar SugarCoach
+
+- Botón flotante para regresar al inicio(En toda la página)
 
 #### HERO
 
