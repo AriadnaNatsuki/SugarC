@@ -81,6 +81,21 @@
       --c-text-primary: #1b192f;
       --c-text-secondary: #474554;
       --c-text-tertiary: #787586;
+
+      --c-gamification-bg-start: #f7f3ff;
+      --c-gamification-bg-mid: #eee9ff;
+      --c-gamification-bg-end: #f9f6ff;
+      --c-gamification-text: #1b192f;
+      --c-gamification-muted: #474554;
+      --c-download-bg-start: #f0ebff;
+      --c-download-bg-mid: #eae5ff;
+      --c-download-bg-end: #f6f1ff;
+      --c-download-text: #1b192f;
+      --c-panel-chip-bg: rgba(75, 59, 203, 0.08);
+      --c-panel-chip-text: #312e81;
+      --c-panel-chip-border: rgba(75, 59, 203, 0.18);
+      --c-panel-card-bg: rgba(255, 255, 255, 0.72);
+      --c-panel-card-border: rgba(27, 25, 47, 0.12);
     }
     .dark {
       --c-accent-yellow: #f6c744;
@@ -144,6 +159,21 @@
       --c-text-primary: #F7F8FC;
       --c-text-secondary: #A8B0C5;
       --c-text-tertiary: #747F9B;
+
+      --c-gamification-bg-start: #121A3B;
+      --c-gamification-bg-mid: #0D1733;
+      --c-gamification-bg-end: #070D1F;
+      --c-gamification-text: #F7F8FC;
+      --c-gamification-muted: rgba(247, 248, 252, 0.72);
+      --c-download-bg-start: #172344;
+      --c-download-bg-mid: #111D3D;
+      --c-download-bg-end: #0A1024;
+      --c-download-text: #F7F8FC;
+      --c-panel-chip-bg: rgba(255, 255, 255, 0.10);
+      --c-panel-chip-text: #6ef7f8;
+      --c-panel-chip-border: rgba(255, 255, 255, 0.10);
+      --c-panel-card-bg: rgba(255, 255, 255, 0.06);
+      --c-panel-card-border: rgba(255, 255, 255, 0.10);
     }
 
     .a11y {
@@ -165,6 +195,21 @@
       --c-on-primary: #ffffff;
       --c-border-subtle: #333333;
       --c-border-glow: #333333;
+
+      --c-gamification-bg-start: #ffffff;
+      --c-gamification-bg-mid: #f5f5f5;
+      --c-gamification-bg-end: #ffffff;
+      --c-gamification-text: #000000;
+      --c-gamification-muted: #1a1a1a;
+      --c-download-bg-start: #f5f5f5;
+      --c-download-bg-mid: #eeeeee;
+      --c-download-bg-end: #ffffff;
+      --c-download-text: #000000;
+      --c-panel-chip-bg: #eeeeee;
+      --c-panel-chip-text: #000000;
+      --c-panel-chip-border: #333333;
+      --c-panel-card-bg: #f5f5f5;
+      --c-panel-card-border: #333333;
     }
     .a11y .border-surface-container { border-color: #333333 !important; border-width: 2px !important; }
     .a11y [class*="text-amber-"] { color: #78350f !important; }
@@ -228,6 +273,36 @@
       transform: none;
       box-shadow: none;
     }
+    /* Theme-aware CTA panels: avoid hard-coded dark surfaces in light/accessibility modes. */
+    .theme-panel-gamification {
+      background: linear-gradient(135deg, var(--c-gamification-bg-start) 0%, var(--c-gamification-bg-mid) 52%, var(--c-gamification-bg-end) 100%);
+      color: var(--c-gamification-text);
+    }
+    .theme-panel-download {
+      background: linear-gradient(90deg, var(--c-download-bg-start) 0%, var(--c-download-bg-mid) 55%, var(--c-download-bg-end) 100%);
+      color: var(--c-download-text);
+    }
+    .theme-panel-gamification .theme-panel-text,
+    .theme-panel-download .theme-panel-text {
+      color: var(--c-gamification-text);
+    }
+    .theme-panel-gamification .theme-panel-muted,
+    .theme-panel-download .theme-panel-muted {
+      color: var(--c-gamification-muted);
+    }
+
+    .theme-panel-gamification .theme-panel-chip {
+      background: var(--c-panel-chip-bg);
+      color: var(--c-panel-chip-text);
+      border-color: var(--c-panel-chip-border);
+    }
+
+    .theme-panel-gamification .theme-panel-card,
+    .theme-panel-download .theme-panel-card {
+      background: var(--c-panel-card-bg);
+      border-color: var(--c-panel-card-border);
+    }
+
     .theme-toggle {
       width: 44px; height: 44px; border-radius: 9999px;
       display: inline-flex; align-items: center; justify-content: center;
@@ -735,39 +810,39 @@
 </section>
 <!-- 4. SECTION: GAMIFICACIÓN SALUDABLE CON PANTALLA REAL DE LOGROS (IMAGE_10) -->
 <section class="max-w-[1200px] mx-auto px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop py-space-2xl" id="gamificacion">
-<div class="bg-gradient-to-br from-[#121A3B] via-[#0D1733] to-[#070D1F] rounded-3xl p-space-xl md:p-space-3xl text-white shadow-2xl relative overflow-hidden border border-border-subtle">
+<div class="theme-panel-gamification rounded-3xl p-space-xl md:p-space-3xl shadow-2xl relative overflow-hidden border border-border-subtle">
 <div class="absolute -right-20 -bottom-20 w-96 h-96 bg-primary/20 rounded-full blur-3xl pointer-events-none"></div>
 <div class="absolute top-0 left-1/3 w-64 h-64 bg-neon-magenta/15 rounded-full blur-3xl pointer-events-none"></div>
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-2xl items-center relative z-10">
 <!-- Left Info -->
 <div class="lg:col-span-6 flex flex-col gap-space-md">
-<div class="inline-flex items-center gap-space-xs px-3.5 py-1.5 rounded-full bg-white/10 text-secondary-fixed font-label-md text-label-md font-bold backdrop-blur-md w-fit border border-white/10">
+<div class="theme-panel-chip inline-flex items-center gap-space-xs px-3.5 py-1.5 rounded-full font-label-md text-label-md font-bold backdrop-blur-md w-fit border">
 <span>🎮</span> Gamificación respetuosa y humana
               </div>
-<h2 class="font-display-lg text-display-lg-mobile md:text-headline-lg font-extrabold tracking-tight text-white leading-tight">
+<h2 class="theme-panel-text font-display-lg text-display-lg-mobile md:text-headline-lg font-extrabold tracking-tight leading-tight">
                 Cada pequeño hábito suma <span class="gradient-text">puntos y estrellas</span>
 </h2>
-<p class="font-body-lg text-body-lg text-white/80">
-                Inspirado en la psicología positiva: premiamos tu constancia y el compromiso de registrarte. <strong class="text-white">Nunca juzgamos ni castigamos valores de glucosa</strong>, porque los números son información médica para cuidarte, no calificaciones morales.
+<p class="theme-panel-muted font-body-lg text-body-lg">
+                Inspirado en la psicología positiva: premiamos tu constancia y el compromiso de registrarte. <strong class="theme-panel-text">Nunca juzgamos ni castigamos valores de glucosa</strong>, porque los números son información médica para cuidarte, no calificaciones morales.
               </p>
 <!-- Badges de la app -->
 <div class="grid grid-cols-2 gap-space-sm pt-2">
-<div class="bg-white/[0.06] border border-white/10 rounded-2xl p-space-md flex items-center gap-3">
+<div class="theme-panel-card rounded-2xl p-space-md flex items-center gap-3 border">
 <div class="w-11 h-11 rounded-xl bg-amber-400/20 text-accent-yellow border border-amber-400/30 flex items-center justify-center font-bold text-xl">
                     ⭐
                   </div>
 <div>
-<h4 class="font-headline-sm text-[16px] font-bold text-white">+100 Puntos</h4>
-<p class="font-body-sm text-[12px] text-white/70">Por cada registro diario completo</p>
+<h4 class="theme-panel-text font-headline-sm text-[16px] font-bold">+100 Puntos</h4>
+<p class="theme-panel-muted font-body-sm text-[12px]">Por cada registro diario completo</p>
 </div>
 </div>
-<div class="bg-white/[0.06] border border-white/10 rounded-2xl p-space-md flex items-center gap-3">
+<div class="theme-panel-card rounded-2xl p-space-md flex items-center gap-3 border">
 <div class="w-11 h-11 rounded-xl bg-emerald-400/20 text-emerald-300 border border-emerald-400/30 flex items-center justify-center font-bold text-xl">
                     🚀
                   </div>
 <div>
-<h4 class="font-headline-sm text-[16px] font-bold text-white">Startup Explorer</h4>
-<p class="font-body-sm text-[12px] text-white/70">Subí de nivel con constancia</p>
+<h4 class="theme-panel-text font-headline-sm text-[16px] font-bold">Startup Explorer</h4>
+<p class="theme-panel-muted font-body-sm text-[12px]">Subí de nivel con constancia</p>
 </div>
 </div>
 </div>
@@ -1222,18 +1297,18 @@
 </section>
 <!-- 9. SECTION: CTA FINAL CON LOGO OFICIAL Y BOTONES DE TIENDAS -->
 <section class="max-w-[1200px] mx-auto px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop py-space-3xl" id="descargar">
-<div class="bg-gradient-to-r from-[#172344] via-[#111D3D] to-[#0A1024] border border-border-subtle rounded-[40px] p-space-xl md:p-space-3xl text-white shadow-2xl relative overflow-hidden">
+<div class="theme-panel-download border border-border-subtle rounded-[40px] p-space-xl md:p-space-3xl shadow-2xl relative overflow-hidden">
 <div class="absolute -top-24 -right-24 w-80 h-80 bg-primary/25 rounded-full blur-3xl pointer-events-none"></div>
 <div class="absolute -bottom-24 left-1/3 w-80 h-80 bg-neon-magenta/20 rounded-full blur-3xl pointer-events-none"></div>
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-2xl items-center relative z-10">
 <div class="lg:col-span-8 flex flex-col gap-space-md">
-<div class="inline-flex items-center gap-space-xs px-3.5 py-1.5 rounded-full bg-on-primary/10 text-on-primary font-label-md text-label-md font-bold backdrop-blur-sm w-fit border border-white/10">
+<div class="theme-panel-chip inline-flex items-center gap-space-xs px-3.5 py-1.5 rounded-full font-label-md text-label-md font-bold backdrop-blur-sm w-fit border">
 <span>✨</span> Empezá hoy mismo
               </div>
-<h2 class="font-display-lg text-display-lg-mobile md:text-display-lg font-extrabold tracking-tight leading-tight text-white">
+<h2 class="theme-panel-text font-display-lg text-display-lg-mobile md:text-display-lg font-extrabold tracking-tight leading-tight">
                 Tu día ya tiene suficientes cosas. Cuidarte puede ser <span class="gradient-text">una menos complicada</span>.
               </h2>
-<p class="font-body-lg text-body-lg text-white/70 max-w-2xl">
+<p class="theme-panel-muted font-body-lg text-body-lg max-w-2xl">
                 Registrá, sumá puntos, organizá tus mediciones y compartí tu información desde SugarCoach. Disponible gratis para iOS y Android.
               </p>
 <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-space-md pt-space-md">
