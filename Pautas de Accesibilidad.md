@@ -53,8 +53,8 @@
 #### BENEFICIOS
 
 - **Niños / jóvenes**
-- **Familias / cuidadores**
-- **Instituciones / aliados**
+- **Familias / Padres**
+- **Especialistas / Médicos**
 
 #### SCREENSHOTS / APP
 
