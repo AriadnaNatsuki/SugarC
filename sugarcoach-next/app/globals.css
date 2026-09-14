@@ -1,0 +1,228 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Tokens de tema como canales RGB (ver `tailwind.config.ts`).
+ * - `:root` = Modo Claro (paleta clara del HTML de modos)
+ * - `.dark` = Modo Oscuro (identidad #01081F + gradiente #DA44AF → #C747CA)
+ * - `.a11y` = Modo Accesible (alto contraste, sin decoraciones)
+ */
+:root {
+  color-scheme: light;
+  --sc-base: 252 248 255;
+  --sc-alt: 246 241 255;
+  --sc-footer: 255 255 255;
+  --sc-card: 255 255 255;
+  --sc-body: 71 69 84;
+  --sc-muted: 120 117 134;
+  --sc-ink: 27 25 47;
+  --sc-line: 120 117 134;
+  --sc-tint: 27 25 47;
+}
+
+.dark {
+  color-scheme: dark;
+  --sc-base: 1 8 31;
+  --sc-alt: 0 20 61;
+  --sc-footer: 0 10 33;
+  --sc-card: 13 18 48;
+  --sc-body: 184 184 200;
+  --sc-muted: 142 142 163;
+  --sc-ink: 255 255 255;
+  --sc-line: 255 255 255;
+  --sc-tint: 255 255 255;
+}
+
+.a11y {
+  color-scheme: light;
+  --sc-base: 255 255 255;
+  --sc-alt: 245 245 245;
+  --sc-footer: 255 255 255;
+  --sc-card: 255 255 255;
+  --sc-body: 26 26 26;
+  --sc-muted: 26 26 26;
+  --sc-ink: 0 0 0;
+  --sc-line: 51 51 51;
+  --sc-tint: 0 0 0;
+}
+
+@layer base {
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    @apply bg-base text-body font-sans antialiased;
+    overscroll-behavior: none;
+  }
+  ::selection {
+    background: #da44af;
+    color: #fff;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply text-ink;
+  }
+}
+
+@layer components {
+  /* Gradiente de marca reutilizable (botones CTA y texto destacado).
+     Igual en los tres modos: es la identidad de SugarCoach. */
+  .bg-brand-gradient {
+    background: linear-gradient(90deg, #da44af 0%, #c747ca 100%);
+  }
+  .text-brand-gradient {
+    background: linear-gradient(90deg, #da44af 0%, #c747ca 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+  /* Card glassmorphism sutil (en claro: tarjeta blanca con borde gris) */
+  .glass-card {
+    @apply rounded-3xl border border-line/[0.25] bg-card shadow-sm transition-all duration-300;
+  }
+  .glass-card:hover {
+    @apply -translate-y-1 border-pink-400/40;
+    box-shadow:
+      0 20px 40px -15px rgba(0, 0, 0, 0.25),
+      0 0 24px rgba(218, 68, 175, 0.15);
+  }
+  .dark .glass-card {
+    @apply border-line/[0.08] bg-tint/[0.03] shadow-none;
+  }
+  .dark .glass-card:hover {
+    box-shadow:
+      0 20px 40px -15px rgba(0, 0, 0, 0.6),
+      0 0 24px rgba(218, 68, 175, 0.15);
+  }
+  /* Toggle de tema (claro/oscuro/accesible), como en el HTML de modos */
+  .theme-menu-item[aria-current="true"] {
+    @apply bg-brand-gradient text-white;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Equivalente al `animate-bounce` con duration 5s de code.html (tarjeta flotante hero) */
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@layer utilities {
+  .animate-float-slow {
+    animation: float-slow 5s ease-in-out infinite;
+  }
+}
+
+/* ============================================================
+ * Modo Accesible (.a11y) — reglas tomadas del HTML de modos:
+ * alto contraste real, foco visible, sin blobs, zoom al hover/foco.
+ * Van sin capas para que prevalezcan sobre las utilidades.
+ * ============================================================ */
+
+/* Tipografía ~14% más grande (escala rem: arrastra textos y espaciados) */
+html.a11y {
+  font-size: 114%;
+}
+
+/* Sin blobs decorativos: menos ruido visual para baja visión */
+.a11y [class*="blur-3xl"] {
+  display: none !important;
+}
+
+/* Foco de teclado bien visible */
+.a11y :focus-visible {
+  outline: 3px solid #2f1f9e !important;
+  outline-offset: 2px;
+}
+
+/* Bordes con contraste real en tarjetas */
+.a11y .glass-card {
+  border-width: 2px;
+}
+
+/* Zoom en botones y links al hover/foco */
+.a11y button,
+.a11y a {
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+.a11y button:hover,
+.a11y button:focus-visible,
+.a11y a:hover,
+.a11y a:focus-visible {
+  transform: scale(1.18);
+  position: relative;
+  z-index: 30;
+  box-shadow: 0 12px 28px -8px rgba(0, 0, 0, 0.35);
+}
+
+/* Zoom en tarjetas (features, FAQ, mockups) */
+.a11y [class*="rounded-"],
+.a11y .faq-item {
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+.a11y .rounded-3xl:hover,
+.a11y .rounded-3xl:focus-within,
+.a11y .faq-item:hover,
+.a11y .faq-item:focus-within,
+.a11y [class*="rounded-"]:has(p:hover, li:hover) {
+  transform: scale(1.09);
+  position: relative;
+  z-index: 25;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+}
+
+/* Zoom en bloques de texto (párrafos y listas) */
+.a11y p,
+.a11y li {
+  transition:
+    transform 0.15s ease,
+    background-color 0.15s ease;
+  transform-origin: top left;
+}
+.a11y p:hover,
+.a11y li:hover {
+  transform: scale(1.16);
+  position: relative;
+  z-index: 20;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 0.5rem;
+}
+
+/* Dentro de cualquier tarjeta con esquinas redondeadas (incluye valores
+ * arbitrarios como rounded-[32px]) el zoom es de toda la tarjeta, no del
+ * texto o botón suelto: si no, el elemento se escala por su cuenta y termina
+ * saliéndose o recortado por el overflow de la tarjeta, o se suma al zoom de
+ * la tarjeta (doble escala). */
+.a11y [class*="rounded-"] p:hover,
+.a11y [class*="rounded-"] li:hover {
+  transform: none;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+.a11y .faq-item button:hover,
+.a11y .faq-item button:focus-visible {
+  transform: none;
+  box-shadow: none;
+}
