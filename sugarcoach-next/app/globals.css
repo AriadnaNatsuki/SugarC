@@ -176,6 +176,11 @@ html.a11y {
   box-shadow: 0 12px 28px -8px rgba(0, 0, 0, 0.35);
 }
 
+/* Evita barras de scroll espurias al agrandar botones en tabs */
+.a11y [role="tablist"] {
+  overflow: visible !important;
+}
+
 /* Zoom en tarjetas (features, FAQ, mockups) */
 .a11y .rounded-3xl,
 .a11y .faq-item {

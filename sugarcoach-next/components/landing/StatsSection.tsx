@@ -18,8 +18,8 @@ export function StatsSection() {
 
       <div className="relative z-10 mx-auto max-w-[1200px] px-4 md:px-6 lg:px-8">
         <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12">
-          {/* Mockup izquierdo con captura real IMAGE_11 (Glucose vs Insulin & TIR 70%) */}
-          <div className="order-2 flex justify-center lg:order-1 lg:col-span-6">
+          {/* Mockup derecho con captura real IMAGE_11 (Glucose vs Insulin & TIR 70%) */}
+          <div className="order-2 flex justify-center lg:order-2 lg:col-span-6">
             <Reveal>
               <div className="relative w-[280px] sm:w-[310px] rounded-[42px] border-2 border-white/[0.16] bg-[#070D1F] p-3 shadow-2xl transition-transform duration-300 hover:scale-[1.01]">
                 <div className="mx-auto mb-2 h-3.5 w-20 rounded-full border border-white/[0.05] bg-black opacity-70" />
@@ -38,8 +38,8 @@ export function StatsSection() {
             </Reveal>
           </div>
 
-          {/* Contenido derecho */}
-          <div className="order-1 flex flex-col gap-5 lg:order-2 lg:col-span-6">
+          {/* Contenido izquierdo */}
+          <div className="order-1 flex flex-col gap-5 lg:order-1 lg:col-span-6">
             <Reveal>
               <div className="inline-flex w-fit items-center gap-2 rounded-full border border-line/10 bg-tint/[0.05] px-3.5 py-1.5 text-xs font-bold text-[#7100A5] shadow-sm dark:border-white/[0.08] dark:bg-white/[0.05] dark:text-[#C45CFF] [.a11y_&]:text-[#2f1f9e]">
                 <Stethoscope className="h-4 w-4" /> Diálogo médico fluido

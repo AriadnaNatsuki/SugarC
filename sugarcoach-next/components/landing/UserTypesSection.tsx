@@ -25,8 +25,8 @@ interface AudienceData {
   tabIcon: typeof Heart;
   badge: string;
   title: string;
-  subtitle: string;
-  description: string;
+  subtitle?: string;
+  description?: string;
   points: {
     title: string;
     desc: string;
@@ -159,7 +159,7 @@ export function UserTypesSection() {
           <div
             role="tablist"
             aria-label="Seleccionar perfil de usuario"
-            className="inline-flex w-full max-w-md items-center justify-between rounded-2xl border border-line/15 bg-card/80 p-1.5 shadow-sm backdrop-blur-md dark:border-white/[0.08] dark:bg-[#0D1733]/80"
+            className="inline-flex w-full max-w-2xl items-center justify-between gap-1.5 rounded-2xl border border-line/15 bg-card/80 p-2 shadow-sm backdrop-blur-md dark:border-white/[0.08] dark:bg-[#0D1733]/80 overflow-visible"
           >
             {AUDIENCES.map((audience) => {
               const Icon = audience.tabIcon;
@@ -173,7 +173,7 @@ export function UserTypesSection() {
                   aria-controls={`panel-${audience.id}`}
                   tabIndex={isActive ? 0 : -1}
                   onClick={() => setActiveTab(audience.id)}
-                  className={`relative flex flex-1 items-center justify-center gap-2 rounded-xl px-3 py-2.5 text-xs font-bold transition-all duration-200 sm:text-sm cursor-pointer ${
+                  className={`relative flex flex-1 items-center justify-center gap-2 rounded-xl px-4 py-3 text-xs font-bold transition-all duration-200 sm:text-sm cursor-pointer whitespace-nowrap ${
                     isActive
                       ? "text-white shadow-md"
                       : "text-body hover:text-ink dark:text-[#A8B0C5] hover:dark:text-white"
@@ -187,7 +187,7 @@ export function UserTypesSection() {
                     />
                   )}
                   <span className="relative z-10 flex items-center gap-1.5">
-                    <Icon className="h-4 w-4" />
+                    <Icon className="h-4 w-4 shrink-0" />
                     <span>{audience.tabLabel}</span>
                   </span>
                 </button>
@@ -209,8 +209,8 @@ export function UserTypesSection() {
             transition={{ duration: 0.35, ease: "easeOut" }}
             className="grid grid-cols-1 items-center gap-8 rounded-3xl border border-line/15 bg-card p-6 shadow-xl backdrop-blur-xl dark:border-white/[0.08] dark:bg-[#0B1530] md:p-10 lg:grid-cols-12 lg:gap-12"
           >
-            {/* Columna Izquierda: Storytelling y Propuesta de Valor */}
-            <div className="flex flex-col gap-6 lg:col-span-7">
+            {/* Columna Izquierda: Título y Checklist directo */}
+            <div className="flex flex-col gap-5 lg:col-span-7">
               <div className="flex flex-wrap items-center gap-2.5">
                 <span
                   className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-bold ${activeAudience.accentBg} ${activeAudience.accentColor} ${activeAudience.accentBorder}`}
@@ -225,24 +225,21 @@ export function UserTypesSection() {
                 <h3 className="text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">
                   {activeAudience.title}
                 </h3>
-                <p className="mt-2 text-sm leading-relaxed text-body dark:text-[#A8B0C5] sm:text-base">
-                  {activeAudience.description}
-                </p>
               </div>
 
-              {/* Lista de beneficios clave con íconos vectoriales */}
-              <div className="space-y-3.5 pt-1">
+              {/* Checklist de puntos clave con énfasis visual destacado */}
+              <div className="space-y-3 pt-1">
                 {activeAudience.points.map((point, index) => (
                   <div
                     key={index}
-                    className="flex items-start gap-3 rounded-2xl border border-line/10 bg-base/50 p-3.5 transition-colors dark:border-white/[0.05] dark:bg-[#070E22]/60"
+                    className="group/item flex items-start gap-3.5 rounded-2xl border border-line/15 bg-card/70 p-4 shadow-sm transition-all duration-200 hover:border-brand-from/40 hover:shadow-md dark:border-white/[0.08] dark:bg-[#070E22]/80 dark:hover:border-white/20"
                   >
-                    <div className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-brand-gradient text-white shadow-sm">
-                      <CheckCircle2 className="h-4 w-4" />
+                    <div className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-xl bg-brand-gradient text-white shadow-sm transition-transform group-hover/item:scale-110">
+                      <CheckCircle2 className="h-4 w-4 stroke-[2.5]" />
                     </div>
                     <div>
-                      <h4 className="text-sm font-bold text-ink">{point.title}</h4>
-                      <p className="mt-0.5 text-xs leading-relaxed text-body dark:text-[#A8B0C5]">
+                      <h4 className="text-sm font-bold text-ink sm:text-base">{point.title}</h4>
+                      <p className="section-subtitle mt-0.5 text-xs sm:text-sm leading-relaxed">
                         {point.desc}
                       </p>
                     </div>

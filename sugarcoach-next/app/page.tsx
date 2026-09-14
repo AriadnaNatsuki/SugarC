@@ -8,7 +8,6 @@ import { StatsSection } from "@/components/landing/StatsSection";
 import { TreatmentSection } from "@/components/landing/TreatmentSection";
 import { SecuritySection } from "@/components/landing/SecuritySection";
 import { PricingSection } from "@/components/landing/PricingSection";
-import { ModesSection } from "@/components/landing/ModesSection";
 import { AboutSection } from "@/components/landing/AboutSection";
 import { CtaSection, FaqSection } from "@/components/landing/FaqCta";
 import { Footer } from "@/components/landing/Footer";
@@ -26,7 +25,6 @@ export default function HomePage() {
       <TreatmentSection />
       <SecuritySection />
       <PricingSection />
-      <ModesSection />
       <AboutSection />
       <CtaSection />
       <FaqSection />
