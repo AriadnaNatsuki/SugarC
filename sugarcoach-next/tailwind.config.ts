@@ -20,7 +20,6 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        base: withAlpha("--sc-base"),
         alt: withAlpha("--sc-alt"),
         footer: withAlpha("--sc-footer"),
         card: withAlpha("--sc-card"),
@@ -37,6 +36,12 @@ const config: Config = {
           purple: "#732995",
           blue: "#155EB2",
         },
+      },
+      backgroundColor: {
+        base: withAlpha("--sc-base"),
+      },
+      borderColor: {
+        base: withAlpha("--sc-base"),
       },
       backgroundImage: {
         "brand-gradient": "linear-gradient(90deg, #DA44AF 0%, #C747CA 100%)",

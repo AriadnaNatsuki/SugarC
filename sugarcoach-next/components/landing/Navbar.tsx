@@ -13,8 +13,7 @@ const LINKS = [
   { href: "#familias", label: "Para familias" },
   { href: "#profesionales", label: "Profesionales" },
   { href: "#planes", label: "Planes" },
-  { href: "#quienes-somos", label: "Quiénes somos" },
-  { href: "#faq", label: "Preguntas frecuentes" },
+  { href: "#preguntas-frecuentes", label: "Preguntas frecuentes" },
 ];
 
 export function Navbar() {
@@ -43,7 +42,7 @@ export function Navbar() {
           </Link>
           <Link href="#descargar">
             <Button variant="gradient" size="sm" className="hidden sm:inline-flex">
-              <Download /> Descargar SugarCoach
+              <Download /> Descargar App
             </Button>
           </Link>
           <Sheet open={open} onOpenChange={setOpen}>

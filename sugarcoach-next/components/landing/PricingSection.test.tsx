@@ -29,11 +29,11 @@ describe("PricingSection", () => {
     const user = userEvent.setup();
     renderWithClient();
 
-    // Espera a que cargue el mock (latencia simulada 700ms)
-    const monthlyPrice = await screen.findByText(/6,99/i, undefined, { timeout: 3000 });
+    // Espera a que cargue el precio mensual
+    const monthlyPrice = await screen.findByText(/5 USD/i, undefined, { timeout: 3000 });
     expect(monthlyPrice).toBeInTheDocument();
 
     await user.click(screen.getByRole("tab", { name: /anual/i }));
-    expect(await screen.findByText(/69,90/i, undefined, { timeout: 3000 })).toBeInTheDocument();
+    expect(await screen.findByText(/50 USD/i, undefined, { timeout: 3000 })).toBeInTheDocument();
   });
 });

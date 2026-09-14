@@ -28,7 +28,7 @@ export function Footer() {
               >
                 <Smartphone className="h-5 w-5" aria-hidden="true" />
                 <span className="flex flex-col text-left leading-tight">
-                  <span className="text-[10px] text-muted">Descárgalo en</span>
+                  <span className="text-[10px] opacity-75">Descárgalo en</span>
                   <span className="font-bold">App Store</span>
                 </span>
               </a>
@@ -38,7 +38,7 @@ export function Footer() {
               >
                 <Play className="h-5 w-5" aria-hidden="true" />
                 <span className="flex flex-col text-left leading-tight">
-                  <span className="text-[10px] text-muted">Disponible en</span>
+                  <span className="text-[10px] opacity-75">Disponible en</span>
                   <span className="font-bold">Google Play</span>
                 </span>
               </a>

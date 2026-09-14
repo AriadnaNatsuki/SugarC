@@ -57,27 +57,22 @@ export const mockFaqs: Faq[] = [
   {
     question: "¿SugarCoach es solo para niños?",
     answer:
-      "No. Acompaña a niños, jóvenes y adultos. Las familias pueden sincronizarse y los profesionales reciben reportes claros.",
+      "No, está pensado tanto para niños y adolescentes como para adultos independientes y familias que acompañan. Su diseño es cálido y motivador sin caer en infantilismos.",
   },
   {
-    question: "¿Reemplaza el consejo médico?",
+    question: "¿Mi familia puede ver mis datos en tiempo real?",
     answer:
-      "No. SugarCoach es una herramienta educativa y de gestión. Siempre consultá a tu diabetólogo/a ante cambios de tratamiento.",
+      "Sí, podés vincular a padres, cuidadores o parejas para que reciban avisos o vean resúmenes según los permisos que configures, garantizando tranquilidad sin invadir la privacidad.",
   },
   {
-    question: "¿Cómo funciona la gamificación?",
+    question: "¿Puedo compartir información con mi médico?",
     answer:
-      "Premiamos la constancia de registrar (+100 puntos por registro completo, niveles y estrellas). Nunca juzgamos valores de glucosa: son información médica, no calificaciones.",
+      "Totalmente. Podés exportar resúmenes claros con Tiempo en Rango (TIR) y relaciones de glucosa vs. insulina para agilizar la consulta clínica.",
   },
   {
-    question: "¿Puedo llevar reportes a mi consulta?",
+    question: "¿Qué datos puedo registrar en la app?",
     answer:
-      "Sí. Podés exportar resúmenes con Tiempo en Rango (TIR) y relaciones de glucosa vs. insulina para agilizar la consulta.",
-  },
-  {
-    question: "¿Mis datos están protegidos?",
-    answer:
-      "Tus registros viajan cifrados, vos controlás los accesos y nunca vendemos datos a aseguradoras ni intermediarios.",
+      "Glucosa capilar o continua, dosis de insulina basal y rápida, carbohidratos consumidos con fotos opcionales, tipo de actividad física y estado de ánimo diario.",
   },
 ];
 

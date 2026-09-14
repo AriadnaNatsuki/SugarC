@@ -38,7 +38,7 @@ export function ModesSection() {
         <Reveal className="mx-auto mb-10 flex max-w-2xl flex-col items-center text-center">
           <Badge variant="brand" className="mb-2">3 modos de color</Badge>
           <h2 className="text-3xl font-extrabold tracking-tight">Legible para todas las miradas</h2>
-          <p className="mt-2 text-body">Claro, oscuro y accesible: la misma historia, adaptada a tu comodidad visual.</p>
+          <p className="section-subtitle mt-2 leading-relaxed">Claro, oscuro y accesible: la misma historia, adaptada a tu comodidad visual.</p>
         </Reveal>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
           {MODES.map((m, i) => {

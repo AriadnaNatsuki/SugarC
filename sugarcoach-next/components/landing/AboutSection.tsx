@@ -16,7 +16,7 @@ export function AboutSection() {
       <Reveal className="mx-auto mb-10 flex max-w-2xl flex-col items-center text-center">
         <Badge variant="brand" className="mb-2">Quiénes somos</Badge>
         <h2 className="text-3xl font-extrabold tracking-tight">Nacimos de una historia real</h2>
-        <p className="mt-2 text-body">
+        <p className="section-subtitle mt-2 leading-relaxed">
           Hecho por familias, para familias. Liderazgo tecnológico, ingeniería,
           compromiso social y vivencia directa en cada decisión.
         </p>

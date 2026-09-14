@@ -201,11 +201,38 @@ html.a11y {
     background-color 0.15s ease;
   transform-origin: top left;
 }
+.a11y p.text-center,
+.a11y .text-center p {
+  transform-origin: center center !important;
+}
 .a11y p:hover,
 .a11y li:hover {
-  transform: scale(1.16);
+  transform: scale(1.12);
   position: relative;
   z-index: 20;
   background-color: rgba(0, 0, 0, 0.05);
   border-radius: 0.5rem;
 }
+
+/* Subtítulos de sección adaptados a modo claro, oscuro y accesibilidad */
+.section-subtitle,
+.landing-subtitle {
+  color: #334155 !important; /* slate-700 en modo claro: excelente legibilidad y alto contraste (>7:1) */
+}
+.dark .section-subtitle,
+.dark .landing-subtitle {
+  color: #a8b0c5 !important; /* slate suave en modo oscuro para evitar fatiga visual */
+}
+.a11y .section-subtitle,
+.a11y .landing-subtitle {
+  color: #000000 !important; /* Negro absoluto en accesibilidad (WCAG AAA) */
+  font-weight: 600 !important;
+}
+
+/* Blindaje contra colisiones: text-base / sm:text-base son utilidades tipográficas de tamaño (1rem) */
+.text-base,
+.sm\:text-base {
+  color: inherit !important;
+}
+
+

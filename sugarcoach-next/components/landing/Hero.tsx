@@ -27,10 +27,14 @@ export function Hero() {
             <Star className="h-4 w-4 fill-amber-400 text-amber-400" />
             Compañero diario para niños, jóvenes y familias
           </span>
-          <h1 className="text-4xl font-extrabold leading-[44px] tracking-tight md:text-5xl md:leading-[56px]">
-            Cuidar tu diabetes puede sentirse más <span className="text-brand-gradient">simple</span>.
+          <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl md:text-5xl md:leading-[56px]">
+            Cuidar tu diabetes puede sentirse más{" "}
+            <span className="text-brand-gradient underline decoration-[#2BC5C7] decoration-wavy underline-offset-8">
+              simple
+            </span>
+            .
           </h1>
-          <p className="max-w-xl text-[17px] leading-[26px] text-body">
+          <p className="section-subtitle max-w-xl text-sm sm:text-base md:text-lg leading-relaxed">
             SugarCoach te ayuda a registrar tus controles, sumar puntos por tu constancia,
             organizar reportes médicos y mantener conectada a tu familia. Con calidez,
             gamificación positiva y sin estrés clínico.
@@ -38,7 +42,7 @@ export function Hero() {
           <div className="flex flex-col gap-3 sm:flex-row">
             <Link href="#descargar">
               <Button variant="gradient" size="lg" className="w-full sm:w-auto">
-                <Download /> Descargar SugarCoach gratis
+                <Download /> Descargar App gratis
               </Button>
             </Link>
             <Link href="#como-funciona">
@@ -81,7 +85,7 @@ export function Hero() {
             animate={reduceMotion ? undefined : "animate"}
             className="absolute -top-2 left-2 z-30 flex items-center gap-3 rounded-2xl border border-line/10 bg-card/90 px-4 py-3 shadow-2xl backdrop-blur sm:-left-4"
           >
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-500/20 text-emerald-300">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-500/20 text-emerald-700 dark:text-emerald-300">
               <TrendingDown className="h-5 w-5" />
             </div>
             <div className="flex flex-col">
@@ -90,8 +94,8 @@ export function Hero() {
             </div>
           </motion.div>
           <div className="absolute bottom-10 -left-4 z-30 flex items-center gap-3 rounded-2xl border border-line/10 bg-card/90 px-4 py-3 shadow-2xl backdrop-blur sm:-left-8">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-amber-400/20 text-amber-300">
-              <Star className="h-5 w-5 fill-amber-300" />
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-amber-400/20 text-amber-700 dark:text-amber-300">
+              <Star className="h-5 w-5 fill-amber-500 dark:fill-amber-300 text-amber-600 dark:text-amber-300" />
             </div>
             <div className="flex flex-col">
               <span className="font-bold text-ink">1100 pts • Nivel 1</span>
@@ -99,7 +103,7 @@ export function Hero() {
             </div>
           </div>
           <div className="absolute right-0 top-1/3 z-30 hidden items-center gap-3 rounded-2xl border border-line/10 bg-card/90 px-4 py-3 shadow-2xl backdrop-blur sm:flex">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-sky-500/20 text-sky-300">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-sky-500/20 text-sky-700 dark:text-sky-300">
               <Users className="h-5 w-5" />
             </div>
             <div className="flex flex-col">

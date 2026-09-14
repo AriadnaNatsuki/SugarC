@@ -1,12 +1,16 @@
 import { Navbar } from "@/components/landing/Navbar";
 import { Hero } from "@/components/landing/Hero";
-import { FeaturesSection } from "@/components/landing/FeaturesSection";
+import { UserTypesSection } from "@/components/landing/UserTypesSection";
 import { HowItWorksSection } from "@/components/landing/HowItWorksSection";
+import { GamificationSection } from "@/components/landing/GamificationSection";
+import { DailyMomentsSection } from "@/components/landing/DailyMomentsSection";
+import { StatsSection } from "@/components/landing/StatsSection";
+import { TreatmentSection } from "@/components/landing/TreatmentSection";
+import { SecuritySection } from "@/components/landing/SecuritySection";
 import { PricingSection } from "@/components/landing/PricingSection";
-import { DualAudienceSection } from "@/components/landing/DualAudienceSection";
 import { ModesSection } from "@/components/landing/ModesSection";
 import { AboutSection } from "@/components/landing/AboutSection";
-import { FaqSection, CtaSection } from "@/components/landing/FaqCta";
+import { CtaSection, FaqSection } from "@/components/landing/FaqCta";
 import { Footer } from "@/components/landing/Footer";
 
 export default function HomePage() {
@@ -14,14 +18,18 @@ export default function HomePage() {
     <main className="min-h-screen bg-base pt-20">
       <Navbar />
       <Hero />
-      <FeaturesSection />
+      <UserTypesSection />
       <HowItWorksSection />
+      <GamificationSection />
+      <DailyMomentsSection />
+      <StatsSection />
+      <TreatmentSection />
+      <SecuritySection />
       <PricingSection />
-      <DualAudienceSection />
       <ModesSection />
       <AboutSection />
-      <FaqSection />
       <CtaSection />
+      <FaqSection />
       <Footer />
     </main>
   );
