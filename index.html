@@ -1,6 +1,17 @@
 <!DOCTYPE html>
 
-<html class="dark" lang="es"><head>
+<html lang="es"><head>
+<script>
+  (function() {
+    var wantsDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    var wantsMoreContrast = window.matchMedia && window.matchMedia('(prefers-contrast: more)').matches;
+    if (wantsMoreContrast) {
+      document.documentElement.classList.add('a11y');
+    } else if (wantsDark) {
+      document.documentElement.classList.add('dark');
+    }
+  })();
+</script>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
@@ -8,8 +19,233 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <style>
+    :root {
+      --c-accent-yellow: #f59e0b;
+      --c-background: #fcf8ff;
+      --c-bg-canvas: #fcf8ff;
+      --c-bg-deep: #fcf8ff;
+      --c-border-glow: #c8c4d7;
+      --c-border-subtle: #c8c4d7;
+      --c-error: #ba1a1a;
+      --c-error-container: #ffdad6;
+      --c-inverse-on-surface: #f3eeff;
+      --c-inverse-primary: #c5c0ff;
+      --c-inverse-surface: #302e45;
+      --c-neon-cyan: #006a66;
+      --c-neon-magenta: #4b3bcb;
+      --c-neon-magenta-alt: #4b3bcb;
+      --c-on-background: #1b192f;
+      --c-on-error: #ffffff;
+      --c-on-error-container: #93000a;
+      --c-on-primary: #ffffff;
+      --c-on-primary-container: #f2edff;
+      --c-on-primary-fixed: #140067;
+      --c-on-primary-fixed-variant: #3c29bd;
+      --c-on-secondary: #ffffff;
+      --c-on-secondary-container: #00716d;
+      --c-on-secondary-fixed: #00201f;
+      --c-on-secondary-fixed-variant: #00504d;
+      --c-on-surface: #1b192f;
+      --c-on-surface-variant: #474554;
+      --c-on-tertiary: #ffffff;
+      --c-on-tertiary-container: #ffebe9;
+      --c-on-tertiary-fixed: #410003;
+      --c-on-tertiary-fixed-variant: #86211e;
+      --c-outline: #787586;
+      --c-outline-variant: #c8c4d7;
+      --c-primary: #4b3bcb;
+      --c-primary-container: #6457e5;
+      --c-primary-fixed: #e3dfff;
+      --c-primary-fixed-dim: #c5c0ff;
+      --c-secondary: #006a66;
+      --c-secondary-container: #6bf8f1;
+      --c-secondary-fixed: #6bf8f1;
+      --c-secondary-fixed-dim: #47dbd5;
+      --c-surface: #fcf8ff;
+      --c-surface-bright: #fcf8ff;
+      --c-surface-container: #f0ebff;
+      --c-surface-container-high: #eae5ff;
+      --c-surface-container-highest: #e4dffe;
+      --c-surface-container-low: #f6f1ff;
+      --c-surface-container-lowest: #ffffff;
+      --c-surface-dim: #dbd6f5;
+      --c-surface-tier-1: #f6f1ff;
+      --c-surface-tier-2: #f0ebff;
+      --c-surface-tier-3: #eae5ff;
+      --c-surface-tint: #5547d6;
+      --c-surface-variant: #e4dffe;
+      --c-tertiary: #992f2a;
+      --c-tertiary-container: #ba4640;
+      --c-tertiary-fixed: #ffdad6;
+      --c-tertiary-fixed-dim: #ffb3ac;
+      --c-text-primary: #1b192f;
+      --c-text-secondary: #474554;
+      --c-text-tertiary: #787586;
+    }
+    .dark {
+      --c-accent-yellow: #f6c744;
+      --c-background: #050B1D;
+      --c-bg-canvas: #08122B;
+      --c-bg-deep: #050B1D;
+      --c-border-glow: rgba(196, 92, 255, 0.25);
+      --c-border-subtle: rgba(255, 255, 255, 0.08);
+      --c-error: #ffb4ab;
+      --c-error-container: #93000a;
+      --c-inverse-on-surface: #050B1D;
+      --c-inverse-primary: #9020cb;
+      --c-inverse-surface: #F7F8FC;
+      --c-neon-cyan: #3dd9f5;
+      --c-neon-magenta: #ff3fb4;
+      --c-neon-magenta-alt: #e84698;
+      --c-on-background: #F7F8FC;
+      --c-on-error: #690005;
+      --c-on-error-container: #ffdad6;
+      --c-on-primary: #ffffff;
+      --c-on-primary-container: #ffffff;
+      --c-on-primary-fixed: #30004a;
+      --c-on-primary-fixed-variant: #7100a5;
+      --c-on-secondary: #003737;
+      --c-on-secondary-container: #004141;
+      --c-on-secondary-fixed: #002020;
+      --c-on-secondary-fixed-variant: #004f50;
+      --c-on-surface: #F7F8FC;
+      --c-on-surface-variant: #A8B0C5;
+      --c-on-tertiary: #620041;
+      --c-on-tertiary-container: #560039;
+      --c-on-tertiary-fixed: #3d0027;
+      --c-on-tertiary-fixed-variant: #8a005d;
+      --c-outline: #747F9B;
+      --c-outline-variant: rgba(255, 255, 255, 0.12);
+      --c-primary: #C45CFF;
+      --c-primary-container: #A94FCE;
+      --c-primary-fixed: #f5d9ff;
+      --c-primary-fixed-dim: #e7b4ff;
+      --c-secondary: #2BC5C7;
+      --c-secondary-container: #00b5b7;
+      --c-secondary-fixed: #6ef7f8;
+      --c-secondary-fixed-dim: #4bdadc;
+      --c-surface: #050B1D;
+      --c-surface-bright: #1E2A4F;
+      --c-surface-container: #0D1733;
+      --c-surface-container-high: #111D3D;
+      --c-surface-container-highest: #172344;
+      --c-surface-container-low: #08122B;
+      --c-surface-container-lowest: #030716;
+      --c-surface-dim: #050B1D;
+      --c-surface-tier-1: #0D1733;
+      --c-surface-tier-2: #111D3D;
+      --c-surface-tier-3: #172344;
+      --c-surface-tint: #C45CFF;
+      --c-surface-variant: #111D3D;
+      --c-tertiary: #ffafd4;
+      --c-tertiary-container: #ff3fb4;
+      --c-tertiary-fixed: #ffd8e7;
+      --c-tertiary-fixed-dim: #ffafd4;
+      --c-text-primary: #F7F8FC;
+      --c-text-secondary: #A8B0C5;
+      --c-text-tertiary: #747F9B;
+    }
+
+    .a11y {
+      --c-surface: #ffffff;
+      --c-background: #ffffff;
+      --c-surface-container-lowest: #ffffff;
+      --c-surface-container-low: #f5f5f5;
+      --c-surface-container: #eeeeee;
+      --c-surface-container-high: #e2e2e2;
+      --c-surface-container-highest: #d6d6d6;
+      --c-surface-dim: #e6e6e6;
+      --c-surface-bright: #ffffff;
+      --c-on-surface: #000000;
+      --c-on-background: #000000;
+      --c-on-surface-variant: #1a1a1a;
+      --c-outline: #1a1a1a;
+      --c-outline-variant: #333333;
+      --c-primary: #1e1266;
+      --c-on-primary: #ffffff;
+      --c-border-subtle: #333333;
+      --c-border-glow: #333333;
+    }
+    .a11y .border-surface-container { border-color: #333333 !important; border-width: 2px !important; }
+    .a11y [class*="text-amber-"] { color: #78350f !important; }
+    .a11y [class*="text-accent-yellow"] { color: #78350f !important; }
+    .a11y [class*="text-emerald-"] { color: #064e3b !important; }
+    .a11y [class*="text-indigo-"] { color: #312e81 !important; }
+    .a11y [class*="text-teal-"] { color: #134e4a !important; }
+    .a11y [class*="text-cyan-"] { color: #164e63 !important; }
+    .a11y [class*="text-rose-"] { color: #881337 !important; }
+    .a11y :focus-visible { outline-width: 3px !important; outline-color: #2f1f9e !important; }
+    .a11y [class*="blur-3xl"] { display: none !important; }
+    .a11y .gradient-text { background: none; -webkit-text-fill-color: currentColor; color: #1e1266; }
+    .a11y .text-display-lg { font-size: 55px !important; line-height: 64px !important; }
+    .a11y .text-headline-lg-mobile { font-size: 30px !important; line-height: 39px !important; }
+    .a11y .text-headline-md { font-size: 25px !important; line-height: 34px !important; }
+    .a11y .text-headline-sm { font-size: 21px !important; line-height: 30px !important; }
+    .a11y .text-label-lg { font-size: 16px !important; line-height: 23px !important; }
+    .a11y .text-body-md { font-size: 17px !important; line-height: 27px !important; }
+    .a11y .text-headline-lg { font-size: 36px !important; line-height: 46px !important; }
+    .a11y .text-label-sm { font-size: 13px !important; line-height: 16px !important; }
+    .a11y .text-label-md { font-size: 14px !important; line-height: 18px !important; }
+    .a11y .text-body-sm { font-size: 15px !important; line-height: 23px !important; }
+    .a11y .text-display-lg-mobile { font-size: 41px !important; line-height: 50px !important; }
+    .a11y .text-body-lg { font-size: 19px !important; line-height: 30px !important; }
+    .a11y button, .a11y a { transition: transform .15s ease, box-shadow .15s ease; }
+    .a11y button:hover, .a11y button:focus-visible,
+    .a11y a:hover, .a11y a:focus-visible {
+      transform: scale(1.18);
+      position: relative; z-index: 30;
+      box-shadow: 0 12px 28px -8px rgba(0,0,0,0.35);
+    }
+    .a11y .rounded-3xl, .a11y .faq-item { transition: transform .15s ease, box-shadow .15s ease; }
+    .a11y .rounded-3xl:hover, .a11y .rounded-3xl:focus-within,
+    .a11y .faq-item:hover, .a11y .faq-item:focus-within {
+      transform: scale(1.09);
+      position: relative; z-index: 25;
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.35);
+    }
+    .a11y p, .a11y li {
+      transition: transform .15s ease, background-color .15s ease;
+      transform-origin: top left;
+    }
+    .a11y p:hover, .a11y li:hover {
+      transform: scale(1.16);
+      position: relative; z-index: 20;
+      background-color: rgba(0,0,0,0.05);
+      border-radius: 0.5rem;
+    }
+    .theme-toggle {
+      width: 44px; height: 44px; border-radius: 9999px;
+      display: inline-flex; align-items: center; justify-content: center;
+      border: 1px solid var(--c-outline-variant);
+      background: var(--c-surface-container);
+      color: var(--c-on-surface);
+      cursor: pointer;
+      transition: background .15s ease, border-color .15s ease;
+    }
+    .theme-toggle:hover { background: var(--c-surface-container-high); }
+    .theme-menu {
+      position: absolute; right: 0; top: calc(100% + 8px); z-index: 60;
+      background: var(--c-surface-container-lowest);
+      border: 1px solid var(--c-outline-variant);
+      border-radius: 1rem;
+      box-shadow: 0 20px 40px -12px rgba(0,0,0,0.25);
+      padding: 6px; min-width: 168px;
+    }
+    .theme-menu-item {
+      display: flex; align-items: center; gap: 8px;
+      width: 100%; text-align: left; padding: 10px 12px; border-radius: 0.75rem;
+      background: none; border: none; cursor: pointer;
+      color: var(--c-on-surface-variant); font-size: 14px; font-weight: 600;
+      min-height: 44px;
+    }
+    .theme-menu-item:hover { background: var(--c-surface-container); color: var(--c-on-surface); }
+    .theme-menu-item[aria-current="true"] { background: var(--c-primary-container); color: var(--c-on-primary-container); }
+    .theme-toggle .icon-dark { display: none; }
+    .dark .theme-toggle .icon-light { display: none; }
+    .dark .theme-toggle .icon-dark { display: inline-block; }
+
     @layer base {
-      html, body { margin: 0; padding: 0; background-color: #050B1D; }
+      html, body { margin: 0; padding: 0; background-color: var(--c-background); }
       body { overscroll-behavior: none; }
       main > :first-child { margin-top: 0 !important; }
       main > :last-child { margin-bottom: 0 !important; }
@@ -39,67 +275,67 @@
     theme: {
       extend: {
         "colors": {
-          "on-tertiary-fixed": "#3d0027",
-          "primary-fixed": "#f5d9ff",
-          "on-secondary": "#003737",
-          "surface-variant": "#111D3D",
-          "inverse-primary": "#9020cb",
-          "bg-canvas": "#08122B",
-          "on-surface": "#F7F8FC",
-          "on-error": "#690005",
-          "tertiary-fixed-dim": "#ffafd4",
-          "tertiary": "#ffafd4",
-          "surface-tier-1": "#0D1733",
-          "secondary-container": "#00b5b7",
-          "surface": "#050B1D",
-          "on-primary": "#ffffff",
-          "surface-bright": "#1E2A4F",
-          "border-subtle": "rgba(255, 255, 255, 0.08)",
-          "secondary-fixed-dim": "#4bdadc",
-          "bg-deep": "#050B1D",
-          "on-tertiary": "#620041",
-          "surface-container-low": "#08122B",
-          "on-tertiary-container": "#560039",
-          "tertiary-container": "#ff3fb4",
-          "primary-fixed-dim": "#e7b4ff",
-          "neon-cyan": "#3dd9f5",
-          "inverse-on-surface": "#050B1D",
-          "on-primary-fixed-variant": "#7100a5",
-          "surface-tier-2": "#111D3D",
-          "primary": "#C45CFF",
-          "surface-tier-3": "#172344",
-          "outline": "#747F9B",
-          "inverse-surface": "#F7F8FC",
-          "text-primary": "#F7F8FC",
-          "accent-yellow": "#f6c744",
-          "outline-variant": "rgba(255, 255, 255, 0.12)",
-          "primary-container": "#A94FCE",
-          "text-tertiary": "#747F9B",
-          "on-error-container": "#ffdad6",
-          "neon-magenta-alt": "#e84698",
-          "on-secondary-fixed-variant": "#004f50",
-          "surface-dim": "#050B1D",
-          "neon-magenta": "#ff3fb4",
-          "border-glow": "rgba(196, 92, 255, 0.25)",
-          "error-container": "#93000a",
-          "surface-container-lowest": "#030716",
-          "secondary": "#2BC5C7",
-          "text-secondary": "#A8B0C5",
-          "on-secondary-fixed": "#002020",
-          "error": "#ffb4ab",
-          "surface-container": "#0D1733",
-          "background": "#050B1D",
-          "on-background": "#F7F8FC",
-          "tertiary-fixed": "#ffd8e7",
-          "secondary-fixed": "#6ef7f8",
-          "on-primary-container": "#ffffff",
-          "surface-container-high": "#111D3D",
-          "on-secondary-container": "#004141",
-          "on-primary-fixed": "#30004a",
-          "surface-container-highest": "#172344",
-          "on-tertiary-fixed-variant": "#8a005d",
-          "on-surface-variant": "#A8B0C5",
-          "surface-tint": "#C45CFF"
+          "accent-yellow": "var(--c-accent-yellow)",
+          "background": "var(--c-background)",
+          "bg-canvas": "var(--c-bg-canvas)",
+          "bg-deep": "var(--c-bg-deep)",
+          "border-glow": "var(--c-border-glow)",
+          "border-subtle": "var(--c-border-subtle)",
+          "error": "var(--c-error)",
+          "error-container": "var(--c-error-container)",
+          "inverse-on-surface": "var(--c-inverse-on-surface)",
+          "inverse-primary": "var(--c-inverse-primary)",
+          "inverse-surface": "var(--c-inverse-surface)",
+          "neon-cyan": "var(--c-neon-cyan)",
+          "neon-magenta": "var(--c-neon-magenta)",
+          "neon-magenta-alt": "var(--c-neon-magenta-alt)",
+          "on-background": "var(--c-on-background)",
+          "on-error": "var(--c-on-error)",
+          "on-error-container": "var(--c-on-error-container)",
+          "on-primary": "var(--c-on-primary)",
+          "on-primary-container": "var(--c-on-primary-container)",
+          "on-primary-fixed": "var(--c-on-primary-fixed)",
+          "on-primary-fixed-variant": "var(--c-on-primary-fixed-variant)",
+          "on-secondary": "var(--c-on-secondary)",
+          "on-secondary-container": "var(--c-on-secondary-container)",
+          "on-secondary-fixed": "var(--c-on-secondary-fixed)",
+          "on-secondary-fixed-variant": "var(--c-on-secondary-fixed-variant)",
+          "on-surface": "var(--c-on-surface)",
+          "on-surface-variant": "var(--c-on-surface-variant)",
+          "on-tertiary": "var(--c-on-tertiary)",
+          "on-tertiary-container": "var(--c-on-tertiary-container)",
+          "on-tertiary-fixed": "var(--c-on-tertiary-fixed)",
+          "on-tertiary-fixed-variant": "var(--c-on-tertiary-fixed-variant)",
+          "outline": "var(--c-outline)",
+          "outline-variant": "var(--c-outline-variant)",
+          "primary": "var(--c-primary)",
+          "primary-container": "var(--c-primary-container)",
+          "primary-fixed": "var(--c-primary-fixed)",
+          "primary-fixed-dim": "var(--c-primary-fixed-dim)",
+          "secondary": "var(--c-secondary)",
+          "secondary-container": "var(--c-secondary-container)",
+          "secondary-fixed": "var(--c-secondary-fixed)",
+          "secondary-fixed-dim": "var(--c-secondary-fixed-dim)",
+          "surface": "var(--c-surface)",
+          "surface-bright": "var(--c-surface-bright)",
+          "surface-container": "var(--c-surface-container)",
+          "surface-container-high": "var(--c-surface-container-high)",
+          "surface-container-highest": "var(--c-surface-container-highest)",
+          "surface-container-low": "var(--c-surface-container-low)",
+          "surface-container-lowest": "var(--c-surface-container-lowest)",
+          "surface-dim": "var(--c-surface-dim)",
+          "surface-tier-1": "var(--c-surface-tier-1)",
+          "surface-tier-2": "var(--c-surface-tier-2)",
+          "surface-tier-3": "var(--c-surface-tier-3)",
+          "surface-tint": "var(--c-surface-tint)",
+          "surface-variant": "var(--c-surface-variant)",
+          "tertiary": "var(--c-tertiary)",
+          "tertiary-container": "var(--c-tertiary-container)",
+          "tertiary-fixed": "var(--c-tertiary-fixed)",
+          "tertiary-fixed-dim": "var(--c-tertiary-fixed-dim)",
+          "text-primary": "var(--c-text-primary)",
+          "text-secondary": "var(--c-text-secondary)",
+          "text-tertiary": "var(--c-text-tertiary)"
         },
         "borderRadius": {
           "DEFAULT": "0.5rem",
@@ -160,23 +396,39 @@
 </head>
 <body class="bg-bg-deep font-body-md text-body-md text-on-surface antialiased selection:bg-neon-magenta selection:text-white">
 <!-- HEADER CON LOGO OFICIAL REAL -->
-<header class="fixed top-0 left-0 w-full z-50 bg-[#050B1D]/85 backdrop-blur-xl border-b border-white/[0.08] shadow-[0_10px_35px_-10px_rgba(0,0,0,0.6)]">
+<header class="fixed top-0 left-0 w-full z-50 bg-bg-deep/85 backdrop-blur-xl border-b border-border-subtle shadow-[0_10px_35px_-10px_rgba(0,0,0,0.6)]">
 <div class="h-20 max-w-[1200px] mx-auto px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop flex items-center justify-between gap-space-md">
 <a class="flex items-center gap-2 group" data-path="home" href="#">
-<div class="p-1.5 rounded-xl bg-white/[0.05] border border-white/10 group-hover:border-primary/40 transition-colors">
+<div class="p-1.5 rounded-xl bg-surface-container/60 border border-border-subtle group-hover:border-primary/40 transition-colors">
 <img alt="SugarCoach Logo Oficial" class="h-8 md:h-9 w-auto object-contain transition-transform group-hover:scale-105 filter drop-shadow-[0_2px_8px_rgba(196,92,255,0.3)]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8eBq5eQzruXAMaTMxS_mzvsFb1bqQZoOJo_sgOORoLvheBayGVtP9dU7nDlzZYdwZNQVwTFYYgeROtKpHUd1AImgnm6weuGvK1fVq8Rte1_6VEX-q6TbSPSXGHx6Ci4lM-0u6rOEMnhiK0p02cLKkkUgEoaJA6YZL42b_J_b_Q6_OlBBhwX0Gl4_PGoGXnzigYnGuFOeFzt-FYxPdTaszPfoxlDiG_Cm7bBP6Wak5E5MbhnWDv7ctpxYvr0LgzU8JkQ"/>
 </div>
 </a>
 <nav class="hidden lg:flex items-center gap-space-lg">
-<a class="font-label-lg text-label-lg text-text-secondary hover:text-white transition-colors" data-path="como-funciona" href="#como-funciona">Cómo funciona</a>
-<a class="font-label-lg text-label-lg text-text-secondary hover:text-white transition-colors" data-path="para-familias" href="#familias">Para familias</a>
-<a class="font-label-lg text-label-lg text-text-secondary hover:text-white transition-colors" data-path="profesionales" href="#profesionales">Profesionales</a>
-<a class="font-label-lg text-label-lg text-text-secondary hover:text-white transition-colors" data-path="gamificacion" href="#gamificacion">Logros</a>
-<a class="font-label-lg text-label-lg text-text-secondary hover:text-white transition-colors" data-path="tratamiento" href="#tratamiento">Tratamiento</a>
-<a class="font-label-lg text-label-lg text-text-secondary hover:text-white transition-colors" data-path="preguntas-frecuentes" href="#preguntas-frecuentes">Preguntas frecuentes</a>
+<a class="font-label-lg text-label-lg text-text-secondary hover:text-primary transition-colors" data-path="como-funciona" href="#como-funciona">Cómo funciona</a>
+<a class="font-label-lg text-label-lg text-text-secondary hover:text-primary transition-colors" data-path="para-familias" href="#familias">Para familias</a>
+<a class="font-label-lg text-label-lg text-text-secondary hover:text-primary transition-colors" data-path="profesionales" href="#profesionales">Profesionales</a>
+<a class="font-label-lg text-label-lg text-text-secondary hover:text-primary transition-colors" data-path="gamificacion" href="#gamificacion">Logros</a>
+<a class="font-label-lg text-label-lg text-text-secondary hover:text-primary transition-colors" data-path="tratamiento" href="#tratamiento">Tratamiento</a>
+<a class="font-label-lg text-label-lg text-text-secondary hover:text-primary transition-colors" data-path="preguntas-frecuentes" href="#preguntas-frecuentes">Preguntas frecuentes</a>
 </nav>
 <div class="flex items-center gap-space-md">
-<a class="hidden sm:inline-flex font-label-lg text-label-lg text-text-secondary hover:text-white transition-colors" data-path="login" href="#">Iniciar sesión</a>
+<div class="relative">
+<button aria-haspopup="true" aria-expanded="false" aria-controls="themeMenu" class="theme-toggle" id="themeMenuBtn" type="button">
+<span class="material-symbols-outlined" style="font-size:20px">contrast</span>
+</button>
+<div id="themeMenu" role="menu" aria-label="Modo de color" class="theme-menu hidden" hidden>
+<button role="menuitemradio" data-theme="light" class="theme-menu-item" type="button">
+<span class="material-symbols-outlined" style="font-size:18px">light_mode</span> Claro
+</button>
+<button role="menuitemradio" data-theme="dark" class="theme-menu-item" type="button">
+<span class="material-symbols-outlined" style="font-size:18px">dark_mode</span> Oscuro
+</button>
+<button role="menuitemradio" data-theme="a11y" class="theme-menu-item" type="button">
+<span class="material-symbols-outlined" style="font-size:18px">accessibility_new</span> Accesible
+</button>
+</div>
+</div>
+<a class="hidden sm:inline-flex font-label-lg text-label-lg text-text-secondary hover:text-primary transition-colors" data-path="login" href="#">Iniciar sesión</a>
 <a class="inline-flex items-center justify-center px-space-lg py-space-xs min-h-[44px] rounded-full btn-gradient text-white font-label-lg text-label-lg transition-all active:scale-95 gap-2 border border-white/20" data-path="descargar" href="#descargar">
 <span class="material-symbols-outlined text-[18px]">download</span>
           Descargar SugarCoach
@@ -189,14 +441,14 @@
 <!-- 1. HERO SECTION CON PANTALLAS REALES -->
 <div class="relative w-full overflow-hidden bg-bg-deep">
 <!-- Subtle radial ambient glow halos behind hero -->
-<div class="absolute -top-24 left-1/4 w-[520px] h-[520px] bg-[#C45CFF]/15 rounded-full blur-[140px] pointer-events-none"></div>
-<div class="absolute top-48 right-10 w-[460px] h-[460px] bg-[#FF3FB4]/15 rounded-full blur-[150px] pointer-events-none"></div>
-<div class="absolute top-72 left-[-100px] w-[400px] h-[400px] bg-[#2BC5C7]/10 rounded-full blur-[130px] pointer-events-none"></div>
+<div class="absolute -top-24 left-1/4 w-[520px] h-[520px] bg-primary/15 rounded-full blur-[140px] pointer-events-none"></div>
+<div class="absolute top-48 right-10 w-[460px] h-[460px] bg-neon-magenta/15 rounded-full blur-[150px] pointer-events-none"></div>
+<div class="absolute top-72 left-[-100px] w-[400px] h-[400px] bg-secondary/10 rounded-full blur-[130px] pointer-events-none"></div>
 <section class="max-w-[1200px] mx-auto px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop pt-space-xl md:pt-space-2xl pb-space-3xl relative z-10">
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-2xl items-center">
 <!-- Hero Left: Propuesta de Valor -->
 <div class="lg:col-span-6 flex flex-col gap-space-lg">
-<div class="inline-flex items-center gap-space-xs px-3.5 py-1.5 rounded-full bg-surface-tier-1 text-primary w-fit shadow-md border border-white/[0.08] backdrop-blur-md">
+<div class="inline-flex items-center gap-space-xs px-3.5 py-1.5 rounded-full bg-surface-tier-1 text-primary w-fit shadow-md border border-border-subtle backdrop-blur-md">
 <span class="material-symbols-outlined text-[18px] text-accent-yellow" style="font-variation-settings: 'FILL' 1;">star</span>
 <span class="font-label-md text-label-md font-bold tracking-tight text-text-primary">Compañero diario para niños, jóvenes y familias</span>
 </div>
@@ -211,7 +463,7 @@
 <span class="material-symbols-outlined text-[20px]">download</span>
                   Descargar SugarCoach gratis
                 </a>
-<a class="inline-flex items-center justify-center gap-space-xs px-space-xl py-4 rounded-full bg-white/[0.04] text-text-primary border border-white/[0.18] font-label-lg text-label-lg hover:bg-white/[0.08] hover:border-white/30 active:scale-[0.98] transition-all" href="#como-funciona">
+<a class="inline-flex items-center justify-center gap-space-xs px-space-xl py-4 rounded-full bg-surface-container text-on-surface border border-outline-variant font-label-lg text-label-lg hover:bg-surface-container-high hover:border-outline active:scale-[0.98] transition-all" href="#como-funciona">
 <span class="material-symbols-outlined text-[20px] text-primary">play_circle</span>
                   Ver cómo funciona
                 </a>
@@ -219,10 +471,10 @@
 <!-- Social Proof y Métricas Reales -->
 <div class="flex items-center gap-space-lg pt-space-md">
 <div class="flex -space-x-3">
-<div class="w-10 h-10 rounded-full bg-[#1A3B4E] border-2 border-bg-deep flex items-center justify-center text-secondary font-label-md font-bold shadow-sm">LF</div>
-<div class="w-10 h-10 rounded-full bg-[#3B1E54] border-2 border-bg-deep flex items-center justify-center text-primary font-label-md font-bold shadow-sm">MA</div>
-<div class="w-10 h-10 rounded-full bg-[#4E1E3B] border-2 border-bg-deep flex items-center justify-center text-neon-magenta font-label-md font-bold shadow-sm">SR</div>
-<div class="w-10 h-10 rounded-full bg-surface-tier-2 border-2 border-bg-deep flex items-center justify-center text-white font-label-md font-bold shadow-sm">+8k</div>
+<div class="w-10 h-10 rounded-full bg-secondary-fixed border-2 border-bg-deep flex items-center justify-center text-on-secondary-fixed font-label-md font-bold shadow-sm">LF</div>
+<div class="w-10 h-10 rounded-full bg-primary-fixed border-2 border-bg-deep flex items-center justify-center text-on-primary-fixed font-label-md font-bold shadow-sm">MA</div>
+<div class="w-10 h-10 rounded-full bg-tertiary-fixed border-2 border-bg-deep flex items-center justify-center text-on-tertiary-fixed font-label-md font-bold shadow-sm">SR</div>
+<div class="w-10 h-10 rounded-full bg-surface-container-highest border-2 border-bg-deep flex items-center justify-center text-primary font-label-md font-bold shadow-sm">+8k</div>
 </div>
 <div class="flex flex-col">
 <div class="flex items-center gap-1 text-accent-yellow">
@@ -240,10 +492,10 @@
 <!-- Hero Right: Composición con Teléfonos Modernos y Pantallas Reales -->
 <div class="lg:col-span-6 relative flex justify-center items-center pt-8 lg:pt-0">
 <!-- Halo de fondo -->
-<div class="absolute w-80 md:w-96 h-80 md:h-96 rounded-full bg-gradient-to-tr from-[#C45CFF]/25 via-[#FF3FB4]/20 to-[#2BC5C7]/15 blur-3xl"></div>
+<div class="absolute w-80 md:w-96 h-80 md:h-96 rounded-full bg-gradient-to-tr from-primary/25 via-neon-magenta/20 to-secondary/15 blur-3xl"></div>
 <!-- Tarjeta Flotante 1: Métricas reales de la app -->
-<div class="absolute -top-6 left-2 sm:-left-4 z-30 bg-surface-tier-2/90 backdrop-blur-xl shadow-2xl px-4 py-3 rounded-2xl flex items-center gap-3 border border-white/[0.12] animate-bounce" style="animation-duration: 5s;">
-<div class="w-9 h-9 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center border border-emerald-500/30">
+<div class="absolute -top-6 left-2 sm:-left-4 z-30 bg-surface-tier-2/90 backdrop-blur-xl shadow-2xl px-4 py-3 rounded-2xl flex items-center gap-3 border border-border-subtle animate-bounce" style="animation-duration: 5s;">
+<div class="w-9 h-9 rounded-xl bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center border border-emerald-500/30">
 <span class="material-symbols-outlined text-[20px]">trending_down</span>
 </div>
 <div class="flex flex-col">
@@ -252,7 +504,7 @@
 </div>
 </div>
 <!-- Tarjeta Flotante 2: Puntos y Nivel -->
-<div class="absolute bottom-10 -left-6 sm:-left-8 z-30 bg-surface-tier-2/90 backdrop-blur-xl shadow-2xl px-4 py-3 rounded-2xl flex items-center gap-3 border border-white/[0.12]">
+<div class="absolute bottom-10 -left-6 sm:-left-8 z-30 bg-surface-tier-2/90 backdrop-blur-xl shadow-2xl px-4 py-3 rounded-2xl flex items-center gap-3 border border-border-subtle">
 <div class="w-9 h-9 rounded-xl bg-amber-400/20 text-accent-yellow flex items-center justify-center font-bold border border-amber-400/30">
 <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
 </div>
@@ -262,7 +514,7 @@
 </div>
 </div>
 <!-- Tarjeta Flotante 3: Familia conectada -->
-<div class="absolute top-1/3 -right-6 z-30 bg-surface-tier-2/90 backdrop-blur-xl shadow-2xl px-4 py-3 rounded-2xl flex items-center gap-3 border border-white/[0.12] hidden sm:flex">
+<div class="absolute top-1/3 -right-6 z-30 bg-surface-tier-2/90 backdrop-blur-xl shadow-2xl px-4 py-3 rounded-2xl flex items-center gap-3 border border-border-subtle hidden sm:flex">
 <div class="w-9 h-9 rounded-xl bg-secondary/20 text-secondary flex items-center justify-center border border-secondary/30">
 <span class="material-symbols-outlined text-[20px]">family_restroom</span>
 </div>
@@ -272,7 +524,7 @@
 </div>
 </div>
 <!-- Teléfono de Apoyo (Daily Log Real IMAGE_14) -->
-<div class="hidden sm:block absolute -right-6 top-8 w-[240px] rounded-[36px] bg-[#070D1F] p-2.5 shadow-2xl border-2 border-white/[0.1] transform rotate-6 hover:rotate-2 transition-transform duration-300 opacity-85 z-10">
+<div class="hidden sm:block absolute -right-6 top-8 w-[240px] rounded-[36px] bg-[#070D1F] p-2.5 shadow-2xl border-2 border-border-subtle transform rotate-6 hover:rotate-2 transition-transform duration-300 opacity-85 z-10">
 <div class="overflow-hidden rounded-[28px] aspect-[9/19.5] bg-black">
 <img alt="Pantalla real SugarCoach Daily Log" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7QGWmPhs6LVP9QiaVBTX7fZv-pmWeiEPHhR_zPPO9OhY2vdfoPYEaIP2gKJ9c8txBEpJL8ECxdrg44CUr-lPy6C8DM9gzIuh7yfd2DHKY4NhseZUvs84aUXY2_rDth5ayxrUtaIG_hpy0jdGmDtQ-3NjlPlMyff8M4U9ydq56ua-1V7ex7O7rlV0XlgM1uHS3ETNed1TTDpSAUPUuhxcyNOaazxOgYp0cjdTNFRIGOcTLl0SEFl7V6K58TxSIJJVedg"/>
 </div>
@@ -291,7 +543,7 @@
 </div>
 <!-- 2. SECTION: TRES TIPOS DE USUARIOS -->
 <section class="w-full py-space-3xl bg-bg-canvas relative overflow-hidden" id="familias">
-<div class="absolute top-1/2 left-0 w-96 h-96 bg-[#C45CFF]/10 rounded-full blur-[140px] pointer-events-none"></div>
+<div class="absolute top-1/2 left-0 w-96 h-96 bg-primary/10 rounded-full blur-[140px] pointer-events-none"></div>
 <div class="max-w-[1200px] mx-auto px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop relative z-10">
 <div class="flex flex-col items-center text-center max-w-2xl mx-auto mb-space-2xl">
 <span class="font-label-md text-label-md text-primary font-bold uppercase tracking-wider mb-2">Diseñado para convivir</span>
@@ -304,12 +556,12 @@
 </div>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-space-lg">
 <!-- Card 1: Para vos -->
-<div class="bg-surface-tier-1 rounded-3xl p-space-xl shadow-lg flex flex-col justify-between hover:bg-surface-tier-2 hover:border-primary/30 transition-all border border-white/[0.08] group">
+<div class="bg-surface-tier-1 rounded-3xl p-space-xl shadow-lg flex flex-col justify-between hover:bg-surface-tier-2 hover:border-primary/30 transition-all border border-border-subtle group">
 <div>
 <div class="w-14 h-14 rounded-2xl bg-primary/15 border border-primary/30 flex items-center justify-center text-primary mb-space-md group-hover:scale-105 transition-transform">
 <span class="material-symbols-outlined text-[30px]">favorite</span>
 </div>
-<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.05] text-primary font-label-sm text-label-sm font-bold mb-space-xs border border-white/[0.08]">
+<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-high text-primary font-label-sm text-label-sm font-bold mb-space-xs border border-border-subtle">
                   Autonomía diaria
                 </div>
 <h3 class="font-headline-md text-headline-md text-text-primary font-bold">Para vos</h3>
@@ -317,7 +569,7 @@
                   Registrá glucosa, insulina basal y rápida, carbohidratos, comidas y actividad física en segundos. Ganá estrellas y aprendé a conocer tu cuerpo a tu propio compás.
                 </p>
 </div>
-<div class="mt-space-lg p-space-md rounded-2xl bg-bg-deep/80 border border-white/[0.06] flex items-center justify-between">
+<div class="mt-space-lg p-space-md rounded-2xl bg-surface-tier-2/70 border border-border-subtle flex items-center justify-between">
 <div class="flex items-center gap-space-xs">
 <span class="material-symbols-outlined text-primary text-[20px]">verified</span>
 <span class="font-label-md text-label-md font-bold text-text-primary">116 mg/dL último valor</span>
@@ -326,12 +578,12 @@
 </div>
 </div>
 <!-- Card 2: Para tu familia -->
-<div class="bg-surface-tier-1 rounded-3xl p-space-xl shadow-lg flex flex-col justify-between hover:bg-surface-tier-2 hover:border-secondary/30 transition-all border border-white/[0.08] group">
+<div class="bg-surface-tier-1 rounded-3xl p-space-xl shadow-lg flex flex-col justify-between hover:bg-surface-tier-2 hover:border-secondary/30 transition-all border border-border-subtle group">
 <div>
 <div class="w-14 h-14 rounded-2xl bg-secondary/15 border border-secondary/30 flex items-center justify-center text-secondary mb-space-md group-hover:scale-105 transition-transform">
 <span class="material-symbols-outlined text-[30px]">group</span>
 </div>
-<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.05] text-secondary font-label-sm text-label-sm font-bold mb-space-xs border border-white/[0.08]">
+<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-high text-secondary font-label-sm text-label-sm font-bold mb-space-xs border border-border-subtle">
                   Tranquilidad compartida
                 </div>
 <h3 class="font-headline-md text-headline-md text-text-primary font-bold">Para tu familia</h3>
@@ -339,7 +591,7 @@
                   Mantené conectadas a las personas que forman parte de tu cuidado. Sin llamadas insistentes ni invasión a la independencia de los chicos. Sincronización instantánea con cuidadores.
                 </p>
 </div>
-<div class="mt-space-lg p-space-md rounded-2xl bg-bg-deep/80 border border-white/[0.06] flex items-center justify-between">
+<div class="mt-space-lg p-space-md rounded-2xl bg-surface-tier-2/70 border border-border-subtle flex items-center justify-between">
 <div class="flex items-center gap-2">
 <div class="w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]"></div>
 <span class="font-label-md text-label-md font-bold text-text-primary">Mamá y Papá sincronizados</span>
@@ -348,12 +600,12 @@
 </div>
 </div>
 <!-- Card 3: Para profesionales -->
-<div class="bg-surface-tier-1 rounded-3xl p-space-xl shadow-lg flex flex-col justify-between hover:bg-surface-tier-2 hover:border-tertiary-container/30 transition-all border border-white/[0.08] group">
+<div class="bg-surface-tier-1 rounded-3xl p-space-xl shadow-lg flex flex-col justify-between hover:bg-surface-tier-2 hover:border-tertiary-container/30 transition-all border border-border-subtle group">
 <div>
 <div class="w-14 h-14 rounded-2xl bg-tertiary-container/15 border border-tertiary-container/30 flex items-center justify-center text-tertiary-container mb-space-md group-hover:scale-105 transition-transform">
 <span class="material-symbols-outlined text-[30px]">clinical_notes</span>
 </div>
-<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.05] text-neon-magenta font-label-sm text-label-sm font-bold mb-space-xs border border-white/[0.08]">
+<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-high text-neon-magenta font-label-sm text-label-sm font-bold mb-space-xs border border-border-subtle">
                   Consultas claras
                 </div>
 <h3 class="font-headline-md text-headline-md text-text-primary font-bold">Para profesionales</h3>
@@ -361,7 +613,7 @@
                   Organizá tus registros y compartí información clara en tus citas médicas. Gráficos de Tiempo en Rango (TIR) y relaciones precisas de glucosa versus insulina.
                 </p>
 </div>
-<div class="mt-space-lg p-space-md rounded-2xl bg-bg-deep/80 border border-white/[0.06] flex items-center justify-between">
+<div class="mt-space-lg p-space-md rounded-2xl bg-surface-tier-2/70 border border-border-subtle flex items-center justify-between">
 <div class="flex items-center gap-2">
 <span class="material-symbols-outlined text-primary text-[18px]">analytics</span>
 <span class="font-label-md text-label-md font-bold text-text-primary">Tiempo en Rango: 70%</span>
@@ -385,7 +637,7 @@
 </div>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-space-xl">
 <!-- Paso 1: Registrá (Pantalla Real Snack Quick Log IMAGE_9) -->
-<div class="bg-surface-tier-1 rounded-3xl shadow-xl border border-white/[0.08] overflow-hidden flex flex-col group hover:border-primary/40 transition-all">
+<div class="bg-surface-tier-1 rounded-3xl shadow-xl border border-border-subtle overflow-hidden flex flex-col group hover:border-primary/40 transition-all">
 <div class="p-space-lg pb-0 flex flex-col items-start">
 <div class="flex items-center justify-between w-full mb-3">
 <span class="w-9 h-9 rounded-full bg-primary/20 text-primary border border-primary/30 font-headline-sm font-extrabold flex items-center justify-center">1</span>
@@ -398,7 +650,7 @@
 </div>
 <!-- Mockup device con captura real IMAGE_9 -->
 <div class="mt-4 px-6 pt-4 pb-0 bg-gradient-to-b from-transparent to-[#070D1F] flex justify-center">
-<div class="w-[200px] rounded-t-3xl bg-[#070D1F] p-2 shadow-xl border-t-2 border-x-2 border-white/[0.12] group-hover:border-primary/40 transition-colors">
+<div class="w-[200px] rounded-t-3xl bg-[#070D1F] p-2 shadow-xl border-t-2 border-x-2 border-border-subtle group-hover:border-primary/40 transition-colors">
 <div class="rounded-t-2xl overflow-hidden aspect-[9/13]">
 <img alt="Pantalla real de registro de alimentos y carbohidratos SugarCoach" class="w-full h-full object-cover object-top" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCexdqpO1nW-_rc-YcI6jfp6ETSWQmPc7Pokml6fFYN10fD6a2Htt7pvny-NH_RK1ESfqv1nxHnqNlUJ1WKhd8hEVWLSkQylW4B0jaHsCknjnJhbB0rMwtDHIxNI7TGN_ilwjI0CeP8vl0PuKXLu2jqnFplts1DywkPhlhwtQn3EfFKTsTPHIttArKJg-NdrxpMLzWG9Qo1TdCPhC-T15wmJsh1221Mg6LxsiSsDZwgF7DJEDlgzw3UPsCLNt-AR5_w7g"/>
 </div>
@@ -406,7 +658,7 @@
 </div>
 </div>
 <!-- Paso 2: Organizá (Pantalla Real Daily Log IMAGE_14) -->
-<div class="bg-surface-tier-1 rounded-3xl shadow-xl border border-white/[0.08] overflow-hidden flex flex-col group hover:border-secondary/40 transition-all">
+<div class="bg-surface-tier-1 rounded-3xl shadow-xl border border-border-subtle overflow-hidden flex flex-col group hover:border-secondary/40 transition-all">
 <div class="p-space-lg pb-0 flex flex-col items-start">
 <div class="flex items-center justify-between w-full mb-3">
 <span class="w-9 h-9 rounded-full bg-secondary/20 text-secondary border border-secondary/30 font-headline-sm font-extrabold flex items-center justify-center">2</span>
@@ -419,7 +671,7 @@
 </div>
 <!-- Mockup device con captura real IMAGE_14 -->
 <div class="mt-4 px-6 pt-4 pb-0 bg-gradient-to-b from-transparent to-[#070D1F] flex justify-center">
-<div class="w-[200px] rounded-t-3xl bg-[#070D1F] p-2 shadow-xl border-t-2 border-x-2 border-white/[0.12] group-hover:border-secondary/40 transition-colors">
+<div class="w-[200px] rounded-t-3xl bg-[#070D1F] p-2 shadow-xl border-t-2 border-x-2 border-border-subtle group-hover:border-secondary/40 transition-colors">
 <div class="rounded-t-2xl overflow-hidden aspect-[9/13]">
 <img alt="Pantalla real Daily Log diario SugarCoach" class="w-full h-full object-cover object-top" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDxbxgnOUN9JkBjTOtqfvSjDMibVwkfxjPU783r0-mfX1hRfKf0ekAw3XqcqmtcQgUhS_16i5hhzDEWvUsjbvjkkUk-RazLxVCZkwatNeFNWC51UHcj2fO4V-MuKQ9LjZzmoEhqQtxIzjUEVLWMMvGvXqz1aKZvXLgIE5GMFFcmsyCfkjEF60Mr8hHYthNN-wivg__PTN_0Xw53xPyXY813N7DbtLoLM0QvEZJLJNfv4QgulA29ppRO076fzJ6oOIwdYQ"/>
 </div>
@@ -427,7 +679,7 @@
 </div>
 </div>
 <!-- Paso 3: Esquematizá y Compartí (Pantalla Real Treatment IMAGE_12) -->
-<div class="bg-surface-tier-1 rounded-3xl shadow-xl border border-white/[0.08] overflow-hidden flex flex-col group hover:border-tertiary-container/40 transition-all">
+<div class="bg-surface-tier-1 rounded-3xl shadow-xl border border-border-subtle overflow-hidden flex flex-col group hover:border-tertiary-container/40 transition-all">
 <div class="p-space-lg pb-0 flex flex-col items-start">
 <div class="flex items-center justify-between w-full mb-3">
 <span class="w-9 h-9 rounded-full bg-tertiary-container/20 text-neon-magenta border border-tertiary-container/30 font-headline-sm font-extrabold flex items-center justify-center">3</span>
@@ -440,7 +692,7 @@
 </div>
 <!-- Mockup device con captura real IMAGE_12 -->
 <div class="mt-4 px-6 pt-4 pb-0 bg-gradient-to-b from-transparent to-[#070D1F] flex justify-center">
-<div class="w-[200px] rounded-t-3xl bg-[#070D1F] p-2 shadow-xl border-t-2 border-x-2 border-white/[0.12] group-hover:border-tertiary-container/40 transition-colors">
+<div class="w-[200px] rounded-t-3xl bg-[#070D1F] p-2 shadow-xl border-t-2 border-x-2 border-border-subtle group-hover:border-tertiary-container/40 transition-colors">
 <div class="rounded-t-2xl overflow-hidden aspect-[9/13]">
 <img alt="Pantalla real de tratamiento y rangos objetivos SugarCoach" class="w-full h-full object-cover object-top" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHDz723sKM5bQoQ5GGuOKzCGjZ4vJOAvJBMPkw1tyVPWP2cbLWkQ1H6qQWLqRz6oSYcEJnReEPt_CXEj6vV9B3VWpog_je-9L1ZeQWJZznjczPoqV5eGZ6le7_PdEVzvGZrv04ajnHrOWlonKYOhM-kEsqTYWY32Y2g7UAp9gDTsjUKtNDvuTNvkvm5RoR-Zqf0IFqxtpyBlnlhe0EMVL9M5MLaqIH37Ec6p45sZiqMok4C6WVff7Y49c6gZlTO0Xv-w"/>
 </div>
@@ -451,39 +703,39 @@
 </section>
 <!-- 4. SECTION: GAMIFICACIÓN SALUDABLE CON PANTALLA REAL DE LOGROS (IMAGE_10) -->
 <section class="max-w-[1200px] mx-auto px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop py-space-2xl" id="gamificacion">
-<div class="bg-gradient-to-br from-[#121A3B] via-[#0D1733] to-[#070D1F] rounded-3xl p-space-xl md:p-space-3xl text-white shadow-2xl relative overflow-hidden border border-white/[0.1]">
-<div class="absolute -right-20 -bottom-20 w-96 h-96 bg-[#C45CFF]/20 rounded-full blur-3xl pointer-events-none"></div>
-<div class="absolute top-0 left-1/3 w-64 h-64 bg-[#FF3FB4]/15 rounded-full blur-3xl pointer-events-none"></div>
+<div class="bg-gradient-to-br from-[#121A3B] via-[#0D1733] to-[#070D1F] rounded-3xl p-space-xl md:p-space-3xl text-white shadow-2xl relative overflow-hidden border border-border-subtle">
+<div class="absolute -right-20 -bottom-20 w-96 h-96 bg-primary/20 rounded-full blur-3xl pointer-events-none"></div>
+<div class="absolute top-0 left-1/3 w-64 h-64 bg-neon-magenta/15 rounded-full blur-3xl pointer-events-none"></div>
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-2xl items-center relative z-10">
 <!-- Left Info -->
 <div class="lg:col-span-6 flex flex-col gap-space-md">
-<div class="inline-flex items-center gap-space-xs px-3.5 py-1.5 rounded-full bg-white/[0.06] text-secondary font-label-md text-label-md font-bold backdrop-blur-md w-fit border border-white/[0.12]">
+<div class="inline-flex items-center gap-space-xs px-3.5 py-1.5 rounded-full bg-white/10 text-secondary-fixed font-label-md text-label-md font-bold backdrop-blur-md w-fit border border-white/10">
 <span>🎮</span> Gamificación respetuosa y humana
               </div>
 <h2 class="font-display-lg text-display-lg-mobile md:text-headline-lg font-extrabold tracking-tight text-white leading-tight">
                 Cada pequeño hábito suma <span class="gradient-text">puntos y estrellas</span>
 </h2>
-<p class="font-body-lg text-body-lg text-text-secondary">
+<p class="font-body-lg text-body-lg text-white/80">
                 Inspirado en la psicología positiva: premiamos tu constancia y el compromiso de registrarte. <strong class="text-white">Nunca juzgamos ni castigamos valores de glucosa</strong>, porque los números son información médica para cuidarte, no calificaciones morales.
               </p>
 <!-- Badges de la app -->
 <div class="grid grid-cols-2 gap-space-sm pt-2">
-<div class="bg-surface-tier-2/70 border border-white/[0.1] rounded-2xl p-space-md flex items-center gap-3">
+<div class="bg-white/[0.06] border border-white/10 rounded-2xl p-space-md flex items-center gap-3">
 <div class="w-11 h-11 rounded-xl bg-amber-400/20 text-accent-yellow border border-amber-400/30 flex items-center justify-center font-bold text-xl">
                     ⭐
                   </div>
 <div>
 <h4 class="font-headline-sm text-[16px] font-bold text-white">+100 Puntos</h4>
-<p class="font-body-sm text-[12px] text-text-secondary">Por cada registro diario completo</p>
+<p class="font-body-sm text-[12px] text-white/70">Por cada registro diario completo</p>
 </div>
 </div>
-<div class="bg-surface-tier-2/70 border border-white/[0.1] rounded-2xl p-space-md flex items-center gap-3">
+<div class="bg-white/[0.06] border border-white/10 rounded-2xl p-space-md flex items-center gap-3">
 <div class="w-11 h-11 rounded-xl bg-emerald-400/20 text-emerald-300 border border-emerald-400/30 flex items-center justify-center font-bold text-xl">
                     🚀
                   </div>
 <div>
 <h4 class="font-headline-sm text-[16px] font-bold text-white">Startup Explorer</h4>
-<p class="font-body-sm text-[12px] text-text-secondary">Subí de nivel con constancia</p>
+<p class="font-body-sm text-[12px] text-white/70">Subí de nivel con constancia</p>
 </div>
 </div>
 </div>
@@ -523,7 +775,7 @@
 </div>
 <!-- Cuatro momentos claves del día -->
 <div class="lg:col-span-7 flex flex-col gap-space-md order-1 lg:order-2">
-<div class="bg-surface-tier-1 rounded-2xl p-space-md border border-white/[0.08] flex items-start gap-4 hover:border-primary/40 hover:bg-surface-tier-2 transition-all">
+<div class="bg-surface-tier-1 rounded-2xl p-space-md border border-border-subtle flex items-start gap-4 hover:border-primary/40 hover:bg-surface-tier-2 transition-all">
 <div class="w-12 h-12 rounded-xl bg-amber-400/15 border border-amber-400/30 text-accent-yellow flex items-center justify-center shrink-0">
 <span class="material-symbols-outlined text-[24px]">wb_sunny</span>
 </div>
@@ -537,21 +789,21 @@
                 </p>
 </div>
 </div>
-<div class="bg-surface-tier-1 rounded-2xl p-space-md border border-white/[0.08] flex items-start gap-4 hover:border-secondary/40 hover:bg-surface-tier-2 transition-all">
-<div class="w-12 h-12 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 flex items-center justify-center shrink-0">
+<div class="bg-surface-tier-1 rounded-2xl p-space-md border border-border-subtle flex items-start gap-4 hover:border-secondary/40 hover:bg-surface-tier-2 transition-all">
+<div class="w-12 h-12 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0">
 <span class="material-symbols-outlined text-[24px]">restaurant</span>
 </div>
 <div class="flex-1">
 <div class="flex items-center justify-between">
 <h4 class="font-headline-sm text-headline-sm font-bold text-text-primary">12:30 • Hora del almuerzo</h4>
-<span class="px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 text-[11px] font-bold">Carbohidratos</span>
+<span class="px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 text-[11px] font-bold">Carbohidratos</span>
 </div>
 <p class="font-body-sm text-body-sm text-text-secondary mt-1">
                   Cargás las porciones con fotos o gramos, la insulina rápida aplicada y tu estado de tranquilidad.
                 </p>
 </div>
 </div>
-<div class="bg-surface-tier-1 rounded-2xl p-space-md border border-white/[0.08] flex items-start gap-4 hover:border-primary/40 hover:bg-surface-tier-2 transition-all">
+<div class="bg-surface-tier-1 rounded-2xl p-space-md border border-border-subtle flex items-start gap-4 hover:border-primary/40 hover:bg-surface-tier-2 transition-all">
 <div class="w-12 h-12 rounded-xl bg-teal-500/15 border border-teal-500/30 text-secondary flex items-center justify-center shrink-0">
 <span class="material-symbols-outlined text-[24px]">public</span>
 </div>
@@ -565,14 +817,14 @@
                 </p>
 </div>
 </div>
-<div class="bg-surface-tier-1 rounded-2xl p-space-md border border-white/[0.08] flex items-start gap-4 hover:border-primary/40 hover:bg-surface-tier-2 transition-all">
-<div class="w-12 h-12 rounded-xl bg-indigo-500/15 border border-indigo-500/30 text-primary-fixed-dim flex items-center justify-center shrink-0">
+<div class="bg-surface-tier-1 rounded-2xl p-space-md border border-border-subtle flex items-start gap-4 hover:border-primary/40 hover:bg-surface-tier-2 transition-all">
+<div class="w-12 h-12 rounded-xl bg-indigo-500/15 border border-indigo-500/30 text-primary dark:text-primary-fixed-dim flex items-center justify-center shrink-0">
 <span class="material-symbols-outlined text-[24px]">bedtime</span>
 </div>
 <div class="flex-1">
 <div class="flex items-center justify-between">
 <h4 class="font-headline-sm text-headline-sm font-bold text-text-primary">21:30 • Noche y descanso</h4>
-<span class="px-2.5 py-0.5 rounded-full bg-indigo-500/15 text-primary-fixed-dim border border-indigo-500/30 text-[11px] font-bold">Tranquilidad</span>
+<span class="px-2.5 py-0.5 rounded-full bg-indigo-500/15 text-primary dark:text-primary-fixed-dim border border-indigo-500/30 text-[11px] font-bold">Tranquilidad</span>
 </div>
 <p class="font-body-sm text-body-sm text-text-secondary mt-1">
                   Tu Daily Log queda cerrado, tu familia notificada y todo ordenado para un descanso reparador.
@@ -584,7 +836,7 @@
 </section>
 <!-- 6. SECTION: ESTADÍSTICAS Y CONSULTA MÉDICA CON PANTALLA REAL (IMAGE_11) -->
 <section class="w-full py-space-3xl bg-bg-canvas relative" id="profesionales">
-<div class="absolute top-1/3 right-0 w-96 h-96 bg-[#2BC5C7]/10 rounded-full blur-[140px] pointer-events-none"></div>
+<div class="absolute top-1/3 right-0 w-96 h-96 bg-secondary/10 rounded-full blur-[140px] pointer-events-none"></div>
 <div class="max-w-[1200px] mx-auto px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop relative z-10">
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-2xl items-center">
 <!-- Left Mockup con pantalla real IMAGE_11 (Blood Glucose 70% En Rango & Glucose vs Insulin) -->
@@ -598,7 +850,7 @@
 </div>
 <!-- Right Text -->
 <div class="lg:col-span-6 flex flex-col gap-space-md order-1 lg:order-2">
-<div class="inline-flex items-center gap-space-xs px-3.5 py-1.5 rounded-full bg-surface-tier-1 text-primary font-label-md text-label-md font-bold shadow-md w-fit border border-white/[0.08]">
+<div class="inline-flex items-center gap-space-xs px-3.5 py-1.5 rounded-full bg-surface-tier-1 text-primary font-label-md text-label-md font-bold shadow-md w-fit border border-border-subtle">
 <span class="material-symbols-outlined text-[18px]">stethoscope</span> Diálogo médico fluido
               </div>
 <h2 class="font-headline-lg text-headline-lg text-text-primary font-extrabold tracking-tight">
@@ -608,7 +860,7 @@
                 Olvidate de las libretas de papel dobladas o de intentar recordar qué pasó semanas atrás. SugarCoach genera gráficos mensuales automáticos:
               </p>
 <div class="flex flex-col gap-space-sm pt-2">
-<div class="flex items-start gap-3 bg-surface-tier-1 p-space-sm rounded-2xl border border-white/[0.08]">
+<div class="flex items-start gap-3 bg-surface-tier-1 p-space-sm rounded-2xl border border-border-subtle">
 <div class="w-8 h-8 rounded-full bg-secondary/20 border border-secondary/30 flex items-center justify-center text-secondary font-bold shrink-0">
 <span class="material-symbols-outlined text-[18px]">donut_large</span>
 </div>
@@ -617,7 +869,7 @@
 <span class="font-body-sm text-body-sm text-text-secondary block">Muestra exactamente el 70% en rango óptimo, hipo y valores sobre rango.</span>
 </div>
 </div>
-<div class="flex items-start gap-3 bg-surface-tier-1 p-space-sm rounded-2xl border border-white/[0.08]">
+<div class="flex items-start gap-3 bg-surface-tier-1 p-space-sm rounded-2xl border border-border-subtle">
 <div class="w-8 h-8 rounded-full bg-primary/20 border border-primary/30 flex items-center justify-center text-primary font-bold shrink-0">
 <span class="material-symbols-outlined text-[18px]">bar_chart</span>
 </div>
@@ -642,7 +894,7 @@
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-2xl items-center">
 <!-- Left Text Content -->
 <div class="lg:col-span-6 flex flex-col gap-space-md">
-<div class="inline-flex items-center gap-space-xs px-3.5 py-1.5 rounded-full bg-surface-tier-1 text-secondary font-label-md text-label-md font-bold shadow-md w-fit border border-white/[0.08]">
+<div class="inline-flex items-center gap-space-xs px-3.5 py-1.5 rounded-full bg-surface-tier-1 text-secondary font-label-md text-label-md font-bold shadow-md w-fit border border-border-subtle">
 <span class="material-symbols-outlined text-[18px]">tune</span> Tratamiento individualizado
             </div>
 <h2 class="font-headline-lg text-headline-lg text-text-primary font-extrabold tracking-tight">
@@ -658,13 +910,13 @@
 <span class="font-label-sm text-[10px] text-text-tertiary">mg/dL</span>
 </div>
 <div class="bg-surface-tier-1 rounded-2xl p-space-sm border border-emerald-500/30">
-<span class="font-label-sm text-emerald-400 font-bold block">TARGET</span>
-<span class="font-headline-sm text-headline-sm font-extrabold text-emerald-300">100</span>
+<span class="font-label-sm text-emerald-600 dark:text-emerald-400 font-bold block">TARGET</span>
+<span class="font-headline-sm text-headline-sm font-extrabold text-emerald-700 dark:text-emerald-300">100</span>
 <span class="font-label-sm text-[10px] text-text-tertiary">mg/dL</span>
 </div>
 <div class="bg-surface-tier-1 rounded-2xl p-space-sm border border-rose-500/30">
-<span class="font-label-sm text-rose-400 font-bold block">HYPER</span>
-<span class="font-headline-sm text-headline-sm font-extrabold text-rose-400">180</span>
+<span class="font-label-sm text-rose-600 dark:text-rose-400 font-bold block">HYPER</span>
+<span class="font-headline-sm text-headline-sm font-extrabold text-rose-600 dark:text-rose-400">180</span>
 <span class="font-label-sm text-[10px] text-text-tertiary">mg/dL</span>
 </div>
 </div>
@@ -695,7 +947,7 @@
           </p>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-space-lg">
-<div class="bg-surface-tier-1 rounded-3xl p-space-xl border border-white/[0.08] flex flex-col gap-space-sm hover:border-secondary/30 transition-colors">
+<div class="bg-surface-tier-1 rounded-3xl p-space-xl border border-border-subtle flex flex-col gap-space-sm hover:border-secondary/30 transition-colors">
 <div class="w-12 h-12 rounded-2xl bg-secondary/15 border border-secondary/30 flex items-center justify-center text-secondary">
 <span class="material-symbols-outlined text-[28px]">shield</span>
 </div>
@@ -704,7 +956,7 @@
               Tus registros viajan cifrados bajo estrictos estándares de ciberseguridad y resguardo de datos médicos.
             </p>
 </div>
-<div class="bg-surface-tier-1 rounded-3xl p-space-xl border border-white/[0.08] flex flex-col gap-space-sm hover:border-primary/30 transition-colors">
+<div class="bg-surface-tier-1 rounded-3xl p-space-xl border border-border-subtle flex flex-col gap-space-sm hover:border-primary/30 transition-colors">
 <div class="w-12 h-12 rounded-2xl bg-primary/15 border border-primary/30 flex items-center justify-center text-primary">
 <span class="material-symbols-outlined text-[28px]">lock</span>
 </div>
@@ -713,7 +965,7 @@
               Vos decidís qué familiar o profesional tiene visibilidad. Podés revocar accesos en cualquier momento.
             </p>
 </div>
-<div class="bg-surface-tier-1 rounded-3xl p-space-xl border border-white/[0.08] flex flex-col gap-space-sm hover:border-tertiary-container/30 transition-colors">
+<div class="bg-surface-tier-1 rounded-3xl p-space-xl border border-border-subtle flex flex-col gap-space-sm hover:border-tertiary-container/30 transition-colors">
 <div class="w-12 h-12 rounded-2xl bg-tertiary-container/15 border border-tertiary-container/30 flex items-center justify-center text-neon-magenta">
 <span class="material-symbols-outlined text-[28px]">person_off</span>
 </div>
@@ -724,20 +976,231 @@
 </div>
 </div>
 </section>
+<!-- NUEVA SECCIÓN: PREMIOS Y RECONOCIMIENTOS -->
+<section class="max-w-[1200px] mx-auto px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop py-space-3xl" id="reconocimientos">
+<div class="flex flex-col items-center text-center max-w-2xl mx-auto mb-space-xl">
+<span class="font-label-md text-label-md text-primary font-bold uppercase tracking-wider mb-2">Validación y confianza global</span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface font-extrabold tracking-tight">
+          Premios y Reconocimientos
+        </h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-space-xs">
+          Respaldados por las instituciones, aceleradoras e iniciativas de innovación en salud y tecnología más prestigiosas del mundo.
+        </p>
+</div>
+<!-- Rejilla de reconocimientos con logos individuales -->
+<div class="bg-surface rounded-[28px] border border-outline-variant p-6 md:p-8 shadow-2xl overflow-hidden relative group">
+<div class="absolute inset-0 bg-gradient-to-r from-primary/10 via-transparent to-secondary-fixed-dim/10 opacity-60 pointer-events-none"></div>
+<div class="relative z-10">
+<div class="awards-grid grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-5">
+<figure class="award-card bg-surface-container rounded-2xl p-4 md:p-5 flex flex-col items-center justify-center shadow-xl min-h-[120px] transition-transform duration-300 group-hover:scale-[1.02]">
+<img src="/contenido/iconos/endeavor-1650x1650-removebg-preview.png" alt="Endeavor" class="max-h-16 md:max-h-20 w-auto object-contain" loading="lazy" decoding="async"/>
+<figcaption class="small text-muted text-center mt-2 text-xs font-semibold text-on-surface-variant">Endeavor</figcaption>
+</figure>
+<figure class="award-card bg-surface-container rounded-2xl p-4 md:p-5 flex flex-col items-center justify-center shadow-xl min-h-[120px] transition-transform duration-300 group-hover:scale-[1.02]">
+<img src="/contenido/iconos/AWS_Simple_Icons_AWS_Cloud.svg.png" alt="AWS" class="max-h-16 md:max-h-20 w-auto object-contain" loading="lazy" decoding="async"/>
+<figcaption class="small text-muted text-center mt-2 text-xs font-semibold text-on-surface-variant">AWS</figcaption>
+</figure>
+<figure class="award-card bg-surface-container rounded-2xl p-4 md:p-5 flex flex-col items-center justify-center shadow-xl min-h-[120px] transition-transform duration-300 group-hover:scale-[1.02]">
+<img src="/contenido/iconos/hit_cowork-removebg-preview.png" alt="Hit Cowork" class="max-h-16 md:max-h-20 w-auto object-contain" loading="lazy" decoding="async"/>
+<figcaption class="small text-muted text-center mt-2 text-xs font-semibold text-on-surface-variant">Hit Cowork</figcaption>
+</figure>
+<figure class="award-card bg-surface-container rounded-2xl p-4 md:p-5 flex flex-col items-center justify-center shadow-xl min-h-[120px] transition-transform duration-300 group-hover:scale-[1.02]">
+<img src="/contenido/iconos/wise-removebg-preview.png" alt="WISE" class="max-h-16 md:max-h-20 w-auto object-contain" loading="lazy" decoding="async"/>
+<figcaption class="small text-muted text-center mt-2 text-xs font-semibold text-on-surface-variant">WISE</figcaption>
+</figure>
+<figure class="award-card bg-surface-container rounded-2xl p-4 md:p-5 flex flex-col items-center justify-center shadow-xl min-h-[120px] transition-transform duration-300 group-hover:scale-[1.02]">
+<img src="/contenido/iconos/bid.png" alt="BID" class="max-h-16 md:max-h-20 w-auto object-contain" loading="lazy" decoding="async"/>
+<figcaption class="small text-muted text-center mt-2 text-xs font-semibold text-on-surface-variant">BID</figcaption>
+</figure>
+<figure class="award-card bg-surface-container rounded-2xl p-4 md:p-5 flex flex-col items-center justify-center shadow-xl min-h-[120px] transition-transform duration-300 group-hover:scale-[1.02]">
+<img src="/contenido/iconos/NAVES.png" alt="Naves IAE" class="max-h-16 md:max-h-20 w-auto object-contain" loading="lazy" decoding="async"/>
+<figcaption class="small text-muted text-center mt-2 text-xs font-semibold text-on-surface-variant">Naves IAE</figcaption>
+</figure>
+<figure class="award-card bg-surface-container rounded-2xl p-4 md:p-5 flex flex-col items-center justify-center shadow-xl min-h-[120px] transition-transform duration-300 group-hover:scale-[1.02]">
+<img src="/contenido/iconos/googleforstartups-removebg-preview.png" alt="Google for Startups" class="max-h-16 md:max-h-20 w-auto object-contain" loading="lazy" decoding="async"/>
+<figcaption class="small text-muted text-center mt-2 text-xs font-semibold text-on-surface-variant">Google for Startups</figcaption>
+</figure>
+<figure class="award-card bg-surface-container rounded-2xl p-4 md:p-5 flex flex-col items-center justify-center shadow-xl min-h-[120px] transition-transform duration-300 group-hover:scale-[1.02]">
+<img src="/contenido/iconos/huawei-removebg-preview.png" alt="Huawei" class="max-h-16 md:max-h-20 w-auto object-contain" loading="lazy" decoding="async"/>
+<figcaption class="small text-muted text-center mt-2 text-xs font-semibold text-on-surface-variant">Huawei</figcaption>
+</figure>
+<figure class="award-card bg-surface-container rounded-2xl p-4 md:p-5 flex flex-col items-center justify-center shadow-xl min-h-[120px] transition-transform duration-300 group-hover:scale-[1.02]">
+<img src="/contenido/iconos/samsung-removebg-preview.png" alt="Samsung" class="max-h-16 md:max-h-20 w-auto object-contain" loading="lazy" decoding="async"/>
+<figcaption class="small text-muted text-center mt-2 text-xs font-semibold text-on-surface-variant">Samsung</figcaption>
+</figure>
+<figure class="award-card bg-surface-container rounded-2xl p-4 md:p-5 flex flex-col items-center justify-center shadow-xl min-h-[120px] transition-transform duration-300 group-hover:scale-[1.02]">
+<img src="/contenido/iconos/globant.png" alt="Globant" class="max-h-16 md:max-h-20 w-auto object-contain" loading="lazy" decoding="async"/>
+<figcaption class="small text-muted text-center mt-2 text-xs font-semibold text-on-surface-variant">Globant</figcaption>
+</figure>
+<figure class="award-card bg-surface-container rounded-2xl p-4 md:p-5 flex flex-col items-center justify-center shadow-xl min-h-[120px] transition-transform duration-300 group-hover:scale-[1.02]">
+<img src="/contenido/iconos/1630627507837.jpeg" alt="Entrepreneurship World Cup" class="max-h-16 md:max-h-20 w-auto object-contain" loading="lazy" decoding="async"/>
+<figcaption class="small text-muted text-center mt-2 text-xs font-semibold text-on-surface-variant">Entrepreneurship World Cup</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<!-- NUEVA SECCIÓN: QUIÉNES SOMOS / NUESTRA HISTORIA Y EQUIPO -->
+<section class="w-full py-space-3xl bg-bg-canvas border-y border-border-subtle relative" id="quienes-somos">
+<div class="max-w-[1200px] mx-auto px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop">
+<!-- Encabezado de la Historia -->
+<div class="flex flex-col items-center text-center max-w-3xl mx-auto mb-space-2xl">
+<div class="inline-flex items-center gap-space-xs px-space-md py-space-xs rounded-full bg-surface-container text-primary dark:text-primary-fixed-dim w-fit shadow-md border border-border-subtle backdrop-blur-md mb-3">
+<span class="material-symbols-outlined text-[18px] text-primary">diversity_1</span>
+<span class="font-label-md text-label-md font-bold tracking-tight text-on-surface">Impacto con propósito / Quiénes somos</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface font-extrabold tracking-tight">
+            Nuestra Historia
+          </h2>
+</div>
+<!-- Hero Historia con Foto Grupal IMAGE_10 y Texto Verbatim -->
+<div class="bg-surface-container rounded-[32px] p-space-xl md:p-space-2xl border border-border-subtle shadow-2xl mb-space-3xl overflow-hidden relative">
+<div class="absolute -top-24 -right-24 w-80 h-80 bg-primary/15 rounded-full blur-3xl pointer-events-none"></div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-center relative z-10">
+<!-- Foto grupal destacada IMAGE_10 -->
+<div class="lg:col-span-6 order-2 lg:order-1">
+<div class="rounded-2xl overflow-hidden border-2 border-border-subtle shadow-2xl aspect-[4/3] bg-bg-deep">
+<img alt="Equipo fundador y directivo de SugarCoach" class="w-full h-full object-cover object-center hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJ4JchESmFNHzQGmGz2qXZiBA3PzjhRAeJj2oI94MKyhcz5sgSln6mZ4dOoZjE8qoKwLwkRjTurpVppo9VdNteDhy_2f4yYzO4TSjwrNQIwPkK-tuAKImRd95EMuJGc0EPJ4t_SiuU2iB-O4UZ-ZnKbZsn8RvBHiKCy78Ts4X983q1stMFViy8hlMl57mALCznyZZbf-eL_dghug3oE-dju0xOir1skkJFPvMINlGea2t8oJzQW47_pj_8LGp3Mk6jfg"/>
+</div>
+<span class="block text-center text-xs text-text-secondary mt-2 italic">Equipo directivo e interdisciplinario de SugarCoach</span>
+</div>
+<!-- Texto Verbatim Solicitado -->
+<div class="lg:col-span-6 order-1 lg:order-2 flex flex-col gap-space-sm">
+<div class="w-10 h-1 rounded-full bg-gradient-to-r from-primary to-neon-magenta mb-2"></div>
+<p class="font-body-lg text-body-lg text-on-surface leading-relaxed">
+              Somos un equipo decidido a mejorar la calidad de vida de las familias de niños con diabetes tipo 1. SugarCoach nació de la necesidad de mantener vivos y sanos a los hijos de Isabel. Como muchos padres de niños con DT1, ella se dio cuenta que controlar la enfermedad era un trabajo exhaustivo y cambiaba la dinamica para toda la familia (diabetes 3). Por eso pensó en crear una aplicación que no solo resolviera su problema, sino que también pudiera ayudar a otras familias que vivían lo mismo. En 2021, junto a Verónica Aveldaño, nuestra COO lanzaron SugarCoach, un proyecto integral que incluye una App móvil, educativa y de contención para la comunidad de familias con diabetes tipo 1. Queremos darles la bienvenida a SugarCoach, la mejor solución para la diabetes.
+            </p>
+<div class="pt-2 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary dark:text-primary-fixed-dim font-bold">
+<span class="material-symbols-outlined text-[22px]">favorite</span>
+</div>
+<span class="text-sm font-semibold text-secondary dark:text-secondary-fixed-dim">Hecho por familias, para familias.</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Integrantes del Equipo: Individual Cards con Fotos correspondientes -->
+<div class="flex flex-col items-center text-center max-w-2xl mx-auto mb-space-xl">
+<span class="font-label-md text-label-md text-secondary dark:text-secondary-fixed-dim font-bold uppercase tracking-wider mb-2">Talento y corazón</span>
+<h3 class="font-headline-lg text-headline-lg text-on-surface font-extrabold tracking-tight">
+            Conocé a nuestro equipo
+          </h3>
+<p class="text-[17px] leading-relaxed text-text-secondary mt-space-xs">
+            Liderazgo tecnológico, ingeniería, compromiso social y vivencia directa en cada decisión.
+          </p>
+</div>
+<div class="flex flex-col gap-space-lg">
+<!-- 1. Isabel Berizzo (IMAGE_9) -->
+<div class="bg-surface-container rounded-[26px] p-space-lg border border-border-subtle shadow-xl flex flex-row items-center text-left gap-space-lg min-h-[260px] w-full" hover:border-primary/40 transition-all group">
+<div class="w-36 h-44 shrink-0 rounded-2xl overflow-hidden border-2 border-primary/40 shadow-lg bg-bg-deep">
+<img alt="Isabel Berizzo" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAemLGwLzSkpSFnx-Lge-pyS1uubrTmvS_tbzitiAaF2kp5_vZdf_9NYtBcM7Qd9PwnhEwlFitSZwShtVTDLxvbQ0YD7QWDwbCpntEDGjw5Ms9PZHAwH01gBF196Eq6bMjlVjRfc7OVezPp2Tvu0lLSwrmFUPqsvHmUclVGFBFSfMs4ewAdfUYHx4HbeC4-Amq32bqccS_ZfWvS9JbtFNB0GRwopzAKXGnLhGLiSd--SXav89CZCjdByOBKsv1UEkacCA"/>
+</div>
+<div class="flex flex-col justify-between flex-1 min-w-0">
+<div>
+<div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/15 text-primary dark:text-primary-fixed-dim text-[14px] font-bold uppercase tracking-wider mb-2 border border-primary/30 w-full">
+                  Fundadora &amp; Líder Técnica
+                </div>
+<h4 class="text-[24px] leading-tight font-bold text-on-surface">Isabel Berizzo</h4>
+<span class="text-[15px] text-secondary dark:text-secondary-fixed-dim font-semibold block mb-3">CEO &amp; CTO FOUNDER</span>
+<p class="text-[16px] leading-relaxed text-text-secondary">
+                  Soy Isa Berizzo, madre de dos hijos diagnosticados con diabetes tipo 1 cuando tenían solo 3 y 4 años. Como Ingeniera en Sistemas, programadora y CTO, decidí combinar mi experiencia técnica con mi pasión por transformar vidas. Así nació SugarCoach, una plataforma diseñada para convertir el desafío de la diabetes en una experiencia positiva, educativa y motivadora. Además, es TED speaker y comparte su historia y aprendizajes para inspirar a otras familias.
+                </p>
+</div>
+<div class="mt-4 pt-3 border-t border-border-subtle flex items-center gap-2">
+<span class="px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-700 dark:text-rose-300 text-[14px] font-bold border border-rose-500/30">TEDx Speaker</span>
+<span class="px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-700 dark:text-cyan-300 text-[14px] font-bold border border-cyan-500/30">Ingeniera en Sistemas</span>
+</div>
+</div>
+</div>
+<!-- 2. Veronica Avendaño (IMAGE_8) -->
+<div class="bg-surface-container rounded-[26px] p-space-lg border border-border-subtle shadow-xl flex flex-row items-center text-left gap-space-lg min-h-[260px]" hover:border-secondary-fixed-dim/40 transition-all group">
+<div class="w-36 h-44 shrink-0 shrink-0 rounded-2xl overflow-hidden border border-border-subtle shadow-md bg-bg-deep">
+<img alt="Veronica Avendaño" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-DVXJupTE0skdbOAaVDQe2fHP_sjNT6zrWHKC5gK3whYcIQZaXJyklpdl5pUKPtybw9WQjWdZ2e4LFjPHfowtI_vY1FsJIS34_mt4HvFQTXdszxZico0U9qzvzQvQbw3_oEnqXfGamKaH3lWvTzxF7rSWdfHI0PHcroUpn9e7tZd5vw9OmGegKZDEiAG0xGs3Bohf-wOZr6Sr3ukEDmjwcH9kiXnJ4zcWlzY53REkDF2_byRy858XiPDoI1pxtuF9lA"/>
+</div>
+<div class="flex flex-col flex-1 min-w-0">
+<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary-fixed-dim/15 text-secondary dark:text-secondary-fixed-dim text-[14px] font-bold uppercase tracking-wider mb-2 border border-secondary-fixed-dim/30">COO &amp; Operaciones</div>
+<h4 class="text-[20px] leading-tight font-bold text-on-surface">Veronica Avendaño</h4>
+<span class="text-[15px] text-secondary dark:text-secondary-fixed-dim font-semibold uppercase tracking-wider mb-2">COO</span>
+<p class="text-[16px] leading-relaxed text-text-secondary">
+              Ingeniera Industrial con especialización en desarrollo y administración de proyectos, Verónica lidera nuestras operaciones, asegurando que cada iniciativa se ejecute con excelencia.
+            </p>
+            <div class="mt-4 pt-3 border-t border-border-subtle flex items-center gap-2 flex-wrap">
+              <span class="px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-700 dark:text-cyan-300 text-[14px] font-bold border border-cyan-500/30">Ingeniera Industrial</span>
+              <span class="px-2.5 py-0.5 rounded-full bg-secondary-fixed-dim/20 text-secondary dark:text-secondary-fixed-dim text-[14px] font-bold border border-secondary-fixed-dim/30">COO</span>
+            </div>
+</div>
+</div>
+<!-- 3. Debora Biain (IMAGE_7) -->
+<div class="bg-surface-container rounded-[26px] p-space-lg border border-border-subtle shadow-xl flex flex-row items-center text-left gap-space-lg min-h-[260px]" hover:border-neon-magenta/40 transition-all group">
+<div class="w-36 h-44 shrink-0 shrink-0 rounded-2xl overflow-hidden border border-border-subtle shadow-md bg-bg-deep">
+<img alt="Debora Biain" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2JoDVm1r5gAdJkgggp9yUU0osl3Pfd9RxEfQDyg-a4qYbIpIiQw4v2SJQV-NmUcVT15XNXKZWv61-NivTrMPXpAmOVfUg4dN5Fv6p3V6z2d6nx0JFMo_Y0cOwnl4AKBXA9SXrggde2GvjGAxPZCgPKzEzhAfiZohuSL-EqisHi2b9WG1TvFmlBkii5PbvynzRJobqm-K48T1tI-YZJs8DMO7bEGi2Pl2WklCETamQYfeuATGcS6SQx0xSaWLuf2ffmQ"/>
+</div>
+<div class="flex flex-col flex-1 min-w-0">
+<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-tertiary/15 text-tertiary dark:text-tertiary-fixed-dim text-[14px] font-bold uppercase tracking-wider mb-2 border border-tertiary/30">RSE &amp; Relaciones Públicas</div>
+<h4 class="text-[20px] leading-tight font-bold text-on-surface">Debora Biain</h4>
+<span class="text-[15px] text-tertiary dark:text-tertiary-fixed-dim font-semibold uppercase tracking-wider mb-2">RSE &amp; Relaciones Públicas</span>
+<p class="text-[16px] leading-relaxed text-text-secondary">
+              Licenciada en Relaciones Institucionales y experta en responsabilidad social, Débora integra estrategias que fortalecen nuestro compromiso con el impacto social.
+            </p>
+            <div class="mt-4 pt-3 border-t border-border-subtle flex items-center gap-2 flex-wrap">
+              <span class="px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-700 dark:text-rose-300 text-[14px] font-bold border border-rose-500/30">Relaciones Institucionales</span>
+              <span class="px-2.5 py-0.5 rounded-full bg-tertiary/20 text-tertiary dark:text-tertiary-fixed-dim text-[14px] font-bold border border-tertiary/30">RSE</span>
+            </div>
+</div>
+</div>
+<!-- 4. Agustina Olivo (IMAGE_6) -->
+<div class="bg-surface-container rounded-[26px] p-space-lg border border-border-subtle shadow-xl flex flex-row items-center text-left gap-space-lg min-h-[260px]" hover:border-primary/40 transition-all group">
+<div class="w-36 h-44 shrink-0 shrink-0 rounded-2xl overflow-hidden border border-border-subtle shadow-md bg-bg-deep">
+<img alt="Agustina Olivo" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBd6Fbx8Oy9Ld6SYrg8XULR8k4ZY4CKon1mBiEgTBEmxL9MkIIsRfOA5HqIkM0Ro76TsXtG2kN_HW56CA60q7GpU4ncPM2pcRRPn3lJ9ZDVjpwXidCq7WqHv5Ei5F3JfoSouQIkUi5IO0-2xtuLQMcHAOInwYQ-rqoJgl2dj1Qd84rOpE8AKT4tmjfofA8Zsb8fqehIeCp6dI44-Yde2Js3_b1rCJ4OE5TyVGBsV3-yAehr5c44MtwdD0ycaYjNRtsANw"/>
+</div>
+<div class="flex flex-col flex-1 min-w-0">
+<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/15 text-primary dark:text-primary-fixed-dim text-[14px] font-bold uppercase tracking-wider mb-2 border border-primary/30">CM &amp; Content Manager</div>
+<h4 class="text-[20px] leading-tight font-bold text-on-surface">Agustina Olivo</h4>
+<span class="text-[15px] text-primary dark:text-primary-fixed-dim font-semibold uppercase tracking-wider mb-2">CM &amp; Content Manager</span>
+<p class="text-[16px] leading-relaxed text-text-secondary">
+              Licenciada en Ciencia Política y mi hija, Agustina está a cargo del contenido, redes sociales y marketing, aportando creatividad y conexión directa con nuestra audiencia.
+            </p>
+            <div class="mt-4 pt-3 border-t border-border-subtle flex items-center gap-2 flex-wrap">
+              <span class="px-2.5 py-0.5 rounded-full bg-purple-500/20 text-purple-700 dark:text-purple-300 text-[14px] font-bold border border-purple-500/30">Ciencia Política</span>
+              <span class="px-2.5 py-0.5 rounded-full bg-primary/20 text-primary dark:text-primary-fixed-dim text-[14px] font-bold border border-primary/30">Content Manager</span>
+            </div>
+</div>
+</div>
+<!-- 5. Karin Chmiel (IMAGE_5) -->
+<div class="bg-surface-container rounded-[26px] p-space-lg border border-border-subtle shadow-xl flex flex-row items-center text-left gap-space-lg min-h-[260px]" hover:border-secondary-fixed-dim/40 transition-all group">
+<div class="w-36 h-44 shrink-0 shrink-0 rounded-2xl overflow-hidden border border-border-subtle shadow-md bg-bg-deep">
+<img alt="Karin Chmiel" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAcDRb0o4-k3Jt6zeIh6E75KmW7HIVsp8USMqCLjutNQ39_qqKa80g7NzrwzLuyVyQpM8WXuCUxS3ygDiGyOPehjrh-rB8E2d1HWDKd5B8l6UBXzm0URwIFbUouYlb33ikROIeGTME0firlhT1N7oGcOJ1gcrOET5zpb6mWG3SBuXXX5iU_2CXTVl1jetjd8GX1UgVn52i0KuG__RBFsGXeObjozi5ROPRL3cF-Ayu9b_T829zuMuiR7krg1FEK83tO3w"/>
+</div>
+<div class="flex flex-col flex-1 min-w-0">
+<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary-fixed-dim/15 text-secondary dark:text-secondary-fixed-dim text-[14px] font-bold uppercase tracking-wider mb-2 border border-secondary-fixed-dim/30">Business Development</div>
+<h4 class="text-[20px] leading-tight font-bold text-on-surface">Karin Chmiel</h4>
+<span class="text-[15px] text-secondary dark:text-secondary-fixed-dim font-semibold uppercase tracking-wider mb-2">Business Development</span>
+<p class="text-[16px] leading-relaxed text-text-secondary">
+              Especialista en desarrollo de negocios, ventas y estrategias de mercado, Karin impulsa nuestro crecimiento y expansión con su enfoque en relaciones clave y oportunidades estratégicas.
+            </p>
+            <div class="mt-4 pt-3 border-t border-border-subtle flex items-center gap-2 flex-wrap">
+              <span class="px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-700 dark:text-cyan-300 text-[14px] font-bold border border-cyan-500/30">Business Development</span>
+              <span class="px-2.5 py-0.5 rounded-full bg-secondary-fixed-dim/20 text-secondary dark:text-secondary-fixed-dim text-[14px] font-bold border border-secondary-fixed-dim/30">Ventas &amp; Estrategia</span>
+            </div>
+</div>
+</div>
+</div>
+</div>
+</section>
 <!-- 9. SECTION: CTA FINAL CON LOGO OFICIAL Y BOTONES DE TIENDAS -->
 <section class="max-w-[1200px] mx-auto px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop py-space-3xl" id="descargar">
-<div class="bg-gradient-to-r from-[#172344] via-[#111D3D] to-[#0A1024] border border-white/[0.12] rounded-[40px] p-space-xl md:p-space-3xl text-white shadow-2xl relative overflow-hidden">
-<div class="absolute -top-24 -right-24 w-80 h-80 bg-[#C45CFF]/25 rounded-full blur-3xl pointer-events-none"></div>
-<div class="absolute -bottom-24 left-1/3 w-80 h-80 bg-[#FF3FB4]/20 rounded-full blur-3xl pointer-events-none"></div>
+<div class="bg-gradient-to-r from-[#172344] via-[#111D3D] to-[#0A1024] border border-border-subtle rounded-[40px] p-space-xl md:p-space-3xl text-white shadow-2xl relative overflow-hidden">
+<div class="absolute -top-24 -right-24 w-80 h-80 bg-primary/25 rounded-full blur-3xl pointer-events-none"></div>
+<div class="absolute -bottom-24 left-1/3 w-80 h-80 bg-neon-magenta/20 rounded-full blur-3xl pointer-events-none"></div>
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-2xl items-center relative z-10">
 <div class="lg:col-span-8 flex flex-col gap-space-md">
-<div class="inline-flex items-center gap-space-xs px-3.5 py-1.5 rounded-full bg-white/[0.08] text-primary font-label-md text-label-md font-bold backdrop-blur-sm w-fit border border-white/[0.1]">
+<div class="inline-flex items-center gap-space-xs px-3.5 py-1.5 rounded-full bg-on-primary/10 text-on-primary font-label-md text-label-md font-bold backdrop-blur-sm w-fit border border-white/10">
 <span>✨</span> Empezá hoy mismo
               </div>
 <h2 class="font-display-lg text-display-lg-mobile md:text-display-lg font-extrabold tracking-tight leading-tight text-white">
                 Tu día ya tiene suficientes cosas. Cuidarte puede ser <span class="gradient-text">una menos complicada</span>.
               </h2>
-<p class="font-body-lg text-body-lg text-text-secondary max-w-2xl">
+<p class="font-body-lg text-body-lg text-white/70 max-w-2xl">
                 Registrá, sumá puntos, organizá tus mediciones y compartí tu información desde SugarCoach. Disponible gratis para iOS y Android.
               </p>
 <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-space-md pt-space-md">
@@ -748,17 +1211,17 @@
 </div>
 <!-- Official Store Badges -->
 <div class="flex flex-wrap items-center gap-space-sm pt-space-xs">
-<a class="inline-flex items-center gap-space-xs px-space-md py-space-xs rounded-xl bg-white/[0.06] hover:bg-white/[0.12] border border-white/[0.12] backdrop-blur-md transition-colors" href="#">
+<a class="inline-flex items-center gap-space-xs px-space-md py-space-xs rounded-xl bg-white/[0.06] hover:bg-white/[0.12] border border-white/10 backdrop-blur-md transition-colors" href="#">
 <span class="material-symbols-outlined text-[22px] text-white">phone_iphone</span>
 <div class="flex flex-col text-left">
-<span class="font-label-sm text-[10px] leading-tight text-text-tertiary">Disponible en</span>
+<span class="font-label-sm text-[10px] leading-tight text-white/60">Disponible en</span>
 <span class="font-label-md text-label-md font-bold leading-tight text-white">App Store</span>
 </div>
 </a>
-<a class="inline-flex items-center gap-space-xs px-space-md py-space-xs rounded-xl bg-white/[0.06] hover:bg-white/[0.12] border border-white/[0.12] backdrop-blur-md transition-colors" href="#">
+<a class="inline-flex items-center gap-space-xs px-space-md py-space-xs rounded-xl bg-white/[0.06] hover:bg-white/[0.12] border border-white/10 backdrop-blur-md transition-colors" href="#">
 <span class="material-symbols-outlined text-[22px] text-white">shop</span>
 <div class="flex flex-col text-left">
-<span class="font-label-sm text-[10px] leading-tight text-text-tertiary">Disponible en</span>
+<span class="font-label-sm text-[10px] leading-tight text-white/60">Disponible en</span>
 <span class="font-label-md text-label-md font-bold leading-tight text-white">Google Play</span>
 </div>
 </a>
@@ -766,8 +1229,8 @@
 </div>
 <!-- Logo Oficial de SugarCoach como Emblema en el CTA -->
 <div class="lg:col-span-4 flex justify-center items-center">
-<div class="relative w-52 h-52 md:w-64 md:h-64 p-6 rounded-3xl bg-surface-tier-2/60 backdrop-blur-xl border border-white/20 shadow-[0_20px_50px_rgba(196,92,255,0.25)] flex items-center justify-center group hover:scale-105 transition-transform">
-<div class="absolute inset-0 rounded-3xl bg-gradient-to-tr from-[#C45CFF]/20 to-[#FF3FB4]/20 blur-xl pointer-events-none"></div>
+<div class="relative w-52 h-52 md:w-64 md:h-64 p-6 rounded-3xl bg-white/[0.08] backdrop-blur-xl border border-white/20 shadow-[0_20px_50px_rgba(196,92,255,0.25)] flex items-center justify-center group hover:scale-105 transition-transform">
+<div class="absolute inset-0 rounded-3xl bg-gradient-to-tr from-primary/20 to-neon-magenta/20 blur-xl pointer-events-none"></div>
 <img alt="SugarCoach Logo Oficial" class="w-full h-full object-contain drop-shadow-2xl relative z-10" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCR9N-z6VZiIC6v1JczWYnPJidEFwtREYNsDm6kFnvFOo3Igk6I44lCHPLpvzP-jEDCEu1gXlnrAus1axlxghjdo1dJI3DVxR9aPjPSJLEfgDOKyU8dPvEjwe41GoFDTo41hTtqqr-9iIRxJvm5dDR7SSJy6EDWp1ODRArIOKbf5uATtrPF_xUZ_CsqCNVgyug0WPSpr3i8FrDRQ5dcGFaZQC-xWsfopnUSKgvCo-E4mVrA6KxvN8tvaRWmy1v4YuH_iQ"/>
 </div>
 </div>
@@ -786,39 +1249,39 @@
           </p>
 </div>
 <div class="flex flex-col gap-space-sm" id="faq-container">
-<div class="faq-item bg-surface-tier-1 rounded-2xl shadow-sm border border-white/[0.08] overflow-hidden transition-colors">
+<div class="faq-item bg-surface-tier-1 rounded-2xl shadow-sm border border-border-subtle overflow-hidden transition-colors">
 <button class="faq-btn w-full px-space-lg py-space-lg flex items-center justify-between text-left focus:outline-none" type="button">
 <span class="font-headline-sm text-headline-sm text-text-primary font-bold">¿SugarCoach es solo para niños?</span>
 <span class="material-symbols-outlined text-text-tertiary faq-icon transition-transform">expand_more</span>
 </button>
-<div class="faq-content hidden px-space-lg pb-space-lg pt-0 text-text-secondary font-body-md border-t border-white/[0.04]">
+<div class="faq-content hidden px-space-lg pb-space-lg pt-0 text-text-secondary font-body-md border-t border-border-subtle">
               No, está pensado tanto para niños y adolescentes como para adultos independientes y familias que acompañan. Su diseño es cálido y motivador sin caer en infantilismos.
             </div>
 </div>
-<div class="faq-item bg-surface-tier-1 rounded-2xl shadow-sm border border-white/[0.08] overflow-hidden transition-colors">
+<div class="faq-item bg-surface-tier-1 rounded-2xl shadow-sm border border-border-subtle overflow-hidden transition-colors">
 <button class="faq-btn w-full px-space-lg py-space-lg flex items-center justify-between text-left focus:outline-none" type="button">
 <span class="font-headline-sm text-headline-sm text-text-primary font-bold">¿Mi familia puede ver mis datos en tiempo real?</span>
 <span class="material-symbols-outlined text-text-tertiary faq-icon transition-transform">expand_more</span>
 </button>
-<div class="faq-content hidden px-space-lg pb-space-lg pt-0 text-text-secondary font-body-md border-t border-white/[0.04]">
+<div class="faq-content hidden px-space-lg pb-space-lg pt-0 text-text-secondary font-body-md border-t border-border-subtle">
               Sí, podés vincular a padres, cuidadores o parejas para que reciban avisos o vean resúmenes según los permisos que configures, garantizando tranquilidad sin invadir la privacidad.
             </div>
 </div>
-<div class="faq-item bg-surface-tier-1 rounded-2xl shadow-sm border border-white/[0.08] overflow-hidden transition-colors">
+<div class="faq-item bg-surface-tier-1 rounded-2xl shadow-sm border border-border-subtle overflow-hidden transition-colors">
 <button class="faq-btn w-full px-space-lg py-space-lg flex items-center justify-between text-left focus:outline-none" type="button">
 <span class="font-headline-sm text-headline-sm text-text-primary font-bold">¿Puedo compartir información con mi médico?</span>
 <span class="material-symbols-outlined text-text-tertiary faq-icon transition-transform">expand_more</span>
 </button>
-<div class="faq-content hidden px-space-lg pb-space-lg pt-0 text-text-secondary font-body-md border-t border-white/[0.04]">
+<div class="faq-content hidden px-space-lg pb-space-lg pt-0 text-text-secondary font-body-md border-t border-border-subtle">
               Totalmente. Podés exportar resúmenes claros con Tiempo en Rango (TIR) y relaciones de glucosa vs. insulina para agilizar la consulta clínica.
             </div>
 </div>
-<div class="faq-item bg-surface-tier-1 rounded-2xl shadow-sm border border-white/[0.08] overflow-hidden transition-colors">
+<div class="faq-item bg-surface-tier-1 rounded-2xl shadow-sm border border-border-subtle overflow-hidden transition-colors">
 <button class="faq-btn w-full px-space-lg py-space-lg flex items-center justify-between text-left focus:outline-none" type="button">
 <span class="font-headline-sm text-headline-sm text-text-primary font-bold">¿Qué datos puedo registrar en la app?</span>
 <span class="material-symbols-outlined text-text-tertiary faq-icon transition-transform">expand_more</span>
 </button>
-<div class="faq-content hidden px-space-lg pb-space-lg pt-0 text-text-secondary font-body-md border-t border-white/[0.04]">
+<div class="faq-content hidden px-space-lg pb-space-lg pt-0 text-text-secondary font-body-md border-t border-border-subtle">
               Glucosa capilar o continua, dosis de insulina basal y rápida, carbohidratos consumidos con fotos opcionales, tipo de actividad física y estado de ánimo diario.
             </div>
 </div>
@@ -855,12 +1318,12 @@
 </div>
 </main>
 <!-- FOOTER CON LOGO OFICIAL REAL EN DEEP DARK -->
-<footer class="w-full bg-[#030716] border-t border-white/[0.08] pt-space-3xl pb-space-xl">
+<footer class="w-full bg-surface-container-lowest border-t border-border-subtle pt-space-3xl pb-space-xl">
 <div class="max-w-[1200px] mx-auto px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop">
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-space-2xl pb-space-2xl">
 <div class="lg:col-span-2 flex flex-col gap-space-md">
 <a class="flex items-center gap-2" href="#">
-<div class="p-1.5 rounded-xl bg-white/[0.05] border border-white/10 w-fit">
+<div class="p-1.5 rounded-xl bg-surface-container-high border border-border-subtle w-fit">
 <img alt="SugarCoach Logo Oficial" class="h-9 w-auto object-contain filter drop-shadow-[0_2px_8px_rgba(196,92,255,0.3)]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVp6dwZ6capBrTpJoWQ8qISgBRfXggRsXUJ2cwjrZ3Qi6Za1rjgUDhOaJmoZ3Pflg19Vxzoz6iADk8Gr7cpyk9KiP0JAFRRhMrf6ckeJoI0YZu2ct9n6IyHxC3X-fr2GpqBIV1-6mF2dJJWQYqksBFBBZLdb_J9yI-gckTogOOUMbBd7SE4sG5inFzOP64nQtG8ehn3zNYCJ0g3us9CcAgX9TPD99XQatC7ppbZXJmIdItosSY5tpYMOgSG_El54XExw"/>
 </div>
 </a>
@@ -868,17 +1331,17 @@
             Un compañero cotidiano para vivir con la diabetes de una manera más simple, acompañada, motivadora y organizada.
           </p>
 <div class="flex flex-wrap gap-space-sm pt-space-xs">
-<a class="inline-flex items-center gap-space-xs px-space-md py-space-xs rounded-xl bg-white/[0.06] hover:bg-white/[0.12] border border-white/[0.1] text-white transition-colors" href="#">
+<a class="inline-flex items-center gap-space-xs px-space-md py-space-xs rounded-xl bg-inverse-surface text-inverse-on-surface border border-outline-variant hover:opacity-90 transition-opacity" href="#">
 <span class="material-symbols-outlined text-[20px]">phone_iphone</span>
 <div class="flex flex-col text-left">
-<span class="font-label-sm text-[10px] leading-tight text-text-tertiary">Descárgalo en</span>
+<span class="font-label-sm text-[10px] leading-tight text-outline-variant">Descárgalo en</span>
 <span class="font-label-md text-label-md font-bold leading-tight">App Store</span>
 </div>
 </a>
-<a class="inline-flex items-center gap-space-xs px-space-md py-space-xs rounded-xl bg-white/[0.06] hover:bg-white/[0.12] border border-white/[0.1] text-white transition-colors" href="#">
+<a class="inline-flex items-center gap-space-xs px-space-md py-space-xs rounded-xl bg-inverse-surface text-inverse-on-surface border border-outline-variant hover:opacity-90 transition-opacity" href="#">
 <span class="material-symbols-outlined text-[20px]">shop</span>
 <div class="flex flex-col text-left">
-<span class="font-label-sm text-[10px] leading-tight text-text-tertiary">Disponible en</span>
+<span class="font-label-sm text-[10px] leading-tight text-outline-variant">Disponible en</span>
 <span class="font-label-md text-label-md font-bold leading-tight">Google Play</span>
 </div>
 </a>
@@ -887,48 +1350,96 @@
 <div class="flex flex-col gap-space-sm">
 <span class="font-label-lg text-label-lg text-text-primary font-bold tracking-tight">Producto</span>
 <nav class="flex flex-col gap-space-xs">
-<a class="font-body-sm text-body-sm text-text-secondary hover:text-white transition-colors" href="#como-funciona">Cómo funciona</a>
-<a class="font-body-sm text-body-sm text-text-secondary hover:text-white transition-colors" href="#familias">Para familias</a>
-<a class="font-body-sm text-body-sm text-text-secondary hover:text-white transition-colors" href="#profesionales">Profesionales</a>
-<a class="font-body-sm text-body-sm text-text-secondary hover:text-white transition-colors" href="#gamificacion">Logros y Niveles</a>
-<a class="font-body-sm text-body-sm text-text-secondary hover:text-white transition-colors" href="#tratamiento">Tratamiento</a>
+<a class="font-body-sm text-body-sm text-text-secondary hover:text-primary transition-colors" href="#como-funciona">Cómo funciona</a>
+<a class="font-body-sm text-body-sm text-text-secondary hover:text-primary transition-colors" href="#familias">Para familias</a>
+<a class="font-body-sm text-body-sm text-text-secondary hover:text-primary transition-colors" href="#profesionales">Profesionales</a>
+<a class="font-body-sm text-body-sm text-text-secondary hover:text-primary transition-colors" href="#gamificacion">Logros y Niveles</a>
+<a class="font-body-sm text-body-sm text-text-secondary hover:text-primary transition-colors" href="#tratamiento">Tratamiento</a>
 </nav>
 </div>
 <div class="flex flex-col gap-space-sm">
 <span class="font-label-lg text-label-lg text-text-primary font-bold tracking-tight">Comunidad</span>
 <nav class="flex flex-col gap-space-xs">
-<a class="font-body-sm text-body-sm text-text-secondary hover:text-white transition-colors" href="#">Blog</a>
-<a class="font-body-sm text-body-sm text-text-secondary hover:text-white transition-colors" href="#">Familias conectadas</a>
-<a class="font-body-sm text-body-sm text-text-secondary hover:text-white transition-colors" href="#">Historias de progreso</a>
+<a class="font-body-sm text-body-sm text-text-secondary hover:text-primary transition-colors" href="#">Blog</a>
+<a class="font-body-sm text-body-sm text-text-secondary hover:text-primary transition-colors" href="#">Familias conectadas</a>
+<a class="font-body-sm text-body-sm text-text-secondary hover:text-primary transition-colors" href="#">Historias de progreso</a>
 </nav>
 </div>
 <div class="flex flex-col gap-space-sm">
 <span class="font-label-lg text-label-lg text-text-primary font-bold tracking-tight">Legal &amp; Soporte</span>
 <nav class="flex flex-col gap-space-xs">
-<a class="font-body-sm text-body-sm text-text-secondary hover:text-white transition-colors" href="#">Centro de ayuda</a>
-<a class="font-body-sm text-body-sm text-text-secondary hover:text-white transition-colors" href="#">Privacidad</a>
-<a class="font-body-sm text-body-sm text-text-secondary hover:text-white transition-colors" href="#">Términos de servicio</a>
+<a class="font-body-sm text-body-sm text-text-secondary hover:text-primary transition-colors" href="#">Centro de ayuda</a>
+<a class="font-body-sm text-body-sm text-text-secondary hover:text-primary transition-colors" href="#">Privacidad</a>
+<a class="font-body-sm text-body-sm text-text-secondary hover:text-primary transition-colors" href="#">Términos de servicio</a>
 </nav>
 </div>
 </div>
-<div class="pt-space-lg flex flex-col md:flex-row items-center justify-between gap-space-md border-t border-white/[0.08]">
+<div class="pt-space-lg flex flex-col md:flex-row items-center justify-between gap-space-md border-t border-border-subtle">
 <div class="flex flex-col sm:flex-row items-center gap-space-xs sm:gap-space-md text-center sm:text-left">
 <p class="font-body-sm text-body-sm text-text-tertiary">© 2024 SugarCoach. Todos los derechos reservados.</p>
-<span class="hidden sm:inline text-white/[0.2]">•</span>
+<span class="hidden sm:inline text-outline-variant">•</span>
 <p class="font-body-sm text-body-sm text-text-tertiary">Diseñado con empatía para familias y profesionales de la salud.</p>
 </div>
 <div class="flex items-center gap-space-md">
-<a aria-label="Comunidad" class="w-10 h-10 rounded-full bg-white/[0.05] border border-white/10 flex items-center justify-center text-text-secondary hover:text-white hover:bg-white/[0.1] transition-colors" href="#">
+<a aria-label="Comunidad" class="w-10 h-10 rounded-full bg-surface-container border border-border-subtle flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors" href="#">
 <span class="material-symbols-outlined text-[20px]">forum</span>
 </a>
-<a aria-label="Novedades" class="w-10 h-10 rounded-full bg-white/[0.05] border border-white/10 flex items-center justify-center text-text-secondary hover:text-white hover:bg-white/[0.1] transition-colors" href="#">
+<a aria-label="Novedades" class="w-10 h-10 rounded-full bg-surface-container border border-border-subtle flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors" href="#">
 <span class="material-symbols-outlined text-[20px]">campaign</span>
 </a>
-<a aria-label="Contacto" class="w-10 h-10 rounded-full bg-white/[0.05] border border-white/10 flex items-center justify-center text-text-secondary hover:text-white hover:bg-white/[0.1] transition-colors" href="#">
+<a aria-label="Contacto" class="w-10 h-10 rounded-full bg-surface-container border border-border-subtle flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors" href="#">
 <span class="material-symbols-outlined text-[20px]">mail</span>
 </a>
 </div>
 </div>
 </div>
 </footer>
+<script>
+  // ---- Selector de modo de color (claro / oscuro / accesible) ----
+  const themeMenuBtn = document.getElementById('themeMenuBtn');
+  const themeMenu = document.getElementById('themeMenu');
+  const themeItems = themeMenu.querySelectorAll('.theme-menu-item');
+  const labels = { light: 'Claro', dark: 'Oscuro', a11y: 'Accesible' };
+
+  function currentTheme() {
+    if (document.documentElement.classList.contains('dark')) return 'dark';
+    if (document.documentElement.classList.contains('a11y')) return 'a11y';
+    return 'light';
+  }
+  function applyTheme(mode) {
+    document.documentElement.classList.remove('dark', 'a11y');
+    if (mode === 'dark') document.documentElement.classList.add('dark');
+    if (mode === 'a11y') document.documentElement.classList.add('a11y');
+    themeItems.forEach(b => b.setAttribute('aria-current', b.dataset.theme === mode ? 'true' : 'false'));
+    themeMenuBtn.setAttribute('aria-label', 'Modo de color: ' + labels[mode] + '. Cambiar modo');
+  }
+  applyTheme(currentTheme());
+
+  function closeMenu() {
+    themeMenu.classList.add('hidden');
+    themeMenu.hidden = true;
+    themeMenuBtn.setAttribute('aria-expanded', 'false');
+  }
+  themeMenuBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const open = themeMenuBtn.getAttribute('aria-expanded') === 'true';
+    if (open) { closeMenu(); return; }
+    themeMenu.classList.remove('hidden');
+    themeMenu.hidden = false;
+    themeMenuBtn.setAttribute('aria-expanded', 'true');
+  });
+  themeItems.forEach(btn => {
+    btn.addEventListener('click', () => {
+      applyTheme(btn.dataset.theme);
+      closeMenu();
+      themeMenuBtn.focus();
+    });
+  });
+  document.addEventListener('click', (e) => {
+    if (!themeMenu.contains(e.target) && e.target !== themeMenuBtn) closeMenu();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') { closeMenu(); }
+  });
+</script>
 </body></html>
