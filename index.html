@@ -516,9 +516,9 @@
 
     <!-- Navegación de escritorio (lg en adelante) -->
     <nav class="hidden lg:flex items-center gap-space-lg">
-      <a class="font-label-lg text-label-lg text-text-secondary hover:text-primary transition-colors" data-path="como-funciona" href="#como-funciona">Cómo funciona</a>
-      <a class="font-label-lg text-label-lg text-text-secondary hover:text-primary transition-colors" data-path="para-familias" href="#familias">Para familias</a>
-      <a class="font-label-lg text-label-lg text-text-secondary hover:text-primary transition-colors" data-path="profesionales" href="#profesionales">Profesionales</a>
+      <a class="font-label-lg text-label-lg text-text-secondary hover:text-primary transition-colors" data-path="como-funciona" data-i18n="nav.comoFunciona" href="#como-funciona">Cómo funciona</a>
+      <a class="font-label-lg text-label-lg text-text-secondary hover:text-primary transition-colors" data-path="para-familias" data-i18n="nav.familias" href="#familias">Para familias</a>
+      <a class="font-label-lg text-label-lg text-text-secondary hover:text-primary transition-colors" data-path="profesionales" data-i18n="nav.profesionales" href="#profesionales">Profesionales</a>
     </nav>
 
     <!-- Controles de la derecha -->
@@ -531,13 +531,13 @@
         </button>
         <div id="themeMenu" role="menu" aria-label="Modo de color" class="theme-menu hidden" hidden>
           <button role="menuitemradio" data-theme="light" class="theme-menu-item" type="button">
-            <span class="material-symbols-outlined" style="font-size:18px">light_mode</span> Claro
+            <span class="material-symbols-outlined" style="font-size:18px">light_mode</span> <span data-i18n="theme.light">Claro</span>
           </button>
           <button role="menuitemradio" data-theme="dark" class="theme-menu-item" type="button">
-            <span class="material-symbols-outlined" style="font-size:18px">dark_mode</span> Oscuro
+            <span class="material-symbols-outlined" style="font-size:18px">dark_mode</span> <span data-i18n="theme.dark">Oscuro</span>
           </button>
           <button role="menuitemradio" data-theme="a11y" class="theme-menu-item" type="button">
-            <span class="material-symbols-outlined" style="font-size:18px">accessibility_new</span> Accesible
+            <span class="material-symbols-outlined" style="font-size:18px">accessibility_new</span> <span data-i18n="theme.accessible">Accesible</span>
           </button>
         </div>
       </div>
@@ -549,14 +549,14 @@
       <!-- Botón CTA descargar (visible siempre) -->
       <a class="inline-flex items-center justify-center px-3.5 sm:px-space-lg py-space-xs min-h-[44px] rounded-full btn-gradient text-white font-label-lg text-label-lg transition-all active:scale-95 gap-2 border border-white/20" data-path="descargar" href="#descargar">
         <span class="material-symbols-outlined text-[18px]">download</span>
-        <span class="hidden xs:inline sm:inline">Descargar</span>
+        <span class="hidden xs:inline sm:inline" data-i18n="btn.shortDownload">Descargar</span>
       </a>
 
       <!-- Iniciar sesión (escritorio) -->
-      <a class="hidden sm:inline-flex font-label-lg text-label-lg text-text-secondary hover:text-primary transition-colors" data-path="login" href="#">Iniciar sesión</a>
+      <a class="hidden sm:inline-flex font-label-lg text-label-lg text-text-secondary hover:text-primary transition-colors" data-path="login" data-i18n="nav.login" href="#">Iniciar sesión</a>
 
       <!-- Botón hamburguesa (solo visible en pantallas menores a lg) -->
-      <button id="mobileMenuBtn" aria-expanded="false" aria-controls="mobileMenu" aria-label="Abrir menú de navegación" class="lg:hidden theme-toggle" type="button">
+      <button id="mobileMenuBtn" aria-expanded="false" aria-controls="mobileMenu" aria-label="Abrir menú de navegación" data-i18n-aria="aria.openMenu" class="lg:hidden theme-toggle" type="button">
         <span id="mobileMenuIcon" class="material-symbols-outlined" style="font-size:22px">menu</span>
       </button>
     </div>
@@ -566,20 +566,20 @@
   <div id="mobileMenu" class="hidden lg:hidden w-full bg-bg-deep/95 backdrop-blur-2xl border-b border-border-subtle px-gutter-mobile py-space-md shadow-2xl transition-all" hidden>
     <nav class="flex flex-col gap-space-xs">
       <a class="mobile-nav-link px-4 py-3 rounded-xl font-label-lg text-text-secondary hover:text-primary hover:bg-surface-container transition-all flex items-center justify-between" href="#como-funciona">
-        <span>Cómo funciona</span>
+        <span data-i18n="nav.comoFunciona">Cómo funciona</span>
         <span class="material-symbols-outlined text-[18px]">chevron_right</span>
       </a>
       <a class="mobile-nav-link px-4 py-3 rounded-xl font-label-lg text-text-secondary hover:text-primary hover:bg-surface-container transition-all flex items-center justify-between" href="#familias">
-        <span>Para familias</span>
+        <span data-i18n="nav.familias">Para familias</span>
         <span class="material-symbols-outlined text-[18px]">chevron_right</span>
       </a>
       <a class="mobile-nav-link px-4 py-3 rounded-xl font-label-lg text-text-secondary hover:text-primary hover:bg-surface-container transition-all flex items-center justify-between" href="#profesionales">
-        <span>Profesionales</span>
+        <span data-i18n="nav.profesionales">Profesionales</span>
         <span class="material-symbols-outlined text-[18px]">chevron_right</span>
       </a>
       <div class="h-px w-full bg-border-subtle my-2"></div>
       <a class="mobile-nav-link px-4 py-3 rounded-xl font-label-lg text-primary hover:bg-surface-container transition-all flex items-center justify-between" href="#">
-        <span>Iniciar sesión</span>
+        <span data-i18n="nav.login">Iniciar sesión</span>
         <span class="material-symbols-outlined text-[18px]">login</span>
       </a>
     </nav>
@@ -647,8 +647,8 @@
     <span class="material-symbols-outlined text-[20px]">trending_down</span>
   </div>
   <div class="flex flex-col">
-    <span class="font-label-sm text-text-tertiary text-[11px]">Última medición</span>
-    <span class="font-label-md text-text-primary font-extrabold text-[15px]">116 mg/dL • En rango</span>
+    <span class="font-label-sm text-text-tertiary text-[11px]" data-i18n="hero.lastReading">Última medición</span>
+    <span class="font-label-md text-text-primary font-extrabold text-[15px]" data-i18n="hero.readingStatus">116 mg/dL • En rango</span>
   </div>
 </div>
 
@@ -658,8 +658,8 @@
     <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
   </div>
   <div class="flex flex-col">
-    <span class="font-label-md text-text-primary font-bold">1100 pts • Nivel 1</span>
-    <span class="font-label-sm text-text-tertiary text-[11px]">¡Racha y constancia activa!</span>
+    <span class="font-label-md text-text-primary font-bold" data-i18n="hero.points">1100 pts • Nivel 1</span>
+    <span class="font-label-sm text-text-tertiary text-[11px]" data-i18n="hero.streak">¡Racha y constancia activa!</span>
   </div>
 </div>
 
@@ -669,8 +669,8 @@
     <span class="material-symbols-outlined text-[20px]">family_restroom</span>
   </div>
   <div class="flex flex-col">
-    <span class="font-label-md text-text-primary font-bold">Familia conectada</span>
-    <span class="font-label-sm text-text-tertiary text-[11px]">Sincronización al instante</span>
+    <span class="font-label-md text-text-primary font-bold" data-i18n="hero.familyConnected">Familia conectada</span>
+    <span class="font-label-sm text-text-tertiary text-[11px]" data-i18n="hero.sync">Sincronización al instante</span>
   </div>
 </div>
 <!-- Teléfono de Apoyo (Daily Log Real IMAGE_14) -->
@@ -1290,16 +1290,16 @@
     <div class="flex flex-col justify-between flex-1 min-w-0">
       <div>
         <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/15 text-primary dark:text-primary-fixed-dim text-[14px] font-bold uppercase tracking-wider mb-2 border border-primary/30">
-          Fundadora &amp; Líder Técnica
+          <span data-i18n="team.isabel.role">Fundadora &amp; Líder Técnica</span>
         </div>
-        <h4 class="text-[24px] leading-tight font-bold text-on-surface mb-3">Isabel Berizzo</h4>
+        <h4 class="text-[24px] leading-tight font-bold text-on-surface mb-3" data-i18n="team.isabel.name">Isabel Berizzo</h4>
         <p class="text-[16px] leading-relaxed text-text-secondary">
-          Soy Isa Berizzo, madre de dos hijos diagnosticados con diabetes tipo 1 cuando tenían solo 3 y 4 años. Como Ingeniera en Sistemas, programadora y CTO, decidí combinar mi experiencia técnica con mi pasión por transformar vidas. Así nació SugarCoach, una plataforma diseñada para convertir el desafío de la diabetes en una experiencia positiva, educativa y motivadora. Además, es TED speaker y comparte su historia y aprendizajes para inspirar a otras familias.
+          <span data-i18n="team.isabel.description">Soy Isa Berizzo, madre de dos hijos diagnosticados con diabetes tipo 1 cuando tenían solo 3 y 4 años. Como Ingeniera en Sistemas, programadora y CTO, decidí combinar mi experiencia técnica con mi pasión por transformar vidas. Así nació SugarCoach, una plataforma diseñada para convertir el desafío de la diabetes en una experiencia positiva, educativa y motivadora. Además, es TED speaker y comparte su historia y aprendizajes para inspirar a otras familias.</span>
         </p>
       </div>
       <div class="mt-4 pt-3 border-t border-border-subtle flex items-center gap-2">
-        <span class="px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-700 dark:text-rose-300 text-[14px] font-bold border border-rose-500/30">TEDx Speaker</span>
-        <span class="px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-700 dark:text-cyan-300 text-[14px] font-bold border border-cyan-500/30">Ingeniera en Sistemas</span>
+        <span class="px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-700 dark:text-rose-300 text-[14px] font-bold border border-rose-500/30" data-i18n="team.isabel.badge1">TEDx Speaker</span>
+        <span class="px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-700 dark:text-cyan-300 text-[14px] font-bold border border-cyan-500/30" data-i18n="team.isabel.badge2">Ingeniera en Sistemas</span>
       </div>
     </div>
   </div>
@@ -1311,15 +1311,15 @@
     </div>
     <div class="flex flex-col flex-1 min-w-0">
       <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary-fixed-dim/15 text-secondary dark:text-secondary-fixed-dim text-[14px] font-bold uppercase tracking-wider mb-2 border border-secondary-fixed-dim/30">
-        COO &amp; Operaciones
+        <span data-i18n="team.veronica.role">COO &amp; Operaciones</span>
       </div>
-      <h4 class="text-[20px] leading-tight font-bold text-on-surface mb-3">Veronica Avendaño</h4>
-      <p class="text-[16px] leading-relaxed text-text-secondary">
+      <h4 class="text-[20px] leading-tight font-bold text-on-surface mb-3" data-i18n="team.veronica.name">Veronica Avendaño</h4>
+      <p class="text-[16px] leading-relaxed text-text-secondary" data-i18n="team.veronica.description">
         Ingeniera Industrial con especialización en desarrollo y administración de proyectos, Verónica lidera nuestras operaciones, asegurando que cada iniciativa se ejecute con excelencia.
       </p>
       <div class="mt-4 pt-3 border-t border-border-subtle flex items-center gap-2 flex-wrap">
-        <span class="px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-700 dark:text-cyan-300 text-[14px] font-bold border border-cyan-500/30">Ingeniera Industrial</span>
-        <span class="px-2.5 py-0.5 rounded-full bg-secondary-fixed-dim/20 text-secondary dark:text-secondary-fixed-dim text-[14px] font-bold border border-secondary-fixed-dim/30">COO</span>
+        <span class="px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-700 dark:text-cyan-300 text-[14px] font-bold border border-cyan-500/30" data-i18n="team.veronica.badge1">Ingeniera Industrial</span>
+        <span class="px-2.5 py-0.5 rounded-full bg-secondary-fixed-dim/20 text-secondary dark:text-secondary-fixed-dim text-[14px] font-bold border border-secondary-fixed-dim/30" data-i18n="team.veronica.badge2">COO</span>
       </div>
     </div>
   </div>
@@ -1331,15 +1331,15 @@
     </div>
     <div class="flex flex-col flex-1 min-w-0">
       <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-tertiary/15 text-tertiary dark:text-tertiary-fixed-dim text-[14px] font-bold uppercase tracking-wider mb-2 border border-tertiary/30">
-        RSE &amp; Relaciones Públicas
+        <span data-i18n="team.debora.role">RSE &amp; Relaciones Públicas</span>
       </div>
-      <h4 class="text-[20px] leading-tight font-bold text-on-surface mb-3">Debora Biain</h4>
-      <p class="text-[16px] leading-relaxed text-text-secondary">
+      <h4 class="text-[20px] leading-tight font-bold text-on-surface mb-3" data-i18n="team.debora.name">Debora Biain</h4>
+      <p class="text-[16px] leading-relaxed text-text-secondary" data-i18n="team.debora.description">
         Licenciada en Relaciones Institucionales y experta en responsabilidad social, Débora integra estrategias que fortalecen nuestro compromiso con el impacto social.
       </p>
       <div class="mt-4 pt-3 border-t border-border-subtle flex items-center gap-2 flex-wrap">
-        <span class="px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-700 dark:text-rose-300 text-[14px] font-bold border border-rose-500/30">Relaciones Institucionales</span>
-        <span class="px-2.5 py-0.5 rounded-full bg-tertiary/20 text-tertiary dark:text-tertiary-fixed-dim text-[14px] font-bold border border-tertiary/30">RSE</span>
+        <span class="px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-700 dark:text-rose-300 text-[14px] font-bold border border-rose-500/30" data-i18n="team.debora.badge1">Relaciones Institucionales</span>
+        <span class="px-2.5 py-0.5 rounded-full bg-tertiary/20 text-tertiary dark:text-tertiary-fixed-dim text-[14px] font-bold border border-tertiary/30" data-i18n="team.debora.badge2">RSE</span>
       </div>
     </div>
   </div>
@@ -1351,15 +1351,15 @@
     </div>
     <div class="flex flex-col flex-1 min-w-0">
       <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/15 text-primary dark:text-primary-fixed-dim text-[14px] font-bold uppercase tracking-wider mb-2 border border-primary/30">
-        CM &amp; Content Manager
+        <span data-i18n="team.agustina.role">CM &amp; Content Manager</span>
       </div>
-      <h4 class="text-[20px] leading-tight font-bold text-on-surface mb-3">Agustina Olivo</h4>
-      <p class="text-[16px] leading-relaxed text-text-secondary">
+      <h4 class="text-[20px] leading-tight font-bold text-on-surface mb-3" data-i18n="team.agustina.name">Agustina Olivo</h4>
+      <p class="text-[16px] leading-relaxed text-text-secondary" data-i18n="team.agustina.description">
         Licenciada en Ciencia Política y mi hija, Agustina está a cargo del contenido, redes sociales y marketing, aportando creatividad y conexión directa con nuestra audiencia.
       </p>
       <div class="mt-4 pt-3 border-t border-border-subtle flex items-center gap-2 flex-wrap">
-        <span class="px-2.5 py-0.5 rounded-full bg-purple-500/20 text-purple-700 dark:text-purple-300 text-[14px] font-bold border border-purple-500/30">Ciencia Política</span>
-        <span class="px-2.5 py-0.5 rounded-full bg-primary/20 text-primary dark:text-primary-fixed-dim text-[14px] font-bold border border-primary/30">Content Manager</span>
+        <span class="px-2.5 py-0.5 rounded-full bg-purple-500/20 text-purple-700 dark:text-purple-300 text-[14px] font-bold border border-purple-500/30" data-i18n="team.agustina.badge1">Ciencia Política</span>
+        <span class="px-2.5 py-0.5 rounded-full bg-primary/20 text-primary dark:text-primary-fixed-dim text-[14px] font-bold border border-primary/30" data-i18n="team.agustina.badge2">Content Manager</span>
       </div>
     </div>
   </div>
@@ -1371,15 +1371,15 @@
     </div>
     <div class="flex flex-col flex-1 min-w-0">
       <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary-fixed-dim/15 text-secondary dark:text-secondary-fixed-dim text-[14px] font-bold uppercase tracking-wider mb-2 border border-secondary-fixed-dim/30">
-        Business Development
+        <span data-i18n="team.karin.role">Business Development</span>
       </div>
-      <h4 class="text-[20px] leading-tight font-bold text-on-surface mb-3">Karin Chmiel</h4>
-      <p class="text-[16px] leading-relaxed text-text-secondary">
+      <h4 class="text-[20px] leading-tight font-bold text-on-surface mb-3" data-i18n="team.karin.name">Karin Chmiel</h4>
+      <p class="text-[16px] leading-relaxed text-text-secondary" data-i18n="team.karin.description">
         Especialista en desarrollo de negocios, ventas y estrategias de mercado, Karin impulsa nuestro crecimiento y expansión con su enfoque en relaciones clave y oportunidades estratégicas.
       </p>
       <div class="mt-4 pt-3 border-t border-border-subtle flex items-center gap-2 flex-wrap">
-        <span class="px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-700 dark:text-cyan-300 text-[14px] font-bold border border-cyan-500/30">Business Development</span>
-        <span class="px-2.5 py-0.5 rounded-full bg-secondary-fixed-dim/20 text-secondary dark:text-secondary-fixed-dim text-[14px] font-bold border border-secondary-fixed-dim/30">Ventas &amp; Estrategia</span>
+        <span class="px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-700 dark:text-cyan-300 text-[14px] font-bold border border-cyan-500/30" data-i18n="team.karin.badge1">Business Development</span>
+        <span class="px-2.5 py-0.5 rounded-full bg-secondary-fixed-dim/20 text-secondary dark:text-secondary-fixed-dim text-[14px] font-bold border border-secondary-fixed-dim/30" data-i18n="team.karin.badge2">Ventas &amp; Estrategia</span>
       </div>
     </div>
   </div>
@@ -1511,18 +1511,19 @@ const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
 function toggleMobileMenu(forceClose = false) {
   const isExpanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
   const shouldOpen = forceClose ? false : !isExpanded;
+  const isEnglish = document.documentElement.lang === 'en';
 
   if (shouldOpen) {
     mobileMenu.classList.remove('hidden');
     mobileMenu.hidden = false;
     mobileMenuBtn.setAttribute('aria-expanded', 'true');
-    mobileMenuBtn.setAttribute('aria-label', 'Cerrar menú de navegación');
+    mobileMenuBtn.setAttribute('aria-label', isEnglish ? 'Close navigation menu' : 'Cerrar menú de navegación');
     mobileMenuIcon.textContent = 'close';
   } else {
     mobileMenu.classList.add('hidden');
     mobileMenu.hidden = true;
     mobileMenuBtn.setAttribute('aria-expanded', 'false');
-    mobileMenuBtn.setAttribute('aria-label', 'Abrir menú de navegación');
+    mobileMenuBtn.setAttribute('aria-label', isEnglish ? 'Open navigation menu' : 'Abrir menú de navegación');
     mobileMenuIcon.textContent = 'menu';
   }
 }
@@ -1667,7 +1668,7 @@ if (mobileMenuBtn && mobileMenu) {
   const I18N = {
     es: {
       'nav.comoFunciona': 'Cómo funciona', 'nav.familias': 'Para familias', 'nav.profesionales': 'Profesionales', 'nav.login': 'Iniciar sesión',
-      'btn.descargar': 'Descargar SugarCoach', 'btn.downloadFree': 'Descargar SugarCoach gratis', 'btn.seeHow': 'Ver cómo funciona',
+      'btn.descargar': 'Descargar SugarCoach', 'btn.shortDownload': 'Descargar', 'btn.downloadFree': 'Descargar SugarCoach gratis', 'btn.seeHow': 'Ver cómo funciona',
       'theme.light': 'Claro', 'theme.dark': 'Oscuro', 'theme.accessible': 'Accesible', 'hero.badge': 'Compañero diario para niños, jóvenes y familias',
       'hero.title': 'Cuidar tu diabetes puede sentirse más simple.', 'hero.description': 'SugarCoach te ayuda a registrar tus controles, sumar puntos por tu constancia, organizar reportes médicos y mantener conectada a tu familia. Con calidez, gamificación positiva y sin estrés clínico.',
       'hero.socialProof': 'Familias y pacientes más tranquilos cada día', 'familias.eyebrow': 'Diseñado para convivir', 'familias.title': 'Una app, distintas formas de acompañar',
@@ -1692,7 +1693,7 @@ if (mobileMenuBtn && mobileMenu) {
     },
     en: {
       'nav.comoFunciona': 'How it works', 'nav.familias': 'For families', 'nav.profesionales': 'Professionals', 'nav.login': 'Log in',
-      'btn.descargar': 'Download SugarCoach', 'btn.downloadFree': 'Download SugarCoach for free', 'btn.seeHow': 'See how it works',
+      'btn.descargar': 'Download SugarCoach', 'btn.shortDownload': 'Download', 'btn.downloadFree': 'Download SugarCoach for free', 'btn.seeHow': 'See how it works',
       'theme.light': 'Light', 'theme.dark': 'Dark', 'theme.accessible': 'Accessible', 'hero.badge': 'A daily companion for children, teens, and families',
       'hero.title': 'Taking care of your diabetes can feel simpler.', 'hero.description': 'SugarCoach helps you log your readings, earn points for consistency, organize medical reports, and keep your family connected. With warmth, positive gamification, and no clinical stress.',
       'hero.socialProof': 'Calmer families and patients every day', 'familias.eyebrow': 'Designed for everyday life', 'familias.title': 'One app, different ways to support',
@@ -1716,6 +1717,22 @@ if (mobileMenuBtn && mobileMenu) {
       'footer.description': 'An everyday companion for living with diabetes in a simpler, supported, motivating, and organized way.', 'footer.product': 'Product', 'footer.community': 'Community', 'footer.legal': 'Legal & Support', 'footer.tagline': 'Designed with empathy for families and healthcare professionals.', 'footer.googlePlay': 'Google Play', 'footer.how': 'How it works', 'footer.families': 'For families', 'footer.professionals': 'Professionals', 'footer.achievements': 'Achievements and levels', 'footer.treatment': 'Treatment', 'footer.blog': 'Blog', 'footer.connectedFamilies': 'Connected families', 'footer.progressStories': 'Progress stories', 'footer.help': 'Help center', 'footer.privacy': 'Privacy', 'footer.terms': 'Terms of service', 'how.step1.badge': 'Quick entry', 'how.step2.badge': 'Clear history', 'how.step2.description': 'The Daily Log chronologically groups lunches, dinners, corrections, and activities with clear, understandable color labels.', 'how.step3.description': 'View personalized ranges (Low 70, Target 100, High 180 mg/dL), pens or pumps, and share the report with one click.', 'awards.endeavor': 'Endeavor', 'awards.aws': 'AWS', 'awards.hit': 'Hit Cowork', 'awards.wise': 'WISE', 'awards.bid': 'IDB', 'awards.naves': 'Naves IAE', 'awards.google': 'Google for Startups', 'awards.huawei': 'Huawei', 'awards.samsung': 'Samsung', 'awards.globant': 'Globant', 'awards.ewc': 'Entrepreneurship World Cup', 'team.isabel.name': 'Isabel Berizzo', 'team.isabel.badge1': 'TEDx Speaker', 'team.isabel.badge2': 'Systems Engineer', 'team.veronica.name': 'Veronica Avendaño', 'team.debora.name': 'Debora Biain', 'team.agustina.name': 'Agustina Olivo', 'team.karin.name': 'Karin Chmiel'
     }
   };
+  Object.assign(I18N.es, {
+    'aria.openMenu': 'Abrir menú de navegación',
+    'aria.closeMenu': 'Cerrar menú de navegación',
+    'team.veronica.badge1': 'Ingeniera Industrial', 'team.veronica.badge2': 'COO',
+    'team.debora.title': 'RSE & Relaciones Públicas', 'team.debora.badge1': 'Relaciones Institucionales', 'team.debora.badge2': 'RSE',
+    'team.agustina.title': 'CM & Content Manager', 'team.agustina.badge1': 'Ciencia Política', 'team.agustina.badge2': 'Content Manager',
+    'team.karin.title': 'Business Development', 'team.karin.badge1': 'Business Development', 'team.karin.badge2': 'Ventas & Estrategia'
+  });
+  Object.assign(I18N.en, {
+    'aria.openMenu': 'Open navigation menu',
+    'aria.closeMenu': 'Close navigation menu',
+    'team.veronica.badge1': 'Industrial Engineer', 'team.veronica.badge2': 'COO',
+    'team.debora.title': 'CSR & Public Relations', 'team.debora.badge1': 'Institutional Relations', 'team.debora.badge2': 'CSR',
+    'team.agustina.title': 'CM & Content Manager', 'team.agustina.badge1': 'Political Science', 'team.agustina.badge2': 'Content Manager',
+    'team.karin.title': 'Business Development', 'team.karin.badge1': 'Business Development', 'team.karin.badge2': 'Sales & Strategy'
+  });
 
   function deviceLanguage() {
     const language = (navigator.languages && navigator.languages[0]) || navigator.language || '';
