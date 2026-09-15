@@ -211,7 +211,7 @@
 </nav>
 <div class="flex items-center gap-space-md">
 <a class="hidden sm:inline-flex font-label-lg text-label-lg text-text-secondary hover:text-white transition-colors" data-path="login" href="#">Iniciar sesión</a>
-<a class="inline-flex items-center justify-center px-space-lg py-space-xs min-h-[44px] rounded-full btn-pro text-white font-label-lg text-label-lg transition-all active:scale-95 gap-2 border border-white/20" data-path="descargar" href="#acceso-profesional">
+<a class="inline-flex items-center justify-center px-space-lg py-space-xs min-h-[44px] rounded-full btn-pro text-white font-label-lg text-label-lg transition-all active:scale-95 gap-2 border border-white/20" data-path="descargar" href="profesionales/dashboard.html">
 <span class="material-symbols-outlined text-[18px]">stethoscope</span>
           Acceso profesional
         </a>
@@ -249,9 +249,9 @@
                 SugarCoach le da a tu equipo reportes listos para consulta: Tiempo en Rango (TIR), glucosa vs. insulina, adherencia y hábitos. Tus pacientes registran en segundos; vos decidís con evidencia.
               </p>
 <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-space-md pt-space-xs">
-<a class="inline-flex items-center justify-center gap-space-xs px-space-xl py-4 rounded-full btn-pro text-white font-label-lg text-label-lg active:scale-[0.98] transition-all border border-white/20" href="#acceso-profesional">
+<a class="inline-flex items-center justify-center gap-space-xs px-space-xl py-4 rounded-full btn-pro text-white font-label-lg text-label-lg active:scale-[0.98] transition-all border border-white/20" href="profesionales/dashboard.html">
 <span class="material-symbols-outlined text-[20px]">stethoscope</span>
-                  Solicitar acceso profesional
+                  Abrir dashboard profesional
                 </a>
 <a class="inline-flex items-center justify-center gap-space-xs px-space-xl py-4 rounded-full bg-white/[0.04] text-text-primary border border-pro-magenta/30 font-label-lg text-label-lg hover:bg-pro-magenta/10 hover:border-pro-magenta/60 active:scale-[0.98] transition-all" href="#beneficios">
 <span class="material-symbols-outlined text-[20px] text-pro-magenta">play_circle</span>
@@ -483,12 +483,12 @@
 <h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-white font-extrabold">Empezá a acompañar con evidencia, no con suposiciones.</h2>
 <p class="font-body-lg text-body-lg text-pro-mist/90">Dejanos tu email profesional y te habilitamos el panel + una demo de 20 minutos con casos reales anonimizados.</p>
 </div>
-<form class="flex-1 flex flex-col sm:flex-row gap-space-sm w-full" onsubmit="event.preventDefault(); document.getElementById('pro-ok').classList.remove('hidden');">
+<form class="flex-1 flex flex-col sm:flex-row gap-space-sm w-full" onsubmit="event.preventDefault(); window.location.href='profesionales/dashboard.html';">
 <input required type="email" placeholder="tu@emailprofesional.com" class="flex-1 px-5 py-4 rounded-full bg-black/40 border border-pro-magenta/40 text-white placeholder:text-pro-lilac focus:outline-none focus:border-pro-magenta"/>
-<button class="px-space-xl py-4 rounded-full btn-pro text-white font-label-lg font-bold border border-white/20 whitespace-nowrap" type="submit">Solicitar acceso</button>
+<button class="px-space-xl py-4 rounded-full btn-pro text-white font-label-lg font-bold border border-white/20 whitespace-nowrap" type="submit">Entrar al dashboard →</button>
 </form>
 </div>
-<p id="pro-ok" class="hidden mt-4 font-body-md text-body-md text-emerald-300 relative z-10">¡Gracias! Te contactaremos a la brevedad con tu acceso profesional.</p>
+<p id="pro-ok" class="mt-4 font-body-md text-body-md text-pro-mist/80 relative z-10">Flujo: login simulado → <a class="underline text-white" href="profesionales/dashboard.html">/profesionales/dashboard</a> → selección de paciente → monitoreo. También podés deep-linkear: <span class="font-bold">dashboard.html?patient=mateo</span></p>
 </div>
 </section>
 </div>
