@@ -31,6 +31,17 @@
     .phone-mockup-glow {
       box-shadow: 0 25px 65px -12px rgba(196, 92, 255, 0.28), 0 0 0 1px rgba(196, 92, 255, 0.2);
     }
+    .nav-link-active {
+      color: #fff !important;
+      position: relative;
+    }
+    .nav-link-active::after {
+      content: "";
+      position: absolute;
+      left: 0; right: 0; bottom: -8px;
+      height: 2px; border-radius: 9999px;
+      background: linear-gradient(90deg, #C45CFF 0%, #FF3FB4 100%);
+    }
   </style>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <script id="tailwind-config">
@@ -170,7 +181,7 @@
 <nav class="hidden lg:flex items-center gap-space-lg">
 <a class="font-label-lg text-label-lg text-text-secondary hover:text-white transition-colors" data-path="como-funciona" href="#como-funciona">Cómo funciona</a>
 <a class="font-label-lg text-label-lg text-text-secondary hover:text-white transition-colors" data-path="para-familias" href="#familias">Para familias</a>
-<a class="font-label-lg text-label-lg text-text-secondary hover:text-white transition-colors" data-path="profesionales" href="#profesionales">Profesionales</a>
+<a class="font-label-lg text-label-lg text-text-secondary hover:text-white transition-colors" data-path="profesionales" href="profesionales.html">Profesionales</a>
 <a class="font-label-lg text-label-lg text-text-secondary hover:text-white transition-colors" data-path="gamificacion" href="#gamificacion">Logros</a>
 <a class="font-label-lg text-label-lg text-text-secondary hover:text-white transition-colors" data-path="tratamiento" href="#tratamiento">Tratamiento</a>
 <a class="font-label-lg text-label-lg text-text-secondary hover:text-white transition-colors" data-path="preguntas-frecuentes" href="#preguntas-frecuentes">Preguntas frecuentes</a>
@@ -852,6 +863,20 @@
           });
         });
       </script>
+<script>
+        // Estado "activo" del navbar: subraya el link de la página actual.
+        // En index.html ninguno es página independiente (todos son #), salvo Profesionales.
+        // En profesionales.html el link [data-path="profesionales"] recibe .nav-link-active.
+        document.addEventListener('DOMContentLoaded', () => {
+          const page = window.location.pathname.split('/').pop() || 'index.html';
+          document.querySelectorAll('header nav a[data-path]').forEach((a) => {
+            const isProf = a.getAttribute('data-path') === 'profesionales';
+            const onProfPage = page.toLowerCase().startsWith('profesional');
+            if (isProf && onProfPage) a.classList.add('nav-link-active');
+            if (!onProfPage) a.classList.remove('nav-link-active');
+          });
+        });
+      </script>
 </div>
 </main>
 <!-- FOOTER CON LOGO OFICIAL REAL EN DEEP DARK -->
@@ -889,7 +914,7 @@
 <nav class="flex flex-col gap-space-xs">
 <a class="font-body-sm text-body-sm text-text-secondary hover:text-white transition-colors" href="#como-funciona">Cómo funciona</a>
 <a class="font-body-sm text-body-sm text-text-secondary hover:text-white transition-colors" href="#familias">Para familias</a>
-<a class="font-body-sm text-body-sm text-text-secondary hover:text-white transition-colors" href="#profesionales">Profesionales</a>
+<a class="font-body-sm text-body-sm text-text-secondary hover:text-white transition-colors" href="profesionales.html">Profesionales</a>
 <a class="font-body-sm text-body-sm text-text-secondary hover:text-white transition-colors" href="#gamificacion">Logros y Niveles</a>
 <a class="font-body-sm text-body-sm text-text-secondary hover:text-white transition-colors" href="#tratamiento">Tratamiento</a>
 </nav>
