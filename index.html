@@ -313,6 +313,7 @@
       transition: background .15s ease, border-color .15s ease;
     }
     .theme-toggle:hover { background: var(--c-surface-container-high); }
+        #langToggleBtn { font-weight: 700; font-size: 13px; letter-spacing: 0.02em; }
     .theme-menu {
       position: absolute; right: 0; top: calc(100% + 8px); z-index: 60;
       background: var(--c-surface-container-lowest);
@@ -511,34 +512,37 @@
 </div>
 </a>
 <nav class="hidden lg:flex items-center gap-space-lg">
-<a class="font-label-lg text-label-lg text-text-secondary hover:text-primary transition-colors" data-path="como-funciona" href="#como-funciona">Cómo funciona</a>
-<a class="font-label-lg text-label-lg text-text-secondary hover:text-primary transition-colors" data-path="para-familias" href="#familias">Para familias</a>
-<a class="font-label-lg text-label-lg text-text-secondary hover:text-primary transition-colors" data-path="profesionales" href="#profesionales">Profesionales</a>
+<a class="font-label-lg text-label-lg text-text-secondary hover:text-primary transition-colors" data-path="como-funciona" data-i18n="nav.comoFunciona" href="#como-funciona">Cómo funciona</a>
+<a class="font-label-lg text-label-lg text-text-secondary hover:text-primary transition-colors" data-path="para-familias" data-i18n="nav.familias" href="#familias">Para familias</a>
+<a class="font-label-lg text-label-lg text-text-secondary hover:text-primary transition-colors" data-path="profesionales" data-i18n="nav.profesionales" href="#profesionales">Profesionales</a>
 
 </nav>
 <div class="flex items-center gap-space-md">
-<div class="relative">
-<button aria-haspopup="true" aria-expanded="false" aria-controls="themeMenu" class="theme-toggle" id="themeMenuBtn" type="button">
-<span class="material-symbols-outlined" style="font-size:20px">contrast</span>
-</button>
-<div id="themeMenu" role="menu" aria-label="Modo de color" class="theme-menu hidden" hidden>
-<button role="menuitemradio" data-theme="light" class="theme-menu-item" type="button">
-<span class="material-symbols-outlined" style="font-size:18px">light_mode</span> Claro
-</button>
-<button role="menuitemradio" data-theme="dark" class="theme-menu-item" type="button">
-<span class="material-symbols-outlined" style="font-size:18px">dark_mode</span> Oscuro
-</button>
-<button role="menuitemradio" data-theme="a11y" class="theme-menu-item" type="button">
-<span class="material-symbols-outlined" style="font-size:18px">accessibility_new</span> Accesible
-</button>
+  <div class="relative">
+    <button aria-haspopup="true" aria-expanded="false" aria-controls="themeMenu" class="theme-toggle" id="themeMenuBtn" type="button">
+    <span class="material-symbols-outlined" style="font-size:20px">contrast</span>
+    </button>
+    <div id="themeMenu" role="menu" aria-label="Modo de color" class="theme-menu hidden" hidden>
+    <button role="menuitemradio" data-theme="light" class="theme-menu-item" type="button">
+    <span class="material-symbols-outlined" style="font-size:18px">light_mode</span><span data-i18n="theme.light"> Claro</span>
+    </button>
+    <button role="menuitemradio" data-theme="dark" class="theme-menu-item" type="button">
+    <span class="material-symbols-outlined" style="font-size:18px">dark_mode</span><span data-i18n="theme.dark"> Oscuro</span>
+    </button>
+    <button role="menuitemradio" data-theme="a11y" class="theme-menu-item" type="button">
+    <span class="material-symbols-outlined" style="font-size:18px">accessibility_new</span><span data-i18n="theme.accessible"> Accesible</span>
+    </button>
+    </div>
+  </div>
+  <button id="langToggleBtn" class="theme-toggle" type="button" aria-label="Switch to English">
+    <span id="langToggleLabel">ES</span>
+  </button>
+  <a class="inline-flex items-center justify-center px-space-lg py-space-xs min-h-[44px] rounded-full btn-gradient text-white font-label-lg text-label-lg transition-all active:scale-95 gap-2 border border-white/20" data-path="descargar" href="#descargar">
+  <span class="material-symbols-outlined text-[18px]">download</span><span data-i18n="btn.descargar">Descargar SugarCoach</span>
+          </a>
+  <a class="hidden sm:inline-flex font-label-lg text-label-lg text-text-secondary hover:text-primary transition-colors" data-path="login" data-i18n="nav.login" href="#">Iniciar sesión</a>
 </div>
-</div>
-<a class="inline-flex items-center justify-center px-space-lg py-space-xs min-h-[44px] rounded-full btn-gradient text-white font-label-lg text-label-lg transition-all active:scale-95 gap-2 border border-white/20" data-path="descargar" href="#descargar">
-<span class="material-symbols-outlined text-[18px]">download</span>
-          Descargar SugarCoach
-        </a>
-<a class="hidden sm:inline-flex font-label-lg text-label-lg text-text-secondary hover:text-primary transition-colors" data-path="login" href="#">Iniciar sesión</a>
-</div>
+
 </div>
 </header>
 <main class="w-full pt-20 bg-bg-deep min-h-[calc(100vh-80px)]">
@@ -555,22 +559,22 @@
 <div class="lg:col-span-6 flex flex-col gap-space-lg">
 <div class="inline-flex items-center gap-space-xs px-3.5 py-1.5 rounded-full bg-surface-tier-1 text-primary w-fit shadow-md border border-border-subtle backdrop-blur-md">
 <span class="material-symbols-outlined text-[18px] text-accent-yellow" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="font-label-md text-label-md font-bold tracking-tight text-text-primary">Compañero diario para niños, jóvenes y familias</span>
+<span class="font-label-md text-label-md font-bold tracking-tight text-text-primary" data-i18n="hero.badge">Compañero diario para niños, jóvenes y familias</span>
 </div>
 <h1 class="font-display-lg text-display-lg-mobile md:text-display-lg text-text-primary font-extrabold tracking-tight">
-                Cuidar tu diabetes puede sentirse más <span class="gradient-text underline decoration-secondary decoration-wavy underline-offset-8">simple</span>.
+                <span data-i18n="hero.titlePrefix">Cuidar tu diabetes puede sentirse más </span><span class="gradient-text underline decoration-secondary decoration-wavy underline-offset-8" data-i18n="hero.titleHighlight">simple</span><span data-i18n="hero.titleSuffix">.</span>
               </h1>
-<p class="font-body-lg text-body-lg text-text-secondary max-w-xl">
+<p class="font-body-lg text-body-lg text-text-secondary max-w-xl" data-i18n="hero.description">
                 SugarCoach te ayuda a registrar tus controles, sumar puntos por tu constancia, organizar reportes médicos y mantener conectada a tu familia. Con calidez, gamificación positiva y sin estrés clínico.
               </p>
 <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-space-md pt-space-xs">
 <a class="inline-flex items-center justify-center gap-space-xs px-space-xl py-4 rounded-full btn-gradient text-white font-label-lg text-label-lg active:scale-[0.98] transition-all border border-white/20" href="#descargar">
 <span class="material-symbols-outlined text-[20px]">download</span>
-                  Descargar SugarCoach gratis
+                  <span data-i18n="btn.downloadFree">Descargar SugarCoach gratis</span>
                 </a>
 <a class="inline-flex items-center justify-center gap-space-xs px-space-xl py-4 rounded-full bg-surface-container text-on-surface border border-outline-variant font-label-lg text-label-lg hover:bg-surface-container-high hover:border-outline active:scale-[0.98] transition-all" href="#como-funciona">
 <span class="material-symbols-outlined text-[20px] text-primary">play_circle</span>
-                  Ver cómo funciona
+                  <span data-i18n="btn.seeHow">Ver cómo funciona</span>
                 </a>
 </div>
 <!-- Social Proof y Métricas Reales -->
@@ -590,7 +594,7 @@
 <span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
 <span class="font-label-md text-label-md text-text-primary font-bold ml-1">4.9 / 5</span>
 </div>
-<span class="font-body-sm text-body-sm text-text-secondary">Familias y pacientes más tranquilos cada día</span>
+<span class="font-body-sm text-body-sm text-text-secondary" data-i18n="hero.socialProof">Familias y pacientes más tranquilos cada día</span>
 </div>
 </div>
 </div>
@@ -604,8 +608,8 @@
 <span class="material-symbols-outlined text-[20px]">trending_down</span>
 </div>
 <div class="flex flex-col">
-<span class="font-label-sm text-text-tertiary text-[11px]">Última medición</span>
-<span class="font-label-md text-text-primary font-extrabold text-[15px]">116 mg/dL • En rango</span>
+<span class="font-label-sm text-text-tertiary text-[11px]" data-i18n="hero.lastReading">Última medición</span>
+<span class="font-label-md text-text-primary font-extrabold text-[15px]" data-i18n="hero.readingStatus">116 mg/dL • En rango</span>
 </div>
 </div>
 <!-- Tarjeta Flotante 2: Puntos y Nivel -->
@@ -614,8 +618,8 @@
 <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
 </div>
 <div class="flex flex-col">
-<span class="font-label-md text-text-primary font-bold">1100 pts • Nivel 1</span>
-<span class="font-label-sm text-text-tertiary text-[11px]">¡Racha y constancia activa!</span>
+<span class="font-label-md text-text-primary font-bold" data-i18n="hero.points">1100 pts • Nivel 1</span>
+<span class="font-label-sm text-text-tertiary text-[11px]" data-i18n="hero.streak">¡Racha y constancia activa!</span>
 </div>
 </div>
 <!-- Tarjeta Flotante 3: Familia conectada -->
@@ -624,14 +628,14 @@
 <span class="material-symbols-outlined text-[20px]">family_restroom</span>
 </div>
 <div class="flex flex-col">
-<span class="font-label-md text-text-primary font-bold">Familia conectada</span>
-<span class="font-label-sm text-text-tertiary text-[11px]">Sincronización al instante</span>
+<span class="font-label-md text-text-primary font-bold" data-i18n="hero.familyConnected">Familia conectada</span>
+<span class="font-label-sm text-text-tertiary text-[11px]" data-i18n="hero.sync">Sincronización al instante</span>
 </div>
 </div>
 <!-- Teléfono de Apoyo (Daily Log Real IMAGE_14) -->
 <div class="hidden sm:block absolute -right-6 top-8 w-[240px] rounded-[36px] bg-[#070D1F] p-2.5 shadow-2xl border-2 border-border-subtle transform rotate-6 hover:rotate-2 transition-transform duration-300 opacity-85 z-10">
 <div class="overflow-hidden rounded-[28px] aspect-[9/19.5] bg-black">
-<img alt="Pantalla real SugarCoach Daily Log" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7QGWmPhs6LVP9QiaVBTX7fZv-pmWeiEPHhR_zPPO9OhY2vdfoPYEaIP2gKJ9c8txBEpJL8ECxdrg44CUr-lPy6C8DM9gzIuh7yfd2DHKY4NhseZUvs84aUXY2_rDth5ayxrUtaIG_hpy0jdGmDtQ-3NjlPlMyff8M4U9ydq56ua-1V7ex7O7rlV0XlgM1uHS3ETNed1TTDpSAUPUuhxcyNOaazxOgYp0cjdTNFRIGOcTLl0SEFl7V6K58TxSIJJVedg"/>
+<img alt="Pantalla real SugarCoach Daily Log" data-i18n-alt="image.dailyLog" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7QGWmPhs6LVP9QiaVBTX7fZv-pmWeiEPHhR_zPPO9OhY2vdfoPYEaIP2gKJ9c8txBEpJL8ECxdrg44CUr-lPy6C8DM9gzIuh7yfd2DHKY4NhseZUvs84aUXY2_rDth5ayxrUtaIG_hpy0jdGmDtQ-3NjlPlMyff8M4U9ydq56ua-1V7ex7O7rlV0XlgM1uHS3ETNed1TTDpSAUPUuhxcyNOaazxOgYp0cjdTNFRIGOcTLl0SEFl7V6K58TxSIJJVedg"/>
 </div>
 </div>
 <!-- Teléfono Principal (Home Real IMAGE_15) -->
@@ -653,12 +657,12 @@
     
     <!-- Encabezado de la sección -->
     <div class="flex flex-col items-center text-center max-w-2xl mx-auto mb-space-2xl">
-      <span class="font-label-md text-label-md text-primary font-bold uppercase tracking-wider mb-2">Diseñado para convivir</span>
+      <span class="font-label-md text-label-md text-primary font-bold uppercase tracking-wider mb-2" data-i18n="familias.eyebrow">Diseñado para convivir</span>
       <h2 class="font-headline-lg text-headline-lg text-text-primary font-extrabold tracking-tight">
-        Una app, distintas formas de acompañar
+        <span data-i18n="familias.title">Una app, distintas formas de acompañar</span>
       </h2>
       <p class="font-body-md text-body-md text-text-secondary mt-space-xs">
-        Porque cada persona vive el cuidado desde un lugar diferente, SugarCoach se adapta con empatía, precisión y autonomía a quien lo use.
+        <span data-i18n="familias.description">Porque cada persona vive el cuidado desde un lugar diferente, SugarCoach se adapta con empatía, precisión y autonomía a quien lo use.</span>
       </p>
     </div>
 
@@ -671,11 +675,11 @@
             <span class="material-symbols-outlined text-[30px]">favorite</span>
           </div>
           <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-high text-primary font-label-sm text-label-sm font-bold mb-space-xs border border-border-subtle">
-            Autonomía diaria
+            <span data-i18n="card.user.badge">Autonomía diaria</span>
           </div>
-          <h3 class="font-headline-md text-headline-md text-text-primary font-bold">Para vos</h3>
+          <h3 class="font-headline-md text-headline-md text-text-primary font-bold" data-i18n="card.user.title">Para vos</h3>
           <p class="font-body-md text-body-md text-text-secondary mt-2">
-            Registrá glucosa, insulina basal y rápida, carbohidratos, comidas y actividad física en segundos. Ganá estrellas y aprendé a conocer tu cuerpo a tu propio compás.
+            <span data-i18n="card.user.description">Registrá glucosa, insulina basal y rápida, carbohidratos, comidas y actividad física en segundos. Ganá estrellas y aprendé a conocer tu cuerpo a tu propio compás.</span>
           </p>
         </div>
         
@@ -683,10 +687,10 @@
         <div class="mt-space-lg p-space-md rounded-2xl bg-surface-tier-2/70 border border-border-subtle flex items-center justify-between">
           <div class="flex items-center gap-space-xs">
             <span class="material-symbols-outlined text-primary text-[20px]">verified</span>
-            <span class="font-label-md text-label-md font-bold text-text-primary">116 mg/dL último valor</span>
+            <span class="font-label-md text-label-md font-bold text-text-primary" data-i18n="card.user.value">116 mg/dL último valor</span>
           </div>
           <span class="px-2.5 py-0.5 rounded-full bg-primary/20 text-primary border border-primary/30 font-label-sm font-bold">
-            En rango
+            <span data-i18n="status.inRange">En rango</span>
           </span>
         </div>
       </div>
@@ -698,11 +702,11 @@
             <span class="material-symbols-outlined text-[30px]">group</span>
           </div>
           <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-high text-secondary font-label-sm text-label-sm font-bold mb-space-xs border border-border-subtle">
-            Tranquilidad compartida
+            <span data-i18n="card.family.badge">Tranquilidad compartida</span>
           </div>
-          <h3 class="font-headline-md text-headline-md text-text-primary font-bold">Para tu familia</h3>
+          <h3 class="font-headline-md text-headline-md text-text-primary font-bold" data-i18n="card.family.title">Para tu familia</h3>
           <p class="font-body-md text-body-md text-text-secondary mt-2">
-            Mantené conectadas a las personas que forman parte de tu cuidado. Sin llamadas insistentes ni invasión a la independencia de los chicos. Sincronización instantánea con cuidadores.
+            <span data-i18n="card.family.description">Mantené conectadas a las personas que forman parte de tu cuidado. Sin llamadas insistentes ni invasión a la independencia de los chicos. Sincronización instantánea con cuidadores.</span>
           </p>
         </div>
         
@@ -710,10 +714,10 @@
         <div class="mt-space-lg p-space-md rounded-2xl bg-surface-tier-2/70 border border-border-subtle flex items-center justify-between">
           <div class="flex items-center gap-2">
             <div class="w-2.5 h-2.5 rounded-full bg-secondary shadow-[0_0_8px_rgba(43,197,199,0.8)]"></div>
-            <span class="font-label-md text-label-md font-bold text-text-primary">Mamá y Papá sincronizados</span>
+            <span class="font-label-md text-label-md font-bold text-text-primary" data-i18n="card.family.value">Mamá y Papá sincronizados</span>
           </div>
           <span class="px-2.5 py-0.5 rounded-full bg-secondary/20 text-secondary border border-secondary/30 font-label-sm font-bold">
-            En tiempo real
+            <span data-i18n="status.realtime">En tiempo real</span>
           </span>
         </div>
       </div>
@@ -725,11 +729,11 @@
             <span class="material-symbols-outlined text-[30px]">clinical_notes</span>
           </div>
           <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-high text-neon-magenta font-label-sm text-label-sm font-bold mb-space-xs border border-border-subtle">
-            Consultas claras
+            <span data-i18n="card.pro.badge">Consultas claras</span>
           </div>
-          <h3 class="font-headline-md text-headline-md text-text-primary font-bold">Para profesionales</h3>
+          <h3 class="font-headline-md text-headline-md text-text-primary font-bold" data-i18n="card.pro.title">Para profesionales</h3>
           <p class="font-body-md text-body-md text-text-secondary mt-2">
-            Organizá tus registros y compartí información clara en tus citas médicas. Gráficos de Tiempo en Rango (TIR) y relaciones precisas de glucosa versus insulina.
+            <span data-i18n="card.pro.description">Organizá tus registros y compartí información clara en tus citas médicas. Gráficos de Tiempo en Rango (TIR) y relaciones precisas de glucosa versus insulina.</span>
           </p>
         </div>
         
@@ -737,10 +741,10 @@
         <div class="mt-space-lg p-space-md rounded-2xl bg-surface-tier-2/70 border border-border-subtle flex items-center justify-between">
           <div class="flex items-center gap-2">
             <span class="material-symbols-outlined text-neon-magenta text-[18px]">analytics</span>
-            <span class="font-label-md text-label-md font-bold text-text-primary">Tiempo en Rango: 70%</span>
+            <span class="font-label-md text-label-md font-bold text-text-primary" data-i18n="card.pro.value">Tiempo en Rango: 70%</span>
           </div>
           <span class="px-2.5 py-0.5 rounded-full bg-tertiary-container/20 text-neon-magenta border border-tertiary-container/30 font-label-sm font-bold">
-            Reporte listo
+            <span data-i18n="status.reportReady">Reporte listo</span>
           </span>
         </div>
       </div>
@@ -751,12 +755,12 @@
 <!-- 3. SECTION: CÓMO FUNCIONA CON PANTALLAS REALES -->
 <section class="max-w-[1200px] mx-auto px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop py-space-3xl" id="como-funciona">
 <div class="flex flex-col items-center text-center max-w-2xl mx-auto mb-space-2xl">
-<span class="font-label-md text-label-md text-secondary font-bold uppercase tracking-wider mb-2">Paso a paso con capturas reales</span>
+<span class="font-label-md text-label-md text-secondary font-bold uppercase tracking-wider mb-2" data-i18n="how.eyebrow">Paso a paso con capturas reales</span>
 <h2 class="font-headline-lg text-headline-lg text-text-primary font-extrabold tracking-tight">
-            Simple desde el primer día
+            <span data-i18n="how.title">Simple desde el primer día</span>
           </h2>
 <p class="font-body-md text-body-md text-text-secondary mt-space-xs">
-            Sin curvas de aprendizaje complejas. Pantallas intuitivas con colores claros, íconos y respuestas inmediatas para tu día a día.
+            <span data-i18n="how.description">Sin curvas de aprendizaje complejas. Pantallas intuitivas con colores claros, íconos y respuestas inmediatas para tu día a día.</span>
           </p>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-space-xl">
@@ -765,11 +769,11 @@
 <div class="p-space-lg pb-0 flex flex-col items-start">
 <div class="flex items-center justify-between w-full mb-3">
 <span class="w-9 h-9 rounded-full bg-primary/20 text-primary border border-primary/30 font-headline-sm font-extrabold flex items-center justify-center">1</span>
-<span class="font-label-sm text-secondary font-bold uppercase tracking-wider">Entrada rápida</span>
+<span class="font-label-sm text-secondary font-bold uppercase tracking-wider" data-i18n="how.step1.badge">Entrada rápida</span>
 </div>
-<h3 class="font-headline-sm text-headline-sm font-bold text-text-primary">Registrá en segundos</h3>
+<h3 class="font-headline-sm text-headline-sm font-bold text-text-primary" data-i18n="how.step1.title">Registrá en segundos</h3>
 <p class="font-body-sm text-body-sm text-text-secondary mt-1">
-                Anotá glucosa, insulina basal y rápida, gramos de carbohidratos, colaciones y tu estado de ánimo con un par de toques.
+                <span data-i18n="how.step1.description">Anotá glucosa, insulina basal y rápida, gramos de carbohidratos, colaciones y tu estado de ánimo con un par de toques.</span>
               </p>
 </div>
 <!-- Mockup device con captura real IMAGE_9 -->
@@ -786,11 +790,11 @@
 <div class="p-space-lg pb-0 flex flex-col items-start">
 <div class="flex items-center justify-between w-full mb-3">
 <span class="w-9 h-9 rounded-full bg-secondary/20 text-secondary border border-secondary/30 font-headline-sm font-extrabold flex items-center justify-center">2</span>
-<span class="font-label-sm text-primary font-bold uppercase tracking-wider">Historial claro</span>
+<span class="font-label-sm text-primary font-bold uppercase tracking-wider" data-i18n="how.step2.badge">Historial claro</span>
 </div>
-<h3 class="font-headline-sm text-headline-sm font-bold text-text-primary">Organizá tu día</h3>
+<h3 class="font-headline-sm text-headline-sm font-bold text-text-primary" data-i18n="how.step2.title">Organizá tu día</h3>
 <p class="font-body-sm text-body-sm text-text-secondary mt-1">
-                El <em>Daily Log</em> agrupa cronológicamente almuerzos, cenas, correcciones y actividades con etiquetas de colores claros y comprensibles.
+                <span data-i18n="how.step2.description">El Daily Log agrupa cronológicamente almuerzos, cenas, correcciones y actividades con etiquetas de colores claros y comprensibles.</span>
               </p>
 </div>
 <!-- Mockup device con captura real IMAGE_14 -->
@@ -807,18 +811,18 @@
 <div class="p-space-lg pb-0 flex flex-col items-start">
 <div class="flex items-center justify-between w-full mb-3">
 <span class="w-9 h-9 rounded-full bg-tertiary-container/20 text-neon-magenta border border-tertiary-container/30 font-headline-sm font-extrabold flex items-center justify-center">3</span>
-<span class="font-label-sm text-neon-magenta font-bold uppercase tracking-wider">Tratamiento claro</span>
+<span class="font-label-sm text-neon-magenta font-bold uppercase tracking-wider" data-i18n="how.step3.badge">Tratamiento claro</span>
 </div>
-<h3 class="font-headline-sm text-headline-sm font-bold text-text-primary">Controlá tu esquema</h3>
+<h3 class="font-headline-sm text-headline-sm font-bold text-text-primary" data-i18n="how.step3.title">Controlá tu esquema</h3>
 <p class="font-body-sm text-body-sm text-text-secondary mt-1">
-                Visualizá rangos personalizados (Hipo 70, Target 100, Híper 180 mg/dL), bombas o lapiceras y compartí el reporte con un clic.
+                <span data-i18n="how.step3.description">Visualizá rangos personalizados (Hipo 70, Target 100, Híper 180 mg/dL), bombas o lapiceras y compartí el reporte con un clic.</span>
               </p>
 </div>
 <!-- Mockup device con captura real IMAGE_12 -->
 <div class="mt-4 px-6 pt-4 pb-0 bg-gradient-to-b from-transparent to-[#070D1F] flex justify-center">
 <div class="w-[200px] rounded-t-3xl bg-[#070D1F] p-2 shadow-xl border-t-2 border-x-2 border-border-subtle group-hover:border-tertiary-container/40 transition-colors">
 <div class="rounded-t-2xl overflow-hidden aspect-[9/13]">
-<img alt="Pantalla real de tratamiento y rangos objetivos SugarCoach" class="w-full h-full object-cover object-top" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHDz723sKM5bQoQ5GGuOKzCGjZ4vJOAvJBMPkw1tyVPWP2cbLWkQ1H6qQWLqRz6oSYcEJnReEPt_CXEj6vV9B3VWpog_je-9L1ZeQWJZznjczPoqV5eGZ6le7_PdEVzvGZrv04ajnHrOWlonKYOhM-kEsqTYWY32Y2g7UAp9gDTsjUKtNDvuTNvkvm5RoR-Zqf0IFqxtpyBlnlhe0EMVL9M5MLaqIH37Ec6p45sZiqMok4C6WVff7Y49c6gZlTO0Xv-w"/>
+<img alt="Pantalla real de tratamiento y rangos objetivos SugarCoach" data-i18n-alt="img.treatment" class="w-full h-full object-cover object-top" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHDz723sKM5bQoQ5GGuOKzCGjZ4vJOAvJBMPkw1tyVPWP2cbLWkQ1H6qQWLqRz6oSYcEJnReEPt_CXEj6vV9B3VWpog_je-9L1ZeQWJZznjczPoqV5eGZ6le7_PdEVzvGZrv04ajnHrOWlonKYOhM-kEsqTYWY32Y2g7UAp9gDTsjUKtNDvuTNvkvm5RoR-Zqf0IFqxtpyBlnlhe0EMVL9M5MLaqIH37Ec6p45sZiqMok4C6WVff7Y49c6gZlTO0Xv-w"/>
 </div>
 </div>
 </div>
@@ -834,13 +838,13 @@
 <!-- Left Info -->
 <div class="lg:col-span-6 flex flex-col gap-space-md">
 <div class="theme-panel-chip inline-flex items-center gap-space-xs px-3.5 py-1.5 rounded-full font-label-md text-label-md font-bold backdrop-blur-md w-fit border">
-<span>🎮</span> Gamificación respetuosa y humana
+<span>🎮</span> <span data-i18n="gamif.badge">Gamificación respetuosa y humana</span>
               </div>
 <h2 class="theme-panel-text font-display-lg text-display-lg-mobile md:text-headline-lg font-extrabold tracking-tight leading-tight">
-                Cada pequeño hábito suma <span class="gradient-text">puntos y estrellas</span>
+                <span data-i18n="gamif.titlePrefix">Cada pequeño hábito suma </span><span class="gradient-text" data-i18n="gamif.titleHighlight">puntos y estrellas</span>
 </h2>
 <p class="theme-panel-muted font-body-lg text-body-lg">
-                Inspirado en la psicología positiva: premiamos tu constancia y el compromiso de registrarte. <strong class="theme-panel-text">Nunca juzgamos ni castigamos valores de glucosa</strong>, porque los números son información médica para cuidarte, no calificaciones morales.
+                <span data-i18n="gamif.description">Inspirado en la psicología positiva: premiamos tu constancia y el compromiso de registrarte. Nunca juzgamos ni castigamos valores de glucosa, porque los números son información médica para cuidarte, no calificaciones morales.</span>
               </p>
 <!-- Badges de la app -->
 <div class="grid grid-cols-2 gap-space-sm pt-2">
@@ -849,8 +853,8 @@
                     ⭐
                   </div>
 <div>
-<h4 class="theme-panel-text font-headline-sm text-[16px] font-bold">+100 Puntos</h4>
-<p class="theme-panel-muted font-body-sm text-[12px]">Por cada registro diario completo</p>
+<h4 class="theme-panel-text font-headline-sm text-[16px] font-bold" data-i18n="gamif.points">+100 Puntos</h4>
+<p class="theme-panel-muted font-body-sm text-[12px]" data-i18n="gamif.pointsDescription">Por cada registro diario completo</p>
 </div>
 </div>
 <div class="theme-panel-card rounded-2xl p-space-md flex items-center gap-3 border">
@@ -858,8 +862,8 @@
                     🚀
                   </div>
 <div>
-<h4 class="theme-panel-text font-headline-sm text-[16px] font-bold">Startup Explorer</h4>
-<p class="theme-panel-muted font-body-sm text-[12px]">Subí de nivel con constancia</p>
+<h4 class="theme-panel-text font-headline-sm text-[16px] font-bold" data-i18n="gamif.level">Startup Explorer</h4>
+<p class="theme-panel-muted font-body-sm text-[12px]" data-i18n="gamif.levelDescription">Subí de nivel con constancia</p>
 </div>
 </div>
 </div>
@@ -869,7 +873,7 @@
 <div class="relative w-[270px] sm:w-[300px] rounded-[42px] bg-[#070D1F] p-3 phone-mockup-glow border-2 border-white/[0.16] hover:scale-[1.02] transition-transform">
 <div class="w-20 h-3.5 bg-black rounded-full mx-auto mb-2 opacity-70 border border-white/[0.05]"></div>
 <div class="rounded-[30px] overflow-hidden aspect-[9/19.5] bg-black shadow-inner">
-<img alt="Pantalla real SugarCoach Bravo +100 puntos y monstruo verde" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHWsdvemnMofeQsiVPWVhCP2IhL0TqmEyRJnhzeR-cOUtf0AlglAKpv9tbrMO59QfZtFLWnYaDHi3yG3-KoEwPZbknB7kYz4uRmpKngVlMXjixjAw87HXs9mIuObMyT6h61r4yu1SrxOn74uK-suADZ3oqL-7rMci2Uf3q5_IWjYhEyM3wspwaVX8FBNEQTFTd3fWOKarJ4eZtnSunqkay4v5eldvJq5W1wbhd66-5Du_StXAKuLyjYv2aUxJX2zYT8Q"/>
+<img alt="Pantalla real SugarCoach Bravo +100 puntos y monstruo verde" data-i18n-alt="img.gamification" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHWsdvemnMofeQsiVPWVhCP2IhL0TqmEyRJnhzeR-cOUtf0AlglAKpv9tbrMO59QfZtFLWnYaDHi3yG3-KoEwPZbknB7kYz4uRmpKngVlMXjixjAw87HXs9mIuObMyT6h61r4yu1SrxOn74uK-suADZ3oqL-7rMci2Uf3q5_IWjYhEyM3wspwaVX8FBNEQTFTd3fWOKarJ4eZtnSunqkay4v5eldvJq5W1wbhd66-5Du_StXAKuLyjYv2aUxJX2zYT8Q"/>
 </div>
 </div>
 </div>
@@ -879,12 +883,12 @@
 <!-- 5. SECTION: UN DÍA CON SUGARCOACH (ACTIVIDAD, PLANETA 3D Y COMIDAS) -->
 <section class="max-w-[1200px] mx-auto px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop py-space-3xl">
 <div class="flex flex-col items-center text-center max-w-2xl mx-auto mb-space-2xl">
-<span class="font-label-md text-label-md text-primary font-bold uppercase tracking-wider mb-2">Acompañamiento en cada momento</span>
+<span class="font-label-md text-label-md text-primary font-bold uppercase tracking-wider mb-2" data-i18n="day.eyebrow">Acompañamiento en cada momento</span>
 <h2 class="font-headline-lg text-headline-lg text-text-primary font-extrabold tracking-tight">
-            SugarCoach en tu día a día
+            <span data-i18n="day.title">SugarCoach en tu día a día</span>
           </h2>
 <p class="font-body-md text-body-md text-text-secondary mt-space-xs">
-            Desde la actividad física y los juegos hasta las colaciones, todo se registra de forma visual y divertida.
+            <span data-i18n="day.description">Desde la actividad física y los juegos hasta las colaciones, todo se registra de forma visual y divertida.</span>
           </p>
 </div>
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-2xl items-center">
@@ -905,11 +909,11 @@
 </div>
 <div class="flex-1">
 <div class="flex items-center justify-between">
-<h4 class="font-headline-sm text-headline-sm font-bold text-text-primary">07:30 • Antes de empezar</h4>
-<span class="px-2.5 py-0.5 rounded-full bg-amber-400/15 text-accent-yellow border border-amber-400/30 text-[11px] font-bold">Desayuno</span>
+<h4 class="font-headline-sm text-headline-sm font-bold text-text-primary" data-i18n="day.morning.title">07:30 • Antes de empezar</h4>
+<span class="px-2.5 py-0.5 rounded-full bg-amber-400/15 text-accent-yellow border border-amber-400/30 text-[11px] font-bold" data-i18n="day.morning.badge">Desayuno</span>
 </div>
 <p class="font-body-sm text-body-sm text-text-secondary mt-1">
-                  Revisás tu basal, anotás la glucosa en ayunas y sumás tus primeros puntos del día.
+                  <span data-i18n="day.morning.description">Revisás tu basal, anotás la glucosa en ayunas y sumás tus primeros puntos del día.</span>
                 </p>
 </div>
 </div>
@@ -919,11 +923,11 @@
 </div>
 <div class="flex-1">
 <div class="flex items-center justify-between">
-<h4 class="font-headline-sm text-headline-sm font-bold text-text-primary">12:30 • Hora del almuerzo</h4>
-<span class="px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 text-[11px] font-bold">Carbohidratos</span>
+<h4 class="font-headline-sm text-headline-sm font-bold text-text-primary" data-i18n="day.lunch.title">12:30 • Hora del almuerzo</h4>
+<span class="px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 text-[11px] font-bold" data-i18n="day.lunch.badge">Carbohidratos</span>
 </div>
 <p class="font-body-sm text-body-sm text-text-secondary mt-1">
-                  Cargás las porciones con fotos o gramos, la insulina rápida aplicada y tu estado de tranquilidad.
+                  <span data-i18n="day.lunch.description">Cargás las porciones con fotos o gramos, la insulina rápida aplicada y tu estado de tranquilidad.</span>
                 </p>
 </div>
 </div>
@@ -933,11 +937,11 @@
 </div>
 <div class="flex-1">
 <div class="flex items-center justify-between">
-<h4 class="font-headline-sm text-headline-sm font-bold text-text-primary">17:00 • Actividad y Movimiento</h4>
-<span class="px-2.5 py-0.5 rounded-full bg-teal-500/15 text-secondary border border-teal-500/30 text-[11px] font-bold">Planeta 3D</span>
+<h4 class="font-headline-sm text-headline-sm font-bold text-text-primary" data-i18n="day.activity.title">17:00 • Actividad y Movimiento</h4>
+<span class="px-2.5 py-0.5 rounded-full bg-teal-500/15 text-secondary border border-teal-500/30 text-[11px] font-bold" data-i18n="day.activity.badge">Planeta 3D</span>
 </div>
 <p class="font-body-sm text-body-sm text-text-secondary mt-1">
-                  Elegí el nivel de tu tarde en el planeta interactivo: <em>Sedentary</em>, <em>Moderate</em>, <em>Celebration</em> o <em>Intense</em>.
+                  <span data-i18n="day.activity.description">Elegí el nivel de tu tarde en el planeta interactivo: Sedentary, Moderate, Celebration o Intense.</span>
                 </p>
 </div>
 </div>
@@ -947,11 +951,11 @@
 </div>
 <div class="flex-1">
 <div class="flex items-center justify-between">
-<h4 class="font-headline-sm text-headline-sm font-bold text-text-primary">21:30 • Noche y descanso</h4>
-<span class="px-2.5 py-0.5 rounded-full bg-indigo-500/15 text-primary dark:text-primary-fixed-dim border border-indigo-500/30 text-[11px] font-bold">Tranquilidad</span>
+<h4 class="font-headline-sm text-headline-sm font-bold text-text-primary" data-i18n="day.night.title">21:30 • Noche y descanso</h4>
+<span class="px-2.5 py-0.5 rounded-full bg-indigo-500/15 text-primary dark:text-primary-fixed-dim border border-indigo-500/30 text-[11px] font-bold" data-i18n="day.night.badge">Tranquilidad</span>
 </div>
 <p class="font-body-sm text-body-sm text-text-secondary mt-1">
-                  Tu Daily Log queda cerrado, tu familia notificada y todo ordenado para un descanso reparador.
+                  <span data-i18n="day.night.description">Tu Daily Log queda cerrado, tu familia notificada y todo ordenado para un descanso reparador.</span>
                 </p>
 </div>
 </div>
@@ -975,13 +979,13 @@
 <!-- Right Text -->
 <div class="lg:col-span-6 flex flex-col gap-space-md order-1 lg:order-1">
 <div class="inline-flex items-center gap-space-xs px-3.5 py-1.5 rounded-full bg-surface-tier-1 text-primary font-label-md text-label-md font-bold shadow-md w-fit border border-border-subtle">
-<span class="material-symbols-outlined text-[18px]">stethoscope</span> Diálogo médico fluido
+<span class="material-symbols-outlined text-[18px]">stethoscope</span> <span data-i18n="stats.badge">Diálogo médico fluido</span>
               </div>
 <h2 class="font-headline-lg text-headline-lg text-text-primary font-extrabold tracking-tight">
-                Estadísticas claras para llevar a tu consulta
+                <span data-i18n="stats.title">Estadísticas claras para llevar a tu consulta</span>
               </h2>
 <p class="font-body-lg text-body-lg text-text-secondary">
-                Olvidate de las libretas de papel dobladas o de intentar recordar qué pasó semanas atrás. SugarCoach genera gráficos mensuales automáticos:
+                <span data-i18n="stats.description">Olvidate de las libretas de papel dobladas o de intentar recordar qué pasó semanas atrás. SugarCoach genera gráficos mensuales automáticos:</span>
               </p>
 <div class="flex flex-col gap-space-sm pt-2">
 <div class="flex items-start gap-3 bg-surface-tier-1 p-space-sm rounded-2xl border border-border-subtle">
@@ -989,8 +993,8 @@
 <span class="material-symbols-outlined text-[18px]">donut_large</span>
 </div>
 <div>
-<span class="font-label-md text-label-md font-bold text-text-primary">Tiempo en Rango (TIR) en anillo:</span>
-<span class="font-body-sm text-body-sm text-text-secondary block">Muestra exactamente el 70% en rango óptimo, hipo y valores sobre rango.</span>
+<span class="font-label-md text-label-md font-bold text-text-primary" data-i18n="stats.tir.title">Tiempo en Rango (TIR) en anillo:</span>
+<span class="font-body-sm text-body-sm text-text-secondary block" data-i18n="stats.tir.description">Muestra exactamente el 70% en rango óptimo, hipo y valores sobre rango.</span>
 </div>
 </div>
 <div class="flex items-start gap-3 bg-surface-tier-1 p-space-sm rounded-2xl border border-border-subtle">
@@ -998,14 +1002,14 @@
 <span class="material-symbols-outlined text-[18px]">bar_chart</span>
 </div>
 <div>
-<span class="font-label-md text-label-md font-bold text-text-primary">Curvas cruzadas Glucosa vs. Insulina:</span>
-<span class="font-body-sm text-body-sm text-text-secondary block">Permite a tu diabetólogo/a ajustar dosis basales y correcciones con datos reales.</span>
+<span class="font-label-md text-label-md font-bold text-text-primary" data-i18n="stats.curves.title">Curvas cruzadas Glucosa vs. Insulina:</span>
+<span class="font-body-sm text-body-sm text-text-secondary block" data-i18n="stats.curves.description">Permite a tu diabetólogo/a ajustar dosis basales y correcciones con datos reales.</span>
 </div>
 </div>
 </div>
 <div class="pt-space-xs">
 <a class="inline-flex items-center gap-space-xs px-space-xl py-space-sm rounded-full btn-gradient text-white font-label-lg text-label-lg transition-all border border-white/20" href="#descargar">
-                  Ver reportes completos
+                  <span data-i18n="stats.button">Ver reportes completos</span>
                   <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
 </a>
 </div>
@@ -1027,13 +1031,13 @@
 </div>
 <div class="lg:col-span-6 flex flex-col gap-space-md">
 <div class="inline-flex items-center gap-space-xs px-3.5 py-1.5 rounded-full bg-surface-tier-1 text-secondary font-label-md text-label-md font-bold shadow-md w-fit border border-border-subtle">
-<span class="material-symbols-outlined text-[18px]">tune</span> Tratamiento individualizado
+<span class="material-symbols-outlined text-[18px]">tune</span> <span data-i18n="treatment.badge">Tratamiento individualizado</span>
             </div>
 <h2 class="font-headline-lg text-headline-lg text-text-primary font-extrabold tracking-tight">
-              Personalizá tus rangos y modo de terapia
+              <span data-i18n="treatment.title">Personalizá tus rangos y modo de terapia</span>
             </h2>
 <p class="font-body-lg text-body-lg text-text-secondary">
-              Cada tratamiento es único. En la sección <strong>Treatment</strong> configurás tus objetivos de glucosa con máxima claridad y seleccionás si usás lapiceras o bomba de insulina.
+              <span data-i18n="treatment.description">Cada tratamiento es único. En la sección Treatment configurás tus objetivos de glucosa con máxima claridad y seleccionás si usás lapiceras o bomba de insulina.</span>
             </p>
 <div class="grid grid-cols-3 gap-space-sm pt-space-xs text-center">
 <div class="bg-surface-tier-1 rounded-2xl p-space-sm border border-cyan-500/30">
@@ -1053,7 +1057,7 @@
 </div>
 </div>
 <p class="font-body-sm text-body-sm text-text-secondary">
-              Compatible con múltiples marcas de insulina (Novolin R, Lantus, Humalog, Fiasp, etc.) y esquemas flexibles de aplicación.
+              <span data-i18n="treatment.compatibility">Compatible con múltiples marcas de insulina (Novolin R, Lantus, Humalog, Fiasp, etc.) y esquemas flexibles de aplicación.</span>
             </p>
 </div>
 <!-- Right Mockup: Treatment Screen IMAGE_12 -->
@@ -1063,12 +1067,12 @@
 <!-- 8. SECTION: SEGURIDAD Y PRIVACIDAD -->
 <section class="max-w-[1200px] mx-auto px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop py-space-3xl">
 <div class="flex flex-col items-center text-center max-w-2xl mx-auto mb-space-2xl">
-<span class="font-label-md text-label-md text-primary font-bold uppercase tracking-wider mb-2">Confianza y serenidad</span>
+<span class="font-label-md text-label-md text-primary font-bold uppercase tracking-wider mb-2" data-i18n="privacy.eyebrow">Confianza y serenidad</span>
 <h2 class="font-headline-lg text-headline-lg text-text-primary font-extrabold tracking-tight">
-            Tus datos de salud protegidos
+            <span data-i18n="privacy.title">Tus datos de salud protegidos</span>
           </h2>
 <p class="font-body-md text-body-md text-text-secondary mt-space-xs">
-            La información médica merece la mayor privacidad. Diseñamos SugarCoach bajo principios éticos irrenunciables.
+            <span data-i18n="privacy.description">La información médica merece la mayor privacidad. Diseñamos SugarCoach bajo principios éticos irrenunciables.</span>
           </p>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-space-lg">
@@ -1076,27 +1080,27 @@
 <div class="w-12 h-12 rounded-2xl bg-secondary/15 border border-secondary/30 flex items-center justify-center text-secondary">
 <span class="material-symbols-outlined text-[28px]">shield</span>
 </div>
-<h3 class="font-headline-sm text-headline-sm font-bold text-text-primary">Privacidad por diseño</h3>
+<h3 class="font-headline-sm text-headline-sm font-bold text-text-primary" data-i18n="privacy.design.title">Privacidad por diseño</h3>
 <p class="font-body-md text-body-md text-text-secondary">
-              Tus registros viajan cifrados bajo estrictos estándares de ciberseguridad y resguardo de datos médicos.
+              <span data-i18n="privacy.design.description">Tus registros viajan cifrados bajo estrictos estándares de ciberseguridad y resguardo de datos médicos.</span>
             </p>
 </div>
 <div class="bg-surface-tier-1 rounded-3xl p-space-xl border border-border-subtle flex flex-col gap-space-sm hover:border-primary/30 transition-colors">
 <div class="w-12 h-12 rounded-2xl bg-primary/15 border border-primary/30 flex items-center justify-center text-primary">
 <span class="material-symbols-outlined text-[28px]">lock</span>
 </div>
-<h3 class="font-headline-sm text-headline-sm font-bold text-text-primary">Control de acceso</h3>
+<h3 class="font-headline-sm text-headline-sm font-bold text-text-primary" data-i18n="privacy.access.title">Control de acceso</h3>
 <p class="font-body-md text-body-md text-text-secondary">
-              Vos decidís qué familiar o profesional tiene visibilidad. Podés revocar accesos en cualquier momento.
+              <span data-i18n="privacy.access.description">Vos decidís qué familiar o profesional tiene visibilidad. Podés revocar accesos en cualquier momento.</span>
             </p>
 </div>
 <div class="bg-surface-tier-1 rounded-3xl p-space-xl border border-border-subtle flex flex-col gap-space-sm hover:border-tertiary-container/30 transition-colors">
 <div class="w-12 h-12 rounded-2xl bg-tertiary-container/15 border border-tertiary-container/30 flex items-center justify-center text-neon-magenta">
 <span class="material-symbols-outlined text-[28px]">person_off</span>
 </div>
-<h3 class="font-headline-sm text-headline-sm font-bold text-text-primary">Sin comercialización</h3>
+<h3 class="font-headline-sm text-headline-sm font-bold text-text-primary" data-i18n="privacy.noSelling.title">Sin comercialización</h3>
 <p class="font-body-md text-body-md text-text-secondary">
-              Tus datos no se venden a aseguradoras ni intermediarios. Son tuyos y de tus seres queridos.
+              <span data-i18n="privacy.noSelling.description">Tus datos no se venden a aseguradoras ni intermediarios. Son tuyos y de tus seres queridos.</span>
             </p>
 </div>
 </div>
@@ -1104,12 +1108,12 @@
 <!-- NUEVA SECCIÓN: PREMIOS Y RECONOCIMIENTOS -->
 <section class="max-w-[1200px] mx-auto px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop py-space-3xl" id="reconocimientos">
 <div class="flex flex-col items-center text-center max-w-2xl mx-auto mb-space-xl">
-<span class="font-label-md text-label-md text-primary font-bold uppercase tracking-wider mb-2">Validación y confianza global</span>
+<span class="font-label-md text-label-md text-primary font-bold uppercase tracking-wider mb-2" data-i18n="awards.eyebrow">Validación y confianza global</span>
 <h2 class="font-headline-lg text-headline-lg text-on-surface font-extrabold tracking-tight">
-          Premios y Reconocimientos
+          <span data-i18n="awards.title">Premios y Reconocimientos</span>
         </h2>
 <p class="font-body-md text-body-md text-on-surface-variant mt-space-xs">
-          Respaldados por las instituciones, aceleradoras e iniciativas de innovación en salud y tecnología más prestigiosas del mundo.
+          <span data-i18n="awards.description">Respaldados por las instituciones, aceleradoras e iniciativas de innovación en salud y tecnología más prestigiosas del mundo.</span>
         </p>
 </div>
 <!-- Rejilla de reconocimientos con logos individuales -->
@@ -1120,67 +1124,67 @@
   <!-- Card 1 -->
   <figure class="award-card bg-surface-container rounded-2xl p-4 md:p-5 flex flex-col items-center justify-center shadow-xl min-h-[120px] w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-0.85rem)] lg:w-[calc(25%-1rem)] transition-transform duration-300 hover:scale-[1.02]">
     <img src="/contenido/iconos/endeavor-1650x1650-removebg-preview.png" alt="Endeavor" class="max-h-16 md:max-h-20 w-auto object-contain" loading="lazy" decoding="async"/>
-    <figcaption class="small text-muted text-center mt-2 text-xs font-semibold text-on-surface-variant">Endeavor</figcaption>
+    <figcaption class="small text-muted text-center mt-2 text-xs font-semibold text-on-surface-variant" data-i18n="awards.endeavor">Endeavor</figcaption>
   </figure>
 
   <!-- Card 2 -->
   <figure class="award-card bg-surface-container rounded-2xl p-4 md:p-5 flex flex-col items-center justify-center shadow-xl min-h-[120px] w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-0.85rem)] lg:w-[calc(25%-1rem)] transition-transform duration-300 hover:scale-[1.02]">
     <img src="/contenido/iconos/AWS_Simple_Icons_AWS_Cloud.svg.png" alt="AWS" class="max-h-16 md:max-h-20 w-auto object-contain" loading="lazy" decoding="async"/>
-    <figcaption class="small text-muted text-center mt-2 text-xs font-semibold text-on-surface-variant">AWS</figcaption>
+    <figcaption class="small text-muted text-center mt-2 text-xs font-semibold text-on-surface-variant" data-i18n="awards.aws">AWS</figcaption>
   </figure>
 
   <!-- Card 3 -->
   <figure class="award-card bg-surface-container rounded-2xl p-4 md:p-5 flex flex-col items-center justify-center shadow-xl min-h-[120px] w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-0.85rem)] lg:w-[calc(25%-1rem)] transition-transform duration-300 hover:scale-[1.02]">
     <img src="/contenido/iconos/hit_cowork-removebg-preview.png" alt="Hit Cowork" class="max-h-16 md:max-h-20 w-auto object-contain" loading="lazy" decoding="async"/>
-    <figcaption class="small text-muted text-center mt-2 text-xs font-semibold text-on-surface-variant">Hit Cowork</figcaption>
+    <figcaption class="small text-muted text-center mt-2 text-xs font-semibold text-on-surface-variant" data-i18n="awards.hit">Hit Cowork</figcaption>
   </figure>
 
   <!-- Card 4 -->
   <figure class="award-card bg-surface-container rounded-2xl p-4 md:p-5 flex flex-col items-center justify-center shadow-xl min-h-[120px] w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-0.85rem)] lg:w-[calc(25%-1rem)] transition-transform duration-300 hover:scale-[1.02]">
     <img src="/contenido/iconos/wise-removebg-preview.png" alt="WISE" class="max-h-16 md:max-h-20 w-auto object-contain" loading="lazy" decoding="async"/>
-    <figcaption class="small text-muted text-center mt-2 text-xs font-semibold text-on-surface-variant">WISE</figcaption>
+    <figcaption class="small text-muted text-center mt-2 text-xs font-semibold text-on-surface-variant" data-i18n="awards.wise">WISE</figcaption>
   </figure>
 
   <!-- Card 5 -->
   <figure class="award-card bg-surface-container rounded-2xl p-4 md:p-5 flex flex-col items-center justify-center shadow-xl min-h-[120px] w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-0.85rem)] lg:w-[calc(25%-1rem)] transition-transform duration-300 hover:scale-[1.02]">
     <img src="/contenido/iconos/bid.png" alt="BID" class="max-h-16 md:max-h-20 w-auto object-contain" loading="lazy" decoding="async"/>
-    <figcaption class="small text-muted text-center mt-2 text-xs font-semibold text-on-surface-variant">BID</figcaption>
+    <figcaption class="small text-muted text-center mt-2 text-xs font-semibold text-on-surface-variant" data-i18n="awards.bid">BID</figcaption>
   </figure>
 
   <!-- Card 6 -->
   <figure class="award-card bg-surface-container rounded-2xl p-4 md:p-5 flex flex-col items-center justify-center shadow-xl min-h-[120px] w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-0.85rem)] lg:w-[calc(25%-1rem)] transition-transform duration-300 hover:scale-[1.02]">
     <img src="/contenido/iconos/NAVES.png" alt="Naves IAE" class="max-h-16 md:max-h-20 w-auto object-contain" loading="lazy" decoding="async"/>
-    <figcaption class="small text-muted text-center mt-2 text-xs font-semibold text-on-surface-variant">Naves IAE</figcaption>
+    <figcaption class="small text-muted text-center mt-2 text-xs font-semibold text-on-surface-variant" data-i18n="awards.naves">Naves IAE</figcaption>
   </figure>
 
   <!-- Card 7 -->
   <figure class="award-card bg-surface-container rounded-2xl p-4 md:p-5 flex flex-col items-center justify-center shadow-xl min-h-[120px] w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-0.85rem)] lg:w-[calc(25%-1rem)] transition-transform duration-300 hover:scale-[1.02]">
     <img src="/contenido/iconos/googleforstartups-removebg-preview.png" alt="Google for Startups" class="max-h-16 md:max-h-20 w-auto object-contain" loading="lazy" decoding="async"/>
-    <figcaption class="small text-muted text-center mt-2 text-xs font-semibold text-on-surface-variant">Google for Startups</figcaption>
+    <figcaption class="small text-muted text-center mt-2 text-xs font-semibold text-on-surface-variant" data-i18n="awards.google">Google for Startups</figcaption>
   </figure>
 
   <!-- Card 8 -->
   <figure class="award-card bg-surface-container rounded-2xl p-4 md:p-5 flex flex-col items-center justify-center shadow-xl min-h-[120px] w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-0.85rem)] lg:w-[calc(25%-1rem)] transition-transform duration-300 hover:scale-[1.02]">
     <img src="/contenido/iconos/huawei-removebg-preview.png" alt="Huawei" class="max-h-16 md:max-h-20 w-auto object-contain" loading="lazy" decoding="async"/>
-    <figcaption class="small text-muted text-center mt-2 text-xs font-semibold text-on-surface-variant">Huawei</figcaption>
+    <figcaption class="small text-muted text-center mt-2 text-xs font-semibold text-on-surface-variant" data-i18n="awards.huawei">Huawei</figcaption>
   </figure>
 
   <!-- Card 9 (Inicio de la última fila) -->
   <figure class="award-card bg-surface-container rounded-2xl p-4 md:p-5 flex flex-col items-center justify-center shadow-xl min-h-[120px] w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-0.85rem)] lg:w-[calc(25%-1rem)] transition-transform duration-300 hover:scale-[1.02]">
     <img src="/contenido/iconos/samsung-removebg-preview.png" alt="Samsung" class="max-h-16 md:max-h-20 w-auto object-contain" loading="lazy" decoding="async"/>
-    <figcaption class="small text-muted text-center mt-2 text-xs font-semibold text-on-surface-variant">Samsung</figcaption>
+    <figcaption class="small text-muted text-center mt-2 text-xs font-semibold text-on-surface-variant" data-i18n="awards.samsung">Samsung</figcaption>
   </figure>
 
   <!-- Card 10 -->
   <figure class="award-card bg-surface-container rounded-2xl p-4 md:p-5 flex flex-col items-center justify-center shadow-xl min-h-[120px] w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-0.85rem)] lg:w-[calc(25%-1rem)] transition-transform duration-300 hover:scale-[1.02]">
     <img src="/contenido/iconos/globant.png" alt="Globant" class="max-h-16 md:max-h-20 w-auto object-contain" loading="lazy" decoding="async"/>
-    <figcaption class="small text-muted text-center mt-2 text-xs font-semibold text-on-surface-variant">Globant</figcaption>
+    <figcaption class="small text-muted text-center mt-2 text-xs font-semibold text-on-surface-variant" data-i18n="awards.globant">Globant</figcaption>
   </figure>
 
   <!-- Card 11 -->
   <figure class="award-card bg-surface-container rounded-2xl p-4 md:p-5 flex flex-col items-center justify-center shadow-xl min-h-[120px] w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-0.85rem)] lg:w-[calc(25%-1rem)] transition-transform duration-300 hover:scale-[1.02]">
     <img src="/contenido/iconos/1630627507837.jpeg" alt="Entrepreneurship World Cup" class="max-h-16 md:max-h-20 w-auto object-contain" loading="lazy" decoding="async"/>
-    <figcaption class="small text-muted text-center mt-2 text-xs font-semibold text-on-surface-variant">Entrepreneurship World Cup</figcaption>
+    <figcaption class="small text-muted text-center mt-2 text-xs font-semibold text-on-surface-variant" data-i18n="awards.ewc">Entrepreneurship World Cup</figcaption>
   </figure>
 </div>
 </div>
@@ -1193,10 +1197,10 @@
 <div class="flex flex-col items-center text-center max-w-3xl mx-auto mb-space-2xl">
 <div class="inline-flex items-center gap-space-xs px-space-md py-space-xs rounded-full bg-surface-container text-primary dark:text-primary-fixed-dim w-fit shadow-md border border-border-subtle backdrop-blur-md mb-3">
 <span class="material-symbols-outlined text-[18px] text-primary">diversity_1</span>
-<span class="font-label-md text-label-md font-bold tracking-tight text-on-surface">Impacto con propósito / Quiénes somos</span>
+<span class="font-label-md text-label-md font-bold tracking-tight text-on-surface" data-i18n="team.eyebrow">Impacto con propósito / Quiénes somos</span>
 </div>
 <h2 class="font-headline-lg text-headline-lg text-on-surface font-extrabold tracking-tight">
-            Nuestra Historia
+            <span data-i18n="team.title">Nuestra Historia</span>
           </h2>
 </div>
 <!-- Hero Historia con Foto Grupal IMAGE_10 y Texto Verbatim -->
@@ -1208,31 +1212,31 @@
 <div class="rounded-2xl overflow-hidden border-2 border-border-subtle shadow-2xl aspect-[4/3] bg-bg-deep">
 <img alt="Equipo fundador y directivo de SugarCoach" class="w-full h-full object-cover object-center hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJ4JchESmFNHzQGmGz2qXZiBA3PzjhRAeJj2oI94MKyhcz5sgSln6mZ4dOoZjE8qoKwLwkRjTurpVppo9VdNteDhy_2f4yYzO4TSjwrNQIwPkK-tuAKImRd95EMuJGc0EPJ4t_SiuU2iB-O4UZ-ZnKbZsn8RvBHiKCy78Ts4X983q1stMFViy8hlMl57mALCznyZZbf-eL_dghug3oE-dju0xOir1skkJFPvMINlGea2t8oJzQW47_pj_8LGp3Mk6jfg"/>
 </div>
-<span class="block text-center text-xs text-text-secondary mt-2 italic">Equipo directivo e interdisciplinario de SugarCoach</span>
+<span class="block text-center text-xs text-text-secondary mt-2 italic" data-i18n="team.imageCaption">Equipo directivo e interdisciplinario de SugarCoach</span>
 </div>
 <!-- Texto Verbatim Solicitado -->
 <div class="lg:col-span-6 order-1 lg:order-2 flex flex-col gap-space-sm">
 <div class="w-10 h-1 rounded-full bg-gradient-to-r from-primary to-neon-magenta mb-2"></div>
 <p class="font-body-lg text-body-lg text-on-surface leading-relaxed">
-              Somos un equipo decidido a mejorar la calidad de vida de las familias de niños con diabetes tipo 1. SugarCoach nació de la necesidad de mantener vivos y sanos a los hijos de Isabel. Como muchos padres de niños con DT1, ella se dio cuenta que controlar la enfermedad era un trabajo exhaustivo y cambiaba la dinamica para toda la familia (diabetes 3). Por eso pensó en crear una aplicación que no solo resolviera su problema, sino que también pudiera ayudar a otras familias que vivían lo mismo. En 2021, junto a Verónica Aveldaño, nuestra COO lanzaron SugarCoach, un proyecto integral que incluye una App móvil, educativa y de contención para la comunidad de familias con diabetes tipo 1. Queremos darles la bienvenida a SugarCoach, la mejor solución para la diabetes.
+              <span data-i18n="team.story">Somos un equipo decidido a mejorar la calidad de vida de las familias de niños con diabetes tipo 1. SugarCoach nació de la necesidad de mantener vivos y sanos a los hijos de Isabel. Como muchos padres de niños con DT1, ella se dio cuenta que controlar la enfermedad era un trabajo exhaustivo y cambiaba la dinamica para toda la familia (diabetes 3). Por eso pensó en crear una aplicación que no solo resolviera su problema, sino que también pudiera ayudar a otras familias que vivían lo mismo. En 2021, junto a Verónica Aveldaño, nuestra COO lanzaron SugarCoach, un proyecto integral que incluye una App móvil, educativa y de contención para la comunidad de familias con diabetes tipo 1. Queremos darles la bienvenida a SugarCoach, la mejor solución para la diabetes.</span>
             </p>
 <div class="pt-2 flex items-center gap-3">
 <div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary dark:text-primary-fixed-dim font-bold">
 <span class="material-symbols-outlined text-[22px]">favorite</span>
 </div>
-<span class="text-sm font-semibold text-secondary dark:text-secondary-fixed-dim">Hecho por familias, para familias.</span>
+<span class="text-sm font-semibold text-secondary dark:text-secondary-fixed-dim" data-i18n="team.motto">Hecho por familias, para familias.</span>
 </div>
 </div>
 </div>
 </div>
 <!-- Integrantes del Equipo: Individual Cards con Fotos correspondientes -->
 <div class="flex flex-col items-center text-center max-w-2xl mx-auto mb-space-xl">
-<span class="font-label-md text-label-md text-secondary dark:text-secondary-fixed-dim font-bold uppercase tracking-wider mb-2">Talento y corazón</span>
+<span class="font-label-md text-label-md text-secondary dark:text-secondary-fixed-dim font-bold uppercase tracking-wider mb-2" data-i18n="team.peopleEyebrow">Talento y corazón</span>
 <h3 class="font-headline-lg text-headline-lg text-on-surface font-extrabold tracking-tight">
-            Conocé a nuestro equipo
+            <span data-i18n="team.peopleTitle">Conocé a nuestro equipo</span>
           </h3>
 <p class="text-[17px] leading-relaxed text-text-secondary mt-space-xs">
-            Liderazgo tecnológico, ingeniería, compromiso social y vivencia directa en cada decisión.
+            <span data-i18n="team.peopleDescription">Liderazgo tecnológico, ingeniería, compromiso social y vivencia directa en cada decisión.</span>
           </p>
 </div>
 <div class="flex flex-col gap-space-lg">
@@ -1244,17 +1248,17 @@
 <div class="flex flex-col justify-between flex-1 min-w-0">
 <div>
 <div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/15 text-primary dark:text-primary-fixed-dim text-[14px] font-bold uppercase tracking-wider mb-2 border border-primary/30 w-full">
-                  Fundadora &amp; Líder Técnica
+                  <span data-i18n="team.isabel.role">Fundadora &amp; Líder Técnica</span>
                 </div>
-<h4 class="text-[24px] leading-tight font-bold text-on-surface">Isabel Berizzo</h4>
-<span class="text-[15px] text-secondary dark:text-secondary-fixed-dim font-semibold block mb-3">CEO &amp; CTO FOUNDER</span>
+<h4 class="text-[24px] leading-tight font-bold text-on-surface" data-i18n="team.isabel.name">Isabel Berizzo</h4>
+<span class="text-[15px] text-secondary dark:text-secondary-fixed-dim font-semibold block mb-3" data-i18n="team.isabel.title">CEO &amp; CTO FOUNDER</span>
 <p class="text-[16px] leading-relaxed text-text-secondary">
-                  Soy Isa Berizzo, madre de dos hijos diagnosticados con diabetes tipo 1 cuando tenían solo 3 y 4 años. Como Ingeniera en Sistemas, programadora y CTO, decidí combinar mi experiencia técnica con mi pasión por transformar vidas. Así nació SugarCoach, una plataforma diseñada para convertir el desafío de la diabetes en una experiencia positiva, educativa y motivadora. Además, es TED speaker y comparte su historia y aprendizajes para inspirar a otras familias.
+                  <span data-i18n="team.isabel.description">Soy Isa Berizzo, madre de dos hijos diagnosticados con diabetes tipo 1 cuando tenían solo 3 y 4 años. Como Ingeniera en Sistemas, programadora y CTO, decidí combinar mi experiencia técnica con mi pasión por transformar vidas. Así nació SugarCoach, una plataforma diseñada para convertir el desafío de la diabetes en una experiencia positiva, educativa y motivadora. Además, es TED speaker y comparte su historia y aprendizajes para inspirar a otras familias.</span>
                 </p>
 </div>
 <div class="mt-4 pt-3 border-t border-border-subtle flex items-center gap-2">
-<span class="px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-700 dark:text-rose-300 text-[14px] font-bold border border-rose-500/30">TEDx Speaker</span>
-<span class="px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-700 dark:text-cyan-300 text-[14px] font-bold border border-cyan-500/30">Ingeniera en Sistemas</span>
+<span class="px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-700 dark:text-rose-300 text-[14px] font-bold border border-rose-500/30" data-i18n="team.isabel.badge1">TEDx Speaker</span>
+<span class="px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-700 dark:text-cyan-300 text-[14px] font-bold border border-cyan-500/30" data-i18n="team.isabel.badge2">Ingeniera en Sistemas</span>
 </div>
 </div>
 </div>
@@ -1264,15 +1268,15 @@
 <img alt="Veronica Avendaño" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-DVXJupTE0skdbOAaVDQe2fHP_sjNT6zrWHKC5gK3whYcIQZaXJyklpdl5pUKPtybw9WQjWdZ2e4LFjPHfowtI_vY1FsJIS34_mt4HvFQTXdszxZico0U9qzvzQvQbw3_oEnqXfGamKaH3lWvTzxF7rSWdfHI0PHcroUpn9e7tZd5vw9OmGegKZDEiAG0xGs3Bohf-wOZr6Sr3ukEDmjwcH9kiXnJ4zcWlzY53REkDF2_byRy858XiPDoI1pxtuF9lA"/>
 </div>
 <div class="flex flex-col flex-1 min-w-0">
-<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary-fixed-dim/15 text-secondary dark:text-secondary-fixed-dim text-[14px] font-bold uppercase tracking-wider mb-2 border border-secondary-fixed-dim/30">COO &amp; Operaciones</div>
-<h4 class="text-[20px] leading-tight font-bold text-on-surface">Veronica Avendaño</h4>
+<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary-fixed-dim/15 text-secondary dark:text-secondary-fixed-dim text-[14px] font-bold uppercase tracking-wider mb-2 border border-secondary-fixed-dim/30" data-i18n="team.veronica.role">COO &amp; Operaciones</div>
+<h4 class="text-[20px] leading-tight font-bold text-on-surface" data-i18n="team.veronica.name">Veronica Avendaño</h4>
 <span class="text-[15px] text-secondary dark:text-secondary-fixed-dim font-semibold uppercase tracking-wider mb-2">COO</span>
-<p class="text-[16px] leading-relaxed text-text-secondary">
+<p class="text-[16px] leading-relaxed text-text-secondary" data-i18n="team.veronica.description">
               Ingeniera Industrial con especialización en desarrollo y administración de proyectos, Verónica lidera nuestras operaciones, asegurando que cada iniciativa se ejecute con excelencia.
             </p>
             <div class="mt-4 pt-3 border-t border-border-subtle flex items-center gap-2 flex-wrap">
-              <span class="px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-700 dark:text-cyan-300 text-[14px] font-bold border border-cyan-500/30">Ingeniera Industrial</span>
-              <span class="px-2.5 py-0.5 rounded-full bg-secondary-fixed-dim/20 text-secondary dark:text-secondary-fixed-dim text-[14px] font-bold border border-secondary-fixed-dim/30">COO</span>
+              <span class="px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-700 dark:text-cyan-300 text-[14px] font-bold border border-cyan-500/30" data-i18n="team.veronica.badge1">Ingeniera Industrial</span>
+              <span class="px-2.5 py-0.5 rounded-full bg-secondary-fixed-dim/20 text-secondary dark:text-secondary-fixed-dim text-[14px] font-bold border border-secondary-fixed-dim/30" data-i18n="team.veronica.badge2">COO</span>
             </div>
 </div>
 </div>
@@ -1282,15 +1286,15 @@
 <img alt="Debora Biain" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2JoDVm1r5gAdJkgggp9yUU0osl3Pfd9RxEfQDyg-a4qYbIpIiQw4v2SJQV-NmUcVT15XNXKZWv61-NivTrMPXpAmOVfUg4dN5Fv6p3V6z2d6nx0JFMo_Y0cOwnl4AKBXA9SXrggde2GvjGAxPZCgPKzEzhAfiZohuSL-EqisHi2b9WG1TvFmlBkii5PbvynzRJobqm-K48T1tI-YZJs8DMO7bEGi2Pl2WklCETamQYfeuATGcS6SQx0xSaWLuf2ffmQ"/>
 </div>
 <div class="flex flex-col flex-1 min-w-0">
-<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-tertiary/15 text-tertiary dark:text-tertiary-fixed-dim text-[14px] font-bold uppercase tracking-wider mb-2 border border-tertiary/30">RSE &amp; Relaciones Públicas</div>
-<h4 class="text-[20px] leading-tight font-bold text-on-surface">Debora Biain</h4>
-<span class="text-[15px] text-tertiary dark:text-tertiary-fixed-dim font-semibold uppercase tracking-wider mb-2">RSE &amp; Relaciones Públicas</span>
-<p class="text-[16px] leading-relaxed text-text-secondary">
+<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-tertiary/15 text-tertiary dark:text-tertiary-fixed-dim text-[14px] font-bold uppercase tracking-wider mb-2 border border-tertiary/30" data-i18n="team.debora.role">RSE &amp; Relaciones Públicas</div>
+<h4 class="text-[20px] leading-tight font-bold text-on-surface" data-i18n="team.debora.name">Debora Biain</h4>
+<span class="text-[15px] text-tertiary dark:text-tertiary-fixed-dim font-semibold uppercase tracking-wider mb-2" data-i18n="team.debora.title">RSE &amp; Relaciones Públicas</span>
+<p class="text-[16px] leading-relaxed text-text-secondary" data-i18n="team.debora.description">
               Licenciada en Relaciones Institucionales y experta en responsabilidad social, Débora integra estrategias que fortalecen nuestro compromiso con el impacto social.
             </p>
             <div class="mt-4 pt-3 border-t border-border-subtle flex items-center gap-2 flex-wrap">
-              <span class="px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-700 dark:text-rose-300 text-[14px] font-bold border border-rose-500/30">Relaciones Institucionales</span>
-              <span class="px-2.5 py-0.5 rounded-full bg-tertiary/20 text-tertiary dark:text-tertiary-fixed-dim text-[14px] font-bold border border-tertiary/30">RSE</span>
+              <span class="px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-700 dark:text-rose-300 text-[14px] font-bold border border-rose-500/30" data-i18n="team.debora.badge1">Relaciones Institucionales</span>
+              <span class="px-2.5 py-0.5 rounded-full bg-tertiary/20 text-tertiary dark:text-tertiary-fixed-dim text-[14px] font-bold border border-tertiary/30" data-i18n="team.debora.badge2">RSE</span>
             </div>
 </div>
 </div>
@@ -1300,15 +1304,15 @@
 <img alt="Agustina Olivo" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBd6Fbx8Oy9Ld6SYrg8XULR8k4ZY4CKon1mBiEgTBEmxL9MkIIsRfOA5HqIkM0Ro76TsXtG2kN_HW56CA60q7GpU4ncPM2pcRRPn3lJ9ZDVjpwXidCq7WqHv5Ei5F3JfoSouQIkUi5IO0-2xtuLQMcHAOInwYQ-rqoJgl2dj1Qd84rOpE8AKT4tmjfofA8Zsb8fqehIeCp6dI44-Yde2Js3_b1rCJ4OE5TyVGBsV3-yAehr5c44MtwdD0ycaYjNRtsANw"/>
 </div>
 <div class="flex flex-col flex-1 min-w-0">
-<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/15 text-primary dark:text-primary-fixed-dim text-[14px] font-bold uppercase tracking-wider mb-2 border border-primary/30">CM &amp; Content Manager</div>
-<h4 class="text-[20px] leading-tight font-bold text-on-surface">Agustina Olivo</h4>
-<span class="text-[15px] text-primary dark:text-primary-fixed-dim font-semibold uppercase tracking-wider mb-2">CM &amp; Content Manager</span>
-<p class="text-[16px] leading-relaxed text-text-secondary">
+<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/15 text-primary dark:text-primary-fixed-dim text-[14px] font-bold uppercase tracking-wider mb-2 border border-primary/30" data-i18n="team.agustina.role">CM &amp; Content Manager</div>
+<h4 class="text-[20px] leading-tight font-bold text-on-surface" data-i18n="team.agustina.name">Agustina Olivo</h4>
+<span class="text-[15px] text-primary dark:text-primary-fixed-dim font-semibold uppercase tracking-wider mb-2" data-i18n="team.agustina.title">CM &amp; Content Manager</span>
+<p class="text-[16px] leading-relaxed text-text-secondary" data-i18n="team.agustina.description">
               Licenciada en Ciencia Política y mi hija, Agustina está a cargo del contenido, redes sociales y marketing, aportando creatividad y conexión directa con nuestra audiencia.
             </p>
             <div class="mt-4 pt-3 border-t border-border-subtle flex items-center gap-2 flex-wrap">
-              <span class="px-2.5 py-0.5 rounded-full bg-purple-500/20 text-purple-700 dark:text-purple-300 text-[14px] font-bold border border-purple-500/30">Ciencia Política</span>
-              <span class="px-2.5 py-0.5 rounded-full bg-primary/20 text-primary dark:text-primary-fixed-dim text-[14px] font-bold border border-primary/30">Content Manager</span>
+              <span class="px-2.5 py-0.5 rounded-full bg-purple-500/20 text-purple-700 dark:text-purple-300 text-[14px] font-bold border border-purple-500/30" data-i18n="team.agustina.badge1">Ciencia Política</span>
+              <span class="px-2.5 py-0.5 rounded-full bg-primary/20 text-primary dark:text-primary-fixed-dim text-[14px] font-bold border border-primary/30" data-i18n="team.agustina.badge2">Content Manager</span>
             </div>
 </div>
 </div>
@@ -1318,15 +1322,15 @@
 <img alt="Karin Chmiel" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAcDRb0o4-k3Jt6zeIh6E75KmW7HIVsp8USMqCLjutNQ39_qqKa80g7NzrwzLuyVyQpM8WXuCUxS3ygDiGyOPehjrh-rB8E2d1HWDKd5B8l6UBXzm0URwIFbUouYlb33ikROIeGTME0firlhT1N7oGcOJ1gcrOET5zpb6mWG3SBuXXX5iU_2CXTVl1jetjd8GX1UgVn52i0KuG__RBFsGXeObjozi5ROPRL3cF-Ayu9b_T829zuMuiR7krg1FEK83tO3w"/>
 </div>
 <div class="flex flex-col flex-1 min-w-0">
-<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary-fixed-dim/15 text-secondary dark:text-secondary-fixed-dim text-[14px] font-bold uppercase tracking-wider mb-2 border border-secondary-fixed-dim/30">Business Development</div>
-<h4 class="text-[20px] leading-tight font-bold text-on-surface">Karin Chmiel</h4>
-<span class="text-[15px] text-secondary dark:text-secondary-fixed-dim font-semibold uppercase tracking-wider mb-2">Business Development</span>
-<p class="text-[16px] leading-relaxed text-text-secondary">
+<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary-fixed-dim/15 text-secondary dark:text-secondary-fixed-dim text-[14px] font-bold uppercase tracking-wider mb-2 border border-secondary-fixed-dim/30" data-i18n="team.karin.role">Business Development</div>
+<h4 class="text-[20px] leading-tight font-bold text-on-surface" data-i18n="team.karin.name">Karin Chmiel</h4>
+<span class="text-[15px] text-secondary dark:text-secondary-fixed-dim font-semibold uppercase tracking-wider mb-2" data-i18n="team.karin.title">Business Development</span>
+<p class="text-[16px] leading-relaxed text-text-secondary" data-i18n="team.karin.description">
               Especialista en desarrollo de negocios, ventas y estrategias de mercado, Karin impulsa nuestro crecimiento y expansión con su enfoque en relaciones clave y oportunidades estratégicas.
             </p>
             <div class="mt-4 pt-3 border-t border-border-subtle flex items-center gap-2 flex-wrap">
-              <span class="px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-700 dark:text-cyan-300 text-[14px] font-bold border border-cyan-500/30">Business Development</span>
-              <span class="px-2.5 py-0.5 rounded-full bg-secondary-fixed-dim/20 text-secondary dark:text-secondary-fixed-dim text-[14px] font-bold border border-secondary-fixed-dim/30">Ventas &amp; Estrategia</span>
+              <span class="px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-700 dark:text-cyan-300 text-[14px] font-bold border border-cyan-500/30" data-i18n="team.karin.badge1">Business Development</span>
+              <span class="px-2.5 py-0.5 rounded-full bg-secondary-fixed-dim/20 text-secondary dark:text-secondary-fixed-dim text-[14px] font-bold border border-secondary-fixed-dim/30" data-i18n="team.karin.badge2">Ventas &amp; Estrategia</span>
             </div>
 </div>
 </div>
@@ -1341,18 +1345,18 @@
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-2xl items-center relative z-10">
 <div class="lg:col-span-8 flex flex-col gap-space-md">
 <div class="theme-panel-chip inline-flex items-center gap-space-xs px-3.5 py-1.5 rounded-full font-label-md text-label-md font-bold backdrop-blur-sm w-fit border">
-<span>✨</span> Empezá hoy mismo
+<span>✨</span> <span data-i18n="cta.badge">Empezá hoy mismo</span>
               </div>
 <h2 class="theme-panel-text font-display-lg text-display-lg-mobile md:text-display-lg font-extrabold tracking-tight leading-tight">
-                Tu día ya tiene suficientes cosas. Cuidarte puede ser <span class="gradient-text">una menos complicada</span>.
+                <span data-i18n="cta.titlePrefix">Tu día ya tiene suficientes cosas. Cuidarte puede ser </span><span class="gradient-text" data-i18n="cta.titleHighlight">una menos complicada</span>.
               </h2>
 <p class="theme-panel-muted font-body-lg text-body-lg max-w-2xl">
-  Registrá, sumá puntos, organizá tus mediciones y compartí tu información desde SugarCoach. Disponible gratis para Android.
+  <span data-i18n="cta.description">Registrá, sumá puntos, organizá tus mediciones y compartí tu información desde SugarCoach. Disponible gratis para Android.</span>
 </p>
 <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-space-md pt-space-md">
   <a class="inline-flex items-center justify-center gap-space-xs px-space-2xl py-4 rounded-full btn-gradient text-white font-headline-sm text-headline-sm font-bold shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all border border-white/20" href="#">
     <span class="material-symbols-outlined text-[24px]">download</span>
-    Descargar SugarCoach gratis
+    <span data-i18n="cta.download">Descargar SugarCoach gratis</span>
   </a>
 </div>
 <!-- Official Store Badges -->
@@ -1360,8 +1364,8 @@
   <a class="inline-flex items-center gap-space-xs px-space-md py-space-xs rounded-xl theme-panel-card border backdrop-blur-md transition-all hover:scale-[1.02]" href="#">
     <span class="material-symbols-outlined text-[22px] theme-panel-text">shop</span>
     <div class="flex flex-col text-left">
-      <span class="font-label-sm text-[10px] leading-tight theme-panel-muted">Disponible en</span>
-      <span class="font-label-md text-label-md font-bold leading-tight theme-panel-text">Google Play</span>
+      <span class="font-label-sm text-[10px] leading-tight theme-panel-muted" data-i18n="footer.available">Disponible en</span>
+      <span class="font-label-md text-label-md font-bold leading-tight theme-panel-text" data-i18n="footer.googlePlay">Google Play</span>
     </div>
   </a>
 </div>
@@ -1379,56 +1383,56 @@
 <!-- 10. SECTION: PREGUNTAS FRECUENTES -->
 <section class="max-w-[860px] mx-auto px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop py-space-3xl" id="preguntas-frecuentes">
 <div class="flex flex-col items-center text-center mb-space-2xl">
-<span class="font-label-md text-label-md text-primary font-bold uppercase tracking-wider mb-2">Despejá tus dudas</span>
+<span class="font-label-md text-label-md text-primary font-bold uppercase tracking-wider mb-2" data-i18n="faq.eyebrow">Despejá tus dudas</span>
 <h2 class="font-headline-lg text-headline-lg text-text-primary font-extrabold tracking-tight">
-            Preguntas frecuentes
+            <span data-i18n="faq.title">Preguntas frecuentes</span>
           </h2>
-<p class="font-body-md text-body-md text-text-secondary mt-space-xs">
+<p class="font-body-md text-body-md text-text-secondary mt-space-xs" data-i18n="faq.description">
             Todo lo que necesitás saber sobre cómo SugarCoach se suma a tu rutina.
           </p>
 </div>
 <div class="flex flex-col gap-space-sm" id="faq-container">
 <div class="faq-item open bg-surface-tier-1 rounded-2xl shadow-sm border border-border-subtle overflow-hidden transition-colors">
 <button class="faq-btn w-full px-space-lg py-space-lg flex items-center justify-between text-left focus:outline-none" type="button">
-<span class="font-headline-sm text-headline-sm text-text-primary font-bold">¿SugarCoach es solo para niños?</span>
+<span class="font-headline-sm text-headline-sm text-text-primary font-bold" data-i18n="faq.q1">¿SugarCoach es solo para niños?</span>
 <span class="material-symbols-outlined text-text-tertiary faq-icon transition-transform">expand_more</span>
 </button>
 <div class="faq-answer"><div class="faq-answer-inner">
 <div class="faq-content px-space-lg pb-space-lg pt-0 text-text-secondary font-body-md border-t border-border-subtle">
-              No, está pensado tanto para niños y adolescentes como para adultos independientes y familias que acompañan. Su diseño es cálido y motivador sin caer en infantilismos.
+              <span data-i18n="faq.a1">No, está pensado tanto para niños y adolescentes como para adultos independientes y familias que acompañan. Su diseño es cálido y motivador sin caer en infantilismos.</span>
             </div>
 </div></div>
 </div>
 <div class="faq-item bg-surface-tier-1 rounded-2xl shadow-sm border border-border-subtle overflow-hidden transition-colors">
 <button class="faq-btn w-full px-space-lg py-space-lg flex items-center justify-between text-left focus:outline-none" type="button">
-<span class="font-headline-sm text-headline-sm text-text-primary font-bold">¿Mi familia puede ver mis datos en tiempo real?</span>
+<span class="font-headline-sm text-headline-sm text-text-primary font-bold" data-i18n="faq.q2">¿Mi familia puede ver mis datos en tiempo real?</span>
 <span class="material-symbols-outlined text-text-tertiary faq-icon transition-transform">expand_more</span>
 </button>
 <div class="faq-answer"><div class="faq-answer-inner">
 <div class="faq-content px-space-lg pb-space-lg pt-0 text-text-secondary font-body-md border-t border-border-subtle">
-              Sí, podés vincular a padres, cuidadores o parejas para que reciban avisos o vean resúmenes según los permisos que configures, garantizando tranquilidad sin invadir la privacidad.
+              <span data-i18n="faq.a2">Sí, podés vincular a padres, cuidadores o parejas para que reciban avisos o vean resúmenes según los permisos que configures, garantizando tranquilidad sin invadir la privacidad.</span>
             </div>
 </div></div>
 </div>
 <div class="faq-item bg-surface-tier-1 rounded-2xl shadow-sm border border-border-subtle overflow-hidden transition-colors">
 <button class="faq-btn w-full px-space-lg py-space-lg flex items-center justify-between text-left focus:outline-none" type="button">
-<span class="font-headline-sm text-headline-sm text-text-primary font-bold">¿Puedo compartir información con mi médico?</span>
+<span class="font-headline-sm text-headline-sm text-text-primary font-bold" data-i18n="faq.q3">¿Puedo compartir información con mi médico?</span>
 <span class="material-symbols-outlined text-text-tertiary faq-icon transition-transform">expand_more</span>
 </button>
 <div class="faq-answer"><div class="faq-answer-inner">
 <div class="faq-content px-space-lg pb-space-lg pt-0 text-text-secondary font-body-md border-t border-border-subtle">
-              Totalmente. Podés exportar resúmenes claros con Tiempo en Rango (TIR) y relaciones de glucosa vs. insulina para agilizar la consulta clínica.
+              <span data-i18n="faq.a3">Totalmente. Podés exportar resúmenes claros con Tiempo en Rango (TIR) y relaciones de glucosa vs. insulina para agilizar la consulta clínica.</span>
             </div>
 </div></div>
 </div>
 <div class="faq-item bg-surface-tier-1 rounded-2xl shadow-sm border border-border-subtle overflow-hidden transition-colors">
 <button class="faq-btn w-full px-space-lg py-space-lg flex items-center justify-between text-left focus:outline-none" type="button">
-<span class="font-headline-sm text-headline-sm text-text-primary font-bold">¿Qué datos puedo registrar en la app?</span>
+<span class="font-headline-sm text-headline-sm text-text-primary font-bold" data-i18n="faq.q4">¿Qué datos puedo registrar en la app?</span>
 <span class="material-symbols-outlined text-text-tertiary faq-icon transition-transform">expand_more</span>
 </button>
 <div class="faq-answer"><div class="faq-answer-inner">
 <div class="faq-content px-space-lg pb-space-lg pt-0 text-text-secondary font-body-md border-t border-border-subtle">
-              Glucosa capilar o continua, dosis de insulina basal y rápida, carbohidratos consumidos con fotos opcionales, tipo de actividad física y estado de ánimo diario.
+              <span data-i18n="faq.a4">Glucosa capilar o continua, dosis de insulina basal y rápida, carbohidratos consumidos con fotos opcionales, tipo de actividad física y estado de ánimo diario.</span>
             </div>
 </div></div>
 </div>
@@ -1461,51 +1465,51 @@
 <img alt="SugarCoach Logo Oficial" class="h-9 w-auto object-contain filter drop-shadow-[0_2px_8px_rgba(196,92,255,0.3)]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVp6dwZ6capBrTpJoWQ8qISgBRfXggRsXUJ2cwjrZ3Qi6Za1rjgUDhOaJmoZ3Pflg19Vxzoz6iADk8Gr7cpyk9KiP0JAFRRhMrf6ckeJoI0YZu2ct9n6IyHxC3X-fr2GpqBIV1-6mF2dJJWQYqksBFBBZLdb_J9yI-gckTogOOUMbBd7SE4sG5inFzOP64nQtG8ehn3zNYCJ0g3us9CcAgX9TPD99XQatC7ppbZXJmIdItosSY5tpYMOgSG_El54XExw"/>
 </div>
 </a>
-<p class="font-body-md text-body-md text-text-secondary max-w-sm">
+<p class="font-body-md text-body-md text-text-secondary max-w-sm" data-i18n="footer.description">
             Un compañero cotidiano para vivir con la diabetes de una manera más simple, acompañada, motivadora y organizada.
           </p>
 <div class="flex flex-wrap gap-space-sm pt-space-xs">
   <a class="inline-flex items-center gap-space-xs px-space-md py-space-xs rounded-xl bg-inverse-surface text-inverse-on-surface border border-outline-variant hover:opacity-90 transition-opacity" href="#">
     <span class="material-symbols-outlined text-[20px]">shop</span>
     <div class="flex flex-col text-left">
-      <span class="font-label-sm text-[10px] leading-tight text-outline-variant">Disponible en</span>
-      <span class="font-label-md text-label-md font-bold leading-tight">Google Play</span>
+      <span class="font-label-sm text-[10px] leading-tight text-outline-variant" data-i18n="footer.available">Disponible en</span>
+      <span class="font-label-md text-label-md font-bold leading-tight" data-i18n="footer.googlePlay">Google Play</span>
     </div>
   </a>
 </div>
 </div>
 <div class="flex flex-col gap-space-sm">
-<span class="font-label-lg text-label-lg text-text-primary font-bold tracking-tight">Producto</span>
+<span class="font-label-lg text-label-lg text-text-primary font-bold tracking-tight" data-i18n="footer.product">Producto</span>
 <nav class="flex flex-col gap-space-xs">
-<a class="font-body-sm text-body-sm text-text-secondary hover:text-primary transition-colors" href="#como-funciona">Cómo funciona</a>
-<a class="font-body-sm text-body-sm text-text-secondary hover:text-primary transition-colors" href="#familias">Para familias</a>
-<a class="font-body-sm text-body-sm text-text-secondary hover:text-primary transition-colors" href="#profesionales">Profesionales</a>
-<a class="font-body-sm text-body-sm text-text-secondary hover:text-primary transition-colors" href="#gamificacion">Logros y Niveles</a>
-<a class="font-body-sm text-body-sm text-text-secondary hover:text-primary transition-colors" href="#tratamiento">Tratamiento</a>
+<a class="font-body-sm text-body-sm text-text-secondary hover:text-primary transition-colors" data-i18n="footer.how" href="#como-funciona">Cómo funciona</a>
+<a class="font-body-sm text-body-sm text-text-secondary hover:text-primary transition-colors" data-i18n="footer.families" href="#familias">Para familias</a>
+<a class="font-body-sm text-body-sm text-text-secondary hover:text-primary transition-colors" data-i18n="footer.professionals" href="#profesionales">Profesionales</a>
+<a class="font-body-sm text-body-sm text-text-secondary hover:text-primary transition-colors" data-i18n="footer.achievements" href="#gamificacion">Logros y Niveles</a>
+<a class="font-body-sm text-body-sm text-text-secondary hover:text-primary transition-colors" data-i18n="footer.treatment" href="#tratamiento">Tratamiento</a>
 </nav>
 </div>
 <div class="flex flex-col gap-space-sm">
-<span class="font-label-lg text-label-lg text-text-primary font-bold tracking-tight">Comunidad</span>
+<span class="font-label-lg text-label-lg text-text-primary font-bold tracking-tight" data-i18n="footer.community">Comunidad</span>
 <nav class="flex flex-col gap-space-xs">
-<a class="font-body-sm text-body-sm text-text-secondary hover:text-primary transition-colors" href="#">Blog</a>
-<a class="font-body-sm text-body-sm text-text-secondary hover:text-primary transition-colors" href="#">Familias conectadas</a>
-<a class="font-body-sm text-body-sm text-text-secondary hover:text-primary transition-colors" href="#">Historias de progreso</a>
+<a class="font-body-sm text-body-sm text-text-secondary hover:text-primary transition-colors" data-i18n="footer.blog" href="#">Blog</a>
+<a class="font-body-sm text-body-sm text-text-secondary hover:text-primary transition-colors" data-i18n="footer.connectedFamilies" href="#">Familias conectadas</a>
+<a class="font-body-sm text-body-sm text-text-secondary hover:text-primary transition-colors" data-i18n="footer.progressStories" href="#">Historias de progreso</a>
 </nav>
 </div>
 <div class="flex flex-col gap-space-sm">
-<span class="font-label-lg text-label-lg text-text-primary font-bold tracking-tight">Legal &amp; Soporte</span>
+<span class="font-label-lg text-label-lg text-text-primary font-bold tracking-tight" data-i18n="footer.legal">Legal &amp; Soporte</span>
 <nav class="flex flex-col gap-space-xs">
-<a class="font-body-sm text-body-sm text-text-secondary hover:text-primary transition-colors" href="#">Centro de ayuda</a>
-<a class="font-body-sm text-body-sm text-text-secondary hover:text-primary transition-colors" href="#">Privacidad</a>
-<a class="font-body-sm text-body-sm text-text-secondary hover:text-primary transition-colors" href="#">Términos de servicio</a>
+<a class="font-body-sm text-body-sm text-text-secondary hover:text-primary transition-colors" data-i18n="footer.help" href="#">Centro de ayuda</a>
+<a class="font-body-sm text-body-sm text-text-secondary hover:text-primary transition-colors" data-i18n="footer.privacy" href="#">Privacidad</a>
+<a class="font-body-sm text-body-sm text-text-secondary hover:text-primary transition-colors" data-i18n="footer.terms" href="#">Términos de servicio</a>
 </nav>
 </div>
 </div>
 <div class="pt-space-lg flex flex-col md:flex-row items-center justify-between gap-space-md border-t border-border-subtle">
 <div class="flex flex-col sm:flex-row items-center gap-space-xs sm:gap-space-md text-center sm:text-left">
-<p class="font-body-sm text-body-sm text-text-tertiary">© 2024 SugarCoach. Todos los derechos reservados.</p>
+<p class="font-body-sm text-body-sm text-text-tertiary" data-i18n="footer.rights">© 2024 SugarCoach. Todos los derechos reservados.</p>
 <span class="hidden sm:inline text-outline-variant">•</span>
-<p class="font-body-sm text-body-sm text-text-tertiary">Diseñado con empatía para familias y profesionales de la salud.</p>
+<p class="font-body-sm text-body-sm text-text-tertiary" data-i18n="footer.tagline">Diseñado con empatía para familias y profesionales de la salud.</p>
 </div>
 <div class="flex items-center gap-space-md">
 <a aria-label="Comunidad" class="w-10 h-10 rounded-full bg-surface-container border border-border-subtle flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors" href="#">
@@ -1568,5 +1572,88 @@
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') { closeMenu(); }
   });
+
+  // ---- Selector de idioma (ES / EN) ----
+  const langToggleBtn = document.getElementById('langToggleBtn');
+  const langToggleLabel = document.getElementById('langToggleLabel');
+  const I18N = {
+    es: {
+      'nav.comoFunciona': 'Cómo funciona', 'nav.familias': 'Para familias', 'nav.profesionales': 'Profesionales', 'nav.login': 'Iniciar sesión',
+      'btn.descargar': 'Descargar SugarCoach', 'btn.downloadFree': 'Descargar SugarCoach gratis', 'btn.seeHow': 'Ver cómo funciona',
+      'theme.light': 'Claro', 'theme.dark': 'Oscuro', 'theme.accessible': 'Accesible', 'hero.badge': 'Compañero diario para niños, jóvenes y familias',
+      'hero.title': 'Cuidar tu diabetes puede sentirse más simple.', 'hero.description': 'SugarCoach te ayuda a registrar tus controles, sumar puntos por tu constancia, organizar reportes médicos y mantener conectada a tu familia. Con calidez, gamificación positiva y sin estrés clínico.',
+      'hero.socialProof': 'Familias y pacientes más tranquilos cada día', 'familias.eyebrow': 'Diseñado para convivir', 'familias.title': 'Una app, distintas formas de acompañar',
+      'familias.description': 'Porque cada persona vive el cuidado desde un lugar diferente, SugarCoach se adapta con empatía, precisión y autonomía a quien lo use.',
+      'card.user.badge': 'Autonomía diaria', 'card.user.title': 'Para vos', 'card.user.description': 'Registrá glucosa, insulina basal y rápida, carbohidratos, comidas y actividad física en segundos. Ganá estrellas y aprendé a conocer tu cuerpo a tu propio compás.', 'card.user.value': '116 mg/dL último valor',
+      'status.inRange': 'En rango', 'card.family.badge': 'Tranquilidad compartida', 'card.family.title': 'Para tu familia', 'card.family.description': 'Mantené conectadas a las personas que forman parte de tu cuidado. Sin llamadas insistentes ni invasión a la independencia de los chicos. Sincronización instantánea con cuidadores.', 'card.family.value': 'Mamá y Papá sincronizados', 'status.realtime': 'En tiempo real',
+      'card.pro.badge': 'Consultas claras', 'card.pro.title': 'Para profesionales', 'card.pro.description': 'Organizá tus registros y compartí información clara en tus citas médicas. Gráficos de Tiempo en Rango (TIR) y relaciones precisas de glucosa versus insulina.', 'card.pro.value': 'Tiempo en Rango: 70%', 'status.reportReady': 'Reporte listo',
+      'footer.available': 'Disponible en', 'footer.rights': 'Todos los derechos reservados.',
+      'how.eyebrow': 'Paso a paso con capturas reales', 'how.title': 'Simple desde el primer día', 'how.description': 'Sin curvas de aprendizaje complejas. Pantallas intuitivas con colores claros, íconos y respuestas inmediatas para tu día a día.', 'how.step1.title': 'Registrá en segundos', 'how.step1.description': 'Anotá glucosa, insulina basal y rápida, gramos de carbohidratos, colaciones y tu estado de ánimo con un par de toques.', 'how.step2.title': 'Organizá tu día', 'how.step3.title': 'Controlá tu esquema',
+      'day.eyebrow': 'Acompañamiento en cada momento', 'day.title': 'SugarCoach en tu día a día', 'day.description': 'Desde la actividad física y los juegos hasta las colaciones, todo se registra de forma visual y divertida.', 'privacy.eyebrow': 'Confianza y serenidad', 'privacy.title': 'Tus datos de salud protegidos', 'faq.title': 'Preguntas frecuentes', 'faq.description': 'Todo lo que necesitás saber sobre cómo SugarCoach se suma a tu rutina.', 'image.dailyLog': 'Pantalla real SugarCoach Daily Log',
+      'hero.titlePrefix': 'Cuidar tu diabetes puede sentirse más ', 'hero.titleHighlight': 'simple', 'hero.titleSuffix': '.', 'hero.lastReading': 'Última medición', 'hero.readingStatus': '116 mg/dL • En rango', 'hero.points': '1100 pts • Nivel 1', 'hero.streak': '¡Racha y constancia activa!', 'hero.familyConnected': 'Familia conectada', 'hero.sync': 'Sincronización al instante',
+      'how.step3.badge': 'Tratamiento claro', 'gamif.badge': 'Gamificación respetuosa y humana', 'gamif.titlePrefix': 'Cada pequeño hábito suma ', 'gamif.titleHighlight': 'puntos y estrellas', 'gamif.description': 'Inspirado en la psicología positiva: premiamos tu constancia y el compromiso de registrarte. Nunca juzgamos ni castigamos valores de glucosa, porque los números son información médica para cuidarte, no calificaciones morales.', 'gamif.points': '+100 Puntos', 'gamif.pointsDescription': 'Por cada registro diario completo', 'gamif.level': 'Startup Explorer', 'gamif.levelDescription': 'Subí de nivel con constancia',
+      'day.morning.title': '07:30 • Antes de empezar', 'day.morning.badge': 'Desayuno', 'day.morning.description': 'Revisás tu basal, anotás la glucosa en ayunas y sumás tus primeros puntos del día.', 'day.lunch.title': '12:30 • Hora del almuerzo', 'day.lunch.badge': 'Carbohidratos', 'day.lunch.description': 'Cargás las porciones con fotos o gramos, la insulina rápida aplicada y tu estado de tranquilidad.', 'day.activity.title': '17:00 • Actividad y Movimiento', 'day.activity.badge': 'Planeta 3D', 'day.activity.description': 'Elegí el nivel de tu tarde en el planeta interactivo: Sedentary, Moderate, Celebration o Intense.', 'day.night.title': '21:30 • Noche y descanso', 'day.night.badge': 'Tranquilidad', 'day.night.description': 'Tu Daily Log queda cerrado, tu familia notificada y todo ordenado para un descanso reparador.',
+      'stats.badge': 'Diálogo médico fluido', 'stats.title': 'Estadísticas claras para llevar a tu consulta', 'stats.description': 'Olvidate de las libretas de papel dobladas o de intentar recordar qué pasó semanas atrás. SugarCoach genera gráficos mensuales automáticos:', 'stats.tir.title': 'Tiempo en Rango (TIR) en anillo:', 'stats.tir.description': 'Muestra exactamente el 70% en rango óptimo, hipo y valores sobre rango.', 'stats.curves.title': 'Curvas cruzadas Glucosa vs. Insulina:', 'stats.curves.description': 'Permite a tu diabetólogo/a ajustar dosis basales y correcciones con datos reales.', 'stats.button': 'Ver reportes completos',
+      'treatment.badge': 'Tratamiento individualizado', 'treatment.title': 'Personalizá tus rangos y modo de terapia', 'treatment.description': 'Cada tratamiento es único. En la sección Treatment configurás tus objetivos de glucosa con máxima claridad y seleccionás si usás lapiceras o bomba de insulina.', 'treatment.compatibility': 'Compatible con múltiples marcas de insulina (Novolin R, Lantus, Humalog, Fiasp, etc.) y esquemas flexibles de aplicación.',
+      'privacy.description': 'La información médica merece la mayor privacidad. Diseñamos SugarCoach bajo principios éticos irrenunciables.', 'privacy.design.title': 'Privacidad por diseño', 'privacy.design.description': 'Tus registros viajan cifrados bajo estrictos estándares de ciberseguridad y resguardo de datos médicos.', 'privacy.access.title': 'Control de acceso', 'privacy.access.description': 'Vos decidís qué familiar o profesional tiene visibilidad. Podés revocar accesos en cualquier momento.', 'privacy.noSelling.title': 'Sin comercialización', 'privacy.noSelling.description': 'Tus datos no se venden a aseguradoras ni intermediarios. Son tuyos y de tus seres queridos.',
+      'awards.eyebrow': 'Validación y confianza global', 'awards.title': 'Premios y Reconocimientos', 'awards.description': 'Respaldados por las instituciones, aceleradoras e iniciativas de innovación en salud y tecnología más prestigiosas del mundo.', 'img.treatment': 'Pantalla real de tratamiento y rangos objetivos SugarCoach', 'img.gamification': 'Pantalla real SugarCoach Bravo +100 puntos y monstruo verde',
+      'team.eyebrow': 'Impacto con propósito / Quiénes somos', 'team.title': 'Nuestra Historia', 'team.imageCaption': 'Equipo directivo e interdisciplinario de SugarCoach', 'team.story': 'Somos un equipo decidido a mejorar la calidad de vida de las familias de niños con diabetes tipo 1. SugarCoach nació de la necesidad de mantener vivos y sanos a los hijos de Isabel. Como muchos padres de niños con DT1, ella se dio cuenta que controlar la enfermedad era un trabajo exhaustivo y cambiaba la dinamica para toda la familia (diabetes 3). Por eso pensó en crear una aplicación que no solo resolviera su problema, sino que también pudiera ayudar a otras familias que vivían lo mismo. En 2021, junto a Verónica Aveldaño, nuestra COO lanzaron SugarCoach, un proyecto integral que incluye una App móvil, educativa y de contención para la comunidad de familias con diabetes tipo 1. Queremos darles la bienvenida a SugarCoach, la mejor solución para la diabetes.', 'team.motto': 'Hecho por familias, para familias.', 'team.peopleEyebrow': 'Talento y corazón', 'team.peopleTitle': 'Conocé a nuestro equipo', 'team.peopleDescription': 'Liderazgo tecnológico, ingeniería, compromiso social y vivencia directa en cada decisión.', 'team.isabel.role': 'Fundadora & Líder Técnica', 'team.isabel.title': 'CEO & CTO FOUNDER', 'team.isabel.description': 'Soy Isa Berizzo, madre de dos hijos diagnosticados con diabetes tipo 1 cuando tenían solo 3 y 4 años. Como Ingeniera en Sistemas, programadora y CTO, decidí combinar mi experiencia técnica con mi pasión por transformar vidas. Así nació SugarCoach, una plataforma diseñada para convertir el desafío de la diabetes en una experiencia positiva, educativa y motivadora. Además, es TED speaker y comparte su historia y aprendizajes para inspirar a otras familias.', 'team.veronica.role': 'COO & Operaciones', 'team.veronica.title': 'COO', 'team.veronica.description': 'Ingeniera Industrial con especialización en desarrollo y administración de proyectos, Verónica lidera nuestras operaciones, asegurando que cada iniciativa se ejecute con excelencia.', 'team.veronica.badge1': 'Ingeniera Industrial', 'team.veronica.badge2': 'COO', 'team.debora.role': 'RSE & Relaciones Públicas', 'team.debora.title': 'RSE & Relaciones Públicas', 'team.debora.description': 'Licenciada en Relaciones Institucionales y experta en responsabilidad social, Débora integra estrategias que fortalecen nuestro compromiso con el impacto social.', 'team.debora.badge1': 'Relaciones Institucionales', 'team.debora.badge2': 'RSE', 'team.agustina.role': 'CM & Content Manager', 'team.agustina.title': 'CM & Content Manager', 'team.agustina.description': 'Licenciada en Ciencia Política y mi hija, Agustina está a cargo del contenido, redes sociales y marketing, aportando creatividad y conexión directa con nuestra audiencia.', 'team.agustina.badge1': 'Ciencia Política', 'team.agustina.badge2': 'Content Manager', 'team.karin.role': 'Business Development', 'team.karin.title': 'Business Development', 'team.karin.description': 'Especialista en desarrollo de negocios, ventas y estrategias de mercado, Karin impulsa nuestro crecimiento y expansión con su enfoque en relaciones clave y oportunidades estratégicas.', 'team.karin.badge1': 'Business Development', 'team.karin.badge2': 'Ventas & Estrategia',
+      'cta.badge': 'Empezá hoy mismo', 'cta.titlePrefix': 'Tu día ya tiene suficientes cosas. Cuidarte puede ser ', 'cta.titleHighlight': 'una menos complicada', 'cta.description': 'Registrá, sumá puntos, organizá tus mediciones y compartí tu información desde SugarCoach. Disponible gratis para Android.', 'cta.download': 'Descargar SugarCoach gratis',
+      'faq.eyebrow': 'Despejá tus dudas', 'faq.q1': '¿SugarCoach es solo para niños?', 'faq.a1': 'No, está pensado tanto para niños y adolescentes como para adultos independientes y familias que acompañan. Su diseño es cálido y motivador sin caer en infantilismos.', 'faq.q2': '¿Mi familia puede ver mis datos en tiempo real?', 'faq.a2': 'Sí, podés vincular a padres, cuidadores o parejas para que reciban avisos o vean resúmenes según los permisos que configures, garantizando tranquilidad sin invadir la privacidad.', 'faq.q3': '¿Puedo compartir información con mi médico?', 'faq.a3': 'Totalmente. Podés exportar resúmenes claros con Tiempo en Rango (TIR) y relaciones de glucosa vs. insulina para agilizar la consulta clínica.', 'faq.q4': '¿Qué datos puedo registrar en la app?', 'faq.a4': 'Glucosa capilar o continua, dosis de insulina basal y rápida, carbohidratos consumidos con fotos opcionales, tipo de actividad física y estado de ánimo diario.',
+      'footer.description': 'Un compañero cotidiano para vivir con la diabetes de una manera más simple, acompañada, motivadora y organizada.', 'footer.product': 'Producto', 'footer.community': 'Comunidad', 'footer.legal': 'Legal & Soporte', 'footer.tagline': 'Diseñado con empatía para familias y profesionales de la salud.', 'footer.googlePlay': 'Google Play', 'footer.how': 'Cómo funciona', 'footer.families': 'Para familias', 'footer.professionals': 'Profesionales', 'footer.achievements': 'Logros y Niveles', 'footer.treatment': 'Tratamiento', 'footer.blog': 'Blog', 'footer.connectedFamilies': 'Familias conectadas', 'footer.progressStories': 'Historias de progreso', 'footer.help': 'Centro de ayuda', 'footer.privacy': 'Privacidad', 'footer.terms': 'Términos de servicio', 'how.step1.badge': 'Entrada rápida', 'how.step2.badge': 'Historial claro', 'how.step2.description': 'El Daily Log agrupa cronológicamente almuerzos, cenas, correcciones y actividades con etiquetas de colores claros y comprensibles.', 'how.step3.description': 'Visualizá rangos personalizados (Hipo 70, Target 100, Híper 180 mg/dL), bombas o lapiceras y compartí el reporte con un clic.', 'awards.endeavor': 'Endeavor', 'awards.aws': 'AWS', 'awards.hit': 'Hit Cowork', 'awards.wise': 'WISE', 'awards.bid': 'BID', 'awards.naves': 'Naves IAE', 'awards.google': 'Google for Startups', 'awards.huawei': 'Huawei', 'awards.samsung': 'Samsung', 'awards.globant': 'Globant', 'awards.ewc': 'Entrepreneurship World Cup', 'team.isabel.name': 'Isabel Berizzo', 'team.isabel.badge1': 'TEDx Speaker', 'team.isabel.badge2': 'Ingeniera en Sistemas', 'team.veronica.name': 'Veronica Avendaño', 'team.debora.name': 'Debora Biain', 'team.agustina.name': 'Agustina Olivo', 'team.karin.name': 'Karin Chmiel'
+    },
+    en: {
+      'nav.comoFunciona': 'How it works', 'nav.familias': 'For families', 'nav.profesionales': 'Professionals', 'nav.login': 'Log in',
+      'btn.descargar': 'Download SugarCoach', 'btn.downloadFree': 'Download SugarCoach for free', 'btn.seeHow': 'See how it works',
+      'theme.light': 'Light', 'theme.dark': 'Dark', 'theme.accessible': 'Accessible', 'hero.badge': 'A daily companion for children, teens, and families',
+      'hero.title': 'Taking care of your diabetes can feel simpler.', 'hero.description': 'SugarCoach helps you log your readings, earn points for consistency, organize medical reports, and keep your family connected. With warmth, positive gamification, and no clinical stress.',
+      'hero.socialProof': 'Calmer families and patients every day', 'familias.eyebrow': 'Designed for everyday life', 'familias.title': 'One app, different ways to support',
+      'familias.description': 'Everyone experiences care differently, so SugarCoach adapts with empathy, precision, and independence.',
+      'card.user.badge': 'Daily independence', 'card.user.title': 'For you', 'card.user.description': 'Log glucose, basal and rapid insulin, carbohydrates, meals, and physical activity in seconds. Earn stars and learn to understand your body at your own pace.', 'card.user.value': '116 mg/dL latest reading',
+      'status.inRange': 'In range', 'card.family.badge': 'Shared peace of mind', 'card.family.title': 'For your family', 'card.family.description': 'Keep the people involved in your care connected. No insistent calls or invasion of children\'s independence. Instant caregiver synchronization.', 'card.family.value': 'Mom and Dad synced', 'status.realtime': 'In real time',
+      'card.pro.badge': 'Clearer appointments', 'card.pro.title': 'For professionals', 'card.pro.description': 'Organize your records and share clear information at medical appointments. Time in Range (TIR) charts and precise glucose-to-insulin relationships.', 'card.pro.value': 'Time in Range: 70%', 'status.reportReady': 'Report ready',
+      'footer.available': 'Available on', 'footer.rights': 'All rights reserved.',
+      'how.eyebrow': 'Step by step with real screenshots', 'how.title': 'Simple from day one', 'how.description': 'No complex learning curve. Intuitive screens with clear colors, icons, and immediate feedback for your everyday life.', 'how.step1.title': 'Log it in seconds', 'how.step1.description': 'Add glucose, basal and rapid insulin, carbohydrate grams, snacks, and your mood with just a few taps.', 'how.step2.title': 'Organize your day', 'how.step3.title': 'Manage your treatment plan',
+      'day.eyebrow': 'Support at every moment', 'day.title': 'SugarCoach in your daily life', 'day.description': 'From physical activity and games to snacks, everything is logged visually and playfully.', 'privacy.eyebrow': 'Trust and peace of mind', 'privacy.title': 'Your health data protected', 'faq.title': 'Frequently asked questions', 'faq.description': 'Everything you need to know about how SugarCoach fits into your routine.', 'image.dailyLog': 'Real SugarCoach Daily Log screen',
+      'hero.titlePrefix': 'Taking care of your diabetes can feel ', 'hero.titleHighlight': 'simpler', 'hero.titleSuffix': '.', 'hero.lastReading': 'Latest reading', 'hero.readingStatus': '116 mg/dL • In range', 'hero.points': '1100 pts • Level 1', 'hero.streak': 'Streak and consistency active!', 'hero.familyConnected': 'Family connected', 'hero.sync': 'Instant synchronization',
+      'how.step3.badge': 'Clear treatment', 'gamif.badge': 'Respectful, human gamification', 'gamif.titlePrefix': 'Every small habit earns ', 'gamif.titleHighlight': 'points and stars', 'gamif.description': 'Inspired by positive psychology: we reward consistency and the commitment to logging. We never judge or punish glucose values, because numbers are medical information to help you care for yourself, not moral grades.', 'gamif.points': '+100 Points', 'gamif.pointsDescription': 'For each complete daily log', 'gamif.level': 'Startup Explorer', 'gamif.levelDescription': 'Level up through consistency',
+      'day.morning.title': '07:30 • Before starting', 'day.morning.badge': 'Breakfast', 'day.morning.description': 'Review your basal insulin, log fasting glucose, and earn your first points of the day.', 'day.lunch.title': '12:30 • Lunchtime', 'day.lunch.badge': 'Carbohydrates', 'day.lunch.description': 'Add portions with photos or grams, rapid insulin, and your state of mind.', 'day.activity.title': '17:00 • Activity and movement', 'day.activity.badge': '3D planet', 'day.activity.description': 'Choose your afternoon level on the interactive planet: Sedentary, Moderate, Celebration, or Intense.', 'day.night.title': '21:30 • Night and rest', 'day.night.badge': 'Peace of mind', 'day.night.description': 'Your Daily Log is closed, your family is notified, and everything is organized for restorative rest.',
+      'stats.badge': 'Smoother conversations with your doctor', 'stats.title': 'Clear statistics to bring to your appointment', 'stats.description': 'Forget folded paper notebooks or trying to remember what happened weeks ago. SugarCoach generates automatic monthly charts:', 'stats.tir.title': 'Time in Range (TIR) ring:', 'stats.tir.description': 'Shows exactly 70% in the optimal range, low values, and above-range values.', 'stats.curves.title': 'Glucose vs. insulin curves:', 'stats.curves.description': 'Helps your diabetes specialist adjust basal doses and corrections using real data.', 'stats.button': 'View complete reports',
+      'treatment.badge': 'Personalized treatment', 'treatment.title': 'Personalize your ranges and therapy mode', 'treatment.description': 'Every treatment is unique. In the Treatment section, configure your glucose targets clearly and choose whether you use pens or an insulin pump.', 'treatment.compatibility': 'Compatible with multiple insulin brands (Novolin R, Lantus, Humalog, Fiasp, etc.) and flexible administration plans.',
+      'privacy.description': 'Health information deserves the highest privacy. We designed SugarCoach around non-negotiable ethical principles.', 'privacy.design.title': 'Privacy by design', 'privacy.design.description': 'Your records are encrypted under strict cybersecurity and medical-data protection standards.', 'privacy.access.title': 'Access control', 'privacy.access.description': 'You decide which family member or professional can see your information. You can revoke access at any time.', 'privacy.noSelling.title': 'No data selling', 'privacy.noSelling.description': 'Your data is not sold to insurers or intermediaries. It belongs to you and your loved ones.',
+      'awards.eyebrow': 'Global validation and trust', 'awards.title': 'Awards and recognition', 'awards.description': 'Backed by leading institutions, accelerators, and health and technology innovation initiatives around the world.', 'img.treatment': 'Real SugarCoach treatment and target ranges screen', 'img.gamification': 'Real SugarCoach Bravo +100 points and green monster screen',
+      'team.eyebrow': 'Purpose-driven impact / Who we are', 'team.title': 'Our story', 'team.imageCaption': 'SugarCoach leadership and interdisciplinary team', 'team.story': 'We are a team committed to improving the quality of life of families of children with type 1 diabetes. SugarCoach was born from Isabel\'s need to keep her children healthy and safe. Like many parents of children with T1D, she realized that managing the condition was exhausting and changed the dynamics of the whole family. That is why she decided to create an application that could help other families living through the same experience. In 2021, together with Verónica Aveldaño, our COO, they launched SugarCoach, an educational and supportive mobile app for the type 1 diabetes family community. Welcome to SugarCoach, a better solution for diabetes.', 'team.motto': 'Made by families, for families.', 'team.peopleEyebrow': 'Talent and heart', 'team.peopleTitle': 'Meet our team', 'team.peopleDescription': 'Technology leadership, engineering, social commitment, and lived experience in every decision.', 'team.isabel.role': 'Founder & Technical Leader', 'team.isabel.title': 'CEO & CTO FOUNDER', 'team.isabel.description': 'I am Isa Berizzo, a mother of two children diagnosed with type 1 diabetes at just 3 and 4 years old. As a systems engineer, programmer, and CTO, I combined my technical experience with my passion for transforming lives. That is how SugarCoach was born: a platform designed to turn the challenge of diabetes into a positive, educational, and motivating experience. She is also a TED speaker who shares her story and lessons to inspire other families.', 'team.veronica.role': 'COO & Operations', 'team.veronica.title': 'COO', 'team.veronica.description': 'An industrial engineer specializing in project development and administration, Verónica leads our operations and ensures every initiative is delivered with excellence.', 'team.veronica.badge1': 'Industrial Engineer', 'team.veronica.badge2': 'COO', 'team.debora.role': 'CSR & Public Relations', 'team.debora.title': 'CSR & Public Relations', 'team.debora.description': 'A graduate in institutional relations and social responsibility expert, Débora integrates strategies that strengthen our commitment to social impact.', 'team.debora.badge1': 'Institutional Relations', 'team.debora.badge2': 'CSR', 'team.agustina.role': 'CM & Content Manager', 'team.agustina.title': 'CM & Content Manager', 'team.agustina.description': 'A political science graduate, Agustina leads content, social media, and marketing, bringing creativity and a direct connection with our audience.', 'team.agustina.badge1': 'Political Science', 'team.agustina.badge2': 'Content Manager', 'team.karin.role': 'Business Development', 'team.karin.title': 'Business Development', 'team.karin.description': 'A business development, sales, and market strategy specialist, Karin drives our growth through key relationships and strategic opportunities.', 'team.karin.badge1': 'Business Development', 'team.karin.badge2': 'Sales & Strategy',
+      'cta.badge': 'Get started today', 'cta.titlePrefix': 'Your day already has enough going on. Taking care of yourself can be ', 'cta.titleHighlight': 'one less complicated thing', 'cta.description': 'Log, earn points, organize your readings, and share your information from SugarCoach. Available free for Android.', 'cta.download': 'Download SugarCoach for free',
+      'faq.eyebrow': 'Get your questions answered', 'faq.q1': 'Is SugarCoach only for children?', 'faq.a1': 'No. It is designed for children and teens, independent adults, and families who provide support. Its design is warm and motivating without being childish.', 'faq.q2': 'Can my family see my data in real time?', 'faq.a2': 'Yes. You can link parents, caregivers, or partners so they receive alerts or summaries according to the permissions you configure, providing peace of mind without invading privacy.', 'faq.q3': 'Can I share information with my doctor?', 'faq.a3': 'Absolutely. You can export clear summaries with Time in Range (TIR) and glucose-versus-insulin relationships to make clinical appointments more efficient.', 'faq.q4': 'What data can I record in the app?', 'faq.a4': 'Capillary or continuous glucose, basal and rapid insulin doses, carbohydrates with optional photos, physical activity, and daily mood.',
+      'footer.description': 'An everyday companion for living with diabetes in a simpler, supported, motivating, and organized way.', 'footer.product': 'Product', 'footer.community': 'Community', 'footer.legal': 'Legal & Support', 'footer.tagline': 'Designed with empathy for families and healthcare professionals.', 'footer.googlePlay': 'Google Play', 'footer.how': 'How it works', 'footer.families': 'For families', 'footer.professionals': 'Professionals', 'footer.achievements': 'Achievements and levels', 'footer.treatment': 'Treatment', 'footer.blog': 'Blog', 'footer.connectedFamilies': 'Connected families', 'footer.progressStories': 'Progress stories', 'footer.help': 'Help center', 'footer.privacy': 'Privacy', 'footer.terms': 'Terms of service', 'how.step1.badge': 'Quick entry', 'how.step2.badge': 'Clear history', 'how.step2.description': 'The Daily Log chronologically groups lunches, dinners, corrections, and activities with clear, understandable color labels.', 'how.step3.description': 'View personalized ranges (Low 70, Target 100, High 180 mg/dL), pens or pumps, and share the report with one click.', 'awards.endeavor': 'Endeavor', 'awards.aws': 'AWS', 'awards.hit': 'Hit Cowork', 'awards.wise': 'WISE', 'awards.bid': 'IDB', 'awards.naves': 'Naves IAE', 'awards.google': 'Google for Startups', 'awards.huawei': 'Huawei', 'awards.samsung': 'Samsung', 'awards.globant': 'Globant', 'awards.ewc': 'Entrepreneurship World Cup', 'team.isabel.name': 'Isabel Berizzo', 'team.isabel.badge1': 'TEDx Speaker', 'team.isabel.badge2': 'Systems Engineer', 'team.veronica.name': 'Veronica Avendaño', 'team.debora.name': 'Debora Biain', 'team.agustina.name': 'Agustina Olivo', 'team.karin.name': 'Karin Chmiel'
+    }
+  };
+
+  function deviceLanguage() {
+    const language = (navigator.languages && navigator.languages[0]) || navigator.language || '';
+    return /^es(?:-|$)/i.test(language) ? 'es' : 'en';
+  }
+
+  function applyLang(lang) {
+    const language = I18N[lang] ? lang : 'en';
+    const messages = I18N[language];
+    document.documentElement.setAttribute('lang', language);
+    document.querySelectorAll('[data-i18n]').forEach(element => {
+      const value = messages[element.dataset.i18n];
+      if (value !== undefined) element.textContent = value;
+    });
+    [['aria-label', 'data-i18n-aria'], ['placeholder', 'data-i18n-placeholder'], ['title', 'data-i18n-title'], ['alt', 'data-i18n-alt']].forEach(([attribute, keyAttribute]) => {
+      document.querySelectorAll('[' + keyAttribute + ']').forEach(element => {
+        const value = messages[element.getAttribute(keyAttribute)];
+        if (value !== undefined) element.setAttribute(attribute, value);
+      });
+    });
+    langToggleLabel.textContent = language.toUpperCase();
+    langToggleBtn.setAttribute('aria-label', language === 'es' ? 'Switch to English' : 'Cambiar a español');
+    langToggleBtn.dataset.next = language === 'es' ? 'en' : 'es';
+  }
+
+  applyLang(deviceLanguage());
+  langToggleBtn.addEventListener('click', () => applyLang(langToggleBtn.dataset.next));
 </script>
 </body></html>
