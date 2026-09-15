@@ -7,14 +7,13 @@ import { DailyMomentsSection } from "@/components/landing/DailyMomentsSection";
 import { StatsSection } from "@/components/landing/StatsSection";
 import { TreatmentSection } from "@/components/landing/TreatmentSection";
 import { SecuritySection } from "@/components/landing/SecuritySection";
-import { PricingSection } from "@/components/landing/PricingSection";
 import { AboutSection } from "@/components/landing/AboutSection";
 import { CtaSection, FaqSection } from "@/components/landing/FaqCta";
 import { Footer } from "@/components/landing/Footer";
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen bg-base pt-20">
+    <main className="min-h-screen bg-base pt-24">
       <Navbar />
       <Hero />
       <UserTypesSection />
@@ -24,7 +23,6 @@ export default function HomePage() {
       <StatsSection />
       <TreatmentSection />
       <SecuritySection />
-      <PricingSection />
       <AboutSection />
       <CtaSection />
       <FaqSection />

@@ -130,6 +130,7 @@ export function PricingSection() {
         {/* CARD 2: Premium (Recomendado) */}
         <Reveal delay={0.12}>
           <article
+            id="premium"
             className="relative flex h-full flex-col justify-between rounded-3xl border-2 border-[#E2A632]/80 bg-card p-7 shadow-[0_0_30px_rgba(226,166,50,0.15)] transition-all duration-300 dark:border-[#E2A632] dark:bg-[#13112E] md:p-9 [.a11y_&]:border-4 [.a11y_&]:border-[#E2A632] [.a11y_&]:bg-white dark:[.a11y_&]:bg-[#071126]"
           >
             {/* Badge flotante Recomendado en la esquina superior derecha */}

@@ -10,7 +10,7 @@ const buttonVariants = cva(
         default: "bg-tint/10 text-ink hover:bg-tint/15 border border-line/15",
         // Variante custom de marca: gradiente rosa-violeta + glow
         gradient:
-          "bg-brand-gradient text-white shadow-brand-glow hover:scale-[1.03] hover:brightness-110 active:scale-[0.98] shadow-brand-lg",
+          "bg-brand-gradient text-white !text-white shadow-brand-glow hover:scale-[1.03] hover:brightness-110 active:scale-[0.98] shadow-brand-lg",
         secondary: "bg-ink text-card hover:bg-ink/90",
         ghost: "text-body hover:text-ink hover:bg-tint/5",
         outline: "border border-line/20 text-ink hover:border-line/40 hover:bg-tint/5",
