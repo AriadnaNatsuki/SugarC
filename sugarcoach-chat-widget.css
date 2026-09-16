@@ -33,12 +33,12 @@
   .sc-chat-header-text .sc-name { font-weight: 700; color: var(--c-on-surface); font-size: .95rem; }
   .sc-chat-header-text .sc-status { font-size: .78rem; color: var(--c-on-surface-variant); display: flex; align-items: center; gap: 5px; }
   .sc-status .sc-dot { width: 7px; height: 7px; border-radius: 9999px; background: #22c55e; flex-shrink: 0; }
-  #sc-chat-close {
+  #sc-chat-menu, #sc-chat-close {
     width: 36px; height: 36px; border-radius: 9999px; border: none; background: transparent; cursor: pointer;
     color: var(--c-on-surface-variant); display: flex; align-items: center; justify-content: center;
     min-width: 36px;
   }
-  #sc-chat-close:hover { background: var(--c-surface-container-high); }
+  #sc-chat-menu:hover, #sc-chat-close:hover { background: var(--c-surface-container-high); }
 
   .sc-chat-disclaimer {
     font-size: .74rem; color: var(--c-on-surface-variant);
