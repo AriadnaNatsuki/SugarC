@@ -38,6 +38,8 @@
       closeBtnLabel: 'Cerrar el asistente',
       sendLabel: 'Enviar mensaje',
       greeting: '¡Hola! Soy el asistente de SugarCoach. Puedo ayudarte con dudas sobre cómo usar la app. ¿En qué te ayudo?',
+      menuBtnLabel: 'Ver todas las opciones',
+      menuPrompt: 'Claro, elegí una opción:',
       emptyMsg: 'Escribime tu consulta primero 🙂',
       tooLongMsg: 'Tu mensaje es un poco largo, ¿podés resumirlo?',
       connectionErrorMsg: 'Tuvimos un problema de conexión. Probá de nuevo en un momento.',
@@ -53,6 +55,8 @@
       closeBtnLabel: 'Close assistant',
       sendLabel: 'Send message',
       greeting: "Hi! I'm the SugarCoach assistant. I can help with questions about using the app. What can I help you with?",
+      menuBtnLabel: 'Show all options',
+      menuPrompt: 'Sure, pick an option:',
       emptyMsg: 'Type your question first 🙂',
       tooLongMsg: 'Your message is a bit long, could you shorten it?',
       connectionErrorMsg: 'We had a connection problem. Please try again in a moment.',
@@ -60,8 +64,8 @@
   };
 
   const TOP_LEVEL_OPTIONS = {
-    es: ['Cómo registrar mis datos', 'Puntos y logros', 'Ver mis reportes', 'Planes y precios', 'Hablar con soporte'],
-    en: ['How to log my data', 'Points and achievements', 'View my reports', 'Plans and pricing', 'Talk to support'],
+    es: ['Cómo registrar mis datos', 'Puntos y logros', 'Ver mis reportes', 'Cómo enviar datos al médico', 'Cómo vincular a mi familia', 'Planes y precios', 'Hablar con soporte'],
+    en: ['How to log my data', 'Points and achievements', 'View my reports', 'How to send data to my doctor', 'How to link my family', 'Plans and pricing', 'Talk to support'],
   };
 
   // Palabras clave en los dos idiomas juntas: alguien puede escribir en
@@ -78,12 +82,12 @@
     {
       id: 'registro',
       keywords: ['registrar','registro','cargar','carga','anotar','glucosa','insulina','comida','carbohidr',
-                 'log','logging','record','entry','glucose','insulin','meal','carb'],
+                 'logging','record','entry','glucose','insulin','meal','carb'],
       reply: {
         es: 'Podés registrar glucosa, insulina, comidas y actividad desde el botón "+" en la pantalla principal. Se guarda en segundos y suma puntos a tu racha.',
         en: 'You can log glucose, insulin, meals and activity from the "+" button on the main screen. It saves in seconds and adds points to your streak.',
       },
-      options: { es: ['Puntos y logros', 'Ver mis reportes'], en: ['Points and achievements', 'View my reports'] },
+      options: { es: ['¿Cómo sumo puntos?', '¿Dónde veo mis reportes?'], en: ['How do I earn points?', 'Where can I see my reports?'] },
     },
     {
       id: 'puntos',
@@ -93,7 +97,7 @@
         es: 'Ganás puntos por cada registro diario completo. Los puntos suben tu nivel y desbloquean logros — nunca califican tus valores de glucosa, solo tu constancia.',
         en: 'You earn points for every complete daily log. Points level you up and unlock achievements — they never grade your glucose values, only your consistency.',
       },
-      options: { es: ['Cómo registrar mis datos', 'Planes y precios'], en: ['How to log my data', 'Plans and pricing'] },
+      options: { es: ['¿Cómo registro mis datos?', '¿Qué incluye cada plan?'], en: ['How do I log my data?', "What's included in each plan?"] },
     },
     {
       id: 'reportes',
@@ -103,7 +107,17 @@
         es: 'En la sección de Reportes vas a encontrar tu Tiempo en Rango (TIR) y el cruce de glucosa vs. insulina, listos para compartir en tu consulta.',
         en: "In the Reports section you'll find your Time in Range (TIR) and the glucose vs. insulin comparison, ready to share at your appointment.",
       },
-      options: { es: ['Hablar con soporte'], en: ['Talk to support'] },
+      options: { es: ['Hablar con alguien del equipo'], en: ['Talk to someone on the team'] },
+    },
+    {
+      id: 'compartir_datos',
+      keywords: ['datos al medico','datos al médico','enviar datos','compartir datos','mandar datos','codigo qr','código qr',
+                 'send data','share data','data to my doctor','data to the doctor','doctor scan','qr code'],
+      reply: {
+        es: 'Escaneá el código QR que te comparte tu médico y tus datos se envían automáticamente — no hace falta exportar ni mandar nada a mano.',
+        en: 'Scan the QR code your doctor shares with you and your data is sent automatically — no need to export or send anything by hand.',
+      },
+      options: { es: [], en: [] },
     },
     {
       id: 'tratamiento',
@@ -113,7 +127,7 @@
         es: 'En "Tratamiento" configurás tus rangos objetivo (hipo, target, hiper) junto con tu profesional de salud. Yo no puedo definir esos valores por vos.',
         en: 'In "Treatment" you set your target ranges (low, target, high) together with your healthcare professional. I can\'t set those values for you.',
       },
-      options: { es: ['Hablar con soporte'], en: ['Talk to support'] },
+      options: { es: ['Hablar con alguien del equipo'], en: ['Talk to someone on the team'] },
     },
     {
       id: 'telemedicina',
@@ -123,7 +137,7 @@
         es: 'Podés agendar una consulta de telemedicina desde la sección "Mi equipo". Vas a ver los horarios disponibles de tu profesional asignado.',
         en: 'You can schedule a telehealth visit from the "My team" section. You\'ll see the available times for your assigned professional.',
       },
-      options: { es: ['Hablar con soporte'], en: ['Talk to support'] },
+      options: { es: ['Hablar con alguien del equipo'], en: ['Talk to someone on the team'] },
     },
     {
       id: 'planes',
@@ -133,17 +147,17 @@
         es: 'El plan gratuito incluye registro y reportes básicos por 60 días. El plan Premium suma telemedicina ilimitada y reportes avanzados.',
         en: 'The free plan includes basic logging and reports for 60 days. The Premium plan adds unlimited telehealth and advanced reports.',
       },
-      options: { es: ['Hablar con soporte'], en: ['Talk to support'] },
+      options: { es: ['Hablar con alguien del equipo'], en: ['Talk to someone on the team'] },
     },
     {
       id: 'familia',
       keywords: ['familia','padre','madre','cuidador','conectar','vincular','compartir acceso',
                  'family','parent','caregiver','connect','link','share access'],
       reply: {
-        es: 'Desde "Mi familia" podés invitar a un cuidador para que vea tus resúmenes, con los permisos que vos elijas.',
-        en: 'From "My family" you can invite a caregiver to see your summaries, with the permissions you choose.',
+        es: 'Generá un código QR desde la app y pedile a tu familiar que lo escanee desde la suya — el vínculo se crea automáticamente, sin pasos extra.',
+        en: "Generate a QR code from the app and have your family member scan it from theirs — the link is created automatically, no extra steps.",
       },
-      options: { es: ['Cómo registrar mis datos'], en: ['How to log my data'] },
+      options: { es: ['¿Cómo registro mis datos?'], en: ['How do I log my data?'] },
     },
     {
       id: 'soporte',
@@ -162,7 +176,7 @@
       es: 'No puedo darte indicaciones médicas — eso lo tiene que ver tu equipo de salud. Puedo ayudarte con cómo usar la app, o coordinar que hables con tu equipo.',
       en: "I can't give medical advice — that's something your healthcare team needs to handle. I can help with how to use the app, or connect you with your team.",
     },
-    options: { es: ['Hablar con soporte', 'Cómo registrar mis datos'], en: ['Talk to support', 'How to log my data'] },
+    options: { es: ['Hablar con alguien del equipo', '¿Cómo registro mis datos?'], en: ['Talk to someone on the team', 'How do I log my data?'] },
   };
 
   const FALLBACK_REPLY = {
@@ -173,10 +187,12 @@
   function classify(text) {
     const t = text.toLowerCase();
     if (CLINICAL_KEYWORDS.some(k => t.includes(k))) {
-      return { reply: CLINICAL_REDIRECT.reply[LANG], options: CLINICAL_REDIRECT.options[LANG] };
+      return { reply: CLINICAL_REDIRECT.reply[LANG], options: [] };
     }
     const topic = TOPICS.find(tp => tp.keywords.some(k => t.includes(k)));
-    if (topic) return { reply: topic.reply[LANG], options: topic.options[LANG] };
+    if (topic) return { reply: topic.reply[LANG], options: [] };
+    // Excepcion: si el bot no entendio, SI mostramos el menu -- es el unico caso
+    // donde el usuario no tiene otra pista de por donde seguir.
     return { reply: FALLBACK_REPLY[LANG], options: TOP_LEVEL_OPTIONS[LANG] };
   }
 
@@ -224,6 +240,7 @@
   const btn = document.getElementById('sc-chat-btn');
   const panel = document.getElementById('sc-chat-panel');
   const closeBtn = document.getElementById('sc-chat-close');
+  const menuBtn = document.getElementById('sc-chat-menu');
   const messages = document.getElementById('sc-chat-messages');
   const form = document.getElementById('sc-chat-form');
   const input = document.getElementById('sc-chat-input');
@@ -262,10 +279,15 @@
     input.placeholder = c.placeholder;
     sendBtn.setAttribute('aria-label', c.sendLabel);
     closeBtn.setAttribute('aria-label', c.closeBtnLabel);
+    menuBtn.setAttribute('aria-label', c.menuBtnLabel);
     btn.setAttribute('aria-label', panel.hidden ? c.openLabel : c.closeLabel);
   }
 
   function scrollToEnd() { messages.scrollTop = messages.scrollHeight; }
+
+  function clearAllOptions() {
+    messages.querySelectorAll('.sc-options').forEach(el => el.remove());
+  }
 
   function addUserMessage(text) {
     const row = document.createElement('div');
@@ -315,6 +337,7 @@
 
   async function handleUserInput(text) {
     if (!text.trim()) return;
+    clearAllOptions();
     addUserMessage(text);
     input.value = '';
     sendBtn.disabled = true;
@@ -348,6 +371,13 @@
 
   btn.addEventListener('click', () => { panel.hidden ? openPanel() : closePanel(); });
   closeBtn.addEventListener('click', closePanel);
+  menuBtn.addEventListener('click', () => {
+    if (messages.querySelector('.sc-options')) {
+      scrollToEnd(); // ya se estan mostrando opciones (saludo, fallback u otro click al menu): no duplicar
+      return;
+    }
+    addBotMessage(CHROME[LANG].menuPrompt, TOP_LEVEL_OPTIONS[LANG]);
+  });
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && !panel.hidden) closePanel(); });
 
   form.addEventListener('submit', e => {
