@@ -14,7 +14,6 @@ const LINKS = [
   { href: "#profesionales", label: "Profesionales" },
   { href: "#planes", label: "Planes" },
   { href: "#quienes-somos", label: "Quiénes somos" },
-  { href: "#faq", label: "Preguntas frecuentes" },
 ];
 
 export function Navbar() {
