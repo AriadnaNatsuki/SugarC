@@ -272,4 +272,396 @@ html.a11y {
   color: inherit !important;
 }
 
+/* 3D Team Deck Carousel */
+.sc-team-viewport {
+  position: relative;
+  width: min(100%, 1140px);
+  height: 590px;
+  overflow: visible;
+  padding: 0;
+  margin: 0 auto;
+}
+
+.sc-team-track {
+  position: relative !important;
+  width: 100%;
+  height: 100%;
+  display: block !important;
+  transform: none !important;
+  overflow: visible;
+}
+
+.sc-team-card {
+  position: absolute !important;
+  top: 50%;
+  left: 50%;
+  width: min(410px, 78vw);
+  height: 540px;
+  min-height: 540px;
+  margin: 0 !important;
+  padding: 24px;
+  transform-origin: center center;
+  transform: translate(-50%, -50%) scale(0.84);
+  opacity: 0;
+  z-index: 1;
+  pointer-events: none;
+  transition: transform 0.65s cubic-bezier(0.22, 0.61, 0.36, 1),
+              opacity 0.55s ease,
+              filter 0.55s ease,
+              box-shadow 0.55s ease,
+              border-color 0.3s ease;
+  filter: saturate(0.88);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.10);
+  border-radius: 26px;
+  background: rgb(var(--sc-card));
+  border: 1px solid rgb(var(--sc-line) / 0.18);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.sc-team-card.sc-team-active {
+  transform: translate(-50%, -50%) scale(1.04);
+  opacity: 1;
+  z-index: 10;
+  pointer-events: auto;
+  filter: saturate(1);
+  box-shadow: 0 0 45px rgba(255, 63, 180, 0.32), 0 25px 65px rgba(0, 0, 0, 0.22);
+  border-color: #ff3fb4;
+  border-width: 2px;
+}
+
+.dark .sc-team-card {
+  background: #09122C;
+  border-color: rgba(255, 255, 255, 0.10);
+}
+
+.dark .sc-team-card.sc-team-active {
+  border-color: #ff3fb4;
+  box-shadow: 0 0 50px rgba(255, 63, 180, 0.42), 0 30px 80px rgba(0, 0, 0, 0.55);
+}
+
+.sc-team-card.sc-team-next-1 {
+  transform: translate(calc(-50% + 245px), -50%) rotate(4deg) scale(0.88);
+  opacity: 0.55;
+  filter: saturate(0.75);
+  z-index: 8;
+  pointer-events: auto;
+  cursor: pointer;
+}
+.sc-team-card.sc-team-next-1:hover {
+  opacity: 0.85;
+  filter: saturate(1);
+}
+
+.sc-team-card.sc-team-next-2 {
+  transform: translate(calc(-50% + 425px), -50%) rotate(7deg) scale(0.78);
+  opacity: 0.25;
+  filter: saturate(0.55);
+  z-index: 6;
+  pointer-events: auto;
+  cursor: pointer;
+}
+.sc-team-card.sc-team-next-2:hover {
+  opacity: 0.60;
+  filter: saturate(0.85);
+}
+
+.sc-team-card.sc-team-prev-1 {
+  transform: translate(calc(-50% - 245px), -50%) rotate(-4deg) scale(0.88);
+  opacity: 0.55;
+  filter: saturate(0.75);
+  z-index: 8;
+  pointer-events: auto;
+  cursor: pointer;
+}
+.sc-team-card.sc-team-prev-1:hover {
+  opacity: 0.85;
+  filter: saturate(1);
+}
+
+.sc-team-card.sc-team-prev-2 {
+  transform: translate(calc(-50% - 425px), -50%) rotate(-7deg) scale(0.78);
+  opacity: 0.25;
+  filter: saturate(0.55);
+  z-index: 6;
+  pointer-events: auto;
+  cursor: pointer;
+}
+.sc-team-card.sc-team-prev-2:hover {
+  opacity: 0.60;
+  filter: saturate(0.85);
+}
+
+.sc-team-card.sc-team-next-3,
+.sc-team-card.sc-team-next-4 {
+  transform: translate(calc(-50% + 555px), -50%) rotate(9deg) scale(0.73);
+  opacity: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.sc-team-card.sc-team-prev-3,
+.sc-team-card.sc-team-prev-4 {
+  transform: translate(calc(-50% - 555px), -50%) rotate(-9deg) scale(0.73);
+  opacity: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+@media (max-width: 1100px) {
+  .sc-team-card {
+    width: min(380px, 72vw);
+  }
+  .sc-team-card.sc-team-next-1 {
+    transform: translate(calc(-50% + 195px), -50%) rotate(3.5deg) scale(0.86);
+    opacity: 0.55;
+  }
+  .sc-team-card.sc-team-prev-1 {
+    transform: translate(calc(-50% - 195px), -50%) rotate(-3.5deg) scale(0.86);
+    opacity: 0.55;
+  }
+  .sc-team-card.sc-team-next-2 {
+    transform: translate(calc(-50% + 340px), -50%) rotate(6deg) scale(0.74);
+    opacity: 0.22;
+  }
+  .sc-team-card.sc-team-prev-2 {
+    transform: translate(calc(-50% - 340px), -50%) rotate(-6deg) scale(0.74);
+    opacity: 0.22;
+  }
+}
+
+@media (max-width: 767px) {
+  .sc-team-viewport {
+    height: 570px;
+    overflow: hidden;
+  }
+  .sc-team-card {
+    width: calc(100% - 56px);
+    max-width: 360px;
+    height: 520px;
+    min-height: 520px;
+    padding: 20px;
+  }
+  .sc-team-card.sc-team-active {
+    transform: translate(-50%, -50%) scale(1.02);
+  }
+  .sc-team-card.sc-team-next-1 {
+    transform: translate(calc(-50% + 95px), -50%) rotate(3deg) scale(0.85);
+    opacity: 0.45;
+  }
+  .sc-team-card.sc-team-prev-1 {
+    transform: translate(calc(-50% - 95px), -50%) rotate(-3deg) scale(0.85);
+    opacity: 0.45;
+  }
+  .sc-team-card.sc-team-next-2,
+  .sc-team-card.sc-team-prev-2 {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sc-team-card {
+    transition: none !important;
+  }
+}
+
+.a11y .sc-team-card {
+  border-width: 2px !important;
+  transform: translate(-50%, -50%) !important;
+  filter: none !important;
+}
+.a11y .sc-team-card:not(.sc-team-active) {
+  display: none !important;
+}
+
+/* ==========================================================================
+   Sección Premios y Reconocimientos (Marquee continuo sin cortes)
+   ========================================================================== */
+
+.sc-awards-section {
+  position: relative;
+  overflow: hidden;
+  background: rgb(var(--sc-base));
+}
+
+.sc-awards-shell {
+  position: relative;
+  border: 1px solid rgb(var(--sc-line) / 0.18);
+  border-radius: 28px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 12% 20%, rgba(196, 92, 255, 0.07), transparent 32%),
+    radial-gradient(circle at 88% 80%, rgba(255, 63, 180, 0.06), transparent 34%),
+    rgb(var(--sc-card));
+  box-shadow: 0 16px 45px rgba(28, 18, 45, 0.07);
+}
+
+.sc-awards-marquee-wrap {
+  position: relative;
+  overflow: hidden;
+}
+
+@keyframes scAwardsScroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-50% - 8px));
+  }
+}
+
+.sc-awards-track {
+  display: flex;
+  width: max-content;
+  gap: 16px;
+  animation: scAwardsScroll 36s linear infinite;
+  will-change: transform;
+}
+
+.sc-awards-marquee-wrap:hover .sc-awards-track,
+.sc-awards-marquee-wrap:focus-within .sc-awards-track {
+  animation-play-state: paused;
+}
+
+.sc-award-item {
+  width: 190px;
+  height: 114px;
+  flex: 0 0 190px;
+  border-radius: 20px;
+  border: 1px solid rgb(var(--sc-line) / 0.17);
+  background: linear-gradient(145deg, rgb(var(--sc-alt) / 0.92), rgb(var(--sc-card)));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 9px 24px rgba(0, 0, 0, 0.06);
+  transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.sc-award-item:hover {
+  transform: translateY(-4px) scale(1.025);
+  border-color: rgba(196, 92, 255, 0.4);
+  box-shadow: 0 15px 34px rgba(196, 92, 255, 0.14);
+}
+
+/* Trazo inferior característico de SugarCoach con gradiente de marca */
+.sc-award-item::after {
+  content: "";
+  position: absolute;
+  left: 18%;
+  right: 18%;
+  bottom: 0;
+  width: 64%;
+  height: 2px;
+  border-radius: 999px 999px 0 0;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 63, 180, 0.85),
+    rgba(196, 92, 255, 0.8) 50%,
+    rgba(123, 94, 247, 0.75)
+  );
+  opacity: 0.85;
+  transition: opacity 0.25s ease, height 0.25s ease;
+}
+
+.sc-award-item:hover::after {
+  opacity: 1;
+  height: 2.5px;
+}
+
+.sc-award-logo {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.sc-award-name {
+  font-size: 11px;
+  line-height: 1.2;
+  font-weight: 700;
+  color: rgb(var(--sc-body));
+  text-align: center;
+  letter-spacing: -0.01em;
+}
+
+/* Modo oscuro */
+.dark .sc-awards-shell {
+  background:
+    radial-gradient(
+      ellipse at 50% 105%,
+      rgba(255, 63, 180, 0.10),
+      transparent 62%
+    ),
+    linear-gradient(
+      115deg,
+      rgba(123, 94, 247, 0.09),
+      rgba(196, 92, 255, 0.075) 50%,
+      rgba(255, 63, 180, 0.07)
+    ),
+    rgba(13, 18, 48, 0.45);
+  border-color: rgba(255, 255, 255, 0.10);
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.22), 0 1px 0 rgba(255, 255, 255, 0.09) inset;
+}
+
+.dark .sc-award-item {
+  border-color: rgba(255, 255, 255, 0.12);
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.065),
+    rgba(255, 255, 255, 0.018)
+  );
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.13), 0 1px 0 rgba(255, 255, 255, 0.07) inset;
+}
+
+.dark .sc-award-item:hover {
+  border-color: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 13px 28px rgba(0, 0, 0, 0.25), 0 1px 0 rgba(255, 255, 255, 0.12) inset;
+}
+
+.dark .sc-award-name {
+  color: #a8b0c5;
+}
+
+/* Accesibilidad (.a11y) */
+.a11y .sc-awards-section {
+  background: #fff !important;
+}
+
+.a11y .sc-awards-shell {
+  background: #fff !important;
+  border: 2px solid #111 !important;
+  box-shadow: none !important;
+}
+
+.a11y .sc-award-item {
+  background: #fff !important;
+  border: 2px solid #111 !important;
+  box-shadow: none !important;
+}
+
+.a11y .sc-award-item::after {
+  background: #111 !important;
+  opacity: 1 !important;
+  height: 3px !important;
+}
+
+.a11y .sc-award-name {
+  color: #111 !important;
+  font-weight: 800 !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sc-awards-track {
+    animation-play-state: paused !important;
+  }
+}
+
+
 

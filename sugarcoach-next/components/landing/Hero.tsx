@@ -94,7 +94,21 @@ export function Hero() {
               <span className="text-[15px] font-extrabold text-ink">116 mg/dL • En rango</span>
             </div>
           </motion.div>
-          <div className="absolute bottom-10 -left-4 z-30 flex items-center gap-3 rounded-2xl border border-line/10 bg-card/90 px-4 py-3 shadow-2xl backdrop-blur sm:-left-8">
+          {/* Tarjeta flotante 2 */}
+          <motion.div
+            variants={
+              reduceMotion
+                ? undefined
+                : {
+                    animate: {
+                      y: [0, -10, 0],
+                      transition: { duration: 5.2, repeat: Infinity, ease: "easeInOut", delay: 1.4 },
+                    },
+                  }
+            }
+            animate={reduceMotion ? undefined : "animate"}
+            className="absolute bottom-10 -left-4 z-30 flex items-center gap-3 rounded-2xl border border-line/10 bg-card/90 px-4 py-3 shadow-2xl backdrop-blur sm:-left-8"
+          >
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-amber-400/20 text-amber-700 dark:text-amber-300">
               <Star className="h-5 w-5 fill-amber-500 dark:fill-amber-300 text-amber-600 dark:text-amber-300" />
             </div>
@@ -102,8 +116,22 @@ export function Hero() {
               <span className="font-bold text-ink">1100 pts • Nivel 1</span>
               <span className="text-[11px] text-muted">¡Racha y constancia activa!</span>
             </div>
-          </div>
-          <div className="absolute right-0 top-1/3 z-30 hidden items-center gap-3 rounded-2xl border border-line/10 bg-card/90 px-4 py-3 shadow-2xl backdrop-blur sm:flex">
+          </motion.div>
+          {/* Tarjeta flotante 3 */}
+          <motion.div
+            variants={
+              reduceMotion
+                ? undefined
+                : {
+                    animate: {
+                      y: [0, -10, 0],
+                      transition: { duration: 4.8, repeat: Infinity, ease: "easeInOut", delay: 2.6 },
+                    },
+                  }
+            }
+            animate={reduceMotion ? undefined : "animate"}
+            className="absolute right-0 top-1/3 z-30 hidden items-center gap-3 rounded-2xl border border-line/10 bg-card/90 px-4 py-3 shadow-2xl backdrop-blur sm:flex"
+          >
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-sky-500/20 text-sky-700 dark:text-sky-300">
               <Users className="h-5 w-5" />
             </div>
@@ -111,7 +139,7 @@ export function Hero() {
               <span className="font-bold text-ink">Familia conectada</span>
               <span className="text-[11px] text-muted">Sincronización al instante</span>
             </div>
-          </div>
+          </motion.div>
 
           {/* Teléfono de apoyo inclinado (code.html: `rotate-6 hover:rotate-2 transition-transform duration-300 opacity-90`) */}
           <motion.div
