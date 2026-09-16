@@ -1,491 +1,425 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useRef } from "react";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import {
   Heart,
   Users,
-  Activity,
-  CheckCircle2,
+  Stethoscope,
+  Zap,
   Sparkles,
   ShieldCheck,
+  Cloud,
+  Bell,
+  BarChart3,
+  Activity,
+  FileText,
   ChevronRight,
-  Flame,
-  Award,
-  Download,
+  ChevronDown,
+  ArrowRight,
+  type LucideIcon,
 } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
-import { Button } from "@/components/ui/button";
 
 type AudienceId = "pacientes" | "familias" | "profesionales";
 
-interface AudienceData {
-  id: AudienceId;
-  tabLabel: string;
-  tabIcon: typeof Heart;
-  badge: string;
+interface UseCase {
   title: string;
-  subtitle?: string;
-  description?: string;
-  points: {
-    title: string;
-    desc: string;
-  }[];
-  accentColor: string;
-  accentBg: string;
-  accentBorder: string;
+  desc: string;
+  icon: LucideIcon;
 }
 
-const AUDIENCES: AudienceData[] = [
+interface AudiencePillar {
+  id: AudienceId;
+  name: string;
+  roleSubtitle: string;
+  badge: string;
+  icon: LucideIcon;
+  purposePrompt: string;
+  purposeSummary: string;
+  headline: string;
+  description: string;
+  accentColor: string;
+  accentBorder: string;
+  activeBorder: string;
+  accentBg: string;
+  iconBoxBg: string;
+  glowGradient: string;
+  useCases: UseCase[];
+  metrics: string[];
+  ctaLink: string;
+  ctaLabel: string;
+  previewBadge: string;
+}
+
+const PILLARS: AudiencePillar[] = [
   {
     id: "pacientes",
-    tabLabel: "Para vos",
-    tabIcon: Heart,
+    name: "Para vos",
+    roleSubtitle: "Niños, jóvenes y personas con diabetes",
     badge: "Autonomía y motivación",
-    title: "Tu cuidado diario a tu ritmo, sin juzgar tus valores",
-    subtitle: "Diseñado para niños, jóvenes y adultos que buscan vivir su tratamiento sin estrés clínico.",
+    icon: Heart,
+    purposePrompt: "¿Para qué la usás?",
+    purposeSummary: "Registro express en segundos y motivación diaria sin culpa médica.",
+    headline: "Tu tratamiento a tu ritmo, sin juzgar tus valores",
     description:
-      "SugarCoach convierte el registro diario en una experiencia positiva y veloz. Sumá puntos por tu constancia, aprendé a reconocer tus patrones y mantené el control sin sentirte sobrecargado.",
-    points: [
+      "Diseñado para que registrar tu glucosa, comidas y dosis no sea una carga clínica, sino un hábito ágil donde sumás puntos, cuidás tu salud y aprendés a entender tu cuerpo.",
+    accentColor: "text-[#9E1679] dark:text-[#DA44AF] [.a11y_&]:text-[#7100A5]",
+    accentBorder: "border-[#DA44AF]/30 dark:border-[#DA44AF]/40",
+    activeBorder: "border-[#DA44AF] shadow-[0_0_24px_rgba(218,68,175,0.18)] dark:border-[#DA44AF]",
+    accentBg: "bg-[#DA44AF]/10 dark:bg-[#DA44AF]/15",
+    iconBoxBg: "bg-gradient-to-br from-[#DA44AF]/25 to-[#C747CA]/25 text-[#9E1679] dark:text-[#DA44AF] [.a11y_&]:text-[#7100A5]",
+    glowGradient: "from-[#DA44AF]/10 via-[#DA44AF]/5 to-transparent",
+    useCases: [
       {
-        title: "Registro express en segundos",
-        desc: "Ingresá glucosa, insulina basal/bolo, carbohidratos y actividad física con solo dos toques.",
+        title: "Carga rápida en 2 toques",
+        desc: "Ingresá glucemia, carbohidratos, bolos de insulina y actividad física en menos de 10 segundos.",
+        icon: Zap,
       },
       {
-        title: "Gamificación positiva",
-        desc: "Ganá estrellas y desbloqueá logros por registrar, sin importar si los números suben o bajan.",
+        title: "Gamificación respetuosa",
+        desc: "Sumá puntos diarios y desbloqueá niveles por tu constancia. Los números son información médica, nunca calificaciones morales.",
+        icon: Sparkles,
       },
       {
-        title: "Educación y hábitos saludables",
-        desc: "Conocé cómo impacta cada comida y ejercicio en tu glucemia con feedback visual inmediato.",
+        title: "Aprender sin estrés",
+        desc: "Reconocé de un vistazo el impacto de tus comidas y ejercicios con feedback visual claro y amigable.",
+        icon: ShieldCheck,
       },
     ],
-    accentColor: "text-[#9E1679] dark:text-[#DA44AF] [.a11y_&]:text-[#7100A5]",
-    accentBg: "bg-[#DA44AF]/15",
-    accentBorder: "border-[#DA44AF]/30",
+    metrics: ["Carga en < 10 seg", "+100 Pts por día", "Sin reproches clínicos"],
+    ctaLink: "#como-funciona",
+    ctaLabel: "Ver cómo se siente el día a día",
+    previewBadge: "Niños y jóvenes",
   },
   {
     id: "familias",
-    tabLabel: "Para tu familia",
-    tabIcon: Users,
+    name: "Para tu familia",
+    roleSubtitle: "Madres, padres, tutores y cuidadores",
     badge: "Tranquilidad compartida",
-    title: "Acompañá de cerca respetando su independencia",
-    subtitle: "Círculo de cuidado conectado para mamás, papás y tutores con sincronización en tiempo real.",
+    icon: Users,
+    purposePrompt: "¿Para qué la usás?",
+    purposeSummary: "Acompañar de cerca en tiempo real sin invadir su rutina ni su independencia.",
+    headline: "Paz mental sabiendo que están seguros en todo momento",
     description:
-      "Para los padres de chicos con diabetes, el equilibrio entre protección y libertad es todo. SugarCoach mantiene informados a los cuidadores sin invadir la rutina diaria ni generar llamadas insistentes.",
-    points: [
+      "Para las familias, el equilibrio entre proteger y fomentar la autonomía es clave. SugarCoach mantiene conectados a los cuidadores mediante datos en la nube sin necesidad de mensajes insistentes.",
+    accentColor: "text-[#006064] dark:text-[#2BC5C7] [.a11y_&]:text-[#004d40]",
+    accentBorder: "border-[#2BC5C7]/30 dark:border-[#2BC5C7]/40",
+    activeBorder: "border-[#2BC5C7] shadow-[0_0_24px_rgba(43,197,199,0.18)] dark:border-[#2BC5C7]",
+    accentBg: "bg-[#2BC5C7]/10 dark:bg-[#2BC5C7]/15",
+    iconBoxBg: "bg-gradient-to-br from-[#2BC5C7]/25 to-teal-500/25 text-[#006064] dark:text-[#2BC5C7] [.a11y_&]:text-[#004d40]",
+    glowGradient: "from-[#2BC5C7]/10 via-[#2BC5C7]/5 to-transparent",
+    useCases: [
       {
-        title: "Sincronización en la nube al instante",
-        desc: "Cada registro se replica automáticamente en los dispositivos autorizados del grupo familiar.",
+        title: "Sincronización en la nube",
+        desc: "Cada control diario se sincroniza al instante en los dispositivos autorizados del círculo familiar.",
+        icon: Cloud,
       },
       {
-        title: "Notificaciones discretas y oportunas",
-        desc: "Alertas inteligentes configuradas solo para eventos que realmente requieren intervención.",
+        title: "Alertas inteligentes y discretas",
+        desc: "Recibí notificaciones prioritarias únicamente cuando se requiera una intervención real o confirmación.",
+        icon: Bell,
       },
       {
-        title: "Paz mental en la escuela y clubes",
-        desc: "Sabé que tus hijos están seguros mientras disfrutan de sus actividades sociales y deportivas.",
+        title: "Libertad escolar y social",
+        desc: "Sabé que tus hijos están protegidos durante clases, entrenamientos deportivos y salidas con amigos.",
+        icon: ShieldCheck,
       },
     ],
-    accentColor: "text-[#006064] dark:text-[#2BC5C7] [.a11y_&]:text-[#004d40]",
-    accentBg: "bg-[#2BC5C7]/15",
-    accentBorder: "border-[#2BC5C7]/30",
+    metrics: ["Sync en tiempo real", "Alertas configurables", "Acompañamiento sin asfixia"],
+    ctaLink: "#descargar",
+    ctaLabel: "Descargar para toda la familia",
+    previewBadge: "Familias y cuidadores",
   },
   {
     id: "profesionales",
-    tabLabel: "Para profesionales",
-    tabIcon: Activity,
+    name: "Para profesionales",
+    roleSubtitle: "Diabetólogos, endocrinólogos y nutricionistas",
     badge: "Precisión clínica",
-    title: "Consultas enfocadas con datos claros y estandarizados",
-    subtitle: "Reportes estructurados con métricas TIR (Tiempo en Rango) y correlaciones precisas.",
+    icon: Stethoscope,
+    purposePrompt: "¿Para qué la usás?",
+    purposeSummary: "Consultas enfocadas con curvas de Tiempo en Rango (TIR) y reportes médicos consolidados.",
+    headline: "Datos claros y estructurados para consultas médicas más humanas",
     description:
-      "Menos tiempo descifrando notas dispersas y más tiempo dedicado a acompañar a la persona. Visualizá tendencias, variabilidad glucémica y respuestas a la medicación en un solo panel clínico.",
-    points: [
+      "Transformá libretas incompletas y notas aisladas en métricas estandarizadas de calidad médica. Visualizá variabilidad, correlaciones y respuestas a la terapia en un informe consolidado.",
+    accentColor: "text-[#7100A5] dark:text-[#C45CFF] [.a11y_&]:text-[#2f1f9e]",
+    accentBorder: "border-[#C45CFF]/30 dark:border-[#C45CFF]/40",
+    activeBorder: "border-[#C45CFF] shadow-[0_0_24px_rgba(196,92,255,0.18)] dark:border-[#C45CFF]",
+    accentBg: "bg-[#C45CFF]/10 dark:bg-[#C45CFF]/15",
+    iconBoxBg: "bg-gradient-to-br from-[#C45CFF]/25 to-indigo-500/25 text-[#7100A5] dark:text-[#C45CFF] [.a11y_&]:text-[#2f1f9e]",
+    glowGradient: "from-[#C45CFF]/10 via-[#C45CFF]/5 to-transparent",
+    useCases: [
       {
         title: "Métricas TIR estandarizadas",
-        desc: "Porcentajes en rango objetivo (70-180 mg/dL), hipoglucemias y eventos de hiperglucemia.",
+        desc: "Porcentajes precisos en rango objetivo (70-180 mg/dL), hipoglucemias y perfiles AGP de 14 a 90 días.",
+        icon: BarChart3,
       },
       {
-        title: "Correlación insulina y carbohidratos",
-        desc: "Gráficos de dispersión para ajustar ratios y factores de sensibilidad con fundamento.",
+        title: "Correlación terapéutica",
+        desc: "Cruzá dosis basales/bolos con carbohidratos consumidos para calibrar ratios de sensibilidad con fundamento.",
+        icon: Activity,
       },
       {
-        title: "Exportación médica en 1 clic",
-        desc: "Descargá reportes consolidados en formato PDF o Excel listos para la historia clínica.",
+        title: "Exportación clínica en 1 clic",
+        desc: "Generá reportes en formato PDF y hojas de cálculo para adjuntar a la historia clínica digital del paciente.",
+        icon: FileText,
       },
     ],
-    accentColor: "text-[#7100A5] dark:text-[#C45CFF] [.a11y_&]:text-[#2f1f9e]",
-    accentBg: "bg-[#C45CFF]/15",
-    accentBorder: "border-[#C45CFF]/30",
+    metrics: ["Reportes TIR / AGP", "Exportación PDF y Excel", "Consultas 40% más ágiles"],
+    ctaLink: "#tratamiento",
+    ctaLabel: "Ver módulo de tratamiento",
+    previewBadge: "Médicos y especialistas",
   },
 ];
 
+const smoothPillarTransition = {
+  duration: 0.65,
+  ease: [0.22, 1, 0.36, 1], // Curva cúbica suave estilo Apple / sin tirones
+};
+
 export function UserTypesSection() {
-  const [activeTab, setActiveTab] = useState<AudienceId>("pacientes");
-  const activeAudience = AUDIENCES.find((a) => a.id === activeTab) ?? AUDIENCES[0];
+  const [activeId, setActiveId] = useState<AudienceId>("pacientes");
+  const reduceMotion = useReducedMotion();
+  const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const handlePillarHover = (id: AudienceId) => {
+    if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
+    hoverTimeoutRef.current = setTimeout(() => {
+      setActiveId(id);
+    }, 70); // Pequeño margen para que el barrido del mouse sea intencional y calmo
+  };
+
+  const handlePillarLeave = () => {
+    if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
+  };
 
   return (
     <section
       id="familias"
-      className="relative w-full overflow-hidden bg-alt/50 py-20 dark:bg-[#060D24]"
+      className="relative w-full overflow-hidden bg-alt/40 py-20 dark:bg-[#050B1E]"
       aria-labelledby="user-types-heading"
     >
-      {/* Halo ambiental sutil de fondo */}
+      {/* Halos decorativos de fondo */}
       <div
         aria-hidden
-        className="pointer-events-none absolute -left-20 top-1/2 h-96 w-96 -translate-y-1/2 rounded-full bg-[#DA44AF]/10 blur-[130px] dark:bg-[#DA44AF]/15"
+        className="pointer-events-none absolute -left-24 top-1/3 h-96 w-96 rounded-full bg-[#DA44AF]/10 blur-[120px] dark:bg-[#DA44AF]/15"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute -right-20 top-1/3 h-96 w-96 rounded-full bg-[#2BC5C7]/10 blur-[130px] dark:bg-[#2BC5C7]/15"
+        className="pointer-events-none absolute -right-24 top-1/2 h-96 w-96 rounded-full bg-[#2BC5C7]/10 blur-[120px] dark:bg-[#2BC5C7]/15"
       />
 
-      <div className="relative z-10 mx-auto max-w-[1200px] px-4 md:px-6 lg:px-8">
-        {/* Header de la sección */}
-        <Reveal className="mx-auto mb-10 flex max-w-2xl flex-col items-center text-center">
+      <div className="relative z-10 mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
+        {/* Encabezado principal de la sección */}
+        <Reveal className="mx-auto mb-12 flex max-w-2xl flex-col items-center text-center">
           <span className="mb-2.5 inline-flex items-center gap-1.5 rounded-full border border-line/15 bg-tint/[0.04] px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-brand-from dark:border-white/10 dark:text-[#C45CFF]">
-            Diseñado para convivir
+            Una app, tres miradas complementarias
           </span>
           <h2 id="user-types-heading" className="text-3xl font-extrabold tracking-tight text-ink md:text-4xl">
-            Una app, distintas formas de acompañar
+            Diseñado para cada integrante del cuidado
           </h2>
-          <p className="section-subtitle mt-3 max-w-xl text-center text-sm sm:text-base leading-relaxed">
-            Porque cada persona vive el cuidado desde un lugar diferente, SugarCoach adapta su experiencia con empatía, autonomía y conexión real.
+          <p className="mt-3 max-w-xl text-sm leading-relaxed text-body sm:text-base dark:text-[#A8B0C5]">
+            Cada persona vive el tratamiento desde un lugar distinto. Explorá cómo SugarCoach adapta sus herramientas
+            según quién la esté usando:
           </p>
         </Reveal>
 
-        {/* Selector de perfil accesible (Audience Switcher Tabs) */}
-        <Reveal delay={0.08} className="mx-auto mb-8 flex max-w-2xl justify-center">
-          <div
-            role="tablist"
-            aria-label="Seleccionar perfil de usuario"
-            className="inline-flex w-full max-w-2xl items-center justify-between gap-1.5 rounded-2xl border border-line/15 bg-card/80 p-2 shadow-sm backdrop-blur-md dark:border-white/[0.08] dark:bg-[#0D1733]/80 overflow-visible"
-          >
-            {AUDIENCES.map((audience) => {
-              const Icon = audience.tabIcon;
-              const isActive = activeTab === audience.id;
-              return (
-                <button
-                  key={audience.id}
-                  role="tab"
-                  id={`tab-${audience.id}`}
-                  aria-selected={isActive}
-                  aria-controls={`panel-${audience.id}`}
-                  tabIndex={isActive ? 0 : -1}
-                  onClick={() => setActiveTab(audience.id)}
-                  className={`relative flex flex-1 items-center justify-center gap-2 rounded-xl px-4 py-3 text-xs font-bold transition-all duration-200 sm:text-sm cursor-pointer whitespace-nowrap ${
-                    isActive
-                      ? "text-white shadow-md"
-                      : "text-body hover:text-ink dark:text-[#A8B0C5] hover:dark:text-white"
-                  }`}
-                >
-                  {isActive && (
-                    <motion.div
-                      layoutId="audienceActivePill"
-                      className="absolute inset-0 rounded-xl bg-brand-gradient shadow-brand-glow"
-                      transition={{ type: "spring", bounce: 0.2, duration: 0.5 }}
-                    />
-                  )}
-                  <span className="relative z-10 flex items-center gap-1.5">
-                    <Icon className="h-4 w-4 shrink-0" />
-                    <span>{audience.tabLabel}</span>
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-        </Reveal>
+        {/* Pilares cinéticos interactivos (Desktop: altura fija bloqueada para eliminar saltos de página / Mobile: acordeón) */}
+        <div
+          role="tablist"
+          aria-label="Perfiles de usuario de SugarCoach"
+          className="flex flex-col gap-4 lg:h-[620px] lg:flex-row lg:items-stretch"
+        >
+          {PILLARS.map((pillar) => {
+            const isActive = activeId === pillar.id;
+            const Icon = pillar.icon;
 
-        {/* Panel dinámico tipo Spotlight / 2 Columnas */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeAudience.id}
-            id={`panel-${activeAudience.id}`}
-            role="tabpanel"
-            aria-labelledby={`tab-${activeAudience.id}`}
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -16 }}
-            transition={{ duration: 0.35, ease: "easeOut" }}
-            className="grid grid-cols-1 items-center gap-8 rounded-3xl border border-line/15 bg-card p-6 shadow-xl backdrop-blur-xl dark:border-white/[0.08] dark:bg-[#0B1530] md:p-10 lg:grid-cols-12 lg:gap-12"
-          >
-            {/* Columna Izquierda: Título y Checklist directo */}
-            <div className="flex flex-col gap-5 lg:col-span-7">
-              <div className="flex flex-wrap items-center gap-2.5">
-                <span
-                  className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-bold ${activeAudience.accentBg} ${activeAudience.accentColor} ${activeAudience.accentBorder}`}
-                >
-                  <Sparkles className="h-3.5 w-3.5" />
-                  {activeAudience.badge}
-                </span>
-                <span className="text-xs text-muted dark:text-[#747F9B]">Perfil especializado</span>
-              </div>
-
-              <div>
-                <h3 className="text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">
-                  {activeAudience.title}
-                </h3>
-              </div>
-
-              {/* Checklist de puntos clave con énfasis visual destacado */}
-              <div className="space-y-3 pt-1">
-                {activeAudience.points.map((point, index) => (
+            return (
+              <motion.div
+                key={pillar.id}
+                data-kinetic-pillar="true"
+                layout={!reduceMotion}
+                transition={smoothPillarTransition}
+                onClick={() => {
+                  if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
+                  setActiveId(pillar.id);
+                }}
+                onMouseEnter={() => handlePillarHover(pillar.id)}
+                onMouseLeave={handlePillarLeave}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    setActiveId(pillar.id);
+                  }
+                }}
+                tabIndex={0}
+                role="tab"
+                id={`tab-pillar-${pillar.id}`}
+                aria-selected={isActive}
+                aria-controls={`panel-pillar-${pillar.id}`}
+                className={`group relative flex flex-col justify-between overflow-hidden rounded-3xl border bg-card p-6 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#DA44AF] dark:bg-[#09122C] lg:h-full ${
+                  isActive
+                    ? `lg:flex-[2.7] ${pillar.activeBorder}`
+                    : `lg:flex-1 ${pillar.accentBorder} hover:border-ink/20 dark:hover:border-white/20 opacity-90 hover:opacity-100`
+                }`}
+              >
+                {/* Halo interior suave en la tarjeta activa */}
+                {isActive && (
                   <div
-                    key={index}
-                    className="group/item flex items-start gap-3.5 rounded-2xl border border-line/15 bg-card/70 p-4 shadow-sm transition-all duration-200 hover:border-brand-from/40 hover:shadow-md dark:border-white/[0.08] dark:bg-[#070E22]/80 dark:hover:border-white/20"
-                  >
-                    <div className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-xl bg-brand-gradient text-white shadow-sm transition-transform group-hover/item:scale-110">
-                      <CheckCircle2 className="h-4 w-4 stroke-[2.5]" />
-                    </div>
-                    <div>
-                      <h4 className="text-sm font-bold text-ink sm:text-base">{point.title}</h4>
-                      <p className="section-subtitle mt-0.5 text-xs sm:text-sm leading-relaxed">
-                        {point.desc}
+                    aria-hidden
+                    className={`pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-gradient-to-br ${pillar.glowGradient} blur-2xl`}
+                  />
+                )}
+
+                {/* Contenido Superior / Identidad del Pilar */}
+                <div className="relative z-10">
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="flex-1 space-y-1.5">
+                      <span
+                        className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-[11px] font-bold ${pillar.accentBg} ${pillar.accentColor} ${pillar.accentBorder}`}
+                      >
+                        {pillar.badge}
+                      </span>
+                      <h3 className="text-2xl xl:text-3xl font-black tracking-tight text-ink">
+                        {pillar.name}
+                      </h3>
+                      <p className="text-xs sm:text-sm font-semibold text-muted dark:text-[#747F9B]">
+                        {pillar.roleSubtitle}
                       </p>
                     </div>
+
+                    {/* Indicador visual de expansión en mobile */}
+                    <div className="lg:hidden shrink-0 pt-1">
+                      <ChevronDown
+                        className={`h-5 w-5 text-muted transition-transform duration-300 ${
+                          isActive ? "rotate-180 text-ink" : ""
+                        }`}
+                      />
+                    </div>
                   </div>
-                ))}
-              </div>
 
-              <div className="pt-2">
-                <a href="#como-funciona" className="inline-flex items-center gap-2 text-sm font-bold text-brand-from transition-colors hover:underline">
-                  <span>Descubrí cómo funciona en el día a día</span>
-                  <ChevronRight className="h-4 w-4" />
-                </a>
-              </div>
-            </div>
+                  {/* Bloque central: ¿Para qué la usás? */}
+                  <div
+                    className={`mt-4 rounded-2xl border p-3.5 transition-colors duration-200 ${
+                      isActive
+                        ? `${pillar.accentBg} ${pillar.accentBorder}`
+                        : "bg-base/40 border-line/10 dark:bg-white/[0.02] dark:border-white/[0.06]"
+                    }`}
+                  >
+                    <span className="block text-[10px] font-black uppercase tracking-wider text-muted dark:text-[#747F9B]">
+                      {pillar.purposePrompt}
+                    </span>
+                    <p className="mt-1 text-xs sm:text-sm font-semibold text-ink leading-snug">
+                      {pillar.purposeSummary}
+                    </p>
+                  </div>
 
-            {/* Columna Derecha: Live Interactive Preview Widget */}
-            <div className="lg:col-span-5">
-              {activeAudience.id === "pacientes" && <PatientLiveWidget />}
-              {activeAudience.id === "familias" && <FamilyLiveWidget />}
-              {activeAudience.id === "profesionales" && <DoctorLiveWidget />}
-            </div>
-          </motion.div>
-        </AnimatePresence>
+                  {/* Vista Expandida (Visible cuando la tarjeta está activa) */}
+                  <AnimatePresence mode="wait" initial={false}>
+                    {isActive && (
+                      <motion.div
+                        key={`content-${pillar.id}`}
+                        id={`panel-pillar-${pillar.id}`}
+                        initial={{ opacity: 0, y: 6 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -4 }}
+                        transition={{ duration: 0.3, ease: "easeOut" }}
+                        className="mt-3.5 space-y-3 overflow-visible"
+                      >
+                        <div>
+                          <h4 className="text-sm sm:text-base font-bold text-ink leading-snug">
+                            {pillar.headline}
+                          </h4>
+                          <p className="mt-1 text-xs sm:text-sm leading-relaxed text-body dark:text-[#A8B0C5]">
+                            {pillar.description}
+                          </p>
+                        </div>
+
+                        {/* Los 3 Casos de Uso Concretos en grilla horizontal en desktop */}
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-0.5">
+                          {pillar.useCases.map((uc, idx) => {
+                            const UcIcon = uc.icon;
+                            return (
+                              <div
+                                key={idx}
+                                className="flex flex-col justify-between gap-1.5 rounded-2xl border border-line/10 bg-base/60 p-3 transition-colors dark:border-white/[0.06] dark:bg-[#050C22]"
+                              >
+                                <div className="flex items-center gap-2">
+                                  <div
+                                    className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-lg ${pillar.accentBg} ${pillar.accentColor}`}
+                                  >
+                                    <UcIcon className="h-3.5 w-3.5" />
+                                  </div>
+                                  <h5 className="text-xs font-bold text-ink leading-tight">
+                                    {uc.title}
+                                  </h5>
+                                </div>
+                                <p className="text-[11px] leading-relaxed text-body dark:text-[#A8B0C5]">
+                                  {uc.desc}
+                                </p>
+                              </div>
+                            );
+                          })}
+                        </div>
+
+                        {/* Badges de métricas / valor concreto */}
+                        <div className="flex flex-wrap gap-2 pt-1">
+                          {pillar.metrics.map((metric, i) => (
+                            <span
+                              key={i}
+                              className="inline-flex items-center rounded-xl border border-line/10 bg-base px-2.5 py-1 text-[11px] font-bold text-ink dark:border-white/[0.08] dark:bg-[#0A1433]"
+                            >
+                              {metric}
+                            </span>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+
+                {/* Vista Colapsada (Desktop): Marca de agua icónica saliendo del costado */}
+                {!isActive && (
+                  <div className="pointer-events-none hidden lg:flex relative flex-1 flex-col justify-end overflow-hidden">
+                    {/* Halo ambiental sutil en el lateral */}
+                    <div
+                      aria-hidden
+                      className={`pointer-events-none absolute -bottom-6 -right-6 h-52 w-52 rounded-full bg-gradient-to-br ${pillar.glowGradient} blur-3xl opacity-60 dark:opacity-40`}
+                    />
+
+                    {/* Icono de gran formato saliendo del costado con menor transparencia */}
+                    <div
+                      aria-hidden
+                      className="pointer-events-none absolute -bottom-8 -right-8 select-none opacity-[0.24] dark:opacity-[0.28] transition-all duration-500 group-hover:scale-105 group-hover:-translate-y-1 group-hover:opacity-[0.35] dark:group-hover:opacity-[0.42]"
+                    >
+                      <Icon className={`h-56 w-56 xl:h-64 xl:w-64 ${pillar.accentColor}`} strokeWidth={1.5} />
+                    </div>
+                  </div>
+                )}
+
+                {/* Pie de la tarjeta */}
+                <div className="relative z-10 mt-4 shrink-0 border-t border-line/10 pt-3.5 dark:border-white/[0.08]">
+                  {isActive ? (
+                    <a
+                      href={pillar.ctaLink}
+                      onClick={(e) => e.stopPropagation()}
+                      className={`inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold ${pillar.accentColor} transition-colors hover:underline`}
+                    >
+                      <span>{pillar.ctaLabel}</span>
+                      <ArrowRight className="h-4 w-4" />
+                    </a>
+                  ) : (
+                    <div className="flex items-center justify-between text-xs text-muted dark:text-[#747F9B]">
+                      <span className="font-semibold">Ver detalles</span>
+                      <ChevronRight className="h-4 w-4" />
+                    </div>
+                  )}
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
       </div>
     </section>
-  );
-}
-
-/* =========================================================================
- * Live Preview Widgets (Simulación interactiva realista por rol)
- * ========================================================================= */
-
-/** Widget 1: Pacientes / Autonomía Diaria */
-function PatientLiveWidget() {
-  const [stars, setStars] = useState(120);
-  const [lastLogged, setLastLogged] = useState<string | null>(null);
-
-  const handleQuickLog = (item: string, pts: number) => {
-    setStars((prev) => prev + pts);
-    setLastLogged(item);
-    setTimeout(() => setLastLogged(null), 3000);
-  };
-
-  return (
-    <div className="relative overflow-hidden rounded-3xl border border-line/15 bg-base/80 p-6 shadow-2xl dark:border-white/[0.1] dark:bg-[#070F26]">
-      {/* Encabezado del Widget */}
-      <div className="flex items-center justify-between border-b border-line/10 pb-4 dark:border-white/[0.08]">
-        <div>
-          <span className="text-[11px] font-bold uppercase tracking-wider text-muted dark:text-[#747F9B]">
-            Mi Registro • Hoy
-          </span>
-          <div className="flex items-center gap-2">
-            <span className="text-2xl font-black text-ink">116</span>
-            <span className="text-xs font-semibold text-muted">mg/dL</span>
-            <span className="rounded-full border border-emerald-500/30 bg-emerald-500/15 px-2 py-0.5 text-[11px] font-bold text-emerald-600 dark:text-emerald-400">
-              En rango
-            </span>
-          </div>
-        </div>
-
-        <div className="flex items-center gap-1.5 rounded-2xl border border-amber-500/30 bg-amber-500/10 px-3 py-1.5 text-amber-500">
-          <Award className="h-4 w-4" />
-          <span className="text-xs font-extrabold">{stars} pts</span>
-        </div>
-      </div>
-
-      {/* Mini simulador de ingreso rápido */}
-      <div className="mt-5 space-y-3">
-        <p className="text-xs font-semibold text-body dark:text-[#A8B0C5]">
-          Probar registro rápido (hacé clic para sumar puntos):
-        </p>
-        <div className="grid grid-cols-2 gap-2">
-          <button
-            onClick={() => handleQuickLog("Desayuno + 35g carbo", 50)}
-            className="flex items-center justify-between rounded-xl border border-line/10 bg-card p-2.5 text-left text-xs font-bold text-ink transition-all hover:border-[#DA44AF]/40 hover:bg-tint/[0.03] dark:border-white/[0.08] dark:bg-[#0C1736] cursor-pointer"
-          >
-            <span>Desayuno 🥞</span>
-            <span className="text-[10px] font-bold text-[#DA44AF]">+50 pts</span>
-          </button>
-          <button
-            onClick={() => handleQuickLog("Dosis Insulina Bolo", 30)}
-            className="flex items-center justify-between rounded-xl border border-line/10 bg-card p-2.5 text-left text-xs font-bold text-ink transition-all hover:border-[#DA44AF]/40 hover:bg-tint/[0.03] dark:border-white/[0.08] dark:bg-[#0C1736] cursor-pointer"
-          >
-            <span>Insulina 💉</span>
-            <span className="text-[10px] font-bold text-[#DA44AF]">+30 pts</span>
-          </button>
-        </div>
-
-        {/* Feedback animado al interactuar */}
-        {lastLogged && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="flex items-center gap-2 rounded-xl border border-emerald-500/30 bg-emerald-500/15 p-2 text-xs font-bold text-emerald-600 dark:text-emerald-300"
-          >
-            <CheckCircle2 className="h-4 w-4" />
-            <span>¡Registrado: {lastLogged}! ⭐</span>
-          </motion.div>
-        )}
-
-        {/* Racha y constancia */}
-        <div className="mt-4 flex items-center justify-between rounded-2xl border border-line/10 bg-tint/[0.03] p-3 dark:border-white/[0.05] dark:bg-white/[0.02]">
-          <div className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-amber-500/20 text-amber-500">
-              <Flame className="h-4 w-4" />
-            </div>
-            <div>
-              <p className="text-xs font-bold text-ink">Racha activa: 5 días</p>
-              <p className="text-[10px] text-muted dark:text-[#747F9B]">Registros constantes sin pausas</p>
-            </div>
-          </div>
-          <span className="text-[11px] font-extrabold text-brand-from">Nivel 3</span>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/** Widget 2: Familias / Círculo de Cuidado Conectado */
-function FamilyLiveWidget() {
-  return (
-    <div className="relative overflow-hidden rounded-3xl border border-line/15 bg-base/80 p-6 shadow-2xl dark:border-white/[0.1] dark:bg-[#070F26]">
-      {/* Encabezado del Círculo */}
-      <div className="flex items-center justify-between border-b border-line/10 pb-4 dark:border-white/[0.08]">
-        <div>
-          <span className="text-[11px] font-bold uppercase tracking-wider text-muted dark:text-[#747F9B]">
-            Círculo de Cuidado
-          </span>
-          <h4 className="text-base font-extrabold text-ink">Familia conectada</h4>
-        </div>
-        <div className="flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/15 px-2.5 py-1 text-[11px] font-bold text-emerald-600 dark:text-emerald-400">
-          <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-500" />
-          En vivo
-        </div>
-      </div>
-
-      {/* Lista de cuidadores y estado en tiempo real */}
-      <div className="mt-4 space-y-2.5">
-        <div className="flex items-center justify-between rounded-2xl border border-line/10 bg-card p-3 dark:border-white/[0.06] dark:bg-[#0C1736]">
-          <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#DA44AF]/20 text-sm font-extrabold text-[#9E1679] dark:text-[#DA44AF] [.a11y_&]:text-[#7100A5]">
-              SO
-            </div>
-            <div>
-              <p className="text-xs font-bold text-ink">Sofi (Hija)</p>
-              <p className="text-[11px] text-body dark:text-[#A8B0C5]">
-                Última medición: <strong className="text-emerald-700 dark:text-emerald-400 font-bold">118 mg/dL</strong>
-              </p>
-            </div>
-          </div>
-          <span className="text-[10px] font-medium text-muted dark:text-[#747F9B]">Hace 8 min</span>
-        </div>
-
-        <div className="flex items-center justify-between rounded-2xl border border-line/10 bg-card p-3 dark:border-white/[0.06] dark:bg-[#0C1736]">
-          <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#2BC5C7]/20 text-sm font-extrabold text-[#006064] dark:text-[#2BC5C7] [.a11y_&]:text-[#004d40]">
-              MA
-            </div>
-            <div>
-              <p className="text-xs font-bold text-ink">Mamá (Administradora)</p>
-              <p className="text-[11px] text-muted dark:text-[#747F9B]">Confirmó colación de la tarde</p>
-            </div>
-          </div>
-          <span className="text-[10px] font-medium text-muted dark:text-[#747F9B]">Sincronizado</span>
-        </div>
-
-        <div className="flex items-center justify-between rounded-2xl border border-line/10 bg-card p-3 dark:border-white/[0.06] dark:bg-[#0C1736]">
-          <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#C45CFF]/20 text-sm font-extrabold text-[#7100A5] dark:text-[#C45CFF] [.a11y_&]:text-[#2f1f9e]">
-              PA
-            </div>
-            <div>
-              <p className="text-xs font-bold text-ink">Papá (Tutor)</p>
-              <p className="text-[11px] text-muted dark:text-[#747F9B]">Recibe alertas críticas</p>
-            </div>
-          </div>
-          <ShieldCheck className="h-4 w-4 text-emerald-700 dark:text-emerald-400" />
-        </div>
-      </div>
-
-      {/* Banner de tranquilidad */}
-      <div className="mt-4 rounded-2xl border border-line/10 bg-tint/[0.03] p-3 text-center dark:border-white/[0.05] dark:bg-white/[0.02]">
-        <p className="text-xs text-body dark:text-[#A8B0C5]">
-          🟢 <strong>Todo en rango</strong> durante las últimas 6 horas escolares.
-        </p>
-      </div>
-    </div>
-  );
-}
-
-/** Widget 3: Profesionales / Reporte Clínico y Métricas TIR */
-function DoctorLiveWidget() {
-  return (
-    <div className="relative overflow-hidden rounded-3xl border border-line/15 bg-base/80 p-6 shadow-2xl dark:border-white/[0.1] dark:bg-[#070F26]">
-      {/* Encabezado Clínico */}
-      <div className="flex items-center justify-between border-b border-line/10 pb-4 dark:border-white/[0.08]">
-        <div>
-          <span className="text-[11px] font-bold uppercase tracking-wider text-muted dark:text-[#747F9B]">
-            Perfil Médico • AGP
-          </span>
-          <h4 className="text-base font-extrabold text-ink">Tiempo en Rango (TIR)</h4>
-        </div>
-        <span className="rounded-full border border-[#C45CFF]/30 bg-[#C45CFF]/15 px-2.5 py-0.5 text-xs font-bold text-[#7100A5] dark:text-[#C45CFF] [.a11y_&]:text-[#2f1f9e]">
-          Últimos 14 días
-        </span>
-      </div>
-
-      {/* Barra de Tiempo en Rango segmentada */}
-      <div className="mt-5 space-y-2">
-        <div className="flex items-center justify-between text-xs">
-          <span className="font-bold text-ink">Objetivo clínico (&gt;70%):</span>
-          <span className="text-sm font-black text-emerald-700 dark:text-emerald-400">76% en rango</span>
-        </div>
-        <div className="flex h-3.5 w-full overflow-hidden rounded-full bg-tint/10">
-          <div style={{ width: "4%" }} title="Muy bajo (<54)" className="bg-rose-500" />
-          <div style={{ width: "3%" }} title="Bajo (54-69)" className="bg-amber-400" />
-          <div style={{ width: "76%" }} title="En rango (70-180)" className="bg-emerald-500" />
-          <div style={{ width: "14%" }} title="Alto (181-250)" className="bg-orange-400" />
-          <div style={{ width: "3%" }} title="Muy alto (>250)" className="bg-red-600" />
-        </div>
-        <div className="flex items-center justify-between text-[10px] text-muted dark:text-[#747F9B]">
-          <span>Hipo &lt;70 (7%)</span>
-          <span className="font-bold text-emerald-700 dark:text-emerald-400">Target 70-180</span>
-          <span>Híper &gt;180 (17%)</span>
-        </div>
-      </div>
-
-      {/* Métricas clave estandarizadas */}
-      <div className="mt-4 grid grid-cols-2 gap-2.5">
-        <div className="rounded-2xl border border-line/10 bg-card p-3 dark:border-white/[0.06] dark:bg-[#0C1736]">
-          <p className="text-[11px] text-muted dark:text-[#747F9B]">GMI Estimada (HbA1c)</p>
-          <p className="text-lg font-black text-ink">6.5 %</p>
-        </div>
-        <div className="rounded-2xl border border-line/10 bg-card p-3 dark:border-white/[0.06] dark:bg-[#0C1736]">
-          <p className="text-[11px] text-muted dark:text-[#747F9B]">Coeficiente Variación</p>
-          <p className="text-lg font-black text-ink">32 %</p>
-        </div>
-      </div>
-
-      {/* Botón de exportación médica */}
-      <div className="mt-4">
-        <Button variant="outline" size="sm" className="w-full gap-2 border-line/20 text-xs font-bold">
-          <Download className="h-3.5 w-3.5" />
-          Exportar reporte PDF para consulta
-        </Button>
-      </div>
-    </div>
   );
 }
