@@ -11,7 +11,7 @@ import { Logo } from "@/components/ui/Logo";
 export function Footer() {
   return (
     <footer className="border-t border-line/[0.08] bg-footer">
-      <div className="mx-auto max-w-[1200px] px-4 md:px-6 lg:px-8">
+      <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-8 pb-10 pt-12 md:grid-cols-2 lg:grid-cols-5">
           <div className="flex flex-col gap-4 lg:col-span-2">
             <a href="#" aria-label="SugarCoach - inicio">

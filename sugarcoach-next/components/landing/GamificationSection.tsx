@@ -1,12 +1,13 @@
 "use client";
 
 import Image from "next/image";
+import { Gamepad2, Star, Rocket } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
 import { PHONES } from "@/lib/images";
 
 export function GamificationSection() {
   return (
-    <section id="gamificacion" className="relative mx-auto max-w-[1200px] px-4 py-16 md:px-6 lg:px-8">
+    <section id="gamificacion" className="relative mx-auto max-w-[1440px] px-4 py-16 sm:px-6 lg:px-8">
       <Reveal>
         <div className="relative overflow-hidden rounded-3xl border border-line/15 bg-gradient-to-br from-[#121A3B] via-[#0D1733] to-[#070D1F] p-8 shadow-2xl dark:border-white/[0.1] md:p-12">
           {/* Halos de luz de fondo */}
@@ -23,7 +24,7 @@ export function GamificationSection() {
             {/* Contenido izquierdo */}
             <div className="flex flex-col gap-5 lg:col-span-6">
               <div className="inline-flex w-fit items-center gap-2 rounded-full border border-white/[0.12] bg-white/[0.06] px-3.5 py-1.5 text-xs font-bold text-[#2BC5C7] backdrop-blur-md">
-                <span>🎮</span> Gamificación respetuosa y humana
+                <Gamepad2 className="h-4 w-4" /> Gamificación respetuosa y humana
               </div>
 
               <h2 className="text-3xl font-extrabold tracking-tight text-white md:text-4xl md:leading-tight">
@@ -40,8 +41,8 @@ export function GamificationSection() {
               {/* Badges de puntos y nivel */}
               <div className="grid grid-cols-1 gap-3 pt-2 sm:grid-cols-2">
                 <div className="flex items-center gap-3 rounded-2xl border border-white/[0.1] bg-[#111D3D]/70 p-4 backdrop-blur-sm">
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-amber-400/30 bg-amber-400/20 text-xl font-bold text-amber-300">
-                    ⭐
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-amber-400/30 bg-amber-400/20 text-amber-300">
+                    <Star className="h-5 w-5 fill-amber-400 text-amber-300" />
                   </div>
                   <div>
                     <h4 className="text-sm font-bold text-white">+100 Puntos</h4>
@@ -50,8 +51,8 @@ export function GamificationSection() {
                 </div>
 
                 <div className="flex items-center gap-3 rounded-2xl border border-white/[0.1] bg-[#111D3D]/70 p-4 backdrop-blur-sm">
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-emerald-400/30 bg-emerald-400/20 text-xl font-bold text-emerald-300">
-                    🚀
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-emerald-400/30 bg-emerald-400/20 text-emerald-300">
+                    <Rocket className="h-5 w-5 text-emerald-300" />
                   </div>
                   <div>
                     <h4 className="text-sm font-bold text-white">Startup Explorer</h4>

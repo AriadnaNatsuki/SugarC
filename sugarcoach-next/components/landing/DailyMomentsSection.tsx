@@ -42,7 +42,7 @@ const MOMENTS = [
 
 export function DailyMomentsSection() {
   return (
-    <section className="relative mx-auto max-w-[1200px] px-4 py-16 md:px-6 lg:px-8">
+    <section className="relative mx-auto max-w-[1440px] px-4 py-16 sm:px-6 lg:px-8">
       <Reveal className="mx-auto mb-12 flex max-w-2xl flex-col items-center text-center">
         <span className="mb-2 text-xs font-bold uppercase tracking-wider text-[#7100A5] dark:text-[#C45CFF] [.a11y_&]:text-[#2f1f9e]">
           Acompañamiento en cada momento

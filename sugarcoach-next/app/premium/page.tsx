@@ -104,7 +104,7 @@ export default function PremiumPage() {
               </div>
               <div>
                 <span className="inline-flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-wider text-sky-700 dark:text-sky-300">
-                  🇦🇷 Beneficio Federal de Salud
+                  Beneficio Federal de Salud · Argentina
                 </span>
                 <h2 className="mt-1 text-lg sm:text-xl font-extrabold text-ink">
                   “Si estás en Argentina podés acceder a cupón de descuento (100%) ingresando acá (Solo para el paciente).”

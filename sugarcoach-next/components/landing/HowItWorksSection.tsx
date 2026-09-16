@@ -45,7 +45,7 @@ const STEPS = [
 
 export function HowItWorksSection() {
   return (
-    <section id="como-funciona" className="relative mx-auto max-w-[1200px] px-4 py-16 md:px-6 lg:px-8">
+    <section id="como-funciona" className="relative mx-auto max-w-[1440px] px-4 py-16 sm:px-6 lg:px-8">
       <Reveal className="mx-auto mb-12 flex max-w-2xl flex-col items-center text-center">
         <span className="mb-2 inline-flex items-center gap-1.5 rounded-full border border-[#006064]/20 bg-[#006064]/10 px-3 py-1 text-xs font-bold uppercase tracking-wider text-[#006064] dark:border-[#2BC5C7]/30 dark:bg-[#2BC5C7]/15 dark:text-[#2BC5C7] [.a11y_&]:border-2 [.a11y_&]:border-[#004d40] [.a11y_&]:bg-transparent [.a11y_&]:text-[#004d40]">
           Paso a paso con capturas reales

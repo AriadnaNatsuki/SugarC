@@ -7,7 +7,7 @@ import { PHONES } from "@/lib/images";
 
 export function TreatmentSection() {
   return (
-    <section id="tratamiento" className="relative mx-auto max-w-[1200px] px-4 py-16 md:px-6 lg:px-8">
+    <section id="tratamiento" className="relative mx-auto max-w-[1440px] px-4 py-16 sm:px-6 lg:px-8">
       <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12">
         {/* Contenido derecho */}
         <div className="order-1 flex flex-col gap-5 lg:order-2 lg:col-span-6">

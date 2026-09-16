@@ -16,7 +16,7 @@ export function StatsSection() {
         className="pointer-events-none absolute right-0 top-1/3 h-96 w-96 rounded-full bg-[#2BC5C7]/10 blur-[140px]"
       />
 
-      <div className="relative z-10 mx-auto max-w-[1200px] px-4 md:px-6 lg:px-8">
+      <div className="relative z-10 mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12">
           {/* Mockup derecho con captura real IMAGE_11 (Glucose vs Insulin & TIR 70%) */}
           <div className="order-2 flex justify-center lg:order-2 lg:col-span-6">

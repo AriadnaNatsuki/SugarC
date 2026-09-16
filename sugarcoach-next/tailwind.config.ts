@@ -25,7 +25,9 @@ const config: Config = {
         card: withAlpha("--sc-card"),
         body: withAlpha("--sc-body"),
         muted: withAlpha("--sc-muted"),
+        "muted-foreground": withAlpha("--sc-muted"),
         ink: withAlpha("--sc-ink"), // texto principal (reemplaza text-white)
+        foreground: withAlpha("--sc-ink"),
         line: withAlpha("--sc-line"), // bordes sutiles (reemplaza border-white/*)
         tint: withAlpha("--sc-tint"), // superficies tenues (reemplaza bg-white/*)
         brand: {

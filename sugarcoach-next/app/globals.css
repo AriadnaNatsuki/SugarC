@@ -181,29 +181,58 @@ html.a11y {
   overflow: visible !important;
 }
 
-/* Zoom en tarjetas (features, FAQ, mockups) */
-.a11y .rounded-3xl,
+/* Zoom en tarjetas (features, FAQ, mockups) para baja visión */
+.a11y .rounded-3xl:not([data-kinetic-pillar]):not([data-team-photo]),
 .a11y .faq-item {
   transition:
-    transform 0.15s ease,
-    box-shadow 0.15s ease;
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.a11y .rounded-3xl:hover,
-.a11y .rounded-3xl:focus-within,
+.a11y .rounded-3xl:not([data-kinetic-pillar]):not([data-team-photo]):hover,
+.a11y .rounded-3xl:not([data-kinetic-pillar]):not([data-team-photo]):focus-within,
 .a11y .faq-item:hover,
 .a11y .faq-item:focus-within {
-  transform: scale(1.09);
+  transform: scale(1.03) !important;
   position: relative;
   z-index: 25;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.35);
 }
 
-/* Zoom en bloques de texto (párrafos y listas) */
+/* En los pilares cinéticos de UserTypes no escalamos el contenedor por CSS
+   para evitar tirones de layout. */
+.a11y [data-kinetic-pillar]:hover,
+.a11y [data-kinetic-pillar]:focus-within {
+  transform: none !important;
+}
+
+/* En accesibilidad (.a11y), la foto del integrante activo se agranda visiblemente
+   al pasar el mouse por el nombre o por la foto para personas con baja visión */
+.a11y [data-team-photo][data-active="true"] {
+  transform: scale(1.22) !important;
+  z-index: 50 !important;
+  position: relative !important;
+  box-shadow: 0 25px 50px -10px rgba(0, 0, 0, 0.45) !important;
+  outline: 3px solid #7100a5 !important;
+  outline-offset: 3px !important;
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+.a11y [data-team-photo][data-active="true"] img {
+  filter: grayscale(0) brightness(1.06) contrast(1.12) !important;
+  transform: scale(1.1) !important;
+}
+.a11y [data-team-photo]:not([data-active="true"]) {
+  transform: none !important;
+}
+
+/* Zoom en bloques de texto (párrafos, listas y encabezados) para accesibilidad */
 .a11y p,
-.a11y li {
+.a11y li,
+.a11y [data-kinetic-pillar] h3,
+.a11y [data-kinetic-pillar] h4,
+.a11y [data-kinetic-pillar] h5 {
   transition:
-    transform 0.15s ease,
-    background-color 0.15s ease;
+    transform 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.2s ease;
   transform-origin: top left;
 }
 .a11y p.text-center,
@@ -211,10 +240,13 @@ html.a11y {
   transform-origin: center center !important;
 }
 .a11y p:hover,
-.a11y li:hover {
+.a11y li:hover,
+.a11y [data-kinetic-pillar] h3:hover,
+.a11y [data-kinetic-pillar] h4:hover,
+.a11y [data-kinetic-pillar] h5:hover {
   transform: scale(1.12);
   position: relative;
-  z-index: 20;
+  z-index: 30;
   background-color: rgba(0, 0, 0, 0.05);
   border-radius: 0.5rem;
 }

@@ -64,7 +64,7 @@ export function FaqSection() {
 
 export function CtaSection() {
   return (
-    <section id="descargar" className="mx-auto max-w-[1200px] px-4 py-16 md:px-6 lg:px-8">
+    <section id="descargar" className="mx-auto max-w-[1440px] px-4 py-16 sm:px-6 lg:px-8">
       <Reveal>
         <div className="relative overflow-hidden rounded-[40px] border border-line/15 bg-gradient-to-r from-[#172344] via-[#111D3D] to-[#0A1024] p-8 text-white shadow-2xl dark:border-white/[0.12] md:p-14">
           <GlowBlob color="purple" size={320} className="-right-20 -top-20" opacity={0.25} />

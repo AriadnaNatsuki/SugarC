@@ -16,7 +16,7 @@ export function Hero() {
       <GlowBlob color="purple" size={500} className="left-[-150px] top-[-120px]" opacity={0.3} />
       <GlowBlob color="blue" size={450} className="right-[-120px] top-[10%]" opacity={0.28} />
 
-      <section className="relative z-10 mx-auto grid max-w-[1200px] grid-cols-1 items-center gap-10 px-4 pb-14 pt-10 md:px-6 md:pt-14 lg:grid-cols-12 lg:px-8">
+      <section className="relative z-10 mx-auto grid max-w-[1440px] grid-cols-1 items-center gap-10 px-4 pb-14 pt-10 sm:px-6 lg:grid-cols-12 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
@@ -41,8 +41,9 @@ export function Hero() {
           </p>
           <div className="flex flex-col gap-3 sm:flex-row">
             <Link href="#descargar">
-              <Button variant="gradient" size="lg" className="w-full sm:w-auto">
-                <Download /> Descargar App gratis
+              <Button variant="gradient" size="lg" className="w-full sm:w-auto font-bold !text-white">
+                <Download className="!text-white" />
+                <span className=" !text-white">Descargar App Gratis</span>
               </Button>
             </Link>
             <Link href="#como-funciona">
