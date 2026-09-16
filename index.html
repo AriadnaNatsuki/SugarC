@@ -758,8 +758,11 @@
       <a class="font-label-lg text-label-lg text-text-secondary hover:text-primary transition-colors" href="#como-funciona">Cómo funciona</a>
       <a class="font-label-lg text-label-lg text-text-secondary hover:text-primary transition-colors" href="#familias">Para familias</a>
       <a class="font-label-lg text-label-lg text-text-secondary hover:text-primary transition-colors" href="#profesionales">Profesionales</a>
-      <a class="font-label-lg text-label-lg text-text-secondary hover:text-primary transition-colors" href="#quienes-somos">Quiénes somos</a>
-      <a class="font-label-lg text-label-lg text-text-secondary hover:text-primary transition-colors" href="#testimonios">Testimonios</a>
+      <a class="font-label-lg text-label-lg text-text-secondary hover:text-primary transition-colors" href="#preguntas-frecuentes">FAQ</a>
+      <a class="inline-flex items-center gap-1.5 rounded-full bg-amber-400/15 border border-amber-400/30 px-3.5 py-1.5 text-label-sm font-label-sm font-bold text-accent-yellow transition-all hover:bg-amber-400/25 hover:scale-105" href="#">
+        <span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+        <span>Premium</span>
+      </a>
     </nav>
     <div class="flex items-center gap-space-sm md:gap-space-md">
       <div class="relative">
@@ -778,10 +781,11 @@
           </button>
         </div>
       </div>
-      <a class="inline-flex items-center justify-center px-3.5 sm:px-space-lg py-space-xs min-h-[44px] rounded-full btn-gradient text-white font-label-lg text-label-lg transition-all active:scale-95 gap-2 border border-white/20" href="#descargar">
+      <a class="inline-flex items-center justify-center px-3.5 sm:px-space-lg py-space-xs min-h-[44px] rounded-full btn-gradient text-white font-label-lg text-label-lg transition-all active:scale-95 gap-2 border border-white/20 hidden sm:inline-flex" href="#descargar">
         <span class="material-symbols-outlined text-[18px]">download</span>
         <span class="hidden xs:inline sm:inline">Descargar</span>
       </a>
+      <a class="hidden lg:inline-flex font-label-lg text-label-lg font-semibold text-text-secondary hover:text-primary transition-colors" href="#">Iniciar sesión</a>
       <button id="mobileMenuBtn" aria-expanded="false" aria-controls="mobileMenu" aria-label="Abrir menú" class="lg:hidden theme-toggle" type="button">
         <span id="mobileMenuIcon" class="material-symbols-outlined" style="font-size:22px">menu</span>
       </button>
@@ -801,14 +805,23 @@
         <span>Profesionales</span>
         <span class="material-symbols-outlined text-[18px]">chevron_right</span>
       </a>
-      <a class="mobile-nav-link px-4 py-3 rounded-xl font-label-lg text-text-secondary hover:text-primary hover:bg-surface-container transition-all flex items-center justify-between" href="#quienes-somos">
-        <span>Quiénes somos</span>
+      <a class="mobile-nav-link px-4 py-3 rounded-xl font-label-lg text-text-secondary hover:text-primary hover:bg-surface-container transition-all flex items-center justify-between" href="#preguntas-frecuentes">
+        <span>FAQ</span>
         <span class="material-symbols-outlined text-[18px]">chevron_right</span>
       </a>
-      <a class="mobile-nav-link px-4 py-3 rounded-xl font-label-lg text-text-secondary hover:text-primary hover:bg-surface-container transition-all flex items-center justify-between" href="#testimonios">
-        <span>Testimonios</span>
-        <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+      <a class="mobile-nav-link mt-1 flex items-center gap-2 rounded-xl bg-amber-400/15 border border-amber-400/30 px-4 py-3 font-label-lg font-bold text-accent-yellow hover:bg-amber-400/25 transition-colors" href="#">
+        <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+        <span>Premium</span>
       </a>
+      <div class="mt-4 flex flex-col gap-3">
+        <a class="mobile-nav-link inline-flex items-center justify-center gap-2 px-space-lg py-space-xs min-h-[44px] rounded-full btn-gradient text-white font-label-lg text-label-lg transition-all active:scale-95 border border-white/20" href="#descargar">
+          <span class="material-symbols-outlined text-[18px]">download</span>
+          <span>Descargar App</span>
+        </a>
+        <a class="mobile-nav-link inline-flex items-center justify-center px-space-lg py-space-xs min-h-[44px] rounded-full border border-border-subtle font-label-lg text-label-lg font-semibold text-text-secondary hover:text-primary hover:bg-surface-container transition-all" href="#">
+          Iniciar sesión
+        </a>
+      </div>
     </nav>
   </div>
 </header>
