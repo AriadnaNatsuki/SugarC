@@ -223,6 +223,41 @@
     .a11y [class*="blur-3xl"] { display: none !important; }
     .a11y .gradient-text { background: none; -webkit-text-fill-color: currentColor; color: #1e1266; }
 
+    .a11y .text-display-lg { font-size: 55px !important; line-height: 64px !important; }
+    .a11y .text-display-lg-mobile { font-size: 41px !important; line-height: 50px !important; }
+    .a11y .text-headline-lg { font-size: 36px !important; line-height: 46px !important; }
+    .a11y .text-headline-lg-mobile { font-size: 30px !important; line-height: 39px !important; }
+    .a11y .text-headline-md { font-size: 25px !important; line-height: 34px !important; }
+    .a11y .text-headline-sm { font-size: 21px !important; line-height: 30px !important; }
+    .a11y .text-label-lg { font-size: 16px !important; line-height: 23px !important; }
+    .a11y .text-label-md { font-size: 14px !important; line-height: 18px !important; }
+    .a11y .text-label-sm { font-size: 13px !important; line-height: 16px !important; }
+    .a11y .text-body-md { font-size: 17px !important; line-height: 27px !important; }
+    .a11y .text-body-sm { font-size: 15px !important; line-height: 23px !important; }
+    .a11y .text-body-lg { font-size: 19px !important; line-height: 30px !important; }
+
+    .a11y button, .a11y a { transition: transform .15s ease, box-shadow .15s ease; }
+    .a11y button:hover, .a11y button:focus-visible,
+    .a11y a:hover, .a11y a:focus-visible {
+      transform: scale(1.08);
+      position: relative;
+      z-index: 30;
+      box-shadow: 0 12px 28px -8px rgba(0,0,0,0.35);
+    }
+    .a11y .rounded-3xl, .a11y .faq-item { transition: transform .15s ease, box-shadow .15s ease; }
+    .a11y .rounded-3xl:hover, .a11y .rounded-3xl:focus-within,
+    .a11y .faq-item:hover, .a11y .faq-item:focus-within {
+      transform: scale(1.035);
+      box-shadow: 0 20px 50px -12px rgba(0,0,0,0.25);
+    }
+    .a11y p, .a11y li {
+      line-height: 1.8 !important;
+      letter-spacing: 0.02em !important;
+    }
+    .a11y p:hover, .a11y li:hover {
+      letter-spacing: 0.04em !important;
+    }
+
     /* Theme-aware CTA panels */
     .theme-panel-gamification {
       background: linear-gradient(135deg, var(--c-gamification-bg-start) 0%, var(--c-gamification-bg-mid) 52%, var(--c-gamification-bg-end) 100%);
@@ -738,8 +773,27 @@
           "headline-md": ["Plus Jakarta Sans"],
           "headline-sm": ["Plus Jakarta Sans"],
           "label-lg": ["Plus Jakarta Sans"],
+          "label-md": ["Plus Jakarta Sans"],
+          "label-sm": ["Plus Jakarta Sans"],
           "body-md": ["Plus Jakarta Sans"],
-          "body-lg": ["Plus Jakarta Sans"]
+          "body-sm": ["Plus Jakarta Sans"],
+          "body-lg": ["Plus Jakarta Sans"],
+          "display-lg-mobile": ["Plus Jakarta Sans"],
+          "headline-lg-mobile": ["Plus Jakarta Sans"]
+        },
+        "fontSize": {
+          "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+          "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.015em", "fontWeight": "700" }],
+          "headline-md": ["22px", { "lineHeight": "30px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+          "headline-sm": ["18px", { "lineHeight": "26px", "fontWeight": "600" }],
+          "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+          "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.03em", "fontWeight": "700" }],
+          "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "600" }],
+          "body-md": ["15px", { "lineHeight": "24px", "fontWeight": "400" }],
+          "body-sm": ["13px", { "lineHeight": "20px", "fontWeight": "500" }],
+          "body-lg": ["17px", { "lineHeight": "26px", "fontWeight": "500" }],
+          "display-lg-mobile": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+          "headline-lg-mobile": ["26px", { "lineHeight": "34px", "letterSpacing": "-0.015em", "fontWeight": "700" }]
         }
       }
     }
