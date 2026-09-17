@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SugarCoach · Profesionales</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+    @layer base {
+      html, body { margin: 0; padding: 0; background-color: #1C0433; }
+      body { overscroll-behavior: none; }
+      main > :first-child { margin-top: 0 !important; }
+      main > :last-child { margin-bottom: 0 !important; }
+    }
+    ::-webkit-scrollbar { display: none; }
+    .gradient-text {
+      background: linear-gradient(90deg, #E8DDEE 0%, #DF089C 60%, #A90789 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .gradient-text-pro {
+      background: linear-gradient(90deg, #F5D9FF 0%, #DF089C 55%, #FF3FB4 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .btn-gradient {
+      background: linear-gradient(135deg, #A94FCE 0%, #E84698 55%, #FF3FB4 100%);
+      box-shadow: 0 10px 30px -6px rgba(232, 70, 152, 0.45);
+    }
+    .btn-gradient:hover {
+      box-shadow: 0 14px 35px -4px rgba(255, 63, 180, 0.6);
+      filter: brightness(1.06);
+    }
+    /* Acento profesional extraído de landing_professionales.png */
+    .btn-pro {
+      background: linear-gradient(135deg, #96036F 0%, #DF089C 60%, #A90789 100%);
+      box-shadow: 0 10px 30px -6px rgba(223, 8, 156, 0.55);
+    }
+    .btn-pro:hover {
+      box-shadow: 0 14px 36px -4px rgba(223, 8, 156, 0.7);
+      filter: brightness(1.08);
+    }
+    .phone-mockup-glow-pro {
+      box-shadow: 0 25px 65px -12px rgba(223, 8, 156, 0.35), 0 0 0 1px rgba(223, 8, 156, 0.25);
+    }
+    .nav-link-active {
+      color: #fff !important;
+      position: relative;
+    }
+    .nav-link-active::after {
+      content: "";
+      position: absolute;
+      left: 0; right: 0; bottom: -8px;
+      height: 2px; border-radius: 9999px;
+      background: linear-gradient(90deg, #C45CFF 0%, #DF089C 100%);
+    }
+  </style>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "on-tertiary-fixed": "#3d0027",
+          "primary-fixed": "#f5d9ff",
+          "on-secondary": "#003737",
+          "surface-variant": "#111D3D",
+          "inverse-primary": "#9020cb",
+          "bg-canvas": "#08122B",
+          "on-surface": "#F7F8FC",
+          "on-error": "#690005",
+          "tertiary-fixed-dim": "#ffafd4",
+          "tertiary": "#ffafd4",
+          "surface-tier-1": "#0D1733",
+          "secondary-container": "#00b5b7",
+          "surface": "#050B1D",
+          "on-primary": "#ffffff",
+          "surface-bright": "#1E2A4F",
+          "border-subtle": "rgba(255, 255, 255, 0.08)",
+          "secondary-fixed-dim": "#4bdadc",
+          "bg-deep": "#050B1D",
+          "on-tertiary": "#620041",
+          "surface-container-low": "#08122B",
+          "on-tertiary-container": "#560039",
+          "tertiary-container": "#ff3fb4",
+          "primary-fixed-dim": "#e7b4ff",
+          "neon-cyan": "#3dd9f5",
+          "inverse-on-surface": "#050B1D",
+          "on-primary-fixed-variant": "#7100a5",
+          "surface-tier-2": "#111D3D",
+          "primary": "#C45CFF",
+          "surface-tier-3": "#172344",
+          "outline": "#747F9B",
+          "inverse-surface": "#F7F8FC",
+          "text-primary": "#F7F8FC",
+          "accent-yellow": "#f6c744",
+          "outline-variant": "rgba(255, 255, 255, 0.12)",
+          "primary-container": "#A94FCE",
+          "text-tertiary": "#747F9B",
+          "on-error-container": "#ffdad6",
+          "neon-magenta-alt": "#e84698",
+          "on-secondary-fixed-variant": "#004f50",
+          "surface-dim": "#050B1D",
+          "neon-magenta": "#ff3fb4",
+          "border-glow": "rgba(196, 92, 255, 0.25)",
+          "error-container": "#93000a",
+          "surface-container-lowest": "#030716",
+          "secondary": "#2BC5C7",
+          "text-secondary": "#A8B0C5",
+          "on-secondary-fixed": "#002020",
+          "error": "#ffb4ab",
+          "surface-container": "#0D1733",
+          "background": "#050B1D",
+          "on-background": "#F7F8FC",
+          "tertiary-fixed": "#ffd8e7",
+          "secondary-fixed": "#6ef7f8",
+          "on-primary-container": "#ffffff",
+          "surface-container-high": "#111D3D",
+          "on-secondary-container": "#004141",
+          "on-primary-fixed": "#30004a",
+          "surface-container-highest": "#172344",
+          "on-tertiary-fixed-variant": "#8a005d",
+          "on-surface-variant": "#A8B0C5",
+          "surface-tint": "#C45CFF",
+          /* Paleta profesional extraída de landing_professionales.png */
+          "pro-base": "#1C0433",
+          "pro-surface": "#240C4C",
+          "pro-plum": "#5B0556",
+          "pro-magenta-dark": "#96036F",
+          "pro-magenta-deep": "#A90789",
+          "pro-magenta": "#DF089C",
+          "pro-lilac": "#94679A",
+          "pro-mist": "#E8DDEE"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.5rem",
+          "lg": "1rem",
+          "xl": "1.5rem",
+          "2xl": "1.75rem",
+          "3xl": "2.25rem",
+          "full": "9999px"
+        },
+        "spacing": {
+          "gutter-desktop": "2rem",
+          "space-md": "1rem",
+          "gutter-tablet": "1.5rem",
+          "space-2xs": "0.25rem",
+          "gutter-mobile": "1rem",
+          "space-lg": "1.5rem",
+          "margin-tablet": "2rem",
+          "margin-desktop": "3rem",
+          "margin-mobile": "1.25rem",
+          "space-xl": "2rem",
+          "space-xs": "0.5rem",
+          "space-2xl": "3rem",
+          "space-3xl": "4.5rem",
+          "space-sm": "0.75rem"
+        },
+        "fontFamily": {
+          "display-lg": ["Plus Jakarta Sans"],
+          "headline-lg-mobile": ["Plus Jakarta Sans"],
+          "headline-md": ["Plus Jakarta Sans"],
+          "headline-sm": ["Plus Jakarta Sans"],
+          "label-lg": ["Plus Jakarta Sans"],
+          "body-md": ["Plus Jakarta Sans"],
+          "headline-lg": ["Plus Jakarta Sans"],
+          "label-sm": ["Plus Jakarta Sans"],
+          "label-md": ["Plus Jakarta Sans"],
+          "body-sm": ["Plus Jakarta Sans"],
+          "display-lg-mobile": ["Plus Jakarta Sans"],
+          "body-lg": ["Plus Jakarta Sans"]
+        },
+        "fontSize": {
+          "display-lg": ["48px", { lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "800" }],
+          "display-lg-mobile": ["36px", { lineHeight: "44px", letterSpacing: "-0.02em", fontWeight: "800" }],
+          "headline-lg": ["32px", { lineHeight: "40px", letterSpacing: "-0.015em", fontWeight: "700" }],
+          "headline-lg-mobile": ["26px", { lineHeight: "34px", letterSpacing: "-0.015em", fontWeight: "700" }],
+          "headline-md": ["22px", { lineHeight: "30px", letterSpacing: "-0.01em", fontWeight: "700" }],
+          "headline-sm": ["18px", { lineHeight: "26px", fontWeight: "600" }],
+          "label-lg": ["15px", { lineHeight: "20px", letterSpacing: "0.01em", fontWeight: "600" }],
+          "label-md": ["13px", { lineHeight: "18px", letterSpacing: "0.02em", fontWeight: "600" }],
+          "label-sm": ["11px", { lineHeight: "14px", letterSpacing: "0.04em", fontWeight: "700" }],
+          "body-lg": ["16px", { lineHeight: "26px", fontWeight: "400" }],
+          "body-md": ["14px", { lineHeight: "22px", fontWeight: "400" }],
+          "body-sm": ["12px", { lineHeight: "18px", fontWeight: "400" }]
+        }
+      }
+    }
+  };
+</script>
+</head>
+<body class="bg-pro-base font-body-md text-body-md text-on-surface antialiased selection:bg-pro-magenta selection:text-white">
+<!-- HEADER: misma estructura que index.html, link Profesionales ahora es ruta real -->
+<header class="fixed top-0 left-0 w-full z-50 bg-[#1C0433]/85 backdrop-blur-xl border-b border-white/[0.08] shadow-[0_10px_35px_-10px_rgba(0,0,0,0.6)]">
+<div class="h-20 max-w-[1200px] mx-auto px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop flex items-center justify-between gap-space-md">
+<a class="flex items-center gap-2 group" data-path="home" href="index.html">
+<div class="p-1.5 rounded-xl bg-white/[0.05] border border-white/10 group-hover:border-pro-magenta/40 transition-colors">
+<img alt="SugarCoach Logo Oficial" class="h-8 md:h-9 w-auto object-contain transition-transform group-hover:scale-105 filter drop-shadow-[0_2px_8px_rgba(223,8,156,0.35)]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8eBq5eQzruXAMaTMxS_mzvsFb1bqQZoOJo_sgOORoLvheBayGVtP9dU7nDlzZYdwZNQVwTFYYgeROtKpHUd1AImgnm6weuGvK1fVq8Rte1_6VEX-q6TbSPSXGHx6Ci4lM-0u6rOEMnhiK0p02cLKkkUgEoaJA6YZL42b_J_b_Q6_OlBBhwX0Gl4_PGoGXnzigYnGuFOeFzt-FYxPdTaszPfoxlDiG_Cm7bBP6Wak5E5MbhnWDv7ctpxYvr0LgzU8JkQ"/>
+</div>
+</a>
+<nav class="hidden lg:flex items-center gap-space-lg" aria-label="Navegación principal">
+<a class="font-label-lg text-label-lg text-text-secondary hover:text-white transition-colors" data-path="como-funciona" href="index.html#como-funciona">Cómo funciona</a>
+<a class="font-label-lg text-label-lg text-text-secondary hover:text-white transition-colors" data-path="para-familias" href="index.html#familias">Para familias</a>
+<a class="font-label-lg text-label-lg text-white transition-colors nav-link-active" data-path="profesionales" href="profesionales.html" aria-current="page">Profesionales</a>
+<a class="font-label-lg text-label-lg text-text-secondary hover:text-white transition-colors" data-path="gamificacion" href="index.html#gamificacion">Logros</a>
+<a class="font-label-lg text-label-lg text-text-secondary hover:text-white transition-colors" data-path="tratamiento" href="index.html#tratamiento">Tratamiento</a>
+<a class="font-label-lg text-label-lg text-text-secondary hover:text-white transition-colors" data-path="preguntas-frecuentes" href="index.html#preguntas-frecuentes">Preguntas frecuentes</a>
+</nav>
+<div class="flex items-center gap-space-md">
+<a class="hidden sm:inline-flex font-label-lg text-label-lg text-text-secondary hover:text-white transition-colors" data-path="login" href="#">Iniciar sesión</a>
+<a class="inline-flex items-center justify-center px-space-lg py-space-xs min-h-[44px] rounded-full btn-pro text-white font-label-lg text-label-lg transition-all active:scale-95 gap-2 border border-white/20" data-path="descargar" href="profesionales/dashboard.html">
+<span class="material-symbols-outlined text-[18px]">stethoscope</span>
+          Acceso profesional
+        </a>
+</div>
+</div>
+<!-- Sub-bar mobile: acceso rápido a secciones de esta página -->
+<div class="lg:hidden border-t border-white/[0.06]">
+<div class="max-w-[1200px] mx-auto px-gutter-mobile flex items-center gap-4 overflow-x-auto py-2 text-[13px]">
+<a href="#beneficios" class="text-text-secondary hover:text-white whitespace-nowrap">Beneficios</a>
+<a href="#planes" class="text-text-secondary hover:text-white whitespace-nowrap">Planes</a>
+<a href="#doble-audiencia" class="text-text-secondary hover:text-white whitespace-nowrap">Pacientes y equipo</a>
+<a href="#onboarding" class="text-text-secondary hover:text-white whitespace-nowrap">En 2 pasos</a>
+<a href="#faq-pro" class="text-text-secondary hover:text-white whitespace-nowrap">FAQ</a>
+</div>
+</div>
+</header>
+<main class="w-full pt-20 bg-pro-base min-h-[calc(100vh-80px)]">
+<div class="flex flex-col w-full">
+<!-- 1. HERO PROFESIONAL -->
+<div class="relative w-full overflow-hidden bg-pro-base">
+<div class="absolute -top-24 left-1/4 w-[520px] h-[520px] bg-[#DF089C]/20 rounded-full blur-[140px] pointer-events-none"></div>
+<div class="absolute top-48 right-10 w-[460px] h-[460px] bg-[#A90789]/20 rounded-full blur-[150px] pointer-events-none"></div>
+<div class="absolute top-72 left-[-100px] w-[400px] h-[400px] bg-[#5B0556]/40 rounded-full blur-[130px] pointer-events-none"></div>
+<section class="max-w-[1200px] mx-auto px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop pt-space-xl md:pt-space-2xl pb-space-3xl relative z-10">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-2xl items-center">
+<div class="lg:col-span-6 flex flex-col gap-space-lg">
+<div class="inline-flex items-center gap-space-xs px-3.5 py-1.5 rounded-full bg-pro-surface text-pro-mist w-fit shadow-md border border-pro-magenta/30 backdrop-blur-md">
+<span class="material-symbols-outlined text-[18px] text-pro-magenta" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="font-label-md text-label-md font-bold tracking-tight">Portal profesional · Datos clínicos accionables</span>
+</div>
+<h1 class="font-display-lg text-display-lg-mobile md:text-display-lg text-text-primary font-extrabold tracking-tight">
+                Más que una app, es tu <span class="gradient-text-pro">coach de salud</span>.
+              </h1>
+<p class="font-body-lg text-body-lg text-text-secondary max-w-xl">
+                SugarCoach le da a tu equipo reportes listos para consulta: Tiempo en Rango (TIR), glucosa vs. insulina, adherencia y hábitos. Tus pacientes registran en segundos; vos decidís con evidencia.
+              </p>
+<div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-space-md pt-space-xs">
+<a class="inline-flex items-center justify-center gap-space-xs px-space-xl py-4 rounded-full btn-pro text-white font-label-lg text-label-lg active:scale-[0.98] transition-all border border-white/20" href="profesionales/dashboard.html">
+<span class="material-symbols-outlined text-[20px]">stethoscope</span>
+                  Abrir dashboard profesional
+                </a>
+<a class="inline-flex items-center justify-center gap-space-xs px-space-xl py-4 rounded-full bg-white/[0.04] text-text-primary border border-pro-magenta/30 font-label-lg text-label-lg hover:bg-pro-magenta/10 hover:border-pro-magenta/60 active:scale-[0.98] transition-all" href="#beneficios">
+<span class="material-symbols-outlined text-[20px] text-pro-magenta">play_circle</span>
+                  Ver cómo funciona
+                </a>
+</div>
+<div class="flex flex-wrap items-center gap-space-md pt-space-md">
+<div class="flex items-center gap-2 text-text-secondary font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[18px] text-pro-magenta">lock</span> Datos cifrados
+</div>
+<div class="flex items-center gap-2 text-text-secondary font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[18px] text-pro-magenta">bar_chart</span> Reportes en 1 clic
+</div>
+<div class="flex items-center gap-2 text-text-secondary font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[18px] text-pro-magenta">sentiment_satisfied</span> Sin juicios, solo hábitos
+</div>
+</div>
+</div>
+<div class="lg:col-span-6 relative flex justify-center items-center pt-8 lg:pt-0">
+<div class="absolute w-80 md:w-96 h-80 md:h-96 rounded-full bg-gradient-to-tr from-[#DF089C]/30 via-[#A90789]/20 to-[#5B0556]/30 blur-3xl"></div>
+<div class="absolute -top-6 left-2 sm:-left-4 z-30 bg-pro-surface/90 backdrop-blur-xl shadow-2xl px-4 py-3 rounded-2xl flex items-center gap-3 border border-pro-magenta/30 animate-bounce" style="animation-duration: 5s;">
+<div class="w-9 h-9 rounded-xl bg-pro-magenta/20 text-pro-magenta flex items-center justify-center border border-pro-magenta/40">
+<span class="material-symbols-outlined text-[20px]">donut_large</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-text-tertiary text-[11px]">Tiempo en Rango</span>
+<span class="font-label-md text-text-primary font-extrabold text-[15px]">70% · Informe listo</span>
+</div>
+</div>
+<div class="absolute bottom-10 -left-6 sm:-left-8 z-30 bg-pro-surface/90 backdrop-blur-xl shadow-2xl px-4 py-3 rounded-2xl flex items-center gap-3 border border-pro-magenta/30">
+<div class="w-9 h-9 rounded-xl bg-pro-magenta/20 text-pro-mist flex items-center justify-center font-bold border border-pro-magenta/40">
+<span class="material-symbols-outlined text-[20px]">group</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-text-primary font-bold">Panel multi-paciente</span>
+<span class="font-label-sm text-text-tertiary text-[11px]">Adherencia por semana</span>
+</div>
+</div>
+<div class="relative w-[280px] sm:w-[310px] rounded-[44px] bg-[#12031F] p-3 phone-mockup-glow-pro border-2 border-pro-magenta/30 z-20 hover:scale-[1.01] transition-transform">
+<div class="w-24 h-4 bg-black/80 rounded-full mx-auto mb-2 border border-white/[0.05]"></div>
+<div class="overflow-hidden rounded-[32px] aspect-[9/19.5] bg-black shadow-inner">
+<img alt="Panel profesional SugarCoach con TIR 112 mg/dL" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBV5yOs9xtXD5p_0nyDgrmCUCQL77HdzGdWhwkOaNOfyvKEU_XmD1oBRWLOJfBQXclF35ieOI_WnAQtQ3kQXTpcpDNr62TIVhj_4ZNmVnpALOJ-7IrXngV1EBkGZXbUOWwmWlGfhQdsLsxiD3PG-y-oZWdN8PiVYESJ4zwjm6CeZxnjdC28a8FOY1EcPYHY3T3-DLmRn5nqEJ6o6KTdd9n-RA986INlrfWu0lONqd2ACTLJamDgtD1aXoc1kVkQ90LKZg"/>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- 2. BENEFICIOS / UNA APP INTELIGENTE -->
+<section class="w-full py-space-3xl bg-pro-surface relative overflow-hidden" id="beneficios">
+<div class="absolute top-1/2 left-0 w-96 h-96 bg-[#DF089C]/15 rounded-full blur-[140px] pointer-events-none"></div>
+<div class="max-w-[1200px] mx-auto px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop relative z-10">
+<div class="flex flex-col items-center text-center max-w-2xl mx-auto mb-space-2xl">
+<span class="font-label-md text-label-md text-pro-magenta font-bold uppercase tracking-wider mb-2">Para la consulta real</span>
+<h2 class="font-headline-lg text-headline-lg text-text-primary font-extrabold tracking-tight">
+              Una app inteligente para una vida más estable
+            </h2>
+<p class="font-body-md text-body-md text-text-secondary mt-space-xs">
+              SugarCoach combina registro simple, educación y reportes clínicos. Tus pacientes sostienen el hábito; vos recibís información ordenada para decidir.
+            </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-lg">
+<div class="bg-pro-base rounded-3xl p-space-xl shadow-lg flex flex-col gap-space-sm hover:bg-pro-plum/60 hover:border-pro-magenta/40 transition-all border border-pro-magenta-dark/40 group">
+<div class="w-14 h-14 rounded-2xl bg-pro-magenta/15 border border-pro-magenta/40 flex items-center justify-center text-pro-magenta mb-space-md group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-[30px]">analytics</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-text-primary font-bold">Datos que guían</h3>
+<p class="font-body-md text-body-md text-text-secondary">
+                  TIR en anillo, curvas de glucosa vs. insulina y patrones por horario. Detectá hipos nocturnas o hiper postprandial sin revisar libretas.
+                </p>
+<div class="mt-space-md p-space-md rounded-2xl bg-black/30 border border-pro-magenta/20 flex items-center justify-between">
+<span class="font-label-md text-label-md font-bold text-text-primary">112 mg/dL promedio</span>
+<span class="px-2.5 py-0.5 rounded-full bg-pro-magenta/20 text-pro-mist border border-pro-magenta/40 font-label-sm font-bold">Estable</span>
+</div>
+</div>
+<div class="bg-pro-base rounded-3xl p-space-xl shadow-lg flex flex-col gap-space-sm hover:bg-pro-plum/60 hover:border-pro-magenta/40 transition-all border border-pro-magenta-dark/40 group">
+<div class="w-14 h-14 rounded-2xl bg-pro-magenta/15 border border-pro-magenta/40 flex items-center justify-center text-pro-magenta mb-space-md group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-[30px]">trending_up</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-text-primary font-bold">Hábitos que suman</h3>
+<p class="font-body-md text-body-md text-text-secondary">
+                  Gamificación respetuosa: puntos por constancia, nunca castigos por valores. Mejor adherencia al registro entre consultas.
+                </p>
+<div class="mt-space-md p-space-md rounded-2xl bg-black/30 border border-pro-magenta/20 flex items-center justify-between">
+<span class="font-label-md text-label-md font-bold text-text-primary">+100 pts por registro</span>
+<span class="font-label-sm text-pro-magenta font-bold">Adherencia ↑</span>
+</div>
+</div>
+<div class="bg-pro-base rounded-3xl p-space-xl shadow-lg flex flex-col gap-space-sm hover:bg-pro-plum/60 hover:border-pro-magenta/40 transition-all border border-pro-magenta-dark/40 group">
+<div class="w-14 h-14 rounded-2xl bg-pro-magenta/15 border border-pro-magenta/40 flex items-center justify-center text-pro-magenta mb-space-md group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-[30px]">clinical_notes</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-text-primary font-bold">Profesionales a tu lado</h3>
+<p class="font-body-md text-body-md text-text-secondary">
+                  Compartí esquemas (Hipo 70 / Target 100 / Híper 180), tipo de insulina y notas. Exportá PDF para historia clínica en un clic.
+                </p>
+<div class="mt-space-md p-space-md rounded-2xl bg-black/30 border border-pro-magenta/20 flex items-center justify-between">
+<span class="font-label-md text-label-md font-bold text-text-primary">Reporte PDF listo</span>
+<span class="font-label-sm text-pro-magenta font-bold">1 clic</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 3. PLANES -->
+<section class="max-w-[1200px] mx-auto px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop py-space-3xl" id="planes">
+<div class="flex flex-col items-center text-center max-w-2xl mx-auto mb-space-2xl">
+<span class="font-label-md text-label-md text-pro-magenta font-bold uppercase tracking-wider mb-2">Transparente y escalable</span>
+<h2 class="font-headline-lg text-headline-lg text-text-primary font-extrabold tracking-tight">Elegí el plan que va con vos</h2>
+<p class="font-body-md text-body-md text-text-secondary mt-space-xs">Empezá gratis con tu consultorio. Escalá cuando necesites panel multi-paciente y exportación avanzada.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-lg max-w-4xl mx-auto">
+<div class="bg-pro-surface rounded-3xl p-space-xl border border-white/[0.08] flex flex-col gap-space-md">
+<span class="font-label-md text-label-md text-text-secondary font-bold uppercase">Plan Básico</span>
+<div class="flex items-end gap-2"><span class="font-display-lg text-display-lg-mobile md:text-headline-lg font-extrabold text-white">$0</span><span class="font-body-sm text-body-sm text-text-tertiary pb-2">/ para siempre</span></div>
+<ul class="flex flex-col gap-2 font-body-md text-body-md text-text-secondary">
+<li class="flex gap-2 items-center"><span class="material-symbols-outlined text-pro-magenta text-[20px]">check_circle</span> Reportes TIR por paciente</li>
+<li class="flex gap-2 items-center"><span class="material-symbols-outlined text-pro-magenta text-[20px]">check_circle</span> Registro de glucosa e insulina</li>
+<li class="flex gap-2 items-center"><span class="material-symbols-outlined text-pro-magenta text-[20px]">check_circle</span> 1 consultorio / 1 profesional</li>
+</ul>
+<a href="#acceso-profesional" class="mt-2 inline-flex items-center justify-center px-space-xl py-3 rounded-full bg-white/[0.06] border border-pro-magenta/30 text-white font-label-lg hover:bg-pro-magenta/15 transition-all">Empezar gratis</a>
+</div>
+<div class="rounded-3xl p-space-xl border border-pro-magenta/50 flex flex-col gap-space-md relative overflow-hidden" style="background: linear-gradient(160deg, #5B0556 0%, #240C4C 60%, #1C0433 100%);">
+<div class="absolute top-4 right-4 px-3 py-1 rounded-full bg-pro-magenta text-white font-label-sm text-[11px] font-bold">Recomendado</div>
+<span class="font-label-md text-label-md text-pro-mist font-bold uppercase">Plan Premium</span>
+<div class="flex items-end gap-2"><span class="font-display-lg text-display-lg-mobile md:text-headline-lg font-extrabold text-white">$9.99</span><span class="font-body-sm text-body-sm text-pro-mist/80 pb-2">/mes por profesional</span></div>
+<ul class="flex flex-col gap-2 font-body-md text-body-md text-pro-mist">
+<li class="flex gap-2 items-center"><span class="material-symbols-outlined text-white text-[20px]">check_circle</span> Panel multi-paciente + alertas</li>
+<li class="flex gap-2 items-center"><span class="material-symbols-outlined text-white text-[20px]">check_circle</span> Exportación PDF / historia clínica</li>
+<li class="flex gap-2 items-center"><span class="material-symbols-outlined text-white text-[20px]">check_circle</span> Esquemas y rangos personalizados</li>
+<li class="flex gap-2 items-center"><span class="material-symbols-outlined text-white text-[20px]">check_circle</span> Soporte prioritario</li>
+</ul>
+<a href="#acceso-profesional" class="mt-2 inline-flex items-center justify-center px-space-xl py-3 rounded-full btn-pro text-white font-label-lg border border-white/20 transition-all">Probar Premium</a>
+</div>
+</div>
+</section>
+<!-- 4. DOBLE AUDIENCIA -->
+<section class="w-full py-space-3xl bg-pro-surface relative" id="doble-audiencia">
+<div class="max-w-[1200px] mx-auto px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-space-lg">
+<div class="bg-pro-base rounded-3xl p-space-xl md:p-space-2xl border border-pro-magenta-dark/40 flex flex-col gap-space-md">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-pro-magenta/15 border border-pro-magenta/30 text-pro-mist font-label-sm font-bold w-fit">Para tus pacientes · Tu salud, en tus manos</div>
+<h3 class="font-headline-lg text-headline-lg-mobile md:text-headline-md text-white font-extrabold">Autonomía diaria sin fricción</h3>
+<ul class="flex flex-col gap-2 font-body-md text-body-md text-text-secondary">
+<li class="flex gap-2"><span class="material-symbols-outlined text-pro-magenta">check</span> Registro en segundos con fotos y gramos</li>
+<li class="flex gap-2"><span class="material-symbols-outlined text-pro-magenta">check</span> Recordatorios amables de basal y rápida</li>
+<li class="flex gap-2"><span class="material-symbols-outlined text-pro-magenta">check</span> Familia sincronizada en tiempo real</li>
+<li class="flex gap-2"><span class="material-symbols-outlined text-pro-magenta">check</span> Estrellas y niveles que sostienen el hábito</li>
+</ul>
+<a href="index.html#descargar" class="inline-flex items-center gap-2 mt-2 px-space-lg py-3 rounded-full bg-white/[0.06] border border-pro-magenta/30 text-white font-label-lg hover:bg-pro-magenta/15 w-fit transition-all">Conocer app de pacientes <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
+</div>
+<div class="rounded-3xl p-space-xl md:p-space-2xl border border-pro-magenta/40 flex flex-col gap-space-md" style="background: linear-gradient(160deg, #96036F 0%, #5B0556 55%, #240C4C 100%);">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/30 border border-white/20 text-white font-label-sm font-bold w-fit">Para profesionales · Tu experiencia, más potente</div>
+<h3 class="font-headline-lg text-headline-lg-mobile md:text-headline-md text-white font-extrabold">Decisiones clínicas con contexto</h3>
+<ul class="flex flex-col gap-2 font-body-md text-body-md text-pro-mist">
+<li class="flex gap-2"><span class="material-symbols-outlined text-white">check</span> TIR, promedio, variabilidad por rango horario</li>
+<li class="flex gap-2"><span class="material-symbols-outlined text-white">check</span> Glucosa vs. insulina para ajuste de dosis</li>
+<li class="flex gap-2"><span class="material-symbols-outlined text-white">check</span> Adherencia y notas de ánimo / actividad</li>
+<li class="flex gap-2"><span class="material-symbols-outlined text-white">check</span> Comparativa entre consultas</li>
+</ul>
+<a href="#acceso-profesional" class="inline-flex items-center gap-2 mt-2 px-space-lg py-3 rounded-full btn-pro text-white font-label-lg border border-white/20 w-fit transition-all">Solicitar demo <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
+</div>
+</div>
+</div>
+</section>
+<!-- 5. ONBOARDING EN 2 PASOS -->
+<section class="max-w-[1200px] mx-auto px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop py-space-3xl" id="onboarding">
+<div class="flex flex-col items-center text-center max-w-2xl mx-auto mb-space-2xl">
+<span class="font-label-md text-label-md text-pro-magenta font-bold uppercase tracking-wider mb-2">Sin curva de aprendizaje</span>
+<h2 class="font-headline-lg text-headline-lg text-text-primary font-extrabold tracking-tight">En solo 2 pasos</h2>
+<p class="font-body-md text-body-md text-text-secondary mt-space-xs">Del registro del paciente a tu dashboard clínico en minutos.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-lg">
+<div class="bg-pro-surface rounded-3xl p-space-xl border border-pro-magenta-dark/40 flex gap-4 items-start hover:border-pro-magenta/50 transition-all">
+<span class="w-11 h-11 shrink-0 rounded-full bg-pro-magenta text-white font-headline-sm font-extrabold flex items-center justify-center">01</span>
+<div>
+<h4 class="font-headline-sm text-headline-sm font-bold text-white">Descargá la app e invitá a tus pacientes</h4>
+<p class="font-body-md text-body-md text-text-secondary mt-1">Compartí tu código profesional. El paciente vincula su cuenta y define qué información comparte.</p>
+</div>
+</div>
+<div class="bg-pro-surface rounded-3xl p-space-xl border border-pro-magenta-dark/40 flex gap-4 items-start hover:border-pro-magenta/50 transition-all">
+<span class="w-11 h-11 shrink-0 rounded-full bg-pro-magenta text-white font-headline-sm font-extrabold flex items-center justify-center">02</span>
+<div>
+<h4 class="font-headline-sm text-headline-sm font-bold text-white">Personalizá, guiá y hacé seguimiento</h4>
+<p class="font-body-md text-body-md text-text-secondary mt-1">Configurá rangos (70 / 100 / 180), esquema de insulina y revisá el panel antes de cada consulta.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- 6. FAQ PRO + CTA -->
+<section class="max-w-[860px] mx-auto px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop pb-space-3xl" id="faq-pro">
+<div class="flex flex-col items-center text-center mb-space-2xl">
+<span class="font-label-md text-label-md text-pro-magenta font-bold uppercase tracking-wider mb-2">Dudas frecuentes</span>
+<h2 class="font-headline-lg text-headline-lg text-text-primary font-extrabold tracking-tight">Preguntas de profesionales</h2>
+</div>
+<div class="flex flex-col gap-space-sm" id="faq-container">
+<div class="faq-item bg-pro-surface rounded-2xl shadow-sm border border-pro-magenta-dark/40 overflow-hidden">
+<button class="faq-btn w-full px-space-lg py-space-lg flex items-center justify-between text-left focus:outline-none" type="button">
+<span class="font-headline-sm text-headline-sm text-text-primary font-bold">¿Cómo accedo a los datos de mis pacientes?</span>
+<span class="material-symbols-outlined text-pro-magenta faq-icon transition-transform">expand_more</span>
+</button>
+<div class="faq-content hidden px-space-lg pb-space-lg pt-0 text-text-secondary font-body-md border-t border-white/[0.06]">
+              Con consentimiento explícito del paciente. Cada persona decide qué comparte y puede revocar el acceso cuando quiera. Vos ves panel agregado y reportes por paciente vinculado.
+            </div>
+</div>
+<div class="faq-item bg-pro-surface rounded-2xl shadow-sm border border-pro-magenta-dark/40 overflow-hidden">
+<button class="faq-btn w-full px-space-lg py-space-lg flex items-center justify-between text-left focus:outline-none" type="button">
+<span class="font-headline-sm text-headline-sm text-text-primary font-bold">¿Cumple con privacidad de datos de salud?</span>
+<span class="material-symbols-outlined text-pro-magenta faq-icon transition-transform">expand_more</span>
+</button>
+<div class="faq-content hidden px-space-lg pb-space-lg pt-0 text-text-secondary font-body-md border-t border-white/[0.06]">
+              Sí: cifrado en tránsito y en reposo, control de accesos por rol y sin comercialización de datos a aseguradoras o terceros. Principios de privacidad por diseño.
+            </div>
+</div>
+<div class="faq-item bg-pro-surface rounded-2xl shadow-sm border border-pro-magenta-dark/40 overflow-hidden">
+<button class="faq-btn w-full px-space-lg py-space-lg flex items-center justify-between text-left focus:outline-none" type="button">
+<span class="font-headline-sm text-headline-sm text-text-primary font-bold">¿Puedo exportar para la historia clínica?</span>
+<span class="material-symbols-outlined text-pro-magenta faq-icon transition-transform">expand_more</span>
+</button>
+<div class="faq-content hidden px-space-lg pb-space-lg pt-0 text-text-secondary font-body-md border-t border-white/[0.06]">
+              Sí, en el Plan Premium exportás PDF con TIR, promedios, glucosa vs. insulina y adherencia, listo para adjuntar a tu sistema.
+            </div>
+</div>
+</div>
+<div id="acceso-profesional" class="mt-space-2xl rounded-[32px] p-space-xl md:p-space-3xl border border-pro-magenta/40 relative overflow-hidden" style="background: linear-gradient(120deg, #5B0556 0%, #240C4C 55%, #12031F 100%);">
+<div class="absolute -top-20 -right-20 w-72 h-72 bg-[#DF089C]/30 rounded-full blur-3xl pointer-events-none"></div>
+<div class="flex flex-col lg:flex-row lg:items-center gap-space-xl relative z-10">
+<div class="flex-1 flex flex-col gap-space-md">
+<h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-white font-extrabold">Empezá a acompañar con evidencia, no con suposiciones.</h2>
+<p class="font-body-lg text-body-lg text-pro-mist/90">Dejanos tu email profesional y te habilitamos el panel + una demo de 20 minutos con casos reales anonimizados.</p>
+</div>
+<form class="flex-1 flex flex-col sm:flex-row gap-space-sm w-full" onsubmit="event.preventDefault(); window.location.href='profesionales/dashboard.html';">
+<input required type="email" placeholder="tu@emailprofesional.com" class="flex-1 px-5 py-4 rounded-full bg-black/40 border border-pro-magenta/40 text-white placeholder:text-pro-lilac focus:outline-none focus:border-pro-magenta"/>
+<button class="px-space-xl py-4 rounded-full btn-pro text-white font-label-lg font-bold border border-white/20 whitespace-nowrap" type="submit">Entrar al dashboard →</button>
+</form>
+</div>
+<p id="pro-ok" class="mt-4 font-body-md text-body-md text-pro-mist/80 relative z-10">Flujo: login simulado → <a class="underline text-white" href="profesionales/dashboard.html">/profesionales/dashboard</a> → selección de paciente → monitoreo. También podés deep-linkear: <span class="font-bold">dashboard.html?patient=mateo</span></p>
+</div>
+</section>
+</div>
+</main>
+<!-- FOOTER: misma estructura que index.html -->
+<footer class="w-full bg-[#12031F] border-t border-pro-magenta/20 pt-space-3xl pb-space-xl">
+<div class="max-w-[1200px] mx-auto px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-space-2xl pb-space-2xl">
+<div class="lg:col-span-2 flex flex-col gap-space-md">
+<a class="flex items-center gap-2" href="index.html">
+<div class="p-1.5 rounded-xl bg-white/[0.05] border border-white/10 w-fit">
+<img alt="SugarCoach Logo Oficial" class="h-9 w-auto object-contain filter drop-shadow-[0_2px_8px_rgba(223,8,156,0.35)]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVp6dwZ6capBrTpJoWQ8qISgBRfXggRsXUJ2cwjrZ3Qi6Za1rjgUDhOaJmoZ3Pflg19Vxzoz6iADk8Gr7cpyk9KiP0JAFRRhMrf6ckeJoI0YZu2ct9n6IyHxC3X-fr2GpqBIV1-6mF2dJJWQYqksBFBBZLdb_J9yI-gckTogOOUMbBd7SE4sG5inFzOP64nQtG8ehn3zNYCJ0g3us9CcAgX9TPD99XQatC7ppbZXJmIdItosSY5tpYMOgSG_El54XExw"/>
+</div>
+</a>
+<p class="font-body-md text-body-md text-text-secondary max-w-sm">
+            Un compañero cotidiano para vivir con la diabetes de una manera más simple, acompañada, motivadora y organizada.
+          </p>
+<div class="flex flex-wrap gap-space-sm pt-space-xs">
+<a class="inline-flex items-center gap-space-xs px-space-md py-space-xs rounded-xl bg-white/[0.06] hover:bg-pro-magenta/20 border border-white/[0.1] text-white transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">phone_iphone</span>
+<div class="flex flex-col text-left">
+<span class="font-label-sm text-[10px] leading-tight text-text-tertiary">Descárgalo en</span>
+<span class="font-label-md text-label-md font-bold leading-tight">App Store</span>
+</div>
+</a>
+<a class="inline-flex items-center gap-space-xs px-space-md py-space-xs rounded-xl bg-white/[0.06] hover:bg-pro-magenta/20 border border-white/[0.1] text-white transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">shop</span>
+<div class="flex flex-col text-left">
+<span class="font-label-sm text-[10px] leading-tight text-text-tertiary">Disponible en</span>
+<span class="font-label-md text-label-md font-bold leading-tight">Google Play</span>
+</div>
+</a>
+</div>
+</div>
+<div class="flex flex-col gap-space-sm">
+<span class="font-label-lg text-label-lg text-text-primary font-bold tracking-tight">Producto</span>
+<nav class="flex flex-col gap-space-xs">
+<a class="font-body-sm text-body-sm text-text-secondary hover:text-white transition-colors" href="index.html#como-funciona">Cómo funciona</a>
+<a class="font-body-sm text-body-sm text-text-secondary hover:text-white transition-colors" href="index.html#familias">Para familias</a>
+<a class="font-body-sm text-body-sm text-white transition-colors font-bold" href="profesionales.html" aria-current="page">Profesionales</a>
+<a class="font-body-sm text-body-sm text-text-secondary hover:text-white transition-colors" href="index.html#gamificacion">Logros y Niveles</a>
+<a class="font-body-sm text-body-sm text-text-secondary hover:text-white transition-colors" href="index.html#tratamiento">Tratamiento</a>
+</nav>
+</div>
+<div class="flex flex-col gap-space-sm">
+<span class="font-label-lg text-label-lg text-text-primary font-bold tracking-tight">Comunidad</span>
+<nav class="flex flex-col gap-space-xs">
+<a class="font-body-sm text-body-sm text-text-secondary hover:text-white transition-colors" href="#">Blog</a>
+<a class="font-body-sm text-body-sm text-text-secondary hover:text-white transition-colors" href="#">Familias conectadas</a>
+<a class="font-body-sm text-body-sm text-text-secondary hover:text-white transition-colors" href="#">Historias de progreso</a>
+</nav>
+</div>
+<div class="flex flex-col gap-space-sm">
+<span class="font-label-lg text-label-lg text-text-primary font-bold tracking-tight">Legal &amp; Soporte</span>
+<nav class="flex flex-col gap-space-xs">
+<a class="font-body-sm text-body-sm text-text-secondary hover:text-white transition-colors" href="#">Centro de ayuda</a>
+<a class="font-body-sm text-body-sm text-text-secondary hover:text-white transition-colors" href="#">Privacidad</a>
+<a class="font-body-sm text-body-sm text-text-secondary hover:text-white transition-colors" href="#">Términos de servicio</a>
+</nav>
+</div>
+</div>
+<div class="pt-space-lg flex flex-col md:flex-row items-center justify-between gap-space-md border-t border-white/[0.08]">
+<div class="flex flex-col sm:flex-row items-center gap-space-xs sm:gap-space-md text-center sm:text-left">
+<p class="font-body-sm text-body-sm text-text-tertiary">© 2024 SugarCoach. Todos los derechos reservados.</p>
+<span class="hidden sm:inline text-white/[0.2]">•</span>
+<p class="font-body-sm text-body-sm text-text-tertiary">Diseñado con empatía para familias y profesionales de la salud.</p>
+</div>
+<div class="flex items-center gap-space-md">
+<a aria-label="Comunidad" class="w-10 h-10 rounded-full bg-white/[0.05] border border-white/10 flex items-center justify-center text-text-secondary hover:text-white hover:bg-pro-magenta/30 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">forum</span>
+</a>
+<a aria-label="Novedades" class="w-10 h-10 rounded-full bg-white/[0.05] border border-white/10 flex items-center justify-center text-text-secondary hover:text-white hover:bg-pro-magenta/30 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">campaign</span>
+</a>
+<a aria-label="Contacto" class="w-10 h-10 rounded-full bg-white/[0.05] border border-white/10 flex items-center justify-center text-text-secondary hover:text-white hover:bg-pro-magenta/30 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">mail</span>
+</a>
+</div>
+</div>
+</div>
+</footer>
+<script>
+  // Acordeón FAQ (mismo patrón que index.html)
+  document.addEventListener('DOMContentLoaded', () => {
+    const items = document.querySelectorAll('.faq-item');
+    items.forEach((item, index) => {
+      const btn = item.querySelector('.faq-btn');
+      const content = item.querySelector('.faq-content');
+      const icon = item.querySelector('.faq-icon');
+      if (index === 0) {
+        content.classList.remove('hidden');
+        icon.style.transform = 'rotate(180deg)';
+      }
+      btn.addEventListener('click', () => {
+        const isOpen = !content.classList.contains('hidden');
+        items.forEach(otherItem => {
+          otherItem.querySelector('.faq-content').classList.add('hidden');
+          otherItem.querySelector('.faq-icon').style.transform = 'rotate(0deg)';
+        });
+        if (!isOpen) {
+          content.classList.remove('hidden');
+          icon.style.transform = 'rotate(180deg)';
+        }
+      });
+    });
+    // Estado activo: en esta página siempre marcamos Profesionales
+    document.querySelectorAll('header nav a[data-path]').forEach((a) => {
+      if (a.getAttribute('data-path') === 'profesionales') a.classList.add('nav-link-active');
+      else a.classList.remove('nav-link-active');
+    });
+  });
+</script>
+</body></html>
