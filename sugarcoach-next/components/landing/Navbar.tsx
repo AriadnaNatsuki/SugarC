@@ -18,7 +18,7 @@ const LINKS = [
 export function Navbar() {
   const [open, setOpen] = useState(false);
   return (
-    <header className="fixed left-0 top-0 z-50 w-full border-b border-line/[0.08] bg-base/80 backdrop-blur-xl">
+    <header className="fixed left-0 top-0 z-50 w-full border-b border-line/[0.08] bg-base/80 backdrop-blur-xl [.a11y_&]:bg-white [.a11y_&]:backdrop-blur-none [.a11y_&]:border-b-2 [.a11y_&]:border-black">
       <div className="mx-auto flex h-24 max-w-[1440px] items-center justify-between gap-6 px-4 sm:px-6 lg:px-8">
         <Link href="/" className="group flex items-center gap-2" aria-label="SugarCoach inicio">
           <span className="transition-transform group-hover:scale-105">

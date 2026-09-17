@@ -33,7 +33,7 @@ export function FaqSection() {
           return (
             <div
               key={f.question}
-              className="overflow-hidden rounded-2xl border border-line/15 bg-card shadow-sm transition-colors dark:border-white/[0.08] dark:bg-[#0D1733]"
+              className="sc-card-glass overflow-hidden rounded-2xl border border-line/15 shadow-sm transition-colors"
             >
               <button
                 type="button"

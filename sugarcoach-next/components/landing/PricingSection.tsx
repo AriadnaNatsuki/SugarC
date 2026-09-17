@@ -69,7 +69,7 @@ export function PricingSection() {
         {/* CARD 1: Basic */}
         <Reveal delay={0.06}>
           <article
-            className="flex h-full flex-col justify-between rounded-3xl border border-line/15 bg-card p-7 shadow-xl transition-all duration-300 dark:border-white/[0.08] dark:bg-[#13112E] md:p-9 [.a11y_&]:border-2 [.a11y_&]:border-black dark:[.a11y_&]:border-white [.a11y_&]:bg-white dark:[.a11y_&]:bg-[#071126]"
+            className="sc-card-glass flex h-full flex-col justify-between rounded-3xl border border-line/15 p-7 shadow-xl transition-all duration-300 md:p-9 [.a11y_&]:border-2 [.a11y_&]:border-black dark:[.a11y_&]:border-white [.a11y_&]:bg-white dark:[.a11y_&]:bg-[#071126]"
           >
             <div>
               <h3 className="font-serif text-3xl font-bold text-ink">Basic</h3>
@@ -131,7 +131,7 @@ export function PricingSection() {
         <Reveal delay={0.12}>
           <article
             id="premium"
-            className="relative flex h-full flex-col justify-between rounded-3xl border-2 border-[#E2A632]/80 bg-card p-7 shadow-[0_0_30px_rgba(226,166,50,0.15)] transition-all duration-300 dark:border-[#E2A632] dark:bg-[#13112E] md:p-9 [.a11y_&]:border-4 [.a11y_&]:border-[#E2A632] [.a11y_&]:bg-white dark:[.a11y_&]:bg-[#071126]"
+            className="sc-card-glass relative flex h-full flex-col justify-between rounded-3xl border-2 border-[#E2A632]/80 p-7 shadow-[0_0_30px_rgba(226,166,50,0.15)] transition-all duration-300 md:p-9 [.a11y_&]:border-4 [.a11y_&]:border-[#E2A632] [.a11y_&]:bg-white dark:[.a11y_&]:bg-[#071126]"
           >
             {/* Badge flotante Recomendado en la esquina superior derecha */}
             <span className="absolute -top-3.5 right-6 rounded-full bg-[#E2A632] px-4 py-1 text-xs font-extrabold text-white shadow-md [.a11y_&]:bg-black [.a11y_&]:text-white [.a11y_&]:border-2 [.a11y_&]:border-white dark:[.a11y_&]:bg-white dark:[.a11y_&]:text-black">

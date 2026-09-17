@@ -253,7 +253,7 @@ export function TestimonialsSection() {
                             isActive
                               ? "border-primary/80 dark:border-[#FF3FB4] shadow-[0_12px_35px_rgba(255,63,180,0.18)] dark:shadow-[0_0_30px_rgba(255,63,180,0.25)] -translate-y-1 opacity-100 scale-100 z-10 ring-1 ring-[#FF3FB4]/30 dark:ring-[#FF3FB4]/40"
                               : isVisible
-                              ? "border-line/15 dark:border-white/[0.08] opacity-75 hover:opacity-95 scale-[0.98] shadow-sm"
+                              ? "border-line/15 dark:border-white/[0.08] opacity-90 hover:opacity-100 scale-[0.98] shadow-sm"
                               : "border-line/10 dark:border-white/[0.04] opacity-35 scale-95 pointer-events-none",
                             "[.a11y_&]:opacity-100 [.a11y_&]:scale-100 [.a11y_&]:border-2 [.a11y_&]:border-line [.a11y_&]:shadow-none [.a11y_&]:bg-white"
                           )}

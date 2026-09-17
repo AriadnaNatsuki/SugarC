@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import Image from "next/image";
+import { motion, useReducedMotion } from "framer-motion";
 import {
   Heart,
   Users,
@@ -49,6 +50,7 @@ interface AudiencePillar {
   metrics: string[];
   ctaLink: string;
   ctaLabel: string;
+  previewImage: string;
   previewBadge: string;
 }
 
@@ -90,6 +92,7 @@ const PILLARS: AudiencePillar[] = [
     metrics: ["Carga en < 10 seg", "+100 Pts por día", "Sin reproches clínicos"],
     ctaLink: "#como-funciona",
     ctaLabel: "Ver cómo se siente el día a día",
+    previewImage: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=600&q=80",
     previewBadge: "Niños y jóvenes",
   },
   {
@@ -129,6 +132,7 @@ const PILLARS: AudiencePillar[] = [
     metrics: ["Sync en tiempo real", "Alertas configurables", "Acompañamiento sin asfixia"],
     ctaLink: "#descargar",
     ctaLabel: "Descargar para toda la familia",
+    previewImage: "https://images.unsplash.com/photo-1542037104857-ffbb0b9155fb?auto=format&fit=crop&w=600&q=80",
     previewBadge: "Familias y cuidadores",
   },
   {
@@ -168,6 +172,7 @@ const PILLARS: AudiencePillar[] = [
     metrics: ["Reportes TIR / AGP", "Exportación PDF y Excel", "Consultas 40% más ágiles"],
     ctaLink: "#tratamiento",
     ctaLabel: "Ver módulo de tratamiento",
+    previewImage: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=600&q=80",
     previewBadge: "Médicos y especialistas",
   },
 ];
@@ -228,7 +233,7 @@ export function UserTypesSection() {
         <div
           role="tablist"
           aria-label="Perfiles de usuario de SugarCoach"
-          className="flex flex-col gap-4 lg:h-[620px] lg:flex-row lg:items-stretch"
+          className="flex flex-col gap-4 lg:h-[580px] lg:max-h-[580px] lg:flex-row lg:items-stretch"
         >
           {PILLARS.map((pillar) => {
             const isActive = activeId === pillar.id;
@@ -257,9 +262,9 @@ export function UserTypesSection() {
                 id={`tab-pillar-${pillar.id}`}
                 aria-selected={isActive}
                 aria-controls={`panel-pillar-${pillar.id}`}
-                className={`group relative flex flex-col justify-between overflow-hidden rounded-3xl border bg-card p-6 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#DA44AF] dark:bg-[#09122C] lg:h-full ${
+                className={`group relative flex flex-col justify-between overflow-hidden rounded-3xl border bg-card p-6 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#DA44AF] dark:bg-[#09122C] lg:h-full lg:max-h-[580px] min-h-0 ${
                   isActive
-                    ? `lg:flex-[2.7] ${pillar.activeBorder}`
+                    ? `lg:flex-[2.35] ${pillar.activeBorder}`
                     : `lg:flex-1 ${pillar.accentBorder} hover:border-ink/20 dark:hover:border-white/20 opacity-90 hover:opacity-100`
                 }`}
               >
@@ -272,24 +277,15 @@ export function UserTypesSection() {
                 )}
 
                 {/* Contenido Superior / Identidad del Pilar */}
-                <div className="relative z-10">
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="flex-1 space-y-1.5">
-                      <span
-                        className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-[11px] font-bold ${pillar.accentBg} ${pillar.accentColor} ${pillar.accentBorder}`}
-                      >
-                        {pillar.badge}
-                      </span>
-                      <h3 className="text-2xl xl:text-3xl font-black tracking-tight text-ink">
-                        {pillar.name}
-                      </h3>
-                      <p className="text-xs sm:text-sm font-semibold text-muted dark:text-[#747F9B]">
-                        {pillar.roleSubtitle}
-                      </p>
-                    </div>
-
+                <div className="relative z-10 flex flex-col">
+                  <div className="flex items-start justify-between gap-2">
+                    <span
+                      className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-[11px] font-bold ${pillar.accentBg} ${pillar.accentColor} ${pillar.accentBorder}`}
+                    >
+                      {pillar.badge}
+                    </span>
                     {/* Indicador visual de expansión en mobile */}
-                    <div className="lg:hidden shrink-0 pt-1">
+                    <div className="lg:hidden shrink-0 pt-0.5">
                       <ChevronDown
                         className={`h-5 w-5 text-muted transition-transform duration-300 ${
                           isActive ? "rotate-180 text-ink" : ""
@@ -298,9 +294,16 @@ export function UserTypesSection() {
                     </div>
                   </div>
 
+                  <h3 className="mt-2 text-2xl xl:text-3xl font-black tracking-tight text-ink">
+                    {pillar.name}
+                  </h3>
+                  <p className="text-xs sm:text-sm font-semibold text-muted dark:text-[#747F9B]">
+                    {pillar.roleSubtitle}
+                  </p>
+
                   {/* Bloque central: ¿Para qué la usás? */}
                   <div
-                    className={`mt-4 rounded-2xl border p-3.5 transition-colors duration-200 ${
+                    className={`mt-3 rounded-2xl border p-3 transition-colors duration-200 ${
                       isActive
                         ? `${pillar.accentBg} ${pillar.accentBorder}`
                         : "bg-base/40 border-line/10 dark:bg-white/[0.02] dark:border-white/[0.06]"
@@ -309,112 +312,114 @@ export function UserTypesSection() {
                     <span className="block text-[10px] font-black uppercase tracking-wider text-muted dark:text-[#747F9B]">
                       {pillar.purposePrompt}
                     </span>
-                    <p className="mt-1 text-xs sm:text-sm font-semibold text-ink leading-snug">
+                    <p className="mt-0.5 text-xs sm:text-sm font-semibold text-ink leading-snug">
                       {pillar.purposeSummary}
                     </p>
                   </div>
 
-                  {/* Vista Expandida (Visible cuando la tarjeta está activa) */}
-                  <AnimatePresence mode="wait" initial={false}>
-                    {isActive && (
-                      <motion.div
-                        key={`content-${pillar.id}`}
-                        id={`panel-pillar-${pillar.id}`}
-                        initial={{ opacity: 0, y: 6 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -4 }}
-                        transition={{ duration: 0.3, ease: "easeOut" }}
-                        className="mt-3.5 space-y-3 overflow-visible"
-                      >
-                        <div>
-                          <h4 className="text-sm sm:text-base font-bold text-ink leading-snug">
-                            {pillar.headline}
-                          </h4>
-                          <p className="mt-1 text-xs sm:text-sm leading-relaxed text-body dark:text-[#A8B0C5]">
-                            {pillar.description}
-                          </p>
-                        </div>
+                  {/* Detalle extendido cuando la tarjeta está activa */}
+                  {isActive && (
+                    <motion.div
+                      key={`content-${pillar.id}`}
+                      id={`panel-pillar-${pillar.id}`}
+                      initial={{ opacity: 0, y: 6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.2, ease: "easeOut" }}
+                      className="mt-3 space-y-2.5"
+                    >
+                      <div>
+                        <h4 className="text-sm font-bold text-ink leading-snug">
+                          {pillar.headline}
+                        </h4>
+                        <p className="mt-0.5 text-xs leading-relaxed text-body dark:text-[#A8B0C5] line-clamp-2">
+                          {pillar.description}
+                        </p>
+                      </div>
 
-                        {/* Los 3 Casos de Uso Concretos en grilla horizontal en desktop */}
-                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-0.5">
-                          {pillar.useCases.map((uc, idx) => {
-                            const UcIcon = uc.icon;
-                            return (
-                              <div
-                                key={idx}
-                                className="flex flex-col justify-between gap-1.5 rounded-2xl border border-line/10 bg-base/60 p-3 transition-colors dark:border-white/[0.06] dark:bg-[#050C22]"
-                              >
-                                <div className="flex items-center gap-2">
-                                  <div
-                                    className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-lg ${pillar.accentBg} ${pillar.accentColor}`}
-                                  >
-                                    <UcIcon className="h-3.5 w-3.5" />
-                                  </div>
-                                  <h5 className="text-xs font-bold text-ink leading-tight">
-                                    {uc.title}
-                                  </h5>
-                                </div>
-                                <p className="text-[11px] leading-relaxed text-body dark:text-[#A8B0C5]">
-                                  {uc.desc}
-                                </p>
-                              </div>
-                            );
-                          })}
-                        </div>
-
-                        {/* Badges de métricas / valor concreto */}
-                        <div className="flex flex-wrap gap-2 pt-1">
-                          {pillar.metrics.map((metric, i) => (
-                            <span
-                              key={i}
-                              className="inline-flex items-center rounded-xl border border-line/10 bg-base px-2.5 py-1 text-[11px] font-bold text-ink dark:border-white/[0.08] dark:bg-[#0A1433]"
+                      {/* Los 3 Casos de Uso Concretos en grilla de 3 columnas */}
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-0.5">
+                        {pillar.useCases.map((uc, idx) => {
+                          const UcIcon = uc.icon;
+                          return (
+                            <div
+                              key={idx}
+                              className="flex flex-col justify-between gap-1 rounded-xl border border-line/10 bg-base/70 p-2.5 transition-colors dark:border-white/[0.06] dark:bg-[#050C22]"
                             >
-                              {metric}
-                            </span>
-                          ))}
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                              <div className="flex items-center gap-1.5">
+                                <div
+                                  className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-md ${pillar.accentBg} ${pillar.accentColor}`}
+                                >
+                                  <UcIcon className="h-3 w-3" />
+                                </div>
+                                <h5 className="text-[11px] font-bold text-ink leading-tight line-clamp-1">
+                                  {uc.title}
+                                </h5>
+                              </div>
+                              <p className="text-[10.5px] leading-snug text-body dark:text-[#A8B0C5] line-clamp-2">
+                                {uc.desc}
+                              </p>
+                            </div>
+                          );
+                        })}
+                      </div>
+
+                      {/* Badges de métricas / valor concreto */}
+                      <div className="flex flex-wrap gap-1.5 pt-0.5">
+                        {pillar.metrics.map((metric, i) => (
+                          <span
+                            key={i}
+                            className="inline-flex items-center rounded-lg border border-line/10 bg-base/80 px-2 py-0.5 text-[10px] font-bold text-ink dark:border-white/[0.08] dark:bg-[#0A1433]"
+                          >
+                            {metric}
+                          </span>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
                 </div>
 
-                {/* Vista Colapsada (Desktop): Marca de agua icónica saliendo del costado */}
-                {!isActive && (
-                  <div className="pointer-events-none hidden lg:flex relative flex-1 flex-col justify-end overflow-hidden">
-                    {/* Halo ambiental sutil en el lateral */}
-                    <div
-                      aria-hidden
-                      className={`pointer-events-none absolute -bottom-6 -right-6 h-52 w-52 rounded-full bg-gradient-to-br ${pillar.glowGradient} blur-3xl opacity-60 dark:opacity-40`}
+                {/* Pie de la tarjeta: Imagen en reposo o Enlace CTA cuando está activa */}
+                {!isActive ? (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.25 }}
+                    className="relative mt-auto h-[270px] sm:h-[285px] w-[calc(100%+3rem)] -mx-6 -mb-6 shrink-0 overflow-hidden"
+                  >
+                    <Image
+                      src={pillar.previewImage}
+                      alt={`Representación de ${pillar.name}`}
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 420px"
+                      className="object-cover object-top select-none transition-transform duration-700 ease-out group-hover:scale-105"
                     />
 
-                    {/* Icono de gran formato saliendo del costado con menor transparencia */}
+                    {/* Degradado inferior para contraste del texto */}
                     <div
                       aria-hidden
-                      className="pointer-events-none absolute -bottom-8 -right-8 select-none opacity-[0.24] dark:opacity-[0.28] transition-all duration-500 group-hover:scale-105 group-hover:-translate-y-1 group-hover:opacity-[0.35] dark:group-hover:opacity-[0.42]"
-                    >
-                      <Icon className={`h-56 w-56 xl:h-64 xl:w-64 ${pillar.accentColor}`} strokeWidth={1.5} />
-                    </div>
-                  </div>
-                )}
+                      className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent pointer-events-none"
+                    />
 
-                {/* Pie de la tarjeta */}
-                <div className="relative z-10 mt-4 shrink-0 border-t border-line/10 pt-3.5 dark:border-white/[0.08]">
-                  {isActive ? (
+                    {/* Cartel "Ver detalles" superpuesto al pie de la imagen */}
+                    <div className="absolute bottom-0 left-0 right-0 z-20 flex items-center justify-between px-6 py-4 text-white">
+                      <div className="flex w-full items-center justify-between text-xs font-bold text-white/90">
+                        <span className="drop-shadow-sm">Ver detalles</span>
+                        <ChevronRight className="h-4 w-4 text-white/80 transition-transform duration-300 group-hover:translate-x-1" />
+                      </div>
+                    </div>
+                  </motion.div>
+                ) : (
+                  <div className="relative z-10 mt-auto shrink-0 border-t border-line/10 pt-3.5 dark:border-white/[0.08]">
                     <a
                       href={pillar.ctaLink}
                       onClick={(e) => e.stopPropagation()}
-                      className={`inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold ${pillar.accentColor} transition-colors hover:underline`}
+                      className={`inline-flex items-center gap-2 text-xs sm:text-sm font-bold ${pillar.accentColor} transition-colors hover:underline`}
                     >
                       <span>{pillar.ctaLabel}</span>
-                      <ArrowRight className="h-4 w-4" />
+                      <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
                     </a>
-                  ) : (
-                    <div className="flex items-center justify-between text-xs text-muted dark:text-[#747F9B]">
-                      <span className="font-semibold">Ver detalles</span>
-                      <ChevronRight className="h-4 w-4" />
-                    </div>
-                  )}
-                </div>
+                  </div>
+                )}
               </motion.div>
             );
           })}

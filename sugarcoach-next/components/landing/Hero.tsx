@@ -84,7 +84,7 @@ export function Hero() {
           <motion.div
             variants={reduceMotion ? undefined : floatY}
             animate={reduceMotion ? undefined : "animate"}
-            className="absolute -top-2 left-2 z-30 flex items-center gap-3 rounded-2xl border border-line/10 bg-card/90 px-4 py-3 shadow-2xl backdrop-blur sm:-left-4"
+            className="sc-card-glass absolute -top-2 left-2 z-30 flex items-center gap-3 rounded-2xl border px-4 py-3 sm:-left-4 [.a11y_&]:bg-white [.a11y_&]:border-2 [.a11y_&]:border-black [.a11y_&]:shadow-none"
           >
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-500/20 text-emerald-700 dark:text-emerald-300">
               <TrendingDown className="h-5 w-5" />
@@ -107,7 +107,7 @@ export function Hero() {
                   }
             }
             animate={reduceMotion ? undefined : "animate"}
-            className="absolute bottom-10 -left-4 z-30 flex items-center gap-3 rounded-2xl border border-line/10 bg-card/90 px-4 py-3 shadow-2xl backdrop-blur sm:-left-8"
+            className="sc-card-glass absolute bottom-10 -left-4 z-30 flex items-center gap-3 rounded-2xl border px-4 py-3 sm:-left-8 [.a11y_&]:bg-white [.a11y_&]:border-2 [.a11y_&]:border-black [.a11y_&]:shadow-none"
           >
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-amber-400/20 text-amber-700 dark:text-amber-300">
               <Star className="h-5 w-5 fill-amber-500 dark:fill-amber-300 text-amber-600 dark:text-amber-300" />
@@ -130,7 +130,7 @@ export function Hero() {
                   }
             }
             animate={reduceMotion ? undefined : "animate"}
-            className="absolute right-0 top-1/3 z-30 hidden items-center gap-3 rounded-2xl border border-line/10 bg-card/90 px-4 py-3 shadow-2xl backdrop-blur sm:flex"
+            className="sc-card-glass absolute right-0 top-1/3 z-30 hidden items-center gap-3 rounded-2xl border px-4 py-3 sm:flex [.a11y_&]:bg-white [.a11y_&]:border-2 [.a11y_&]:border-black [.a11y_&]:shadow-none"
           >
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-sky-500/20 text-sky-700 dark:text-sky-300">
               <Users className="h-5 w-5" />

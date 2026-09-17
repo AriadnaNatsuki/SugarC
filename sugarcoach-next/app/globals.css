@@ -82,24 +82,54 @@
     -webkit-text-fill-color: transparent;
     color: transparent;
   }
-  /* Card glassmorphism sutil (en claro: tarjeta blanca con borde gris) */
-  .glass-card {
-    @apply rounded-3xl border border-line/[0.25] bg-card shadow-sm transition-all duration-300;
+  /* ============================================================
+   * Estilo de tarjetas inspirado en los fondos de logos de Rewards
+   * Gradiente a 145deg, borde sutil y reflejo especular inset.
+   * ============================================================ */
+  .sc-card-glass,
+  .glass-card,
+  [data-kinetic-pillar="true"] {
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
   }
-  .glass-card:hover {
-    @apply -translate-y-1 border-pink-400/40;
-    box-shadow:
-      0 20px 40px -15px rgba(0, 0, 0, 0.25),
-      0 0 24px rgba(218, 68, 175, 0.15);
+
+  /* Modo Claro: gradiente 145deg de alt a card como en rewards */
+  :root:not(.a11y) .sc-card-glass,
+  :root:not(.a11y) .glass-card,
+  :root:not(.a11y) [data-kinetic-pillar="true"] {
+    background: linear-gradient(145deg, rgb(var(--sc-alt) / 0.92), rgb(var(--sc-card))) !important;
+    border-color: rgb(var(--sc-line) / 0.17);
+    box-shadow: 0 9px 24px rgba(0, 0, 0, 0.06);
   }
-  .dark .glass-card {
-    @apply border-line/[0.08] bg-tint/[0.03] shadow-none;
+
+  /* Modo Oscuro: gradiente translúcido 145deg con relieve inset superior como en rewards */
+  .dark:not(.a11y) .sc-card-glass,
+  .dark:not(.a11y) .glass-card,
+  .dark:not(.a11y) [data-kinetic-pillar="true"] {
+    background: linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.065),
+      rgba(255, 255, 255, 0.018)
+    ) !important;
+    border-color: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.13), 0 1px 0 rgba(255, 255, 255, 0.07) inset;
   }
-  .dark .glass-card:hover {
-    box-shadow:
-      0 20px 40px -15px rgba(0, 0, 0, 0.6),
-      0 0 24px rgba(218, 68, 175, 0.15);
+
+  :root:not(.a11y) .sc-card-glass:hover,
+  :root:not(.a11y) .glass-card:hover,
+  :root:not(.a11y) [data-kinetic-pillar="true"]:hover {
+    border-color: rgba(196, 92, 255, 0.4);
+    box-shadow: 0 15px 34px rgba(196, 92, 255, 0.14);
   }
+
+  .dark:not(.a11y) .sc-card-glass:hover,
+  .dark:not(.a11y) .glass-card:hover,
+  .dark:not(.a11y) [data-kinetic-pillar="true"]:hover {
+    border-color: rgba(255, 255, 255, 0.22);
+    box-shadow: 0 13px 28px rgba(0, 0, 0, 0.25), 0 1px 0 rgba(255, 255, 255, 0.12) inset;
+  }
+
+
   /* Toggle de tema (claro/oscuro/accesible), como en el HTML de modos */
   .theme-menu-item[aria-current="true"] {
     @apply bg-brand-gradient text-white;
@@ -148,15 +178,35 @@ html.a11y {
   display: none !important;
 }
 
+/* Desactivar cualquier backdrop-blur o efecto glass en accesibilidad */
+.a11y [class*="backdrop-blur"],
+.a11y .sc-card-glass,
+.a11y .glass-card {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Header/Navbar sólido en accesibilidad */
+.a11y header {
+  background-color: #ffffff !important;
+  border-bottom: 2px solid #000000 !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
 /* Foco de teclado bien visible */
 .a11y :focus-visible {
   outline: 3px solid #2f1f9e !important;
   outline-offset: 2px;
 }
 
-/* Bordes con contraste real en tarjetas */
-.a11y .glass-card {
-  border-width: 2px;
+/* Tarjetas y superficies sólidas de alto contraste en accesibilidad */
+.a11y .glass-card,
+.a11y .sc-card-glass {
+  background: #ffffff !important;
+  border-width: 2px !important;
+  border-color: #000000 !important;
+  box-shadow: none !important;
 }
 
 /* Zoom en botones y links al hover/foco */
