@@ -1,26 +1,45 @@
 /**
  * Imágenes centralizadas.
  *
- * - Logo: el usuario lo aporta en `public/images/logo/` (ver README de esa
- *   carpeta). Mientras tanto se usa el remoto de la landing de ejemplo.
- *   Cuando el archivo local exista, cambiar LOGO_SRC a la ruta local.
- * - Resto: remotas tal cual la landing de ejemplo (`fileSobreNosotros.html`),
- *   como se acordó. `next.config.mjs` ya permite `lh3.googleusercontent.com`.
+ * IMPORTANTE: las URLs bajo `lh3.googleusercontent.com/aida/...` (sin
+ * "-public") son previsualizaciones de sesión del generador y devuelven
+ * 403 Forbidden fuera de esa sesión — por eso "faltaban las imágenes".
+ * Las URLs `aida-public/...` sí son públicas y estables (verificado), y son
+ * las que usa `index.html`. Todas las imágenes de esta app deben usar
+ * `aida-public` o el logo local en `public/images/logo/`.
  */
 
-// Cambiar a "/images/logo/sugarcoach-logo.png" (o .webp/.svg) cuando el
-// archivo esté en `public/images/logo/`.
-export const LOGO_SRC =
-  "https://lh3.googleusercontent.com/aida/AEtjO1VZ1rQjn8lEMaNV7dd3v2vvNPw8KSs9b3tM4RzhGDmgoxCDWrVR9BEuZy6irWoChLnfZYhgNxHc4_wDtoPOmn5YOXMtaeSAljGosAxMEzpmVGSKMn_bnNjPftoovMCQWygsXjFAG_ZAWqRgrnlPtczTk_U4rz8LA5HU-Q9BOMBT9zF0JEpdBuCU9L6_VHdPNpyGOFJHUt9eIiaZS4k03N8FP31oI3mq_Fmae52mFDSlscwV-s5SHywj9WKYsk_JwyYMfB6NGjur";
+// Logo real provisto por el usuario (incluye el mascota-pájaro + wordmark).
+export const LOGO_SRC = "/images/logo/sugar-logo.png";
+export const MASCOT_SRC = "/images/logo/sugar-logo.png";
 
 export const PHONES = {
-  home: "https://lh3.googleusercontent.com/aida/AEtjO1VeAZlku6QabLCfn_OrQDv7AcLQXKiW0_JP3zn7TQxqKOE6g6hN5KfA3AnKfAV6u89W2lynCE1fQ1kUg5FnYpsxQv-wkpFfOqFLT96XZPrji44VvsHA9mgTNury8w7XJ6g5MDkVnC7Vm2hWdPGnEug6eaUiEmWopPQGJ9NoVk-42--nS_yAy8YotvqfpS7cNQ8XHeFhzkXjPdHd5pCGopmks4BvL_IvFhX_mpX7PstkXfrPR7lZ1JEZ9ExjC4ziPwKjPg9TTxHY",
-  dailyLog:
-    "https://lh3.googleusercontent.com/aida/AEtjO1Wq5urAXar6jKF5Fovsx6d92eOfXHTcYnWXCZHVKD-wkmwSd0QqD35yOuSAnxCOsNsNLuxwczcnqBOKJkVS5HGiio6EKqyreWEMYQbLV_mie2iSt7bSnbcjF4oeJi7I-EK0Y-fVCPyXC9VT86iSyr8tubkPPEhpUmaz6YDk5QUbKGV6mQhnf5TcklzxAVmn0XCLlBFXJwgssLWjXIhZI8SGd-KBi9NSffIGjgM4P6Ya9961uQ2WLJWyE9UDlhAdMeUTapzgh0WI-g",
+  // Hero: teléfono principal ("Pantalla real SugarCoach Home: Nivel 1, 1100 pts")
+  home: "https://lh3.googleusercontent.com/aida-public/AB6AXuAex2vzhfou00QMX_UHpJkArnuepiuiC7zoTm8UrX5jY4Olv5EfE-EQwvQ3YconGOz8mDUnvnQ5U6ImGinNwMkC4CH5zYvaz1bMdO6-2K67zYz75QITOoIh4IFOXkdXTM8DcRr09gk_03lu6duLPkdeWGSMD5Dwhnnm5tWY8kRqXzcrrORS8x795JD9hONYGzlrXv6HImhrdLr98iw-CcsfvwuNrLpI1djgvbAU6AXBL1WvcFPP8LiX0D9fnI9okr2pKA",
+  // Hero: teléfono inclinado de apoyo ("Pantalla real SugarCoach Daily Log")
+  heroDailyLog:
+    "https://lh3.googleusercontent.com/aida-public/AB6AXuC7QGWmPhs6LVP9QiaVBTX7fZv-pmWeiEPHhR_zPPO9OhY2vdfoPYEaIP2gKJ9c8txBEpJL8ECxdrg44CUr-lPy6C8DM9gzIuh7yfd2DHKY4NhseZUvs84aUXY2_rDth5ayxrUtaIG_hpy0jdGmDtQ-3NjlPlMyff8M4U9ydq56ua-1V7ex7O7rlV0XlgM1uHS3ETNed1TTDpSAUPUuhxcyNOaazxOgYp0cjdTNFRIGOcTLl0SEFl7V6K58TxSIJJVedg",
+  // "Cómo funciona" paso 1: registro de alimentos y carbohidratos
   registro:
-    "https://lh3.googleusercontent.com/aida/AEtjO1VirR7JlF1jQekd-g3Q7O7FH1RpKfShwUEgLuDSc4UIV60xxl-HEj9epFgZelSw9JbzTFjvATrtW3kO-4UOrgFrDTS2euV5ev8tA22EB6KREqtE72LNzzj90R8VVvxap20qP5OrdPQmFg2uw_qosTQiIl7GKnFIt5KNFMAPAN4tKiiaN7HxuwB50bYFIUN45MhhVz9gsoVpMBfZk_MeRl2Z9EKosZcY97o6QMANoknaFMAWzsM8VxsyNd_icxCksfFV_UuzGooxRQ",
+    "https://lh3.googleusercontent.com/aida-public/AB6AXuCexdqpO1nW-_rc-YcI6jfp6ETSWQmPc7Pokml6fFYN10fD6a2Htt7pvny-NH_RK1ESfqv1nxHnqNlUJ1WKhd8hEVWLSkQylW4B0jaHsCknjnJhbB0rMwtDHIxNI7TGN_ilwjI0CeP8vl0PuKXLu2jqnFplts1DywkPhlhwtQn3EfFKTsTPHIttArKJg-NdrxpMLzWG9Qo1TdCPhC-T15wmJsh1221Mg6LxsiSsDZwgF7DJEDlgzw3UPsCLNt-AR5_w7g",
+  // "Cómo funciona" paso 2: Daily Log diario
+  dailyLog:
+    "https://lh3.googleusercontent.com/aida-public/AB6AXuDxbxgnOUN9JkBjTOtqfvSjDMibVwkfxjPU783r0-mfX1hRfKf0ekAw3XqcqmtcQgUhS_16i5hhzDEWvUsjbvjkkUk-RazLxVCZkwatNeFNWC51UHcj2fO4V-MuKQ9LjZzmoEhqQtxIzjUEVLWMMvGvXqz1aKZvXLgIE5GMFFcmsyCfkjEF60Mr8hHYthNN-wivg__PTN_0Xw53xPyXY813N7DbtLoLM0QvEZJLJNfv4QgulA29ppRO076fzJ6oOIwdYQ",
+  // "Cómo funciona" paso 3: rangos objetivo (Hipo/Target/Hyper)
+  treatmentSteps:
+    "https://lh3.googleusercontent.com/aida-public/AB6AXuCHDz723sKM5bQoQ5GGuOKzCGjZ4vJOAvJBMPkw1tyVPWP2cbLWkQ1H6qQWLqRz6oSYcEJnReEPt_CXEj6vV9B3VWpog_je-9L1ZeQWJZznjczPoqV5eGZ6le7_PdEVzvGZrv04ajnHrOWlonKYOhM-kEsqTYWY32Y2g7UAp9gDTsjUKtNDvuTNvkvm5RoR-Zqf0IFqxtpyBlnlhe0EMVL9M5MLaqIH37Ec6p45sZiqMok4C6WVff7Y49c6gZlTO0Xv-w",
+  // Sección Gamificación: pantalla de logros
+  gamification:
+    "https://lh3.googleusercontent.com/aida-public/AB6AXuDHWsdvemnMofeQsiVPWVhCP2IhL0TqmEyRJnhzeR-cOUtf0AlglAKpv9tbrMO59QfZtFLWnYaDHi3yG3-KoEwPZbknB7kYz4uRmpKngVlMXjixjAw87HXs9mIuObMyT6h61r4yu1SrxOn74uK-suADZ3oqL-7rMci2Uf3q5_IWjYhEyM3wspwaVX8FBNEQTFTd3fWOKarJ4eZtnSunqkay4v5eldvJq5W1wbhd66-5Du_StXAKuLyjYv2aUxJX2zYT8Q",
+  // "Un día con SugarCoach": actividad con planeta 3D
+  activity:
+    "https://lh3.googleusercontent.com/aida-public/AB6AXuARIikUJ0usGTC40TatKdme_Pn18uQeAuoNetqc48cN1_RAww8nqXYvl4K-tMABr68f-yYkyhHCgq-w6lXHqb2ztm99dclh0xLQgqtbT158mlFICbrfjVo4E8AlH9gZxn0oLdn0LetZe_VxVi03iF4nonCz7mAtzPnwCPVCYIk4yoFgGATP-UqptsxnN9aA5p5fjPTgle5sWItPr2hZX9ETBYM-I7G0L7G6ZQplDpdfG86EzyUQs8lH2NVrqt8Ec5C29g",
+  // Sección Estadísticas: Glucose vs Insulin
+  stats:
+    "https://lh3.googleusercontent.com/aida-public/AB6AXuBV5yOs9xtXD5p_0nyDgrmCUCQL77HdzGdWhwkOaNOfyvKEU_XmD1oBRWLOJfBQXclF35ieOI_WnAQtQ3kQXTpcpDNr62TIVhj_4ZNmVnpALOJ-7IrXngV1EBkGZXbUOWwmWlGfhQdsLsxiD3PG-y-oZWdN8PiVYESJ4zwjm6CeZxnjdC28a8FOY1EcPYHY3T3-DLmRn5nqEJ6o6KTdd9n-RA986INlrfWu0lONqd2ACTLJamDgtD1aXoc1kVkQ90LKZg",
+  // Sección Tratamiento: configuración de insulina
   treatment:
-    "https://lh3.googleusercontent.com/aida/AEtjO1WQLeZMWLi4ssnWNT0j_EHMpyjjClt-xrkVMtu3Am0ak-ErBc5vO42PN3E3SPRA7iTgpDgY2FKmJvIkJV5E-bYxbQD34I3vy8OhaH_JSaIvLjierJdnfh2msemNaJsTpEH9VNjWw0UMfrolzfg3L0rQkUO36xb-PUsJZAeJ8K_Jn6EbiuKrRn3mgRoYAXLGmhugi0byfcV7m5zcFY32yAuzEG85w07fDmJ5izuxicjufmiz80PHM1wAVvwaHwS6WOUQC7PslNrfCQ",
+    "https://lh3.googleusercontent.com/aida-public/AB6AXuBdnL9hueeM7B6w2_vgqGKhKBXQpsz_itiH2gNZZv8WEWJqmWNQiSUwIV-6Oz-3n8pRglXEV9hXPtqVPgpseL3rXsBAQtDkqpLgY9E_LQ-MWvJAWV0lNjd8VXeaWvHzIwkgvF7xlNgc3Jnf71dksv8YC1V7l7QypaIiInR5BP4CFtaNxYFmBM3yNdCKcNgPJ9_471EZaevIaFZF_o7tLq86M_ksxEQBGwHNq-JiZsPezTTM0t0maLKTh-MgG0byB_XjJQ",
 } as const;
 
 export const TEAM_PHOTOS: Record<string, string> = {
@@ -36,5 +55,10 @@ export const TEAM_PHOTOS: Record<string, string> = {
     "https://lh3.googleusercontent.com/aida-public/AB6AXuAcDRb0o4-k3Jt6zeIh6E75KmW7HIVsp8USMqCLjutNQ39_qqKa80g7NzrwzLuyVyQpM8WXuCUxS3ygDiGyOPehjrh-rB8E2d1HWDKd5B8l6UBXzm0URwIFbUouYlb33ikROIeGTME0firlhT1N7oGcOJ1gcrOET5zpb6mWG3SBuXXX5iU_2CXTVl1jetjd8GX1UgVn52i0KuG__RBFsGXeObjozi5ROPRL3cF-Ayu9b_T829zuMuiR7krg1FEK83tO3w",
 };
 
-export const MASCOT_SRC =
-  "https://lh3.googleusercontent.com/aida/AEtjO1VZ1rQjn8lEMaNV7dd3v2vvNPw8KSs9b3tM4RzhGDmgoxCDWrVR9BEuZy6irWoChLnfZYhgNxHc4_wDtoPOmn5YOXMtaeSAljGosAxMEzpmVGSKMn_bnNjPftoovMCQWygsXjFAG_ZAWqRgrnlPtczTk_U4rz8LA5HU-Q9BOMBT9zF0JEpdBuCU9L6_VHdPNpyGOFJHUt9eIiaZS4k03N8FP31oI3mq_Fmae52mFDSlscwV-s5SHywj9WKYsk_JwyYMfB6NGjur";
+// "Nuestra Historia": foto de equipo fundador/directivo
+export const OUR_STORY_PHOTO =
+  "https://lh3.googleusercontent.com/aida-public/AB6AXuBJ4JchESmFNHzQGmGz2qXZiBA3PzjhRAeJj2oI94MKyhcz5sgSln6mZ4dOoZjE8qoKwLwkRjTurpVppo9VdNteDhy_2f4yYzO4TSjwrNQIwPkK-tuAKImRd95EMuJGc0EPJ4t_SiuU2iB-O4UZ-ZnKbZsn8RvBHiKCy78Ts4X983q1stMFViy8hlMl57mALCznyZZbf-eL_dghug3oE-dju0xOir1skkJFPvMINlGea2t8oJzQW47_pj_8LGp3Mk6jfg";
+
+// CTA final: logo grande dentro del panel de vidrio
+export const CTA_LOGO =
+  "https://lh3.googleusercontent.com/aida-public/AB6AXuCR9N-z6VZiIC6v1JczWYnPJidEFwtREYNsDm6kFnvFOo3Igk6I44lCHPLpvzP-jEDCEu1gXlnrAus1axlxghjdo1dJI3DVxR9aPjPSJLEfgDOKyU8dPvEjwe41GoFDTo41hTtqqr-9iIRxJvm5dDR7SSJy6EDWp1ODRArIOKbf5uATtrPF_xUZ_CsqCNVgyug0WPSpr3i8FrDRQ5dcGFaZQC-xWsfopnUSKgvCo-E4mVrA6KxvN8tvaRWmy1v4YuH_iQ";

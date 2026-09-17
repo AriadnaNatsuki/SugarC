@@ -1,23 +1,25 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Accessibility, Contrast, MoonStar, SunMedium } from "lucide-react";
-import { THEME_LABELS, useTheme, type Theme } from "@/lib/theme";
-import { cn } from "@/lib/utils";
+import { useTheme, type Theme } from "@/lib/theme";
+import { useLanguage } from "@/lib/i18n";
+import { MaterialIcon } from "@/components/ui/MaterialIcon";
 
-const ITEMS: { value: Theme; icon: typeof SunMedium }[] = [
-  { value: "light", icon: SunMedium },
-  { value: "dark", icon: MoonStar },
-  { value: "a11y", icon: Accessibility },
+const ITEMS: { value: Theme; icon: string }[] = [
+  { value: "light", icon: "light_mode" },
+  { value: "dark", icon: "dark_mode" },
+  { value: "a11y", icon: "accessibility_new" },
 ];
 
 /**
- * Selector de modo de color (Claro / Oscuro / Accesible), fiel al del HTML
- * de referencia: botón con menú `menu`/`menuitemradio`, `aria-current`,
- * cierre con Escape y clic fuera, foco devuelto al botón.
+ * Selector de modo de color (Claro / Oscuro / Accesible), calcado del
+ * `#themeMenuBtn` / `#themeMenu` de index.html: botón redondo `.theme-toggle`
+ * con menú `.theme-menu`, `aria-current`, cierre con Escape y clic afuera.
  */
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
+  const { t } = useLanguage();
+  const LABELS: Record<Theme, string> = { light: t("theme.light"), dark: t("theme.dark"), a11y: t("theme.accessible") };
   const [open, setOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
   const btnRef = useRef<HTMLButtonElement>(null);
@@ -39,7 +41,7 @@ export function ThemeToggle() {
       document.removeEventListener("mousedown", onPointerDown);
       document.removeEventListener("keydown", onKeyDown);
     };
-  }, [open ]);
+  }, [open]);
 
   return (
     <div ref={rootRef} className="relative">
@@ -48,21 +50,16 @@ export function ThemeToggle() {
         type="button"
         aria-haspopup="true"
         aria-expanded={open}
-        aria-controls="theme-menu"
-        aria-label={`Modo de color: ${THEME_LABELS[theme]}. Cambiar modo`}
+        aria-controls="themeMenu"
+        aria-label={`Modo de color: ${LABELS[theme]}. Cambiar modo`}
         onClick={() => setOpen((v) => !v)}
-        className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-line bg-card text-ink transition-colors hover:bg-tint/10"
+        className="theme-toggle"
       >
-        <Contrast className="h-5 w-5" />
+        <MaterialIcon name="contrast" style={{ fontSize: 20 }} />
       </button>
       {open && (
-        <div
-          id="theme-menu"
-          role="menu"
-          aria-label="Modo de color"
-          className="absolute right-0 top-[calc(100%+8px)] z-[60] min-w-[168px] rounded-2xl border border-line bg-card p-1.5 shadow-xl"
-        >
-          {ITEMS.map(({ value, icon: Icon }) => {
+        <div id="themeMenu" role="menu" aria-label="Modo de color" className="theme-menu">
+          {ITEMS.map(({ value, icon }) => {
             const active = theme === value;
             return (
               <button
@@ -76,13 +73,10 @@ export function ThemeToggle() {
                   setOpen(false);
                   btnRef.current?.focus();
                 }}
-                className={cn(
-                  "flex min-h-[44px] w-full items-center gap-2 rounded-xl px-3 py-2.5 text-left text-sm font-semibold transition-colors",
-                  active ? "bg-brand-gradient text-white" : "text-body hover:bg-tint/10 hover:text-ink",
-                )}
+                className="theme-menu-item"
               >
-                <Icon className="h-[18px] w-[18px]" />
-                {THEME_LABELS[value]}
+                <MaterialIcon name={icon} style={{ fontSize: 18 }} />
+                {LABELS[value]}
               </button>
             );
           })}
