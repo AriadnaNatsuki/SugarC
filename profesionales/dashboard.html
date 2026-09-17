@@ -1,389 +1,597 @@
 <!DOCTYPE html>
-<html class="dark" lang="es">
+<html lang="es">
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>SugarCoach · Profesionales · Dashboard</title>
+<title>SugarCoach · Dashboard Profesional</title>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={theme:{extend:{colors:{white:"#F6F3F1"}}}};</script>
 <style>
-  @layer base {
-    html, body { margin:0; padding:0; background-color:#1C0433; }
-    body { overscroll-behavior:none; }
-  }
-  ::-webkit-scrollbar { display:none; }
-  .btn-pro {
-    background: linear-gradient(135deg, #96036F 0%, #DF089C 60%, #A90789 100%);
-    box-shadow: 0 10px 30px -6px rgba(223,8,156,.55);
-  }
-  .btn-pro:hover { filter:brightness(1.08); box-shadow:0 14px 36px -4px rgba(223,8,156,.7); }
-  .nav-link-active { color:#fff !important; position:relative; }
-  .nav-link-active::after {
-    content:""; position:absolute; left:0; right:0; bottom:-8px; height:2px; border-radius:9999px;
-    background:linear-gradient(90deg,#C45CFF 0%,#DF089C 100%);
-  }
-  .tab-active {
-    background:rgba(223,8,156,.16) !important; border-color:rgba(223,8,156,.55) !important; color:#fff !important;
-  }
-  .patient-active { background:rgba(223,8,156,.12) !important; border-color:rgba(223,8,156,.55) !important; }
-  #sidebar { transition:transform .28s ease; }
-  @media (max-width:1023px){
-    #sidebar { position:fixed; top:0; left:0; bottom:0; z-index:60; transform:translateX(-105%); width:300px; }
-    #sidebar.open { transform:translateX(0); }
-  }
-</style>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script id="tailwind-config">
-tailwind.config = {
-  darkMode:"class",
-  theme:{ extend:{
-    colors:{
-      "surface":"#050B1D","bg-deep":"#050B1D","on-surface":"#F7F8FC",
-      "surface-tier-1":"#0D1733","surface-tier-2":"#111D3D","surface-tier-3":"#172344",
-      "primary":"#C45CFF","primary-container":"#A94FCE","primary-fixed-dim":"#e7b4ff",
-      "secondary":"#2BC5C7","tertiary-container":"#ff3fb4","neon-magenta":"#ff3fb4",
-      "text-primary":"#F7F8FC","text-secondary":"#A8B0C5","text-tertiary":"#747F9B",
-      "accent-yellow":"#f6c744",
-      "pro-base":"#1C0433","pro-surface":"#240C4C","pro-plum":"#5B0556",
-      "pro-magenta-dark":"#96036F","pro-magenta-deep":"#A90789",
-      "pro-magenta":"#DF089C","pro-lilac":"#94679A","pro-mist":"#E8DDEE",
-      "med-ok":"#34D399","med-warn":"#F6C744","med-high":"#FB7185"
-    },
-    spacing:{
-      "gutter-desktop":"2rem","gutter-tablet":"1.5rem","gutter-mobile":"1rem",
-      "space-md":"1rem","space-lg":"1.5rem","space-xl":"2rem","space-xs":"0.5rem",
-      "space-2xl":"3rem","space-3xl":"4.5rem","space-sm":"0.75rem"
-    },
-    fontFamily:{
-      "display-lg":["Plus Jakarta Sans"],"headline-lg":["Plus Jakarta Sans"],
-      "headline-md":["Plus Jakarta Sans"],"headline-sm":["Plus Jakarta Sans"],
-      "label-lg":["Plus Jakarta Sans"],"label-md":["Plus Jakarta Sans"],
-      "label-sm":["Plus Jakarta Sans"],"body-lg":["Plus Jakarta Sans"],
-      "body-md":["Plus Jakarta Sans"],"body-sm":["Plus Jakarta Sans"]
-    },
-    fontSize:{
-      "display-lg":["48px",{lineHeight:"56px",letterSpacing:"-0.02em",fontWeight:"800"}],
-      "display-lg-mobile":["36px",{lineHeight:"44px",letterSpacing:"-0.02em",fontWeight:"800"}],
-      "headline-lg":["32px",{lineHeight:"40px",letterSpacing:"-0.015em",fontWeight:"700"}],
-      "headline-md":["22px",{lineHeight:"30px",letterSpacing:"-0.01em",fontWeight:"700"}],
-      "headline-sm":["18px",{lineHeight:"26px",fontWeight:"600"}],
-      "label-lg":["15px",{lineHeight:"20px",fontWeight:"600"}],
-      "label-md":["13px",{lineHeight:"18px",fontWeight:"600"}],
-      "label-sm":["11px",{lineHeight:"14px",fontWeight:"700"}],
-      "body-lg":["16px",{lineHeight:"26px",fontWeight:"400"}],
-      "body-md":["14px",{lineHeight:"22px",fontWeight:"400"}],
-      "body-sm":["12px",{lineHeight:"18px",fontWeight:"400"}]
-    }
-  }}
-};
-</script>
-</head>
-<body class="bg-pro-base font-body-md text-body-md text-on-surface antialiased selection:bg-pro-magenta selection:text-white">
+  :root{
+    --ok:#55CEBA; --ok-dim:#3AB4A2; --low:#EF7D8A; --high:#EABE53;
+    --page-a:#281B4C; --page-b:#552D90; --page-c:#893057; --page-d:#C04576; --page-e:#DD6D75;
 
-<!-- HEADER: idéntico a profesionales.html, Profesionales queda activo también aquí -->
-<header class="fixed top-0 left-0 w-full z-50 bg-[#1C0433]/85 backdrop-blur-xl border-b border-white/[0.08]">
-<div class="h-20 max-w-[1200px] mx-auto px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop flex items-center justify-between gap-space-md">
-<a class="flex items-center gap-2 group" href="../profesionales.html">
-<div class="p-1.5 rounded-xl bg-white/[0.05] border border-white/10 group-hover:border-pro-magenta/40 transition-colors">
-<img alt="SugarCoach Logo Oficial" class="h-8 md:h-9 w-auto object-contain transition-transform group-hover:scale-105 filter drop-shadow-[0_2px_8px_rgba(223,8,156,0.35)]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8eBq5eQzruXAMaTMxS_mzvsFb1bqQZoOJo_sgOORoLvheBayGVtP9dU7nDlzZYdwZNQVwTFYYgeROtKpHUd1AImgnm6weuGvK1fVq8Rte1_6VEX-q6TbSPSXGHx6Ci4lM-0u6rOEMnhiK0p02cLKkkUgEoaJA6YZL42b_J_b_Q6_OlBBhwX0Gl4_PGoGXnzigYnGuFOeFzt-FYxPdTaszPfoxlDiG_Cm7bBP6Wak5E5MbhnWDv7ctpxYvr0LgzU8JkQ"/>
-</div>
-</a>
-<nav class="hidden lg:flex items-center gap-space-lg" aria-label="Navegación principal">
-<a class="font-label-lg text-label-lg text-text-secondary hover:text-white transition-colors" href="../index.html#como-funciona">Cómo funciona</a>
-<a class="font-label-lg text-label-lg text-text-secondary hover:text-white transition-colors" href="../index.html#familias">Para familias</a>
-<a class="font-label-lg text-label-lg text-white nav-link-active" data-path="profesionales" href="../profesionales.html" aria-current="page">Profesionales</a>
-<a class="font-label-lg text-label-lg text-text-secondary hover:text-white transition-colors" href="../index.html#gamificacion">Logros</a>
-<a class="font-label-lg text-label-lg text-text-secondary hover:text-white transition-colors" href="../index.html#tratamiento">Tratamiento</a>
-</nav>
-<div class="flex items-center gap-space-md">
-<button id="btn-menu" class="lg:hidden inline-flex items-center gap-1.5 h-11 px-4 rounded-full bg-white/[0.06] border border-white/10 font-label-lg text-label-lg" aria-label="Abrir pacientes y buscar">
-<span class="material-symbols-outlined text-[20px]">search</span> Pacientes
-</button>
-<a class="hidden sm:inline-flex items-center gap-2 px-space-lg py-space-xs min-h-[44px] rounded-full btn-pro text-white font-label-lg border border-white/20" href="../profesionales.html#acceso-profesional">
-<span class="material-symbols-outlined text-[18px]">stethoscope</span> Panel
-</a>
-</div>
-</div>
+    /* Alturas de layout: una sola fuente de verdad para navbar + aire superior */
+    --nav-h:64px;
+    --gap-top:40px;          /* aire entre navbar y contenido */
+    --sticky-top:calc(var(--nav-h) + var(--gap-top));
+  }
+
+  /* Reserva siempre el canal del scrollbar: sin esto el layout salta de lado
+     al pasar de un paciente con mucho contenido a uno con poco. */
+  html{ scrollbar-gutter:stable; }
+  html,body{ margin:0; padding:0; }
+  body{
+    font-family:"Plus Jakarta Sans",system-ui,sans-serif;
+    /* Velo crema sobre el degradado: baja la saturación general y calienta
+       las zonas claras sin lavar el contraste del texto. */
+    background:
+      radial-gradient(1100px 700px at 12% 6%, rgba(244,237,226,.12), transparent 62%),
+      radial-gradient(900px 900px at 92% 96%, rgba(244,237,226,.10), transparent 60%),
+      linear-gradient(135deg, var(--page-a) 0%, var(--page-b) 32%, var(--page-c) 60%, var(--page-d) 82%, var(--page-e) 100%);
+    background-attachment: fixed;
+    color:#F6F3F1;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::-webkit-scrollbar{ width:8px; height:8px; }
+  ::-webkit-scrollbar-thumb{ background:rgba(251,249,245,.15); border-radius:9999px; }
+  .material-symbols-outlined{ font-variation-settings:'FILL' 0,'wght' 500,'GRAD' 0,'opsz' 24; }
+
+  .card{ background:rgba(251,249,245,.06); border:1px solid rgba(251,249,245,.10); border-radius:1.5rem; backdrop-filter:blur(6px); }
+  .card-soft{ background:rgba(251,249,245,.045); border:1px solid rgba(251,249,245,.08); border-radius:1.25rem; }
+
+  .chip{ display:inline-flex; align-items:center; gap:.35rem; padding:.4rem .8rem; border-radius:9999px; font-size:12px; font-weight:600; background:rgba(251,249,245,.05); border:1px solid rgba(251,249,245,.14); color:#EBE4E9; }
+  .chip-hipo{ border-color:rgba(239,125,138,.5); color:#F7B0B7; background:rgba(239,125,138,.08); }
+  .chip-hiper{ border-color:rgba(234,190,83,.5); color:#EABE53; background:rgba(234,190,83,.08); }
+  .chip-target{ border-color:rgba(85,206,186,.55); color:#93E4D9; background:rgba(85,206,186,.10); }
+
+  .tab-btn{ position:relative; padding:.55rem .25rem; font-weight:600; font-size:14.5px; color:rgba(247,248,252,.55); border-bottom:2px solid transparent; transition:color .15s ease, border-color .15s ease; }
+  .tab-btn:hover{ color:#fff; }
+  .tab-btn.active{ color:#fff; border-color:var(--ok); }
+
+  .toggle-pill{ padding:.4rem .95rem; border-radius:9999px; font-size:12.5px; font-weight:600; color:rgba(247,248,252,.6); background:rgba(251,249,245,.05); border:1px solid rgba(251,249,245,.10); transition:all .15s ease; }
+  .toggle-pill.active{ background:rgba(85,206,186,.16); border-color:rgba(85,206,186,.55); color:#fff; }
+
+  .patient-row{ display:flex; align-items:center; gap:.75rem; padding:.65rem .7rem; border-radius:1rem; border:1px solid transparent; background:rgba(251,249,245,.04); text-align:left; width:100%; transition:background .15s ease, border-color .15s ease; cursor:pointer; }
+  .patient-row:hover{ background:rgba(251,249,245,.08); border-color:rgba(251,249,245,.14); }
+  .patient-row.active{ background:rgba(85,206,186,.12); border-color:rgba(85,206,186,.45); }
+
+  .avatar{ width:2.6rem; height:2.6rem; border-radius:.9rem; display:flex; align-items:center; justify-content:center; font-weight:800; color:#1A1922; flex-shrink:0; font-size:13.5px; }
+  .avatar-accent{ background:linear-gradient(135deg,#7EE4D0,#55CEBA); color:#152D29; }
+  .avatar-muted{ background:rgba(251,249,245,.10); color:#EBE4E9; }
+
+  .dot{ width:.55rem; height:.55rem; border-radius:9999px; flex-shrink:0; }
+  .dot-green{ background:#55CEBA; box-shadow:0 0 0 3px rgba(85,206,186,.18); }
+  .dot-amber{ background:#EABE53; box-shadow:0 0 0 3px rgba(234,190,83,.18); }
+  .dot-gray{ background:rgba(251,249,245,.35); }
+
+  .btn-invite{ background:linear-gradient(135deg,#CD3694 0%,#9D2A81 100%); box-shadow:0 10px 24px -8px rgba(205,54,148,.6); }
+  .btn-invite:hover{ filter:brightness(1.08); }
+
+  .row-line{ display:flex; align-items:center; justify-content:space-between; gap:1.5rem; padding:.85rem 0; border-bottom:1px solid rgba(251,249,245,.08); }
+  .row-line:last-child{ border-bottom:none; }
+  .row-label{ font-size:11.5px; letter-spacing:.06em; text-transform:uppercase; font-weight:700; color:rgba(251,249,245,.4); }
+  .row-value{ font-weight:700; font-size:14.5px; text-align:right; display:inline-flex; align-items:center; gap:.5rem; }
+  .row-note{ display:block; font-weight:500; font-size:12px; color:rgba(251,249,245,.4); margin-top:.15rem; }
+  .row-muted .row-value{ color:rgba(251,249,245,.45); font-weight:600; }
+
+  /* ---------- Sidebar ---------- */
+  /* Panel de vidrio en vez de bloque sólido: toma el color del degradado
+     que tiene detrás, así el contraste con el contenido es suave. */
+  #sidebar{
+    background:linear-gradient(180deg, rgba(44,30,77,.55) 0%, rgba(44,30,77,.34) 100%);
+    border:1px solid rgba(251,249,245,.12);
+    backdrop-filter:blur(22px) saturate(140%);
+    -webkit-backdrop-filter:blur(22px) saturate(140%);
+    box-shadow:0 30px 60px -40px rgba(20,14,13,.60);
+    transition:transform .28s ease;
+  }
+  @media (min-width:1024px){
+    #sidebar{
+      position:sticky;
+      top:var(--sticky-top);
+      align-self:flex-start;               /* no se estira con el contenido */
+      max-height:calc(100vh - var(--sticky-top) - 24px);
+    }
+  }
+  @media (max-width:1023px){
+    #sidebar{
+      position:fixed; top:0; left:0; bottom:0; z-index:60;
+      transform:translateX(-105%); width:300px; border-radius:0 1.5rem 1.5rem 0;
+      background:linear-gradient(180deg, rgba(36,24,63,.96) 0%, rgba(30,20,52,.96) 100%);
+    }
+    #sidebar.open{ transform:translateX(0); }
+  }
+
+  /* Donut de tiempo en rango: agujero real con mask, así no depende de un
+     color sólido que tenga que coincidir con el fondo. */
+  .donut{
+    -webkit-mask:radial-gradient(circle at 50% 50%, transparent 57%, #000 58%);
+    mask:radial-gradient(circle at 50% 50%, transparent 57%, #000 58%);
+  }
+
+  :focus-visible{ outline:2px solid #7EE4D0; outline-offset:2px; border-radius:.5rem; }
+  @media (prefers-reduced-motion:reduce){ *{ transition:none !important; } }
+</style>
+</head>
+<body class="min-h-screen">
+
+<!-- ============ TOPBAR ============ -->
+<header class="fixed top-0 left-0 w-full z-50 border-b border-white/[0.08]" style="height:var(--nav-h); background:rgba(36,24,63,.55); backdrop-filter:blur(20px) saturate(140%); -webkit-backdrop-filter:blur(20px) saturate(140%);">
+  <div class="h-full max-w-[1400px] mx-auto px-4 md:px-8 flex items-center justify-between">
+    <a href="../profesionales.html" class="flex items-center gap-2.5 group">
+      <span class="w-9 h-9 rounded-xl flex items-center justify-center font-extrabold text-[13px]" style="background:linear-gradient(135deg,#7EE4D0,#55CEBA); color:#152D29;">SC</span>
+      <span class="font-extrabold text-[15px] tracking-tight text-white hidden sm:inline">SugarCoach <span class="font-medium text-white/45">· Profesionales</span></span>
+    </a>
+    <a href="../profesionales.html" class="inline-flex items-center gap-2 h-10 px-4 rounded-full bg-white/[0.06] border border-white/15 text-[13px] font-semibold text-white hover:bg-white/[0.12] transition-colors">
+      <span class="material-symbols-outlined text-[18px]">logout</span>
+      <span>Salir</span>
+    </a>
+  </div>
 </header>
 
 <div id="overlay" class="hidden fixed inset-0 bg-black/60 z-50 lg:hidden"></div>
 
-<main class="w-full pt-20 min-h-screen">
-<div class="max-w-[1200px] mx-auto px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop py-space-lg md:py-space-xl">
+<!-- ============ LAYOUT ============ -->
+<div class="max-w-[1400px] mx-auto flex gap-6 px-4 md:px-8 items-start"
+     style="padding-top:calc(var(--nav-h) + var(--gap-top)); padding-bottom:40px;">
 
-<!-- Breadcrumb + flujo -->
-<div class="flex flex-wrap items-center justify-between gap-3 mb-space-lg">
-<div class="flex items-center gap-2 font-body-sm text-body-sm text-text-secondary">
-<a href="../profesionales.html" class="hover:text-white">Profesionales</a>
-<span class="text-white/20">/</span>
-<span class="text-white font-bold">Dashboard</span>
-<span class="hidden sm:inline-flex ml-2 px-2.5 py-0.5 rounded-full bg-pro-magenta/15 border border-pro-magenta/40 text-pro-mist font-label-sm">Vista demo · datos simulados</span>
-</div>
-<div class="flex items-center gap-2 font-body-sm text-body-sm text-text-secondary">
-<span class="w-2 h-2 rounded-full bg-med-ok animate-pulse"></span>
-<span id="flow-step">1. Login ✓ &nbsp;·&nbsp; 2. Paciente seleccionado &nbsp;·&nbsp; 3. Monitoreo</span>
-</div>
-</div>
+  <!-- SIDEBAR -->
+  <aside id="sidebar" class="w-[280px] shrink-0 rounded-3xl p-5 flex flex-col gap-4 overflow-y-auto">
+    <div class="flex items-center justify-between lg:hidden">
+      <span class="text-xs uppercase tracking-wider text-white/40 font-bold">Pacientes</span>
+      <button id="btn-close" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center" aria-label="Cerrar"><span class="material-symbols-outlined text-[18px]">close</span></button>
+    </div>
 
-<div class="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-space-lg items-start">
+    <!-- Doctor profile -->
+    <div class="flex items-center gap-3">
+      <div class="avatar avatar-accent w-11 h-11">DG</div>
+      <div class="min-w-0">
+        <p class="font-bold text-white text-[15px] truncate">Dra. García</p>
+        <p class="text-[12.5px] text-white/50 truncate">Endocrinóloga</p>
+      </div>
+    </div>
 
-<!-- Buscador visible siempre en mobile: abre el sidebar y enfoca el input -->
-<button id="btn-search-mobile" class="lg:hidden flex items-center gap-2 px-4 h-[48px] rounded-full bg-black/30 border border-white/10 text-left w-full">
-<span class="material-symbols-outlined text-text-tertiary text-[20px]">search</span>
-<span class="text-[14px] text-pro-lilac">Buscar paciente…</span>
-<span class="ml-auto font-label-sm text-label-sm text-pro-magenta font-bold">Ver lista</span>
-</button>
+    <!-- Search -->
+    <div class="flex items-center gap-2 px-4 h-11 rounded-full bg-black/20 border border-white/10 focus-within:border-[#55CEBA]/60 transition-colors">
+      <span class="material-symbols-outlined text-white/40 text-[19px]">search</span>
+      <input id="search" type="text" autocomplete="off" placeholder="Buscar paciente…" class="bg-transparent border-0 outline-none ring-0 focus:ring-0 w-full text-[14px] text-white placeholder:text-white/35 p-0"/>
+      <button id="search-clear" class="hidden w-6 h-6 rounded-full bg-white/10 items-center justify-center" aria-label="Limpiar búsqueda">
+        <span class="material-symbols-outlined text-[14px] text-white/60">close</span>
+      </button>
+    </div>
+    <p id="search-count" class="text-[12px] text-white/35 -mt-2"></p>
 
-<!-- ============ SIDEBAR ============ -->
-<aside id="sidebar" class="bg-pro-surface border border-pro-magenta-dark/40 rounded-3xl p-space-lg flex-col gap-space-md flex overflow-y-auto max-h-[calc(100vh-120px)] lg:sticky lg:top-24">
-<div class="flex items-center justify-between">
-<span class="font-label-sm text-label-sm uppercase tracking-wider text-text-tertiary">Profesional</span>
-<button id="btn-close" class="lg:hidden w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center" aria-label="Cerrar"><span class="material-symbols-outlined text-[18px]">close</span></button>
-</div>
-<!-- Perfil logueado -->
-<div class="flex items-center gap-3 p-space-sm rounded-2xl bg-pro-base border border-pro-magenta/25">
-<div class="w-12 h-12 rounded-2xl btn-pro flex items-center justify-center font-extrabold text-white">DR</div>
-<div class="flex-1">
-<p class="font-label-lg text-label-lg font-bold text-white">Dra. Ramírez</p>
-<p class="font-body-sm text-body-sm text-text-secondary">Diabetología · MP 45210</p>
-</div>
-<span class="w-2.5 h-2.5 rounded-full bg-med-ok" title="En línea"></span>
-</div>
-<!-- Buscador -->
-<div class="flex items-center gap-2 px-4 h-[48px] rounded-full bg-black/30 border border-white/10 focus-within:border-pro-magenta/60 transition-colors overflow-hidden">
-<span class="material-symbols-outlined text-text-tertiary text-[20px] shrink-0">search</span>
-<input id="search" type="text" autocomplete="off" placeholder="Buscar paciente…" class="bg-transparent border-0 outline-none ring-0 focus:ring-0 w-full min-w-0 flex-1 text-[14px] leading-[22px] text-white placeholder:text-pro-lilac p-0"/>
-<button id="search-clear" class="hidden shrink-0 w-7 h-7 rounded-full bg-white/[0.07] hover:bg-pro-magenta/30 items-center justify-center transition-colors" aria-label="Limpiar búsqueda">
-<span class="material-symbols-outlined text-[16px] text-text-secondary">close</span>
-</button>
-</div>
-<p id="search-count" class="font-body-sm text-body-sm text-text-tertiary"></p>
-<span class="font-label-sm text-label-sm uppercase tracking-wider text-text-tertiary">Pacientes asignados</span>
-<div id="patient-list" class="flex flex-col gap-2"><!-- JS --></div>
-<button id="btn-invite" class="mt-1 inline-flex items-center justify-center gap-2 px-space-lg py-3 rounded-full btn-pro text-white font-label-lg border border-white/20 transition-all active:scale-95">
-<span class="material-symbols-outlined text-[20px]">person_add</span> + Invitar paciente
-</button>
-<p class="font-body-sm text-body-sm text-text-tertiary">Acceso en solo lectura. El paciente aprueba qué se comparte.</p>
-</aside>
+    <div id="patient-list" class="flex flex-col gap-1.5"></div>
 
-<!-- ============ PANEL PRINCIPAL ============ -->
-<section class="flex flex-col gap-space-lg min-w-0">
-<!-- Header paciente -->
-<div class="bg-pro-surface border border-pro-magenta-dark/40 rounded-3xl p-space-lg flex flex-col md:flex-row md:items-center gap-4">
-<div class="flex items-center gap-4 flex-1 min-w-0">
-<div id="p-avatar" class="w-14 h-14 rounded-2xl bg-pro-plum border border-pro-magenta/40 flex items-center justify-center font-extrabold text-white text-lg">LF</div>
-<div class="min-w-0">
-<div class="flex flex-wrap items-center gap-2">
-<h2 id="p-name" class="font-headline-md text-headline-md font-extrabold text-white">Lucía Fernández</h2>
-<span id="p-type" class="px-2.5 py-0.5 rounded-full bg-pro-magenta/15 border border-pro-magenta/40 text-pro-mist font-label-sm">DM1 · Bomba</span>
-</div>
-<p id="p-meta" class="font-body-sm text-body-sm text-text-secondary">14 años · Dx 2021 · Última consulta 02/09</p>
-</div>
-</div>
-<div class="flex flex-wrap items-center gap-2">
-<span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/[0.05] border border-white/10 font-label-md text-label-md text-text-secondary">
-<span class="material-symbols-outlined text-[16px]">visibility</span> Solo lectura
-</span>
-<span id="last-update" class="font-body-sm text-body-sm text-text-tertiary">Actualizado hace 5 min</span>
-<button id="btn-refresh" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white/[0.06] border border-pro-magenta/40 font-label-md text-label-md hover:bg-pro-magenta/20 transition-all active:scale-95">
-<span class="material-symbols-outlined text-[18px] text-pro-magenta">refresh</span> Actualizar
-</button>
-</div>
-</div>
+    <button id="btn-invite" class="mt-1 inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full btn-invite text-white font-bold text-[14px] transition-all active:scale-95">
+      <span class="material-symbols-outlined text-[19px]">person_add</span> Invitar paciente
+    </button>
+    <p class="text-[11.5px] text-white/35 leading-snug">Acceso en solo lectura. El paciente aprueba qué se comparte.</p>
+  </aside>
 
-<!-- Tabs internas -->
-<div class="flex gap-2 overflow-x-auto pb-1" role="tablist" aria-label="Secciones del paciente">
-<button data-tab="inicio" role="tab" class="tab-btn tab-active whitespace-nowrap px-5 py-2.5 rounded-full bg-white/[0.05] border border-white/10 font-label-lg text-label-lg text-text-secondary hover:text-white transition-all">Inicio</button>
-<button data-tab="historial" role="tab" class="tab-btn whitespace-nowrap px-5 py-2.5 rounded-full bg-white/[0.05] border border-white/10 font-label-lg text-label-lg text-text-secondary hover:text-white transition-all">Historial</button>
-<button data-tab="estadisticas" role="tab" class="tab-btn whitespace-nowrap px-5 py-2.5 rounded-full bg-white/[0.05] border border-white/10 font-label-lg text-label-lg text-text-secondary hover:text-white transition-all">Estadísticas</button>
-<button data-tab="tratamiento" role="tab" class="tab-btn whitespace-nowrap px-5 py-2.5 rounded-full bg-white/[0.05] border border-white/10 font-label-lg text-label-lg text-text-secondary hover:text-white transition-all">Tratamiento</button>
-<button data-tab="perfil" role="tab" class="tab-btn whitespace-nowrap px-5 py-2.5 rounded-full bg-white/[0.05] border border-white/10 font-label-lg text-label-lg text-text-secondary hover:text-white transition-all">Perfil</button>
-</div>
+  <!-- MAIN -->
+  <!-- min-height fija: evita que la página se acorte al abrir un paciente
+       sin datos y que aparezca/desaparezca el scroll. -->
+  <main class="flex-1 min-w-0 flex flex-col gap-5" style="min-height:calc(100vh - var(--nav-h) - 80px);">
 
-<!-- TAB: INICIO -->
-<div id="tab-inicio" class="tab-panel flex-col gap-space-lg flex">
-<!-- Valor destacado + rangos -->
-<div class="grid grid-cols-1 md:grid-cols-3 gap-space-lg">
-<div class="md:col-span-1 rounded-3xl p-space-xl border border-pro-magenta/40 relative overflow-hidden" style="background:linear-gradient(160deg,#5B0556 0%,#240C4C 65%)">
-<div class="absolute -top-10 -right-10 w-40 h-40 bg-[#DF089C]/30 rounded-full blur-3xl"></div>
-<p class="font-label-md text-label-md text-pro-mist/80 uppercase tracking-wider">Medición actual</p>
-<div class="flex items-end gap-3 mt-1">
-<span id="big-value" class="font-extrabold text-white" style="font-size:52px;line-height:1">116</span>
-<span class="font-body-md text-body-md text-pro-mist pb-2">mg/dL</span>
-</div>
-<span id="big-badge" class="mt-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-med-ok/15 border border-med-ok/40 text-med-ok font-label-md">● En rango</span>
-<p id="big-sub" class="mt-2 font-body-sm text-body-sm text-pro-mist/80">Hace 25 min · Sensor continuo</p>
-</div>
-<div class="md:col-span-2 grid grid-cols-3 gap-space-sm">
-<div class="rounded-2xl bg-pro-surface border border-white/10 p-space-md text-center">
-<span class="font-label-sm text-label-sm text-text-tertiary uppercase">Mínimo</span>
-<p class="font-headline-md text-headline-md font-extrabold text-white"><span id="r-min">68</span><span class="text-xs font-normal text-text-tertiary"> mg/dL</span></p>
-<p class="font-body-sm text-body-sm text-text-tertiary">7 días</p>
-</div>
-<div class="rounded-2xl bg-pro-surface border border-pro-magenta/40 p-space-md text-center">
-<span class="font-label-sm text-label-sm text-pro-magenta uppercase">Objetivo</span>
-<p class="font-headline-md text-headline-md font-extrabold text-white">100<span class="text-xs font-normal text-text-tertiary"> mg/dL</span></p>
-<p class="font-body-sm text-body-sm text-text-tertiary">Target</p>
-</div>
-<div class="rounded-2xl bg-pro-surface border border-white/10 p-space-md text-center">
-<span class="font-label-sm text-label-sm text-text-tertiary uppercase">Máximo</span>
-<p class="font-headline-md text-headline-md font-extrabold text-white"><span id="r-max">242</span><span class="text-xs font-normal text-text-tertiary"> mg/dL</span></p>
-<p class="font-body-sm text-body-sm text-text-tertiary">7 días</p>
-</div>
-<div class="col-span-3 grid grid-cols-1 sm:grid-cols-3 gap-space-sm">
-<div class="rounded-2xl bg-pro-surface border border-white/10 p-space-md">
-<p class="font-label-sm text-label-sm text-text-tertiary uppercase">En rango · 7 días</p>
-<p class="font-headline-md text-headline-md font-extrabold text-white"><span id="tir">70</span>%</p>
-<p id="tir-delta" class="font-body-sm text-body-sm text-med-ok">▲ +4 pts vs semana anterior</p>
-</div>
-<div class="rounded-2xl bg-pro-surface border border-white/10 p-space-md">
-<p class="font-label-sm text-label-sm text-text-tertiary uppercase">Promedio semanal</p>
-<p class="font-headline-md text-headline-md font-extrabold text-white"><span id="avg">142</span><span class="text-xs font-normal"> mg/dL</span></p>
-<p class="font-body-sm text-body-sm text-text-tertiary">eA1c est. 6.5%</p>
-</div>
-<div class="rounded-2xl bg-pro-surface border border-white/10 p-space-md">
-<p class="font-label-sm text-label-sm text-text-tertiary uppercase">Último registro</p>
-<p id="last-log" class="font-label-lg text-label-lg font-bold text-white">Hoy 07:30 · 118 mg/dL</p>
-<p class="font-body-sm text-body-sm text-text-tertiary">Desayuno + basal OK</p>
-</div>
-</div>
-</div>
-</div>
-<!-- Gráfico -->
-<div class="rounded-3xl bg-pro-surface border border-pro-magenta-dark/40 p-space-lg">
-<div class="flex flex-wrap items-center justify-between gap-2 mb-2">
-<div>
-<h3 class="font-headline-sm text-headline-sm font-bold text-white">Glucosa · últimos 7 días</h3>
-<p class="font-body-sm text-body-sm text-text-tertiary">Banda objetivo 70–180 mg/dL · línea <span class="text-pro-magenta font-bold">fucsia de marca</span></p>
-</div>
-<div class="flex gap-2 font-label-sm text-label-sm">
-<span class="px-2.5 py-1 rounded-full bg-med-ok/15 border border-med-ok/40 text-med-ok">En rango</span>
-<span class="px-2.5 py-1 rounded-full bg-med-warn/15 border border-med-warn/40 text-med-warn">Alerta baja</span>
-<span class="px-2.5 py-1 rounded-full bg-med-high/15 border border-med-high/40 text-med-high">Alerta alta</span>
-</div>
-</div>
-<div class="w-full overflow-x-auto"><canvas id="chart" class="w-full" style="min-width:560px;height:260px"></canvas></div>
-</div>
-</div>
+    <button id="btn-search-mobile" class="lg:hidden flex items-center gap-2 px-4 h-11 rounded-full bg-white/[0.06] border border-white/10 text-left w-full">
+      <span class="material-symbols-outlined text-white/40 text-[19px]">search</span>
+      <span class="text-[13.5px] text-white/50">Buscar paciente…</span>
+      <span class="ml-auto text-[12.5px] text-[#55CEBA] font-bold">Ver lista</span>
+    </button>
 
-<!-- TAB: HISTORIAL -->
-<div id="tab-historial" class="tab-panel hidden flex-col gap-space-sm flex">
-<div class="rounded-3xl bg-pro-surface border border-white/10 p-space-lg overflow-x-auto">
-<table class="w-full text-left min-w-[560px]">
-<thead><tr class="font-label-sm text-label-sm uppercase text-text-tertiary">
-<th class="py-2">Fecha</th><th>Hora</th><th>Glucosa</th><th>Insulina</th><th>Nota</th><th>Estado</th>
-</tr></thead>
-<tbody id="history-body" class="font-body-md text-body-md text-text-secondary"></tbody>
-</table>
-</div>
-</div>
+    <!-- Patient header -->
+    <div class="flex flex-col md:flex-row md:items-center gap-4 justify-between">
+      <div class="flex items-center gap-4 min-w-0">
+        <div id="p-avatar" class="avatar avatar-accent w-14 h-14 text-[16px]">MP</div>
+        <div class="min-w-0">
+          <h2 id="p-name" class="font-extrabold text-[22px] leading-tight text-white truncate">Martina Pérez</h2>
+          <p id="p-meta" class="text-[13.5px] text-white/50">28 años · Diagnóstico: 2018 · Tipo 1</p>
+        </div>
+      </div>
+      <div class="flex flex-wrap items-center gap-2.5">
+        <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/[0.06] border border-white/15 text-[12.5px] font-semibold text-white/80">
+          <span class="material-symbols-outlined text-[16px]">visibility</span> Solo lectura
+        </span>
+        <span id="last-update" class="text-[12.5px] text-white/40">Actualizado hace 8 min</span>
+        <button id="btn-refresh" class="w-10 h-10 rounded-full bg-white/[0.06] border border-white/15 flex items-center justify-center hover:bg-white/[0.12] transition-all active:scale-95" aria-label="Actualizar">
+          <span class="material-symbols-outlined text-[19px] text-[#55CEBA]">refresh</span>
+        </button>
+      </div>
+    </div>
 
-<!-- TAB: ESTADÍSTICAS -->
-<div id="tab-estadisticas" class="tab-panel hidden grid-cols-1 md:grid-cols-3 gap-space-lg hidden">
-<div class="rounded-3xl bg-pro-surface border border-white/10 p-space-lg"><p class="font-label-sm uppercase text-text-tertiary">TIR mensual</p><p class="font-extrabold text-white text-4xl">68%</p><p class="font-body-sm text-text-secondary">Hipo 4% · Hiper 28%</p></div>
-<div class="rounded-3xl bg-pro-surface border border-white/10 p-space-lg"><p class="font-label-sm uppercase text-text-tertiary">Variabilidad (CV)</p><p class="font-extrabold text-white text-4xl">31%</p><p class="font-body-sm text-text-secondary">Objetivo ≤ 36%</p></div>
-<div class="rounded-3xl bg-pro-surface border border-pro-magenta/40 p-space-lg"><p class="font-label-sm uppercase text-pro-magenta">Adherencia registro</p><p class="font-extrabold text-white text-4xl">86%</p><p class="font-body-sm text-text-secondary">6 de 7 días completos</p></div>
-</div>
+    <!-- Tabs -->
+    <div class="flex gap-6 overflow-x-auto border-b border-white/10" role="tablist" aria-label="Secciones del paciente">
+      <button data-tab="inicio" class="tab-btn active">Inicio</button>
+      <button data-tab="historial" class="tab-btn">Historial</button>
+      <button data-tab="estadisticas" class="tab-btn">Estadísticas</button>
+      <button data-tab="tratamiento" class="tab-btn">Tratamiento</button>
+      <button data-tab="perfil" class="tab-btn">Perfil</button>
+    </div>
 
-<!-- TAB: TRATAMIENTO -->
-<div id="tab-tratamiento" class="tab-panel hidden grid-cols-1 md:grid-cols-2 gap-space-lg hidden">
-<div class="rounded-3xl bg-pro-surface border border-white/10 p-space-lg">
-<h3 class="font-headline-sm font-bold text-white mb-3">Rangos personalizados</h3>
-<div class="grid grid-cols-3 gap-2 text-center">
-<div class="rounded-2xl bg-black/30 border border-white/10 p-3"><p class="font-label-sm text-text-tertiary">HIPO</p><p class="font-extrabold text-white text-xl">70</p></div>
-<div class="rounded-2xl bg-black/30 border border-pro-magenta/40 p-3"><p class="font-label-sm text-pro-magenta">TARGET</p><p class="font-extrabold text-white text-xl">100</p></div>
-<div class="rounded-2xl bg-black/30 border border-white/10 p-3"><p class="font-label-sm text-text-tertiary">HIPER</p><p class="font-extrabold text-white text-xl">180</p></div>
-</div>
-</div>
-<div class="rounded-3xl bg-pro-surface border border-white/10 p-space-lg">
-<h3 class="font-headline-sm font-bold text-white mb-3">Esquema actual</h3>
-<ul class="font-body-md text-text-secondary flex flex-col gap-2">
-<li>· Bomba · Basal 0.8 U/h nocturna</li>
-<li>· Rápida: Humalog (corrección 1:40)</li>
-<li>· Lantus de respaldo en viajes</li>
-</ul>
-<button class="mt-4 px-5 py-2.5 rounded-full bg-white/[0.06] border border-pro-magenta/40 font-label-lg hover:bg-pro-magenta/20 transition-all">Exportar PDF para historia clínica</button>
-</div>
-</div>
+    <!-- PENDING STATE -->
+    <div id="pending-panel" class="hidden card p-10 flex flex-col items-center text-center gap-2">
+      <span class="material-symbols-outlined text-[36px] text-white/30">hourglass_top</span>
+      <p class="font-bold text-white text-[16px]">Invitación pendiente</p>
+      <p class="text-white/45 text-[13.5px] max-w-sm">Este paciente todavía no aceptó la invitación. En cuanto vincule su cuenta vas a ver sus datos acá.</p>
+    </div>
 
-<!-- TAB: PERFIL -->
-<div id="tab-perfil" class="tab-panel hidden flex-col gap-space-sm flex">
-<div class="rounded-3xl bg-pro-surface border border-white/10 p-space-lg font-body-md text-text-secondary">
-<p><strong class="text-white">Consentimiento:</strong> comparte glucosa, insulina y actividad. No comparte notas de ánimo.</p>
-<p class="mt-2"><strong class="text-white">Contacto cuidador:</strong> Mamá (sincronizada) · Papá (sincronizado)</p>
-<p class="mt-2"><strong class="text-white">Alergias / notas:</strong> sin alergias registradas.</p>
-</div>
-</div>
+    <div id="tab-content">
 
-</section>
-</div>
-</div>
-</main>
+      <!-- TAB: INICIO -->
+      <div id="tab-inicio" class="tab-panel flex-col gap-5 flex">
+        <div class="grid grid-cols-1 lg:grid-cols-[1.15fr_1fr] gap-5">
+          <div class="card p-8 flex flex-col items-center text-center gap-5">
+            <p class="text-[12px] uppercase tracking-wider text-white/40 font-bold">Medición actual</p>
+            <div class="relative w-[190px] h-[190px]">
+              <svg viewBox="0 0 200 200" class="w-full h-full -rotate-90">
+                <circle cx="100" cy="100" r="85" stroke="rgba(251,249,245,.09)" stroke-width="14" fill="none"/>
+                <circle id="gauge-arc" cx="100" cy="100" r="85" stroke="#55CEBA" stroke-width="14" fill="none" stroke-linecap="round"/>
+              </svg>
+              <div class="absolute inset-0 flex flex-col items-center justify-center">
+                <span id="big-value" class="font-extrabold text-white" style="font-size:44px;line-height:1">116</span>
+                <span class="text-[13px] text-white/50 mt-1">mg/dL</span>
+                <span id="big-state" class="text-[13px] font-bold mt-1.5" style="color:#55CEBA">En rango</span>
+              </div>
+            </div>
+            <div class="flex flex-wrap justify-center gap-2">
+              <span id="chip-hipo" class="chip chip-hipo"><span id="r-min">70</span> mg/dL · Hipo</span>
+              <span id="chip-hiper" class="chip chip-hiper"><span id="r-max">180</span> mg/dL · Hiper</span>
+              <span id="chip-target" class="chip chip-target"><span id="r-target">100</span> mg/dL · Objetivo</span>
+            </div>
+          </div>
 
-<footer class="w-full bg-[#12031F] border-t border-pro-magenta/20 py-space-lg">
-<div class="max-w-[1200px] mx-auto px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop flex flex-col sm:flex-row items-center justify-between gap-2">
-<p class="font-body-sm text-body-sm text-text-tertiary">© 2024 SugarCoach · Panel profesional (solo lectura)</p>
-<a href="../profesionales.html" class="font-body-sm text-body-sm text-pro-magenta hover:text-white">← Volver a Profesionales</a>
+          <div class="flex flex-col gap-4">
+            <div class="card-soft p-5">
+              <p class="text-[11.5px] uppercase tracking-wider text-white/40 font-bold">En rango (7 días)</p>
+              <p class="font-extrabold text-white text-[30px] mt-1"><span id="tir">78</span>%</p>
+              <p id="tir-delta" class="text-[12.5px] font-semibold mt-1" style="color:#55CEBA">↑ 4% vs semana anterior</p>
+            </div>
+            <div class="card-soft p-5">
+              <p class="text-[11.5px] uppercase tracking-wider text-white/40 font-bold">Promedio semanal</p>
+              <p class="font-extrabold text-white text-[30px] mt-1"><span id="avg">134</span> <span class="text-[15px] font-semibold text-white/50">mg/dL</span></p>
+              <p class="text-[12.5px] text-white/40 mt-1">Últimos 7 días</p>
+            </div>
+            <div class="card-soft p-5">
+              <p class="text-[11.5px] uppercase tracking-wider text-white/40 font-bold">Último registro</p>
+              <p id="last-log-time" class="font-extrabold text-white text-[19px] mt-1">hace 8 min</p>
+              <p id="last-log-detail" class="text-[12.5px] text-white/40 mt-1">Desayuno · 2U insulina · 45g HC</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card p-6">
+          <h3 class="font-bold text-white text-[16px]">Glucemia — últimos 7 días</h3>
+          <p class="text-[12.5px] text-white/40 mb-1">Banda objetivo 70–180 mg/dL</p>
+          <div class="w-full overflow-x-auto"><canvas id="chart" class="w-full" style="min-width:520px;height:230px"></canvas></div>
+        </div>
+      </div>
+
+      <!-- TAB: HISTORIAL -->
+      <div id="tab-historial" class="tab-panel hidden flex-col gap-4 flex">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <h3 class="font-bold text-white text-[17px]">Historial de registros</h3>
+          <div class="flex gap-2">
+            <button class="toggle-pill history-range active" data-range="7">7 días</button>
+            <button class="toggle-pill history-range" data-range="30">30 días</button>
+            <button class="toggle-pill history-range" data-range="all">Todo</button>
+          </div>
+        </div>
+        <div id="history-list" class="flex flex-col gap-5"></div>
+      </div>
+
+      <!-- TAB: ESTADÍSTICAS -->
+      <div id="tab-estadisticas" class="tab-panel hidden flex-col gap-4 flex">
+        <div class="flex gap-2">
+          <button class="toggle-pill stats-range" data-range="diario">Diario</button>
+          <button class="toggle-pill stats-range active" data-range="semanal">Semanal</button>
+          <button class="toggle-pill stats-range" data-range="mensual">Mensual</button>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div class="card p-6">
+            <h4 class="font-bold text-white text-[15px] mb-4">Tiempo en rango</h4>
+            <div class="flex items-center gap-5">
+              <div class="relative w-[110px] h-[110px] shrink-0">
+                <div id="tir-donut" class="donut absolute inset-0 rounded-full"></div>
+                <div class="absolute inset-0 flex items-center justify-center">
+                  <span id="tir-donut-value" class="font-extrabold text-white text-[22px]">78%</span>
+                </div>
+              </div>
+              <div class="flex flex-col gap-2 text-[13px]">
+                <span class="flex items-center gap-2 text-white/75"><span class="w-2.5 h-2.5 rounded-full" style="background:#55CEBA"></span> En rango · <span id="stat-ok">78</span>%</span>
+                <span class="flex items-center gap-2 text-white/75"><span class="w-2.5 h-2.5 rounded-full" style="background:#EF7D8A"></span> Hipoglucemia · <span id="stat-low">12</span>%</span>
+                <span class="flex items-center gap-2 text-white/75"><span class="w-2.5 h-2.5 rounded-full" style="background:#EABE53"></span> Hiperglucemia · <span id="stat-high">10</span>%</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card p-6">
+            <h4 class="font-bold text-white text-[15px] mb-4">Carbohidratos por comida</h4>
+            <div id="carbs-chart" class="flex items-end justify-around gap-3 h-[140px]"></div>
+          </div>
+
+          <div class="card p-6">
+            <h4 class="font-bold text-white text-[15px]">Actividad física</h4>
+            <p id="activity-sub" class="text-[12.5px] text-white/40 mb-4">4 de 7 días</p>
+            <div id="activity-dots" class="flex justify-between"></div>
+          </div>
+
+          <div class="card p-6">
+            <h4 class="font-bold text-white text-[15px] mb-4">Estado emocional</h4>
+            <div id="emotional-bars" class="flex flex-col gap-3"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: TRATAMIENTO -->
+      <div id="tab-tratamiento" class="tab-panel hidden flex-col gap-5 flex">
+        <div class="card p-6">
+          <h4 class="font-bold text-white text-[15px] mb-1">Objetivos glucémicos</h4>
+          <div id="objetivos-rows"></div>
+        </div>
+        <div class="card p-6">
+          <div class="flex items-center justify-between mb-1">
+            <h4 class="font-bold text-white text-[15px]">Insulina basal</h4>
+          </div>
+          <div id="basal-rows"></div>
+        </div>
+        <div class="card p-6">
+          <h4 class="font-bold text-white text-[15px] mb-1">Insulina correctora</h4>
+          <div id="correctora-rows"></div>
+        </div>
+        <div class="card p-6">
+          <h4 class="font-bold text-white text-[15px]">Ratios y factores</h4>
+          <p class="text-[12.5px] text-white/40 mb-1">Cargados por el paciente desde la app</p>
+          <div id="ratios-rows"></div>
+        </div>
+        <div class="card p-6">
+          <h4 class="font-bold text-white text-[15px]">Dispositivos</h4>
+          <p class="text-[12.5px] text-white/40 mb-1">Equipos vinculados a la cuenta</p>
+          <div id="dispositivos-rows"></div>
+        </div>
+      </div>
+
+      <!-- TAB: PERFIL -->
+      <div id="tab-perfil" class="tab-panel hidden grid-cols-1 md:grid-cols-[280px_1fr] gap-5">
+        <div class="card p-8 flex flex-col items-center text-center gap-3">
+          <div id="perfil-avatar" class="avatar avatar-accent w-20 h-20 text-[22px]">MP</div>
+          <p id="perfil-name" class="font-extrabold text-white text-[17px]">Martina Pérez</p>
+          <p id="perfil-email" class="text-[13px] text-white/45">martina.perez@gmail.com</p>
+          <span id="perfil-account" class="chip chip-target">Premium +</span>
+        </div>
+        <div class="card p-6">
+          <div id="perfil-rows"></div>
+        </div>
+      </div>
+
+    </div>
+  </main>
 </div>
-</footer>
 
 <!-- Modal invitar -->
 <div id="modal" class="hidden fixed inset-0 z-[70] flex items-center justify-center p-4 bg-black/70">
-<div class="w-full max-w-md rounded-3xl bg-pro-surface border border-pro-magenta/40 p-space-xl flex flex-col gap-3">
-<h3 class="font-headline-md font-extrabold text-white">Invitar paciente</h3>
-<p class="font-body-md text-text-secondary">Se envía un código de vinculación. Queda como “Invitación pendiente” hasta que acepte.</p>
-<input id="inv-name" type="text" placeholder="Nombre y apellido" class="px-4 py-3 rounded-2xl bg-black/40 border border-white/10 text-white placeholder:text-pro-lilac focus:outline-none focus:border-pro-magenta"/>
-<input id="inv-mail" type="email" placeholder="Email del paciente / tutor" class="px-4 py-3 rounded-2xl bg-black/40 border border-white/10 text-white placeholder:text-pro-lilac focus:outline-none focus:border-pro-magenta"/>
-<div class="flex gap-2 justify-end mt-1">
-<button id="modal-cancel" class="px-5 py-2.5 rounded-full bg-white/[0.06] border border-white/10 font-label-lg">Cancelar</button>
-<button id="modal-send" class="px-5 py-2.5 rounded-full btn-pro text-white font-label-lg border border-white/20">Enviar invitación</button>
-</div>
-</div>
+  <div class="w-full max-w-md rounded-3xl p-7 flex flex-col gap-3" style="background:linear-gradient(180deg,#312156,#22173F); border:1px solid rgba(251,249,245,.14);">
+    <h3 class="font-extrabold text-white text-[19px]">Invitar paciente</h3>
+    <p class="text-white/50 text-[13.5px]">Se envía un código de vinculación. Queda como "Invitación pendiente" hasta que acepte.</p>
+    <input id="inv-name" type="text" placeholder="Nombre y apellido" class="px-4 py-3 rounded-2xl bg-black/30 border border-white/10 text-white placeholder:text-white/30 focus:outline-none focus:border-[#55CEBA]/60"/>
+    <input id="inv-mail" type="email" placeholder="Email del paciente / tutor" class="px-4 py-3 rounded-2xl bg-black/30 border border-white/10 text-white placeholder:text-white/30 focus:outline-none focus:border-[#55CEBA]/60"/>
+    <div class="flex gap-2 justify-end mt-1">
+      <button id="modal-cancel" class="px-5 py-2.5 rounded-full bg-white/[0.06] border border-white/10 font-semibold text-[13.5px]">Cancelar</button>
+      <button id="modal-send" class="px-5 py-2.5 rounded-full btn-invite text-white font-semibold text-[13.5px]">Enviar invitación</button>
+    </div>
+  </div>
 </div>
 
 <script>
+// ---------- Plantilla vacía (paciente sin vincular) ----------
+function emptyTratamiento(){
+  return {
+    basalTipo:"—", basal:{Desayuno:0,Almuerzo:0,Merienda:0,Cena:0},
+    correctoraTipo:"—", correctora:{Desayuno:0,Almuerzo:0,Merienda:0,Cena:0},
+    ratios:{ icr:"—", isf:"—", hipoRescate:"—", orales:[] },
+    dispositivos:{ medicion:[], administracion:[], ultimaSync:"—" }
+  };
+}
+
 // ---------- Datos simulados ----------
 const patients = [
-  { id:"lucia", name:"Lucía Fernández", short:"LF", age:"14 años · Dx 2021", type:"DM1 · Bomba", meta:"14 años · Dx 2021 · Última consulta 02/09", sync:"Sync hace 5 min", pending:false, current:116, state:"ok", min:68, max:242, tir:70, delta:"+4 pts vs semana anterior", avg:142, lastLog:"Hoy 07:30 · 118 mg/dL", days:["Lun","Mar","Mié","Jue","Vie","Sáb","Hoy"], series:[148,132,165,118,142,178,116] },
-  { id:"mateo", name:"Mateo Álvarez", short:"MA", age:"9 años · Dx 2023", type:"DM1 · Lapicera", meta:"9 años · Dx 2023 · Última consulta 28/08", sync:"Sync hace 22 min", pending:false, current:210, state:"high", min:74, max:268, tir:58, delta:"−3 pts vs semana anterior", avg:171, lastLog:"Hoy 07:05 · 204 mg/dL", days:["Lun","Mar","Mié","Jue","Vie","Sáb","Hoy"], series:[180,165,190,175,201,188,210] },
-  { id:"sofia", name:"Sofía Ruiz", short:"SR", age:"17 años · Dx 2019", type:"DM2 · Basal", meta:"17 años · Dx 2019 · Última consulta 20/08", sync:"Sync hace 1 h", pending:false, current:64, state:"low", min:59, max:198, tir:66, delta:"+1 pt vs semana anterior", avg:128, lastLog:"Hoy 06:50 · 64 mg/dL", days:["Lun","Mar","Mié","Jue","Vie","Sáb","Hoy"], series:[122,118,135,110,98,84,64] },
-  { id:"nuev", name:"Invitación · F. Gómez", short:"FG", age:"Pendiente de vincular", type:"Por vincular", meta:"Código enviado ayer", sync:"Invitación pendiente", pending:true, current:0, state:"pending", min:0, max:0, tir:0, delta:"—", avg:0, lastLog:"—", days:["Lun","Mar","Mié","Jue","Vie","Sáb","Hoy"], series:[0,0,0,0,0,0,0] }
+  {
+    id:"martina", name:"Martina Pérez", short:"MP", sex:"Femenino", ageYears:28, birthdate:"12/03/1998",
+    height:165, weight:58, dxDate:"15 de agosto de 2018", dxYear:2018, diabetesType:"Tipo 1",
+    account:"Premium +", email:"martina.perez@gmail.com",
+    syncText:"Sync hace 8 min", syncMinutes:8, pending:false,
+    current:116, min:70, target:100, max:180,
+    tir:78, tirDelta:"↑ 4% vs semana anterior", avg:134,
+    lastLog:{ time:"hace 8 min", detail:"Desayuno · 2U insulina · 45g HC" },
+    days:["Lun","Mar","Mié","Jue","Vie","Sáb","Dom"],
+    series:[145,128,178,158,132,168,132],
+    history:[
+      { label:"HOY, 14 JULIO 2026", entries:[
+        { meal:"Desayuno", time:"08:15", glucose:112, insulin:4, carbs:45, tag:null, mood:"🙂" },
+        { meal:"Almuerzo", time:"13:30", glucose:178, insulin:6, carbs:65, tag:null, mood:"😐" },
+        { meal:"Merienda", time:"18:00", glucose:58, insulin:0, carbs:20, tag:"Hipoglucemia", mood:"😟" }
+      ]},
+      { label:"AYER, 13 JULIO 2026", entries:[
+        { meal:"Desayuno", time:"08:30", glucose:145, insulin:3, carbs:40, tag:null, mood:"🙂" },
+        { meal:"Cena", time:"21:15", glucose:189, insulin:5, carbs:55, tag:"Hiperglucemia", mood:"😕" }
+      ]}
+    ],
+    stats:{ ok:78, low:12, high:10, carbs:{Desayuno:42,Almuerzo:68,Merienda:28,Cena:55}, activity:[1,0,1,0,1,1,0], emotional:{bien:60,neutro:30,mal:10} },
+    tratamiento:{
+      basalTipo:"Lantus (Glargina)", basal:{Desayuno:10,Almuerzo:8,Merienda:6,Cena:12},
+      correctoraTipo:"NovoRapid (Aspart)", correctora:{Desayuno:4,Almuerzo:3,Merienda:2,Cena:5},
+      ratios:{
+        icr:"1 U cada 15 g de HC",
+        isf:"1 U baja 40 mg/dL",
+        hipoRescate:"15 g de HC rápidos",
+        orales:[
+          { nombre:"Metformina", detalle:"No indicada", activo:false },
+          { nombre:"Semaglutida", detalle:"No indicada", activo:false }
+        ]
+      },
+      dispositivos:{
+        medicion:[
+          { nombre:"Glucómetro", detalle:"Accu-Chek Instant", activo:true },
+          { nombre:"Sensor CGM", detalle:"Dexcom G6", nota:"Día 6 de 10 del sensor", activo:true }
+        ],
+        administracion:[
+          { nombre:"Aplicación", detalle:"Pluma NovoPen 6", activo:true },
+          { nombre:"Bomba de insulina", detalle:"No usa", activo:false }
+        ],
+        ultimaSync:"Hoy, 08:22 · automática"
+      }
+    }
+  },
+  {
+    id:"juan", name:"Juan López", short:"JL", sex:"Masculino", ageYears:45, birthdate:"03/11/1980",
+    height:178, weight:82, dxDate:"22 de febrero de 2015", dxYear:2015, diabetesType:"Tipo 2",
+    account:"Gratuita", email:"juan.lopez@gmail.com",
+    syncText:"Sync hace 2 días", syncMinutes:2880, pending:false,
+    current:198, min:70, target:110, max:180,
+    tir:58, tirDelta:"↓ 3% vs semana anterior", avg:172,
+    lastLog:{ time:"hace 2 días", detail:"Cena · Metformina · 60g HC" },
+    days:["Lun","Mar","Mié","Jue","Vie","Sáb","Dom"],
+    series:[176,182,190,171,203,188,198],
+    history:[
+      { label:"HACE 2 DÍAS, 12 JULIO 2026", entries:[
+        { meal:"Desayuno", time:"08:00", glucose:154, insulin:0, carbs:50, tag:null, mood:"🙂" },
+        { meal:"Almuerzo", time:"13:10", glucose:196, insulin:0, carbs:70, tag:"Hiperglucemia", mood:"😕" },
+        { meal:"Cena", time:"20:45", glucose:198, insulin:0, carbs:60, tag:"Hiperglucemia", mood:"😐" }
+      ]},
+      { label:"HACE 3 DÍAS, 11 JULIO 2026", entries:[
+        { meal:"Desayuno", time:"07:50", glucose:168, insulin:0, carbs:55, tag:null, mood:"😐" },
+        { meal:"Merienda", time:"17:30", glucose:143, insulin:0, carbs:35, tag:null, mood:"🙂" }
+      ]}
+    ],
+    stats:{ ok:58, low:6, high:36, carbs:{Desayuno:50,Almuerzo:70,Merienda:35,Cena:60}, activity:[0,1,0,0,1,0,0], emotional:{bien:35,neutro:45,mal:20} },
+    tratamiento:{
+      basalTipo:"Metformina 850mg", basal:{Desayuno:1,Almuerzo:1,Merienda:0,Cena:1},
+      correctoraTipo:"Sin correctora pautada", correctora:{Desayuno:0,Almuerzo:0,Merienda:0,Cena:0},
+      ratios:{
+        icr:"Sin conteo de HC",
+        isf:"No aplica · sin insulina",
+        hipoRescate:"15 g de HC rápidos",
+        orales:[
+          { nombre:"Metformina", detalle:"Glucophage 850 mg", nota:"2 veces por día, con las comidas", activo:true },
+          { nombre:"Semaglutida", detalle:"Ozempic 0,5 mg", nota:"1 vez por semana, martes", activo:true }
+        ]
+      },
+      dispositivos:{
+        medicion:[
+          { nombre:"Glucómetro", detalle:"OneTouch Verio Flex", activo:true },
+          { nombre:"Sensor CGM", detalle:"Sin sensor vinculado", activo:false }
+        ],
+        administracion:[
+          { nombre:"Aplicación", detalle:"Vía oral e inyectable semanal", activo:true },
+          { nombre:"Bomba de insulina", detalle:"No usa", activo:false }
+        ],
+        ultimaSync:"12 julio, 20:45 · manual"
+      }
+    }
+  },
+  {
+    id:"sofia", name:"Sofía Ruiz", short:"SR", sex:"Femenino", ageYears:17, birthdate:"—",
+    height:0, weight:0, dxDate:"—", dxYear:null, diabetesType:"Por vincular",
+    account:"—", email:"—",
+    syncText:"Invitación pendiente", syncMinutes:null, pending:true,
+    current:0, min:0, target:0, max:0, tir:0, tirDelta:"—", avg:0,
+    lastLog:{ time:"—", detail:"Sin datos todavía" },
+    days:["Lun","Mar","Mié","Jue","Vie","Sáb","Dom"], series:[0,0,0,0,0,0,0],
+    history:[], stats:{ ok:0, low:0, high:0, carbs:{Desayuno:0,Almuerzo:0,Merienda:0,Cena:0}, activity:[0,0,0,0,0,0,0], emotional:{bien:0,neutro:0,mal:0} },
+    tratamiento: emptyTratamiento()
+  },
+  {
+    id:"carlos", name:"Carlos Mendoza", short:"CM", sex:"Masculino", ageYears:35, birthdate:"19/06/1991",
+    height:180, weight:75, dxDate:"04 de mayo de 2012", dxYear:2012, diabetesType:"Tipo 1",
+    account:"Premium +", email:"carlos.mendoza@gmail.com",
+    syncText:"Sync hace 5 horas", syncMinutes:300, pending:false,
+    current:98, min:70, target:100, max:170,
+    tir:85, tirDelta:"↑ 6% vs semana anterior", avg:112,
+    lastLog:{ time:"hace 5 horas", detail:"Almuerzo · 5U insulina · 50g HC" },
+    days:["Lun","Mar","Mié","Jue","Vie","Sáb","Dom"],
+    series:[104,96,118,88,101,95,98],
+    history:[
+      { label:"HOY, 14 JULIO 2026", entries:[
+        { meal:"Desayuno", time:"07:40", glucose:92, insulin:3, carbs:38, tag:null, mood:"🙂" },
+        { meal:"Almuerzo", time:"13:00", glucose:98, insulin:5, carbs:50, tag:null, mood:"🙂" }
+      ]},
+      { label:"AYER, 13 JULIO 2026", entries:[
+        { meal:"Merienda", time:"17:45", glucose:118, insulin:1, carbs:30, tag:null, mood:"🙂" },
+        { meal:"Cena", time:"21:00", glucose:88, insulin:4, carbs:48, tag:null, mood:"🙂" }
+      ]}
+    ],
+    stats:{ ok:85, low:7, high:8, carbs:{Desayuno:38,Almuerzo:50,Merienda:30,Cena:48}, activity:[1,1,0,1,1,0,1], emotional:{bien:75,neutro:20,mal:5} },
+    tratamiento:{
+      basalTipo:"Tresiba (Degludec)", basal:{Desayuno:0,Almuerzo:0,Merienda:0,Cena:14},
+      correctoraTipo:"Humalog (Lispro)", correctora:{Desayuno:3,Almuerzo:5,Merienda:1,Cena:4},
+      ratios:{
+        icr:"1 U cada 12 g de HC",
+        isf:"1 U baja 50 mg/dL",
+        hipoRescate:"20 g de HC rápidos",
+        orales:[
+          { nombre:"Metformina", detalle:"No indicada", activo:false },
+          { nombre:"Semaglutida", detalle:"No indicada", activo:false }
+        ]
+      },
+      dispositivos:{
+        medicion:[
+          { nombre:"Glucómetro", detalle:"Contour Next One", activo:true },
+          { nombre:"Sensor CGM", detalle:"FreeStyle Libre 3", nota:"Día 2 de 14 del sensor", activo:true }
+        ],
+        administracion:[
+          { nombre:"Aplicación", detalle:"Bomba en modo automático", activo:true },
+          { nombre:"Bomba de insulina", detalle:"Omnipod DASH", activo:true }
+        ],
+        ultimaSync:"Hoy, 13:10 · automática"
+      }
+    }
+  }
 ];
-let currentId = "lucia";
-let lastUpdateMin = 5;
 
-// ---------- Sidebar ----------
+let currentId = "martina";
+
+// ---------- Helpers ----------
+function stateOf(v,p){ if(v < p.min) return "low"; if(v > p.max) return "high"; return "ok"; }
+function stateColor(s){ return s==="ok" ? "#55CEBA" : s==="high" ? "#EABE53" : "#EF7D8A"; }
+function stateLabel(s){ return s==="ok" ? "En rango" : s==="high" ? "Alerta alta" : "Alerta baja"; }
+function syncDotClass(p){ if(p.pending) return "dot-gray"; if(p.syncMinutes<=1440) return "dot-green"; return "dot-amber"; }
+
+// ---------- Sidebar list ----------
 const listEl = document.getElementById("patient-list");
 const searchInput = document.getElementById("search");
 const searchClear = document.getElementById("search-clear");
 const searchCount = document.getElementById("search-count");
+
 function renderList(filter=""){
   const q = filter.trim().toLowerCase();
   const shown = patients.filter(p=>p.name.toLowerCase().includes(q));
   listEl.innerHTML = "";
   searchCount.textContent = q ? `${shown.length} resultado${shown.length===1?"":"s"}` : `${patients.length} pacientes`;
   searchClear.classList.toggle("hidden", q.length===0);
-  searchClear.classList.toggle("inline-flex", q.length>0);
+  searchClear.classList.toggle("flex", q.length>0);
   if(shown.length===0){
-    listEl.innerHTML = `<div class="p-4 rounded-2xl bg-pro-base border border-white/[0.07] text-center">
-      <p class="font-label-md font-bold text-white">Sin resultados</p>
-      <p class="font-body-sm text-[12px] text-text-tertiary">Probá con otro nombre o invitá al paciente.</p>
+    listEl.innerHTML = `<div class="p-4 rounded-2xl bg-white/[0.03] border border-white/10 text-center">
+      <p class="font-bold text-white text-[13.5px]">Sin resultados</p>
+      <p class="text-white/40 text-[12px] mt-0.5">Probá con otro nombre o invitá al paciente.</p>
     </div>`;
     return;
   }
   shown.forEach(p=>{
     const b = document.createElement("button");
     b.type = "button";
-    b.className = "flex items-center gap-3 p-3 rounded-2xl border text-left transition-all hover:border-pro-magenta/50 " + (p.id===currentId ? "patient-active border-pro-magenta/60 bg-pro-magenta/10" : "bg-pro-base border-white/[0.07]");
+    b.className = "patient-row" + (p.id===currentId ? " active" : "");
     b.innerHTML = `
-      <div class="w-10 h-10 rounded-xl flex items-center justify-center font-bold text-white shrink-0 ${p.pending?'bg-white/10 border border-white/10':'btn-pro'}">${p.short}</div>
+      <div class="avatar ${p.id===currentId ? 'avatar-accent' : 'avatar-muted'}">${p.short}</div>
       <div class="flex-1 min-w-0">
-        <p class="font-label-md font-bold text-white truncate">${p.name}</p>
-        <p class="font-body-sm text-[12px] ${p.pending?'text-med-warn':'text-text-tertiary'}">${p.pending?'🕓 ':''}${p.sync}</p>
+        <p class="font-bold text-white text-[14px] truncate">${p.name}</p>
+        <p class="text-[12px] ${p.pending?'text-white/40 italic':'text-white/45'} truncate">${p.syncText}</p>
       </div>
-      ${p.id===currentId?'<span class="w-2 h-2 rounded-full bg-pro-magenta shrink-0"></span>':''}`;
+      <span class="dot ${syncDotClass(p)}"></span>`;
     b.onclick = ()=>{ selectPatient(p.id); closeSidebar(); };
     listEl.appendChild(b);
   });
@@ -391,102 +599,276 @@ function renderList(filter=""){
 searchInput.addEventListener("input", e=>renderList(e.target.value));
 searchClear.addEventListener("click", ()=>{ searchInput.value=""; renderList(""); searchInput.focus(); });
 
-// ---------- Selección + refresh ----------
-function stateBadge(s){
-  if(s==="ok") return ['● En rango','bg-med-ok/15 border-med-ok/40 text-med-ok'];
-  if(s==="high") return ['▲ Alerta alta','bg-med-high/15 border-med-high/40 text-med-high'];
-  if(s==="low") return ['▼ Alerta baja','bg-med-warn/15 border-med-warn/40 text-med-warn'];
-  return ['○ Pendiente','bg-white/[0.06] border-white/10 text-text-secondary'];
-}
+// ---------- Select patient ----------
 function selectPatient(id){
   currentId = id;
   const p = patients.find(x=>x.id===id);
+
   document.getElementById("p-name").textContent = p.name;
-  document.getElementById("p-type").textContent = p.type;
-  document.getElementById("p-meta").textContent = p.meta;
   document.getElementById("p-avatar").textContent = p.short;
-  document.getElementById("big-value").textContent = p.pending ? "—" : p.current;
-  const [txt, cls] = stateBadge(p.state);
-  const badge = document.getElementById("big-badge");
-  badge.textContent = txt; badge.className = "mt-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-full border font-label-md " + cls;
+  document.getElementById("p-meta").textContent = p.pending
+    ? "Invitación enviada · a la espera de vinculación"
+    : `${p.ageYears} años · Diagnóstico: ${p.dxYear} · ${p.diabetesType}`;
+  document.getElementById("last-update").textContent = p.pending ? "—" : `Actualizado ${p.lastLog.time}`;
+
+  document.getElementById("tab-content").classList.toggle("hidden", p.pending);
+  document.getElementById("pending-panel").classList.toggle("hidden", !p.pending);
+
+  if(!p.pending){
+    renderInicio(p);
+    renderHistory(p, "7");
+    renderStats(p);
+    renderTratamiento(p);
+    renderPerfil(p);
+    drawChart(p);
+  }
+
+  renderList(document.getElementById("search").value);
+}
+
+function renderInicio(p){
+  document.getElementById("big-value").textContent = p.current;
+  const s = stateOf(p.current, p);
+  const col = stateColor(s);
+  document.getElementById("big-state").textContent = stateLabel(s);
+  document.getElementById("big-state").style.color = col;
+  document.getElementById("gauge-arc").setAttribute("stroke", col);
+
+  const C = 2*Math.PI*85;
+  const frac = Math.max(0, Math.min(1, (p.current-40)/(300-40)));
+  document.getElementById("gauge-arc").setAttribute("stroke-dasharray", C.toFixed(1));
+  document.getElementById("gauge-arc").setAttribute("stroke-dashoffset", (C*(1-frac)).toFixed(1));
+
   document.getElementById("r-min").textContent = p.min;
   document.getElementById("r-max").textContent = p.max;
+  document.getElementById("r-target").textContent = p.target;
   document.getElementById("tir").textContent = p.tir;
-  document.getElementById("tir-delta").textContent = p.delta;
+  document.getElementById("tir-delta").textContent = p.tirDelta;
+  document.getElementById("tir-delta").style.color = p.tirDelta.startsWith("↑") ? "#55CEBA" : "#EF7D8A";
   document.getElementById("avg").textContent = p.avg;
-  document.getElementById("last-log").textContent = p.lastLog;
-  document.getElementById("flow-step").innerHTML = "1. Login ✓ &nbsp;·&nbsp; 2. <strong class='text-white'>"+p.name+"</strong> &nbsp;·&nbsp; 3. Monitoreo";
-  renderHistory(p); drawChart(p); renderList(document.getElementById("search").value);
+  document.getElementById("last-log-time").textContent = p.lastLog.time;
+  document.getElementById("last-log-detail").textContent = p.lastLog.detail;
 }
-document.getElementById("btn-refresh").onclick = ()=>{
-  lastUpdateMin = 0;
-  const p = patients.find(x=>x.id===currentId);
-  if(!p.pending){ p.current = Math.max(60, Math.min(260, p.current + Math.round((Math.random()-0.5)*10))); }
-  document.getElementById("last-update").textContent = "Actualizado recién";
-  selectPatient(currentId);
-};
-setInterval(()=>{ lastUpdateMin++; document.getElementById("last-update").textContent = lastUpdateMin===0?"Actualizado recién":`Actualizado hace ${lastUpdateMin} min`; }, 60000);
 
 // ---------- Historial ----------
-function renderHistory(p){
-  const tb = document.getElementById("history-body"); tb.innerHTML="";
-  if(p.pending){ tb.innerHTML = "<tr><td colspan='6' class='py-4'>Sin datos: invitación pendiente.</td></tr>"; return; }
-  const rows = p.series.map((v,i)=>({d:p.days[i], v})).reverse().slice(0,5);
-  rows.forEach((r,i)=>{
-    const st = r.v<70?["Baja","text-med-warn"]:r.v>180?["Alta","text-med-high"]:["En rango","text-med-ok"];
-    tb.innerHTML += `<tr class="border-t border-white/[0.06]">
-      <td class="py-2">${r.d}</td><td>${["07:30","12:40","19:15","21:30","06:50"][i%5]}</td>
-      <td class="font-bold text-white">${r.v} mg/dL</td><td>${(4+i)%6} U</td>
-      <td>Registro ${i+1}</td><td class="${st[1]} font-bold">${st[0]}</td></tr>`;
+function renderHistory(p, range){
+  const list = document.getElementById("history-list");
+  list.innerHTML = "";
+  const groups = range==="7" ? p.history.slice(0,2) : p.history;
+  if(groups.length===0){ list.innerHTML = `<p class="text-white/40 text-[13.5px]">Sin registros en este período.</p>`; return; }
+  const mealColor = { Desayuno:"#EABE53", Almuerzo:"#E2992A", Merienda:"#916EE1", Cena:"#DC5F9A" };
+  groups.forEach(g=>{
+    const wrap = document.createElement("div");
+    wrap.innerHTML = `<p class="text-[11.5px] uppercase tracking-wider text-white/35 font-bold mb-2">${g.label}</p>`;
+    const rows = document.createElement("div");
+    rows.className = "card-soft divide-y divide-white/[0.06]";
+    g.entries.forEach(e=>{
+      const s = e.glucose < p.min ? "low" : e.glucose > p.max ? "high" : "ok";
+      const col = stateColor(s);
+      const row = document.createElement("div");
+      row.className = "flex items-center gap-4 px-5 py-3.5 flex-wrap";
+      row.innerHTML = `
+        <span class="w-3 h-3 rounded-full shrink-0" style="background:${mealColor[e.meal]||'#9D769D'}"></span>
+        <div class="min-w-[120px]">
+          <p class="font-bold text-white text-[14px]">${e.meal}</p>
+          <p class="text-[12px] text-white/40">${e.time}</p>
+        </div>
+        <div class="min-w-[90px] font-bold text-[14px]" style="color:${col}">${e.glucose} <span class="text-white/40 font-normal text-[12px]">mg/dL</span></div>
+        <div class="min-w-[130px] text-[12.5px] text-white/45">Insulina: ${e.insulin}U · HC: ${e.carbs}g</div>
+        ${e.tag ? `<span class="chip ${e.tag==='Hipoglucemia'?'chip-hipo':'chip-hiper'}">⚠ ${e.tag}</span>` : `<span></span>`}
+        <div class="ml-auto flex items-center gap-2">
+          <span class="text-[15px]">${e.mood}</span>
+          <span class="dot dot-green"></span>
+        </div>`;
+      rows.appendChild(row);
+    });
+    wrap.appendChild(rows);
+    list.appendChild(wrap);
+  });
+}
+document.querySelectorAll(".history-range").forEach(b=>b.onclick=()=>{
+  document.querySelectorAll(".history-range").forEach(x=>x.classList.remove("active"));
+  b.classList.add("active");
+  renderHistory(patients.find(x=>x.id===currentId), b.dataset.range);
+});
+document.querySelectorAll(".stats-range").forEach(b=>b.onclick=()=>{
+  document.querySelectorAll(".stats-range").forEach(x=>x.classList.remove("active"));
+  b.classList.add("active");
+});
+
+// ---------- Estadísticas ----------
+function renderStats(p){
+  const s = p.stats;
+  document.getElementById("stat-ok").textContent = s.ok;
+  document.getElementById("stat-low").textContent = s.low;
+  document.getElementById("stat-high").textContent = s.high;
+  document.getElementById("tir-donut-value").textContent = s.ok + "%";
+  const okEnd = s.ok, lowEnd = s.ok+s.low;
+  document.getElementById("tir-donut").style.background =
+    `conic-gradient(#55CEBA 0% ${okEnd}%, #EF7D8A ${okEnd}% ${lowEnd}%, #EABE53 ${lowEnd}% 100%)`;
+
+  const carbsEl = document.getElementById("carbs-chart");
+  carbsEl.innerHTML = "";
+  const maxG = Math.max(...Object.values(s.carbs), 1);
+  Object.entries(s.carbs).forEach(([meal,g])=>{
+    const h = Math.max(6, Math.round((g/maxG)*100));
+    const col = document.createElement("div");
+    col.className = "flex flex-col items-center gap-2 flex-1";
+    col.innerHTML = `
+      <span class="text-[12px] font-bold text-white">${g}g</span>
+      <div class="w-full max-w-[42px] rounded-t-lg" style="height:${h}px;background:linear-gradient(180deg,#7EE4D0,#55CEBA)"></div>
+      <span class="text-[11px] text-white/40">${meal}</span>`;
+    carbsEl.appendChild(col);
+  });
+
+  const dotsEl = document.getElementById("activity-dots");
+  dotsEl.innerHTML = "";
+  const labels = ["L","M","X","J","V","S","D"];
+  let active = 0;
+  s.activity.forEach((on,i)=>{
+    if(on) active++;
+    const d = document.createElement("div");
+    d.className = "flex flex-col items-center gap-1.5";
+    d.innerHTML = `<span class="w-6 h-6 rounded-full" style="${on ? 'background:#55CEBA' : 'background:transparent;border:1.5px solid rgba(251,249,245,.2)'}"></span><span class="text-[11px] text-white/40">${labels[i]}</span>`;
+    dotsEl.appendChild(d);
+  });
+  document.getElementById("activity-sub").textContent = `${active} de 7 días`;
+
+  const emoEl = document.getElementById("emotional-bars");
+  emoEl.innerHTML = "";
+  const emo = [["😊","Bien",s.emotional.bien,"#55CEBA"],["😐","Neutro",s.emotional.neutro,"#EABE53"],["😟","Mal",s.emotional.mal,"#EF7D8A"]];
+  emo.forEach(([icon,label,val,col])=>{
+    const row = document.createElement("div");
+    row.className = "flex items-center gap-3";
+    row.innerHTML = `
+      <span class="text-[16px] w-5">${icon}</span>
+      <span class="text-[13px] text-white/70 w-14">${label}</span>
+      <div class="flex-1 h-2 rounded-full bg-white/10 overflow-hidden"><div class="h-full rounded-full" style="width:${val}%;background:${col}"></div></div>
+      <span class="text-[12.5px] font-semibold text-white/70 w-9 text-right">${val}%</span>`;
+    emoEl.appendChild(row);
   });
 }
 
-// ---------- Gráfico canvas (línea fucsia + banda objetivo) ----------
+// ---------- Tratamiento ----------
+// Fila simple: etiqueta a la izquierda, valor a la derecha.
+function objRow(label, value, color){
+  return `<div class="row-line"><span class="row-label">${label}</span><span class="row-value" style="color:${color||'#fff'}">${value}</span></div>`;
+}
+// Fila con estado: punto verde/gris según esté activo, valor apagado si no lo está.
+function statusRow(label, value, active, note){
+  return `<div class="row-line${active ? "" : " row-muted"}">
+    <span class="row-label">${label}</span>
+    <span class="row-value"><span class="dot ${active ? "dot-green" : "dot-gray"}"></span><span>${value}${note ? `<span class="row-note">${note}</span>` : ""}</span></span>
+  </div>`;
+}
+function renderTratamiento(p){
+  const t = p.tratamiento || emptyTratamiento();
+  const r = t.ratios || emptyTratamiento().ratios;
+  const d = t.dispositivos || emptyTratamiento().dispositivos;
+  document.getElementById("objetivos-rows").innerHTML =
+    objRow("Objetivo", p.target + " mg/dL", "#55CEBA") +
+    objRow("Hipoglucemia", "&lt; " + p.min + " mg/dL", "#EF7D8A") +
+    objRow("Hiperglucemia", "&gt; " + p.max + " mg/dL", "#EABE53");
+
+  document.getElementById("basal-rows").innerHTML =
+    objRow("Tipo", t.basalTipo) +
+    Object.entries(t.basal).map(([meal,u])=>objRow(meal, u + " U")).join("");
+
+  document.getElementById("correctora-rows").innerHTML =
+    objRow("Tipo", t.correctoraTipo) +
+    Object.entries(t.correctora).map(([meal,u])=>objRow(meal, u + " U")).join("");
+
+  // Ratios: relación insulina/HC, sensibilidad, rescate de hipo y
+  // medicación no insulínica (con estado activo/no indicada).
+  document.getElementById("ratios-rows").innerHTML =
+    objRow("Insulina / HC", r.icr) +
+    objRow("Factor corrector", r.isf) +
+    objRow("Rescate de hipo", r.hipoRescate, "#F7B0B7") +
+    (r.orales||[]).map(m=>statusRow(m.nombre, m.detalle, m.activo, m.nota)).join("");
+
+  // Dispositivos: primero lo que mide, después lo que administra.
+  const equipos = [...(d.medicion||[]), ...(d.administracion||[])];
+  document.getElementById("dispositivos-rows").innerHTML =
+    (equipos.length
+      ? equipos.map(x=>statusRow(x.nombre, x.detalle, x.activo, x.nota)).join("")
+      : objRow("Dispositivos", "Sin equipos vinculados")) +
+    objRow("Última sincronización", d.ultimaSync || "—");
+}
+
+// ---------- Perfil ----------
+function renderPerfil(p){
+  document.getElementById("perfil-avatar").textContent = p.short;
+  document.getElementById("perfil-name").textContent = p.name;
+  document.getElementById("perfil-email").textContent = p.email;
+  document.getElementById("perfil-account").textContent = p.account;
+
+  document.getElementById("perfil-rows").innerHTML =
+    objRow("Nombre completo", p.name) +
+    objRow("Sexo", p.sex) +
+    objRow("Edad", `${p.ageYears} años (n. ${p.birthdate})`) +
+    objRow("Altura", p.height + " cm") +
+    objRow("Peso", p.weight + " kg") +
+    objRow("Fecha de diagnóstico", p.dxDate) +
+    objRow("Tipo de diabetes", p.diabetesType) +
+    objRow("Cuenta", p.account, "#55CEBA");
+}
+
+// ---------- Refresh ----------
+document.getElementById("btn-refresh").onclick = ()=>{
+  const p = patients.find(x=>x.id===currentId);
+  if(p.pending) return;
+  p.current = Math.max(55, Math.min(260, p.current + Math.round((Math.random()-0.5)*14)));
+  p.lastLog.time = "recién";
+  document.getElementById("last-update").textContent = "Actualizado recién";
+  renderInicio(p);
+};
+
+// ---------- Gráfico canvas ----------
 function drawChart(p){
   const c = document.getElementById("chart");
   const dpr = window.devicePixelRatio||1;
-  const W = c.clientWidth||600, H = 260;
+  const W = c.clientWidth||600, H = 230;
   c.width = W*dpr; c.height = H*dpr;
-  const ctx = c.getContext("2d"); ctx.scale(dpr,dpr); ctx.clearRect(0,0,W,H);
-  const padL=44,padR=12,padT=14,padB=28;
-  const min=50,max=280;
+  const ctx = c.getContext("2d"); ctx.setTransform(1,0,0,1,0,0); ctx.scale(dpr,dpr); ctx.clearRect(0,0,W,H);
+  const padL=40,padR=10,padT=14,padB=26;
+  const min=40,max=280;
   const X = i=> padL + (W-padL-padR)*(i/(p.days.length-1));
   const Y = v=> padT + (H-padT-padB)*(1-(v-min)/(max-min));
-  // banda objetivo 70-180
-  ctx.fillStyle = "rgba(223,8,156,0.10)";
-  ctx.fillRect(padL, Y(180), W-padL-padR, Y(70)-Y(180));
-  ctx.strokeStyle="rgba(255,255,255,0.08)"; ctx.fillStyle="#747F9B"; ctx.font="11px 'Plus Jakarta Sans'";
-  [70,100,180,250].forEach(v=>{ ctx.beginPath(); ctx.moveTo(padL,Y(v)); ctx.lineTo(W-padR,Y(v)); ctx.stroke(); ctx.fillText(v+"",8,Y(v)+4); });
-  if(p.pending){ ctx.fillStyle="#A8B0C5"; ctx.font="14px 'Plus Jakarta Sans'"; ctx.fillText("Sin datos todavía", padL+20, H/2); return; }
-  // línea fucsia con relleno
+
+  ctx.fillStyle = "rgba(85,206,186,0.08)";
+  ctx.fillRect(padL, Y(p.max), W-padL-padR, Y(p.min)-Y(p.max));
+
+  ctx.strokeStyle="rgba(251,249,245,0.08)"; ctx.fillStyle="rgba(251,249,245,0.4)"; ctx.font="11px 'Plus Jakarta Sans'";
+  [70,140,180,250].forEach(v=>{ ctx.beginPath(); ctx.moveTo(padL,Y(v)); ctx.lineTo(W-padR,Y(v)); ctx.stroke(); ctx.fillText(v+"",6,Y(v)+4); });
+
   const grad = ctx.createLinearGradient(0,padT,0,H-padB);
-  grad.addColorStop(0,"rgba(223,8,156,0.35)"); grad.addColorStop(1,"rgba(223,8,156,0)");
+  grad.addColorStop(0,"rgba(85,206,186,0.30)"); grad.addColorStop(1,"rgba(85,206,186,0)");
   ctx.beginPath(); p.series.forEach((v,i)=>{ i?ctx.lineTo(X(i),Y(v)):ctx.moveTo(X(i),Y(v)); });
-  ctx.strokeStyle="#DF089C"; ctx.lineWidth=3; ctx.lineJoin="round"; ctx.stroke();
+  ctx.strokeStyle="#55CEBA"; ctx.lineWidth=3; ctx.lineJoin="round"; ctx.stroke();
   ctx.lineTo(X(p.series.length-1),H-padB); ctx.lineTo(X(0),H-padB); ctx.closePath(); ctx.fillStyle=grad; ctx.fill();
-  // puntos por estado + etiquetas días
+
   p.series.forEach((v,i)=>{
     ctx.beginPath(); ctx.arc(X(i),Y(v),5,0,7);
-    ctx.fillStyle = v<70?"#F6C744":v>180?"#FB7185":"#34D399";
-    ctx.fill(); ctx.lineWidth=2; ctx.strokeStyle="#1C0433"; ctx.stroke();
-    ctx.fillStyle="#A8B0C5"; ctx.fillText(p.days[i], X(i)-10, H-8);
+    ctx.fillStyle = v<p.min ? "#EF7D8A" : v>p.max ? "#EABE53" : "#55CEBA";
+    ctx.fill(); ctx.lineWidth=2; ctx.strokeStyle="rgba(36,24,63,0.85)"; ctx.stroke();
+    ctx.fillStyle="rgba(251,249,245,0.45)"; ctx.fillText(p.days[i], X(i)-10, H-8);
   });
 }
-window.addEventListener("resize", ()=>selectPatient(currentId));
+window.addEventListener("resize", ()=>{ const p=patients.find(x=>x.id===currentId); if(!p.pending) drawChart(p); });
 
 // ---------- Tabs ----------
 document.querySelectorAll(".tab-btn").forEach(b=>b.onclick=()=>{
-  document.querySelectorAll(".tab-btn").forEach(x=>x.classList.remove("tab-active"));
-  b.classList.add("tab-active");
+  document.querySelectorAll(".tab-btn").forEach(x=>x.classList.remove("active"));
+  b.classList.add("active");
   const t = b.dataset.tab;
   ["inicio","historial","estadisticas","tratamiento","perfil"].forEach(k=>{
     const el = document.getElementById("tab-"+k);
     const show = k===t;
     el.classList.toggle("hidden", !show);
-    el.classList.toggle("flex", show && (k==="inicio"||k==="historial"||k==="perfil"));
-    el.classList.toggle("grid", show && (k==="estadisticas"||k==="tratamiento"));
+    el.classList.toggle("grid", show && k==="perfil");
+    el.classList.toggle("flex", show && k!=="perfil");
   });
-  if(t==="inicio") drawChart(patients.find(x=>x.id===currentId));
+  if(t==="inicio"){ const p=patients.find(x=>x.id===currentId); if(!p.pending) drawChart(p); }
 });
 
 // ---------- Sidebar mobile / modal ----------
@@ -496,24 +878,35 @@ function openSidebar(focusSearch=false){
   sb.classList.add("open"); ov.classList.remove("hidden");
   if(focusSearch) setTimeout(()=>document.getElementById("search").focus(), 300);
 }
-document.getElementById("btn-menu").onclick=()=>openSidebar(false);
 const btnSearchMobile=document.getElementById("btn-search-mobile");
 if(btnSearchMobile) btnSearchMobile.onclick=()=>openSidebar(true);
 document.getElementById("btn-close").onclick=closeSidebar; ov.onclick=closeSidebar;
+
 const modal=document.getElementById("modal");
 document.getElementById("btn-invite").onclick=()=>modal.classList.remove("hidden");
 document.getElementById("modal-cancel").onclick=()=>modal.classList.add("hidden");
 modal.onclick=e=>{ if(e.target===modal) modal.classList.add("hidden"); };
 document.getElementById("modal-send").onclick=()=>{
   const n=document.getElementById("inv-name").value.trim()||"Nuevo paciente";
-  patients.push({id:"p"+Date.now(),name:n,short:n.split(" ").map(w=>w[0]).join("").slice(0,2).toUpperCase(),age:"—",type:"Por vincular",meta:"Invitación recién enviada",sync:"Invitación pendiente",pending:true,current:0,state:"pending",min:0,max:0,tir:0,delta:"—",avg:0,lastLog:"—",days:["Lun","Mar","Mié","Jue","Vie","Sáb","Hoy"],series:[0,0,0,0,0,0,0]});
+  patients.push({
+    id:"p"+Date.now(), name:n, short:n.split(" ").map(w=>w[0]).join("").slice(0,2).toUpperCase(),
+    sex:"—", ageYears:"—", birthdate:"—", height:0, weight:0, dxDate:"—", dxYear:null, diabetesType:"Por vincular",
+    account:"—", email:"—", syncText:"Invitación pendiente", syncMinutes:null, pending:true,
+    current:0, min:0, target:0, max:0, tir:0, tirDelta:"—", avg:0,
+    lastLog:{ time:"—", detail:"Sin datos todavía" },
+    days:["Lun","Mar","Mié","Jue","Vie","Sáb","Dom"], series:[0,0,0,0,0,0,0],
+    history:[], stats:{ ok:0, low:0, high:0, carbs:{Desayuno:0,Almuerzo:0,Merienda:0,Cena:0}, activity:[0,0,0,0,0,0,0], emotional:{bien:0,neutro:0,mal:0} },
+    tratamiento: emptyTratamiento()
+  });
+  document.getElementById("inv-name").value=""; document.getElementById("inv-mail").value="";
   modal.classList.add("hidden"); renderList("");
 };
 
-// init (?patient= para deep-link desde /profesionales)
-const q = new URLSearchParams(location.search).get("patient");
-if(q && patients.some(p=>p.id===q)) currentId=q;
-renderList(""); selectPatient(currentId);
+// ---------- Init ----------
+const qp = new URLSearchParams(location.search).get("patient");
+if(qp && patients.some(p=>p.id===qp)) currentId=qp;
+renderList("");
+selectPatient(currentId);
 </script>
 </body>
 </html>
