@@ -1,83 +1,159 @@
 "use client";
 
-import { useRef } from "react";
+import React from "react";
 import Image from "next/image";
-import { MaterialIcon } from "@/components/ui/MaterialIcon";
-import { useLanguage } from "@/lib/i18n";
+import { Reveal } from "@/components/ui/Reveal";
+import { Badge } from "@/components/ui/badge";
 
-const LOGOS = [
-  { file: "endeavor-1650x1650-removebg-preview.png", alt: "Endeavor", key: "awards.endeavor" },
-  { file: "AWS_Simple_Icons_AWS_Cloud.svg.png", alt: "AWS", key: "awards.aws" },
-  { file: "hit_cowork-removebg-preview.png", alt: "Hit Cowork", key: "awards.hit" },
-  { file: "wise-removebg-preview.png", alt: "WISE", key: "awards.wise" },
-  { file: "bid.png", alt: "BID", key: "awards.bid" },
-  { file: "NAVES.png", alt: "Naves IAE", key: "awards.naves" },
-  { file: "googleforstartups-removebg-preview.png", alt: "Google for Startups", key: "awards.google" },
-  { file: "huawei-removebg-preview.png", alt: "Huawei", key: "awards.huawei" },
-  { file: "samsung-removebg-preview.png", alt: "Samsung", key: "awards.samsung" },
-  { file: "globant.png", alt: "Globant", key: "awards.globant" },
-  { file: "1630627507837.jpeg", alt: "Entrepreneurship World Cup", key: "awards.ewc" },
+export interface AwardItem {
+  id: string;
+  name: string;
+  imageSrc: string;
+}
+
+export const AWARDS: AwardItem[] = [
+  {
+    id: "endeavor",
+    name: "Endeavor",
+    imageSrc: "/images/marcas/endeavor.png",
+  },
+  {
+    id: "aws",
+    name: "AWS",
+    imageSrc: "/images/marcas/AWS.png",
+  },
+  {
+    id: "hit-cowork",
+    name: "HIT Cowork",
+    imageSrc: "/images/marcas/hit_cowork.png",
+  },
+  {
+    id: "wise",
+    name: "WISE",
+    imageSrc: "/images/marcas/wise.png",
+  },
+  {
+    id: "bid",
+    name: "BID",
+    imageSrc: "/images/marcas/bid.png",
+  },
+  {
+    id: "naves",
+    name: "Naves IAE",
+    imageSrc: "/images/marcas/NAVES.png",
+  },
+  {
+    id: "google-startups",
+    name: "Google for Startups",
+    imageSrc: "/images/marcas/googleforstartups.png",
+  },
+  {
+    id: "huawei",
+    name: "Huawei",
+    imageSrc: "/images/marcas/huawei.png",
+  },
+  {
+    id: "samsung",
+    name: "Samsung",
+    imageSrc: "/images/marcas/samsung.png",
+  },
+  {
+    id: "globant",
+    name: "Globant",
+    imageSrc: "/images/marcas/globant.png",
+  },
+  {
+    id: "ewc",
+    name: "Entrepreneurship World Cup",
+    imageSrc: "/images/marcas/entrepreneurship.png",
+  },
 ];
 
-/** Reconocimientos, calcada 1:1 de index.html (sección 9, id `reconocimientos`). */
+// Duplicate items to ensure uninterrupted seamless marquee loop
+const MARQUEE_ITEMS = [...AWARDS, ...AWARDS];
+
 export function AwardsSection() {
-  const { t } = useLanguage();
-  const trackRef = useRef<HTMLDivElement>(null);
-
-  function nudge(direction: "prev" | "next") {
-    const track = trackRef.current;
-    if (!track) return;
-    const amount = 206;
-    const style = getComputedStyle(track);
-    let x = 0;
-    if (style.transform && style.transform !== "none") {
-      const match = /matrix\(([^)]+)\)/.exec(style.transform);
-      if (match) x = parseFloat(match[1].split(",")[4]) || 0;
-    }
-    track.style.animation = "none";
-    track.style.transform = `translateX(${x + (direction === "next" ? -amount : amount)}px)`;
-    window.setTimeout(() => {
-      track.style.transform = "";
-      track.style.animation = "";
-    }, 650);
-  }
-
   return (
-    <section className="mx-auto max-w-[1200px] px-gutter-mobile py-space-3xl md:px-gutter-tablet lg:px-gutter-desktop" id="reconocimientos">
-      <div className="sc-awards-shell">
-        <div className="mx-auto mb-4 flex max-w-2xl flex-col items-center text-center">
-          <span className="mb-2 font-label-md text-label-md font-bold uppercase tracking-wider text-primary">{t("awards.eyebrow")}</span>
-          <h2 className="font-headline-lg text-headline-lg font-extrabold tracking-tight text-on-surface">{t("awards.title")}</h2>
-          <p className="mt-space-xs font-body-md text-body-md text-on-surface-variant">{t("awards.description")}</p>
-        </div>
+    <section
+      id="premios"
+      aria-labelledby="awards-heading"
+      className="sc-awards-section relative overflow-hidden py-12 sm:py-16 lg:py-20"
+    >
+      {/* Background ambient lighting */}
+      <div
+        className="pointer-events-none absolute -top-24 -left-24 h-[440px] w-[440px] rounded-full bg-[#C45CFF]/10 blur-3xl dark:bg-[#C45CFF]/12 [.a11y_&]:hidden"
+        aria-hidden="true"
+      />
+      <div
+        className="pointer-events-none absolute -bottom-24 -right-24 h-[420px] w-[420px] rounded-full bg-[#FF3FB4]/10 blur-3xl dark:bg-[#FF3FB4]/12 [.a11y_&]:hidden"
+        aria-hidden="true"
+      />
 
-        <div className="sc-awards-marquee-wrap" aria-label="Programas y entidades aliadas">
-          <div className="sc-awards-track" ref={trackRef}>
-            {[0, 1].map((dup) =>
-              LOGOS.map((logo) => (
-                <div className="sc-award-item" key={`${dup}-${logo.file}`}>
-                  <Image
-                    src={`/contenido/iconos/${logo.file}`}
-                    alt={logo.alt}
-                    width={140}
-                    height={48}
-                    loading="lazy"
-                    className="max-h-12 w-auto object-contain"
-                  />
-                  <span className="mt-1 text-xs font-semibold text-text-secondary">{t(logo.key)}</span>
-                </div>
-              )),
-            )}
-          </div>
-        </div>
+      {/* Container with increased width (max-w-[1480px] / 2xl:max-w-[1600px]) */}
+      <div className="mx-auto w-full max-w-[1480px] 2xl:max-w-[1600px] px-3 sm:px-6 lg:px-8 relative z-10">
+        <div className="sc-awards-shell relative w-full rounded-[28px] overflow-hidden pt-6 sm:pt-8 lg:pt-10 pb-6 sm:pb-8 shadow-sm">
+          {/* Section Header */}
+          <Reveal className="mx-auto max-w-3xl px-6 sm:px-8 lg:px-10 text-center">
+            <Badge variant="brand" className="mb-3 uppercase tracking-wider text-xs font-bold">
+              Validación y confianza global
+            </Badge>
+            <h2
+              id="awards-heading"
+              className="text-3xl font-extrabold tracking-tight sm:text-4xl text-headings text-ink"
+            >
+              Premios y Reconocimientos
+            </h2>
+            <p className="section-subtitle mt-3 max-w-2xl mx-auto text-base leading-relaxed text-body sm:text-lg">
+              Respaldados por instituciones, aceleradoras e iniciativas de innovación en salud y tecnología.
+            </p>
+          </Reveal>
 
-        <div className="mt-4 flex justify-center gap-3">
-          <button className="sc-award-arrow" type="button" aria-label="Reconocimientos anteriores" onClick={() => nudge("prev")}>
-            <MaterialIcon name="chevron_left" />
-          </button>
-          <button className="sc-award-arrow" type="button" aria-label="Siguientes reconocimientos" onClick={() => nudge("next")}>
-            <MaterialIcon name="chevron_right" />
-          </button>
+          {/* Marquee Wrapper */}
+          <Reveal delay={0.15}>
+            <div
+              tabIndex={0}
+              role="region"
+              aria-label="Carrusel continuo de premios y reconocimientos"
+              className="sc-awards-marquee-wrap group relative mt-6 sm:mt-8 w-full overflow-hidden py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            >
+              {/* Left / Right subtle gradient fade masks - flush to outer edges and very discrete */}
+              <div
+                className="pointer-events-none absolute left-0 top-0 bottom-0 z-10 w-6 sm:w-10 bg-gradient-to-r from-card/35 via-card/15 to-transparent dark:from-[#0d1230]/35 dark:via-[#0d1230]/15 dark:to-transparent [.a11y_&]:hidden"
+                aria-hidden="true"
+              />
+              <div
+                className="pointer-events-none absolute right-0 top-0 bottom-0 z-10 w-4 sm:w-7 bg-gradient-to-l from-card/20 to-transparent dark:from-[#0d1230]/20 dark:to-transparent [.a11y_&]:hidden"
+                aria-hidden="true"
+              />
+
+              {/* Seamless Animated Track */}
+              <div className="sc-awards-track">
+                {MARQUEE_ITEMS.map((award, index) => (
+                  <div
+                    key={`${award.id}-${index}`}
+                    className="sc-award-item group/card"
+                    role="group"
+                    aria-label={award.name}
+                  >
+                    <div className="sc-award-logo flex items-center justify-center">
+                      <div className="relative flex h-12 w-28 sm:w-32 items-center justify-center bg-transparent">
+                        <Image
+                          src={award.imageSrc}
+                          alt={award.name}
+                          width={120}
+                          height={46}
+                          className="max-h-11 w-auto max-w-[110px] sm:max-w-[118px] object-contain drop-shadow-sm select-none transition-transform duration-300 group-hover/card:scale-105"
+                        />
+                      </div>
+                    </div>
+                    <span className="sc-award-name">
+                      {award.name}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Reveal>
         </div>
       </div>
     </section>
