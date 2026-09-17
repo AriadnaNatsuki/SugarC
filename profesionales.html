@@ -14,6 +14,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>SugarCoach · Profesionales</title>
+<meta name="description" content="Dashboard SugarCoach para profesionales: Tiempo en Rango, glucosa vs. insulina y adherencia en modo solo lectura. Solicite acceso al panel profesional."/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
@@ -80,7 +81,7 @@
       --c-tertiary-fixed-dim: #ffb3ac;
       --c-text-primary: #1b192f;
       --c-text-secondary: #474554;
-      --c-text-tertiary: #787586;
+      --c-text-tertiary: #5A5769;
 
       --c-gamification-bg-start: #f7f3ff;
       --c-gamification-bg-mid: #eee9ff;
@@ -158,7 +159,7 @@
       --c-tertiary-fixed-dim: #ffafd4;
       --c-text-primary: #F7F8FC;
       --c-text-secondary: #A8B0C5;
-      --c-text-tertiary: #747F9B;
+      --c-text-tertiary: #9AA3B8;
 
       --c-gamification-bg-start: #121A3B;
       --c-gamification-bg-mid: #0D1733;
@@ -382,6 +383,69 @@
     .faq-item.open .faq-icon { transform: rotate(180deg); }
     .faq-item.open .faq-answer { grid-template-rows: 1fr; }
     .faq-item.open .faq-content { opacity: 1; }
+    /* Fase 1: anclas compensan header fijo + sub-bar mobile */
+    section[id], div[id] { scroll-margin-top: 132px; }
+    @media (min-width: 1024px) { section[id], div[id] { scroll-margin-top: 88px; } }
+    /* Fase 1: foco visible AA en tema claro */
+    :focus-visible { outline: 3px solid var(--c-primary); outline-offset: 2px; border-radius: 6px; }
+    /* Fase 1: respetar movimiento reducido (hero sin bounce) */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
+    /* Cliente: screenshots como cards separadas + lightbox */
+    .shot-card {
+      background: var(--c-surface-container-lowest);
+      border: 1px solid var(--c-outline-variant);
+      border-radius: 28px;
+      padding: 1.25rem;
+      box-shadow: 0 20px 45px -20px rgba(27,25,47,0.25);
+    }
+    @media (min-width: 768px) { .shot-card { padding: 2rem; } }
+    .shot-frame { overflow: hidden; border-radius: 20px; border: 1px solid var(--c-outline-variant); background: var(--c-surface-tier-1); }
+    .shot-frame-top {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 0.75rem; padding: 0.65rem 1rem;
+      border-bottom: 1px solid var(--c-outline-variant);
+      font-size: 13px; font-weight: 700; color: var(--c-on-surface-variant);
+    }
+    .shot-dots { display: inline-flex; gap: 6px; }
+    .shot-dots span { width: 10px; height: 10px; border-radius: 9999px; background: var(--c-outline-variant); display: inline-block; }
+    .shot-expand {
+      display: inline-flex; align-items: center; gap: 6px;
+      border: 1px solid var(--c-outline-variant); border-radius: 9999px;
+      padding: 8px 14px; min-height: 44px; cursor: pointer;
+      background: var(--c-surface-container); color: var(--c-on-surface);
+      font-size: 14px; font-weight: 700; white-space: nowrap;
+    }
+    .shot-expand:hover { background: var(--c-surface-container-high); }
+    .shot-img-btn { display: block; width: 100%; padding: 0; border: 0; background: none; cursor: zoom-in; }
+    .shot-img-btn img { display: block; width: 100%; height: auto; }
+    #shot-lightbox[hidden] { display: none; }
+    #shot-lightbox {
+      position: fixed; inset: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: center;
+      padding: 5.5rem 1rem 1.5rem;
+    }
+    @media (min-width: 1024px) { #shot-lightbox { padding: 6rem 1.5rem 2rem; } }
+    .shot-lightbox-backdrop { position: absolute; inset: 0; background: rgba(10,8,25,0.72); backdrop-filter: blur(4px); }
+    .shot-lightbox-card {
+      position: relative; width: min(1100px, calc(100vw - 2rem)); max-height: 90vh;
+      overflow: hidden; border-radius: 24px;
+      background: var(--c-surface-container-lowest); color: var(--c-on-surface);
+      border: 1px solid var(--c-outline-variant);
+      box-shadow: 0 30px 80px -20px rgba(0,0,0,0.5);
+      display: flex; flex-direction: column;
+    }
+    .shot-lightbox-body { overflow: auto; flex: 1 1 auto; min-height: 0; }
+    .shot-lightbox-head, .shot-lightbox-foot { flex: 0 0 auto; }
+    .shot-lightbox-card img { width: 100%; height: auto; display: block; background: #fff; }
+    .shot-nav-btn {
+      width: 48px; height: 48px; border-radius: 9999px;
+      display: inline-flex; align-items: center; justify-content: center;
+      border: 1px solid var(--c-outline-variant);
+      background: var(--c-surface-container); color: var(--c-on-surface); cursor: pointer;
+    }
+    .shot-nav-btn:hover { background: var(--c-surface-container-high); }
 </style>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <script id="tailwind-config">
@@ -501,8 +565,8 @@
           "label-md": ["13px", { "lineHeight": "18px", "letterSpacing": "0.02em", "fontWeight": "600" }],
           "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "700" }],
           "body-lg": ["16px", { "lineHeight": "26px", "fontWeight": "400" }],
-          "body-md": ["14px", { "lineHeight": "22px", "fontWeight": "400" }],
-          "body-sm": ["12px", { "lineHeight": "18px", "fontWeight": "400" }]
+          "body-md": ["15px", { "lineHeight": "24px", "fontWeight": "400" }],
+          "body-sm": ["13px", { "lineHeight": "20px", "fontWeight": "400" }]
         }
       }
     }
@@ -545,9 +609,9 @@
 </div>
 </div>
 <a class="hidden sm:inline-flex font-label-lg text-label-lg text-text-secondary hover:text-primary transition-colors" data-path="login" href="#">Iniciar sesión</a>
-<a class="inline-flex items-center justify-center px-space-lg py-space-xs min-h-[44px] rounded-full bg-primary text-on-primary font-label-lg text-label-lg transition-all active:scale-95 gap-2 border border-primary hover:bg-primary-container" data-path="descargar" href="profesionales/dashboard.html">
+<a class="inline-flex items-center justify-center px-space-lg py-space-xs min-h-[44px] rounded-full bg-primary text-on-primary font-label-lg text-label-lg transition-all active:scale-95 gap-2 border border-primary hover:bg-[#3A2BA8]" data-path="descargar" href="#acceso-profesional">
 <span class="material-symbols-outlined text-[18px]">stethoscope</span>
-          Acceso profesional
+          Solicitar acceso
         </a>
 </div>
 </div>
@@ -555,12 +619,11 @@
 <div class="lg:hidden border-t border-border-subtle">
 <div class="max-w-[1200px] mx-auto px-gutter-mobile flex items-center gap-4 overflow-x-auto py-2 text-[13px]">
 <a href="#dashboard-medico" class="text-text-secondary hover:text-primary whitespace-nowrap">Dashboard</a>
-<a href="#doble-audiencia" class="text-text-secondary hover:text-primary whitespace-nowrap">Pacientes y equipo</a>
 <a href="#faq-pro" class="text-text-secondary hover:text-primary whitespace-nowrap">FAQ</a>
 </div>
 </div>
 </header>
-<main class="w-full pt-20 bg-surface min-h-[calc(100vh-80px)]">
+<main class="w-full pt-[124px] lg:pt-20 bg-surface min-h-[calc(100vh-80px)]">
 <div class="flex flex-col w-full">
 <!-- 1. HERO PROFESIONAL -->
 <div class="relative w-full overflow-hidden bg-bg-deep">
@@ -575,19 +638,19 @@
 <span class="font-label-md text-label-md font-bold tracking-tight text-text-primary">Portal profesional · Datos clínicos accionables</span>
 </div>
 <h1 class="font-display-lg text-display-lg-mobile md:text-display-lg text-on-surface font-extrabold tracking-tight">
-                Más que una app, es tu <span class="text-primary underline decoration-secondary decoration-wavy underline-offset-8 dark:bg-gradient-to-r dark:from-[#C45CFF] dark:to-[#FF3FB4] dark:bg-clip-text dark:text-transparent">coach de salud</span>.
+                Revise a cada paciente en pocos minutos <span class="text-primary underline decoration-secondary decoration-2 underline-offset-8">antes de entrar a consulta</span>.
               </h1>
 <p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl">
-                SugarCoach le da a tu equipo reportes listos para consulta: Tiempo en Rango (TIR), glucosa vs. insulina, adherencia y hábitos. Tus pacientes registran en segundos; vos decidís con evidencia.
+                SugarCoach entrega a su equipo reportes listos para consulta: Tiempo en Rango (TIR), glucosa vs. insulina, adherencia y hábitos. Sus pacientes registran en segundos; usted decide con evidencia.
               </p>
 <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-space-md pt-space-xs">
-<a class="inline-flex items-center justify-center gap-space-xs px-space-xl py-4 rounded-full bg-primary text-on-primary font-label-lg text-label-lg shadow-xl hover:bg-primary-container active:scale-[0.98] transition-all" href="profesionales/dashboard.html">
+<a class="inline-flex items-center justify-center gap-space-xs px-space-xl py-4 rounded-full bg-primary text-on-primary font-label-lg text-label-lg shadow-xl hover:bg-[#3A2BA8] active:scale-[0.98] transition-all" href="#acceso-profesional">
 <span class="material-symbols-outlined text-[20px]">stethoscope</span>
-                  Abrir dashboard profesional
+                  Solicitar acceso profesional
                 </a>
 <a class="inline-flex items-center justify-center gap-space-xs px-space-xl py-4 rounded-full bg-surface-container text-on-surface border border-outline-variant font-label-lg text-label-lg hover:bg-surface-container-high active:scale-[0.98] transition-all" href="#dashboard-medico">
 <span class="material-symbols-outlined text-[20px] text-primary">play_circle</span>
-                  Ver cómo funciona
+                  Ver demo interactiva
                 </a>
 </div>
 <div class="flex flex-wrap items-center gap-space-md pt-space-md">
@@ -604,30 +667,14 @@
 </div>
 <div class="lg:col-span-6 relative flex justify-center items-center pt-8 lg:pt-0">
 <div class="absolute w-80 md:w-96 h-80 md:h-96 rounded-full bg-gradient-to-tr from-primary/25 via-neon-magenta/20 to-secondary/15 blur-3xl"></div>
-<div class="absolute -top-6 left-2 sm:-left-4 z-30 bg-surface-tier-2/90 backdrop-blur-xl shadow-2xl px-4 py-3 rounded-2xl flex items-center gap-3 border border-border-subtle animate-bounce" style="animation-duration: 5s;">
-<div class="w-9 h-9 rounded-xl bg-primary/10 text-primary flex items-center justify-center border border-primary/20">
-<span class="material-symbols-outlined text-[20px]">donut_large</span>
+<figure class="shot-frame shadow-2xl relative z-20 w-full max-w-[560px]">
+<div class="shot-frame-top">
+<span class="inline-flex items-center gap-3"><span class="shot-dots" aria-hidden="true"><span></span><span></span><span></span></span> Panel web · Inicio</span>
+<a href="#dashboard-medico" class="shot-expand"><span class="material-symbols-outlined text-[18px]">visibility</span> Ver recorrido</a>
 </div>
-<div class="flex flex-col">
-<span class="font-label-sm text-text-tertiary text-[11px]">Tiempo en Rango</span>
-<span class="font-label-md text-on-surface font-extrabold text-[15px]">70% · Informe listo</span>
-</div>
-</div>
-<div class="absolute bottom-10 -left-6 sm:-left-8 z-30 bg-surface-tier-2/90 backdrop-blur-xl shadow-2xl px-4 py-3 rounded-2xl flex items-center gap-3 border border-border-subtle">
-<div class="w-9 h-9 rounded-xl bg-secondary/10 text-secondary flex items-center justify-center font-bold border border-secondary/20">
-<span class="material-symbols-outlined text-[20px]">group</span>
-</div>
-<div class="flex flex-col">
-<span class="font-label-md text-on-surface font-bold">Panel multi-paciente</span>
-<span class="font-label-sm text-text-tertiary text-[11px]">Adherencia por semana</span>
-</div>
-</div>
-<div class="relative w-[280px] sm:w-[310px] rounded-[44px] bg-[#110e2d] p-3 phone-mockup-glow border-2 border-surface-container-lowest z-20 hover:scale-[1.01] transition-transform">
-<div class="w-24 h-4 bg-black rounded-full mx-auto mb-2 opacity-80"></div>
-<div class="overflow-hidden rounded-[32px] aspect-[9/19.5] bg-black shadow-inner">
-<img alt="Panel profesional SugarCoach con TIR 112 mg/dL" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBV5yOs9xtXD5p_0nyDgrmCUCQL77HdzGdWhwkOaNOfyvKEU_XmD1oBRWLOJfBQXclF35ieOI_WnAQtQ3kQXTpcpDNr62TIVhj_4ZNmVnpALOJ-7IrXngV1EBkGZXbUOWwmWlGfhQdsLsxiD3PG-y-oZWdN8PiVYESJ4zwjm6CeZxnjdC28a8FOY1EcPYHY3T3-DLmRn5nqEJ6o6KTdd9n-RA986INlrfWu0lONqd2ACTLJamDgtD1aXoc1kVkQ90LKZg"/>
-</div>
-</div>
+<img src="contenido/lovable-pictures/1.png" alt="Dashboard web SugarCoach, pestaña Inicio con Tiempo en Rango y curva de 7 días (datos simulados)" loading="eager" decoding="async" width="1327" height="651"/>
+<figcaption class="px-5 py-3 font-body-sm text-body-sm text-on-surface-variant border-t border-border-subtle">Captura real del dashboard web (datos simulados). No es la app móvil del paciente.</figcaption>
+</figure>
 </div>
 </div>
 </section>
@@ -637,176 +684,161 @@
 <div class="absolute top-24 right-0 w-96 h-96 bg-primary/10 rounded-full blur-[140px] pointer-events-none"></div>
 <div class="absolute bottom-24 left-0 w-96 h-96 bg-secondary/10 rounded-full blur-[140px] pointer-events-none"></div>
 <div class="max-w-[1200px] mx-auto px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop relative z-10">
-<div class="flex flex-col items-center text-center max-w-3xl mx-auto mb-space-2xl">
+<div class="flex flex-col items-center text-center max-w-3xl mx-auto mb-space-3xl gap-space-sm">
 <span class="font-label-md text-label-md text-primary font-bold uppercase tracking-wider mb-2">Panel profesional · Vista guiada</span>
 <h2 class="font-headline-lg text-headline-lg text-on-surface font-extrabold tracking-tight">
               Cómo es el dashboard que usa el médico
             </h2>
 <p class="font-body-md text-body-md text-on-surface-variant mt-space-xs">
-              Si aún no conoce la herramienta: todo lo que ve el profesional, en un solo lugar. Acceso en modo <strong>solo lectura</strong> y con consentimiento del paciente. Ejemplo con datos simulados de Martina Pérez (28 años, diabetes tipo 1, diagnosticada en 2018).
+              Si aún no conoce la herramienta: todo lo que ve el profesional, en un solo lugar. Acceso en modo <strong>solo lectura</strong> y con consentimiento del paciente. Paciente ficticia con fines ilustrativos: Martina Pérez (28 años, diabetes tipo 1). Todos los datos mostrados son simulados.
             </p>
-<div class="flex flex-wrap items-center justify-center gap-space-sm pt-space-md">
-<span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-tier-1 border border-border-subtle font-label-sm text-label-sm font-bold text-on-surface-variant">
-<span class="material-symbols-outlined text-[16px] text-primary">visibility</span> Solo lectura
-</span>
-<span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-tier-1 border border-border-subtle font-label-sm text-label-sm font-bold text-on-surface-variant">
-<span class="material-symbols-outlined text-[16px] text-primary">stethoscope</span> Dra. García · Endocrinología
-</span>
-<span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-tier-1 border border-border-subtle font-label-sm text-label-sm font-bold text-on-surface-variant">
-<span class="material-symbols-outlined text-[16px] text-primary">refresh</span> Actualizado hace 8 min
-</span>
-<span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-tier-1 border border-border-subtle font-label-sm text-label-sm font-bold text-on-surface-variant">
-<span class="material-symbols-outlined text-[16px] text-primary">lock</span> Vista demo · datos simulados
-</span>
-</div>
-</div>
-<!-- Recorrido visual: captura grande + descripción lado a lado -->
-<div class="flex flex-col gap-space-2xl mb-space-2xl">
-<div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-space-sm">
-<div>
-<h3 class="font-headline-md text-headline-md text-on-surface font-bold">Recorrido visual por las 5 pantallas</h3>
-<p class="font-body-md text-body-md text-on-surface-variant mt-1">Capturas reales del panel (vista demo). Cada pantalla, con lo que el profesional ve y para qué le sirve.</p>
-</div>
-<a href="profesionales/dashboard.html" class="inline-flex items-center gap-2 px-space-lg py-3 rounded-full bg-primary text-on-primary font-label-lg hover:bg-primary-container transition-all w-fit whitespace-nowrap">
-<span class="material-symbols-outlined text-[18px]">play_circle</span> Probar la demo en vivo
+<p class="font-body-md text-body-md text-on-surface-variant"><strong class="text-on-surface">Recorrido visual por las 5 pantallas:</strong> capturas reales del panel (vista demo con datos simulados). Cada pantalla indica qué ve usted y qué decisión clínica facilita.</p>
+<a href="profesionales/dashboard.html" class="inline-flex items-center gap-2 px-space-lg py-3 rounded-full bg-surface-container text-on-surface border border-outline-variant font-label-lg hover:bg-surface-container-high transition-all w-fit whitespace-nowrap mt-space-xs">
+<span class="material-symbols-outlined text-[18px] text-primary">play_circle</span> Ver demo interactiva
 </a>
 </div>
+<!-- Recorrido visual: 5 cards separadas + lightbox -->
+<div id="shot-gallery" class="flex flex-col gap-space-3xl mb-space-2xl">
 <!-- 1 · Inicio: captura a la izquierda, descripción a la derecha -->
+<article class="shot-card">
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-space-xl items-center">
-<a href="profesionales/dashboard.html" class="block rounded-3xl overflow-hidden border border-border-subtle shadow-xl hover:border-primary/40 transition-all bg-surface-tier-1">
-<img src="contenido/lovable-pictures/1.png" alt="Dashboard médico, pestaña Inicio: medición 112 mg/dL, en rango 78% y curva de 7 días" class="w-full h-auto object-cover" loading="lazy" decoding="async"/>
-</a>
+<figure class="shot-frame shadow-xl">
+<div class="shot-frame-top">
+<span class="inline-flex items-center gap-3"><span class="shot-dots" aria-hidden="true"><span></span><span></span><span></span></span> Pantalla 1 · Inicio</span>
+<button type="button" class="shot-expand" data-shot-index="0" aria-label="Ampliar captura Pantalla 1 · Inicio"><span class="material-symbols-outlined text-[18px]">zoom_in</span> Ampliar</button>
+</div>
+<button type="button" class="shot-img-btn" data-shot-index="0" aria-label="Ampliar captura Pantalla 1 · Inicio">
+<img src="contenido/lovable-pictures/1.png" alt="Dashboard médico, pestaña Inicio: medición actual, Tiempo en Rango y curva de 7 días (datos simulados)" loading="lazy" decoding="async" width="1327" height="651"/>
+</button>
+<figcaption class="px-5 py-3 font-body-sm text-body-sm text-on-surface-variant border-t border-border-subtle">Pantalla 1 · Inicio — Estado general. <a href="profesionales/dashboard.html" class="underline font-bold text-primary">Abrir esta vista en la demo</a></figcaption>
+</figure>
 <div class="flex flex-col gap-space-sm">
 <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-tier-1 border border-border-subtle font-label-sm text-label-sm font-bold text-primary w-fit">
 <span class="material-symbols-outlined text-[18px]">dashboard</span> Pantalla 1 · Inicio
 </div>
 <h3 class="font-headline-md text-headline-md text-on-surface font-bold">Estado general de un vistazo</h3>
 <p class="font-body-md text-body-md text-on-surface-variant">
-                Lo primero que ve al abrir la ficha: la situación actual del paciente, sin buscar entre menús.
+                Le sirve para abrir la consulta con la situación actual, sin buscar entre menús.
               </p>
 <ul class="flex flex-col gap-2 font-body-md text-body-md text-on-surface-variant">
-<li class="flex gap-2"><span class="material-symbols-outlined text-primary">check</span> Medición actual: 112 mg/dL, en rango</li>
-<li class="flex gap-2"><span class="material-symbols-outlined text-primary">check</span> Anillo de Tiempo en Rango: 78% a 7 días</li>
-<li class="flex gap-2"><span class="material-symbols-outlined text-primary">check</span> Promedio semanal (134 mg/dL), último registro y curva de 7 días</li>
+<li class="flex gap-2"><span class="material-symbols-outlined text-primary">check</span> Valor actual y Tiempo en Rango a 7 días</li>
+<li class="flex gap-2"><span class="material-symbols-outlined text-primary">check</span> Promedio semanal y curva de tendencia</li>
 </ul>
 </div>
 </div>
+</article>
 <!-- 2 · Historial: descripción a la izquierda, captura a la derecha -->
+<article class="shot-card">
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-space-xl items-center">
-<a href="profesionales/dashboard.html" class="block rounded-3xl overflow-hidden border border-border-subtle shadow-xl hover:border-primary/40 transition-all bg-surface-tier-1 lg:order-2">
-<img src="contenido/lovable-pictures/2.png" alt="Dashboard médico, pestaña Historial: registros por comida con insulina, carbohidratos y alertas" class="w-full h-auto object-cover" loading="lazy" decoding="async"/>
-</a>
-<div class="flex flex-col gap-space-sm lg:order-1">
+<figure class="shot-frame shadow-xl order-2 lg:order-2">
+<div class="shot-frame-top">
+<span class="inline-flex items-center gap-3"><span class="shot-dots" aria-hidden="true"><span></span><span></span><span></span></span> Pantalla 2 · Historial</span>
+<button type="button" class="shot-expand" data-shot-index="1" aria-label="Ampliar captura Pantalla 2 · Historial"><span class="material-symbols-outlined text-[18px]">zoom_in</span> Ampliar</button>
+</div>
+<button type="button" class="shot-img-btn" data-shot-index="1" aria-label="Ampliar captura Pantalla 2 · Historial">
+<img src="contenido/lovable-pictures/2.png" alt="Dashboard médico, pestaña Historial: registros por comida con insulina y alertas (datos simulados)" loading="lazy" decoding="async" width="1327" height="651"/>
+</button>
+<figcaption class="px-5 py-3 font-body-sm text-body-sm text-on-surface-variant border-t border-border-subtle">Pantalla 2 · Historial — Detalle por comida. <a href="profesionales/dashboard.html" class="underline font-bold text-primary">Abrir esta vista en la demo</a></figcaption>
+</figure>
+<div class="flex flex-col gap-space-sm order-1 lg:order-1">
 <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-tier-1 border border-border-subtle font-label-sm text-label-sm font-bold text-primary w-fit">
 <span class="material-symbols-outlined text-[18px]">history</span> Pantalla 2 · Historial
 </div>
 <h3 class="font-headline-md text-headline-md text-on-surface font-bold">Cada comida, con contexto</h3>
 <p class="font-body-md text-body-md text-on-surface-variant">
-                Lista cronológica por día: qué comió, cuánta insulina aplicó y cómo estaba. Ideal para detectar patrones antes de la consulta.
+                Le sirve para detectar patrones de hipo/hiper antes de la consulta, con insulina y contexto en cada registro.
               </p>
 <ul class="flex flex-col gap-2 font-body-md text-body-md text-on-surface-variant">
-<li class="flex gap-2"><span class="material-symbols-outlined text-primary">check</span> Desayuno 112, almuerzo 178, merienda 58 (aviso de hipo), cena 189 (aviso de hiper)</li>
-<li class="flex gap-2"><span class="material-symbols-outlined text-primary">check</span> Insulina aplicada (U), carbohidratos (g) y estado de ánimo en cada fila</li>
-<li class="flex gap-2"><span class="material-symbols-outlined text-primary">check</span> Filtros por 7 días, 30 días o todo el historial</li>
+<li class="flex gap-2"><span class="material-symbols-outlined text-primary">check</span> Cronología por día con alertas de hipo e hiper</li>
+<li class="flex gap-2"><span class="material-symbols-outlined text-primary">check</span> Filtros por 7 días, 30 días o historial completo</li>
 </ul>
 </div>
 </div>
+</article>
 <!-- 3 · Estadísticas: captura a la izquierda, descripción a la derecha -->
+<article class="shot-card">
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-space-xl items-center">
-<a href="profesionales/dashboard.html" class="block rounded-3xl overflow-hidden border border-border-subtle shadow-xl hover:border-primary/40 transition-all bg-surface-tier-1">
-<img src="contenido/lovable-pictures/3.png" alt="Dashboard médico, pestaña Estadísticas: Tiempo en Rango, carbohidratos, actividad y estado emocional" class="w-full h-auto object-cover" loading="lazy" decoding="async"/>
-</a>
+<figure class="shot-frame shadow-xl">
+<div class="shot-frame-top">
+<span class="inline-flex items-center gap-3"><span class="shot-dots" aria-hidden="true"><span></span><span></span><span></span></span> Pantalla 3 · Estadísticas</span>
+<button type="button" class="shot-expand" data-shot-index="2" aria-label="Ampliar captura Pantalla 3 · Estadísticas"><span class="material-symbols-outlined text-[18px]">zoom_in</span> Ampliar</button>
+</div>
+<button type="button" class="shot-img-btn" data-shot-index="2" aria-label="Ampliar captura Pantalla 3 · Estadísticas">
+<img src="contenido/lovable-pictures/3.png" alt="Dashboard médico, pestaña Estadísticas: Tiempo en Rango, carbohidratos y actividad (datos simulados)" loading="lazy" decoding="async" width="1327" height="651"/>
+</button>
+<figcaption class="px-5 py-3 font-body-sm text-body-sm text-on-surface-variant border-t border-border-subtle">Pantalla 3 · Estadísticas — Tendencias. <a href="profesionales/dashboard.html" class="underline font-bold text-primary">Abrir esta vista en la demo</a></figcaption>
+</figure>
 <div class="flex flex-col gap-space-sm">
 <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-tier-1 border border-border-subtle font-label-sm text-label-sm font-bold text-primary w-fit">
 <span class="material-symbols-outlined text-[18px]">bar_chart</span> Pantalla 3 · Estadísticas
 </div>
 <h3 class="font-headline-md text-headline-md text-on-surface font-bold">Patrones, no números sueltos</h3>
 <p class="font-body-md text-body-md text-on-surface-variant">
-                Agregados visuales para conversar con el paciente sobre tendencias, no sobre un valor aislado.
+                Le sirve para conversar sobre tendencias semanales en lugar de valores aislados.
               </p>
 <ul class="flex flex-col gap-2 font-body-md text-body-md text-on-surface-variant">
-<li class="flex gap-2"><span class="material-symbols-outlined text-primary">check</span> Tiempo en Rango: 78% en rango, 12% hipo, 10% hiper</li>
-<li class="flex gap-2"><span class="material-symbols-outlined text-primary">check</span> Carbohidratos por comida en barras (42 / 68 / 28 / 55 g)</li>
-<li class="flex gap-2"><span class="material-symbols-outlined text-primary">check</span> Actividad física (4 de 7 días) y estado emocional, en vista diaria, semanal o mensual</li>
+<li class="flex gap-2"><span class="material-symbols-outlined text-primary">check</span> Tiempo en Rango desagregado por hipo e hiper</li>
+<li class="flex gap-2"><span class="material-symbols-outlined text-primary">check</span> Actividad y estado emocional en vista diaria, semanal o mensual</li>
 </ul>
 </div>
 </div>
+</article>
 <!-- 4 · Tratamiento: descripción a la izquierda, captura a la derecha -->
+<article class="shot-card">
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-space-xl items-center">
-<a href="profesionales/dashboard.html" class="block rounded-3xl overflow-hidden border border-border-subtle shadow-xl hover:border-primary/40 transition-all bg-surface-tier-1 lg:order-2">
-<img src="contenido/lovable-pictures/4.png" alt="Dashboard médico, pestaña Tratamiento: objetivos glucémicos e insulina basal" class="w-full h-auto object-cover" loading="lazy" decoding="async"/>
-</a>
-<div class="flex flex-col gap-space-sm lg:order-1">
+<figure class="shot-frame shadow-xl order-2 lg:order-2">
+<div class="shot-frame-top">
+<span class="inline-flex items-center gap-3"><span class="shot-dots" aria-hidden="true"><span></span><span></span><span></span></span> Pantalla 4 · Tratamiento</span>
+<button type="button" class="shot-expand" data-shot-index="3" aria-label="Ampliar captura Pantalla 4 · Tratamiento"><span class="material-symbols-outlined text-[18px]">zoom_in</span> Ampliar</button>
+</div>
+<button type="button" class="shot-img-btn" data-shot-index="3" aria-label="Ampliar captura Pantalla 4 · Tratamiento">
+<img src="contenido/lovable-pictures/4.png" alt="Dashboard médico, pestaña Tratamiento: objetivos glucémicos e insulina basal (datos simulados)" loading="lazy" decoding="async" width="1327" height="651"/>
+</button>
+<figcaption class="px-5 py-3 font-body-sm text-body-sm text-on-surface-variant border-t border-border-subtle">Pantalla 4 · Tratamiento — Esquema en consulta. <a href="profesionales/dashboard.html" class="underline font-bold text-primary">Abrir esta vista en la demo</a></figcaption>
+</figure>
+<div class="flex flex-col gap-space-sm order-1 lg:order-1">
 <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-tier-1 border border-border-subtle font-label-sm text-label-sm font-bold text-primary w-fit">
 <span class="material-symbols-outlined text-[18px]">medication</span> Pantalla 4 · Tratamiento
 </div>
 <h3 class="font-headline-md text-headline-md text-on-surface font-bold">Esquema siempre visible</h3>
 <p class="font-body-md text-body-md text-on-surface-variant">
-                Los parámetros que el profesional indicó, a la vista mientras revisa los registros. El panel es de consulta: no se edita desde aquí.
+                Los parámetros que usted indicó, a la vista mientras revisa los registros. El panel es de consulta: no se edita desde aquí.
               </p>
 <ul class="flex flex-col gap-2 font-body-md text-body-md text-on-surface-variant">
-<li class="flex gap-2"><span class="material-symbols-outlined text-primary">check</span> Objetivos: 100 mg/dL objetivo, &lt;70 hipo, &gt;180 hiper</li>
-<li class="flex gap-2"><span class="material-symbols-outlined text-primary">check</span> Insulina basal (Lantus Glargina) con dosis por desayuno, almuerzo, merienda y cena</li>
+<li class="flex gap-2"><span class="material-symbols-outlined text-primary">check</span> Objetivos e insulina basal por momento del día</li>
 <li class="flex gap-2"><span class="material-symbols-outlined text-primary">check</span> Solo lectura: se consulta, no se modifica</li>
 </ul>
 </div>
 </div>
+</article>
 <!-- 5 · Perfil: captura a la izquierda, descripción a la derecha -->
+<article class="shot-card">
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-space-xl items-center">
-<a href="profesionales/dashboard.html" class="block rounded-3xl overflow-hidden border border-border-subtle shadow-xl hover:border-primary/40 transition-all bg-surface-tier-1">
-<img src="contenido/lovable-pictures/5.png" alt="Dashboard médico, pestaña Perfil: ficha del paciente con datos clínicos" class="w-full h-auto object-cover" loading="lazy" decoding="async"/>
-</a>
+<figure class="shot-frame shadow-xl">
+<div class="shot-frame-top">
+<span class="inline-flex items-center gap-3"><span class="shot-dots" aria-hidden="true"><span></span><span></span><span></span></span> Pantalla 5 · Perfil</span>
+<button type="button" class="shot-expand" data-shot-index="4" aria-label="Ampliar captura Pantalla 5 · Perfil"><span class="material-symbols-outlined text-[18px]">zoom_in</span> Ampliar</button>
+</div>
+<button type="button" class="shot-img-btn" data-shot-index="4" aria-label="Ampliar captura Pantalla 5 · Perfil">
+<img src="contenido/lovable-pictures/5.png" alt="Dashboard médico, pestaña Perfil: ficha del paciente con datos clínicos simulados" loading="lazy" decoding="async" width="1327" height="651"/>
+</button>
+<figcaption class="px-5 py-3 font-body-sm text-body-sm text-on-surface-variant border-t border-border-subtle">Pantalla 5 · Perfil — Contexto clínico. <a href="profesionales/dashboard.html" class="underline font-bold text-primary">Abrir esta vista en la demo</a></figcaption>
+</figure>
 <div class="flex flex-col gap-space-sm">
 <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-tier-1 border border-border-subtle font-label-sm text-label-sm font-bold text-primary w-fit">
 <span class="material-symbols-outlined text-[18px]">person</span> Pantalla 5 · Perfil
 </div>
 <h3 class="font-headline-md text-headline-md text-on-surface font-bold">Contexto clínico del paciente</h3>
 <p class="font-body-md text-body-md text-on-surface-variant">
-                La ficha para preparar la consulta antes de abrir los números: quién es el paciente y su punto de partida.
+                La ficha para preparar la consulta antes de abrir los números: datos filiatorios y punto de partida (ficticios).
               </p>
 <ul class="flex flex-col gap-2 font-body-md text-body-md text-on-surface-variant">
-<li class="flex gap-2"><span class="material-symbols-outlined text-primary">check</span> 28 años, 165 cm, 58 kg, diagnóstico el 15 de agosto de 2018</li>
-<li class="flex gap-2"><span class="material-symbols-outlined text-primary">check</span> Diabetes tipo 1, cuenta Premium</li>
-<li class="flex gap-2"><span class="material-symbols-outlined text-primary">check</span> Contacto y datos filiatorios en un solo lugar</li>
+<li class="flex gap-2"><span class="material-symbols-outlined text-primary">check</span> Tipo de diabetes y fecha de diagnóstico simulada</li>
+<li class="flex gap-2"><span class="material-symbols-outlined text-primary">check</span> Contacto y plan en un solo lugar</li>
 </ul>
 </div>
 </div>
-<!-- Lateral · Pacientes: franja compacta sin captura -->
-<div class="bg-surface-tier-1 rounded-3xl p-space-xl border border-border-subtle flex flex-col md:flex-row md:items-center gap-space-md">
-<div class="w-12 h-12 rounded-2xl bg-primary-fixed flex items-center justify-center text-primary shrink-0">
-<span class="material-symbols-outlined text-[26px]">group</span>
-</div>
-<div class="flex-1 flex flex-col gap-space-xs">
-<span class="font-label-sm text-label-sm font-bold uppercase tracking-wider text-primary">Lateral · Pacientes</span>
-<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">Su lista, ordenada por actividad</h3>
-<p class="font-body-md text-body-md text-on-surface-variant">
-                Buscador por nombre, lista con estado de sincronización (“hace 8 min”, “hace 2 días”, “invitación pendiente”) y botón para invitar a un paciente con código de vinculación. Cambiar de paciente no recarga la página.
-              </p>
-</div>
-<a href="profesionales/dashboard.html" class="inline-flex items-center justify-center gap-2 px-space-lg py-3 rounded-full bg-surface-container text-on-surface border border-outline-variant font-label-lg hover:bg-surface-container-high transition-all whitespace-nowrap">
-                Ver lista en la demo <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
-</a>
-</div>
-<!-- Demo en vivo: banner de cierre -->
-<div class="rounded-3xl p-space-xl md:p-space-2xl border border-primary/30 bg-primary-fixed/40 flex flex-col lg:flex-row lg:items-center gap-space-lg">
-<div class="flex-1 flex flex-col gap-space-sm">
-<div class="w-12 h-12 rounded-2xl bg-primary flex items-center justify-center text-on-primary">
-<span class="material-symbols-outlined text-[26px]">stethoscope</span>
-</div>
-<h3 class="font-headline-md text-headline-md text-on-surface font-bold">Verlo con sus propios ojos</h3>
-<p class="font-body-md text-body-md text-on-surface-variant">
-                  Abra la demo interactiva: cambie de paciente, recorra las 5 pestañas y use el buscador. Todo funciona en modo solo lectura, como lo verá en consulta.
-                </p>
-</div>
-<div class="flex flex-col sm:flex-row lg:flex-col gap-space-sm shrink-0">
-<a href="profesionales/dashboard.html" class="inline-flex items-center justify-center gap-2 px-space-lg py-3 rounded-full bg-primary text-on-primary font-label-lg hover:bg-primary-container transition-all whitespace-nowrap">
-                  Abrir dashboard <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
-</a>
-<a href="profesionales/dashboard.html?patient=mateo" class="inline-flex items-center justify-center gap-2 px-space-lg py-3 rounded-full bg-surface-container-lowest text-on-surface border border-outline-variant font-label-lg hover:bg-surface-container transition-all whitespace-nowrap">
-                  Ver paciente de ejemplo
-                </a>
-</div>
-</div>
+</article>
 </div>
 <!-- Flujo típico de uso -->
 <div class="bg-surface-tier-1 rounded-3xl border border-border-subtle p-space-xl md:p-space-2xl shadow-xl">
@@ -819,7 +851,7 @@
 <div class="flex flex-col gap-space-sm">
 <span class="w-11 h-11 shrink-0 rounded-full bg-primary text-on-primary font-headline-sm font-extrabold flex items-center justify-center">1</span>
 <h4 class="font-headline-sm text-headline-sm font-bold text-on-surface">Invite y vincule</h4>
-<p class="font-body-md text-body-md text-on-surface-variant">Envía un código de vinculación desde “Invitar paciente”. El paciente acepta y define qué comparte.</p>
+<p class="font-body-md text-body-md text-on-surface-variant">Envíe un código de vinculación desde “Invitar paciente”. El paciente acepta y define qué comparte.</p>
 </div>
 <div class="flex flex-col gap-space-sm">
 <span class="w-11 h-11 shrink-0 rounded-full bg-primary text-on-primary font-headline-sm font-extrabold flex items-center justify-center">2</span>
@@ -846,35 +878,6 @@
 </div>
 </div>
 </section>
-<!-- 3. DOBLE AUDIENCIA -->
-<section class="w-full py-space-3xl bg-bg-canvas relative" id="doble-audiencia">
-<div class="max-w-[1200px] mx-auto px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop">
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-space-lg">
-<div class="bg-surface-tier-1 rounded-3xl p-space-xl md:p-space-2xl border border-border-subtle flex flex-col gap-space-md">
-<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container text-secondary font-label-sm font-bold w-fit border border-border-subtle">Para tus pacientes · Tu salud, en tus manos</div>
-<h3 class="font-headline-lg text-headline-lg-mobile md:text-headline-md text-on-surface font-extrabold">Autonomía diaria sin fricción</h3>
-<ul class="flex flex-col gap-2 font-body-md text-body-md text-on-surface-variant">
-<li class="flex gap-2"><span class="material-symbols-outlined text-primary">check</span> Registro en segundos con fotos y gramos</li>
-<li class="flex gap-2"><span class="material-symbols-outlined text-primary">check</span> Recordatorios amables de basal y rápida</li>
-<li class="flex gap-2"><span class="material-symbols-outlined text-primary">check</span> Familia sincronizada en tiempo real</li>
-<li class="flex gap-2"><span class="material-symbols-outlined text-primary">check</span> Estrellas y niveles que sostienen el hábito</li>
-</ul>
-<a href="index.html#descargar" class="inline-flex items-center gap-2 mt-2 px-space-lg py-3 rounded-full bg-surface-container border border-outline-variant text-on-surface font-label-lg hover:bg-surface-container-high w-fit transition-all">Conocer app de pacientes <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
-</div>
-<div class="bg-surface-container-lowest rounded-3xl p-space-xl md:p-space-2xl border border-primary/30 flex flex-col gap-space-md shadow-xl">
-<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary font-label-sm font-bold w-fit">Para profesionales · Tu experiencia, más potente</div>
-<h3 class="font-headline-lg text-headline-lg-mobile md:text-headline-md text-on-surface font-extrabold">Decisiones clínicas con contexto</h3>
-<ul class="flex flex-col gap-2 font-body-md text-body-md text-on-surface-variant">
-<li class="flex gap-2"><span class="material-symbols-outlined text-primary">check</span> TIR, promedio, variabilidad por rango horario</li>
-<li class="flex gap-2"><span class="material-symbols-outlined text-primary">check</span> Glucosa vs. insulina para ajuste de dosis</li>
-<li class="flex gap-2"><span class="material-symbols-outlined text-primary">check</span> Adherencia y notas de ánimo / actividad</li>
-<li class="flex gap-2"><span class="material-symbols-outlined text-primary">check</span> Comparativa entre consultas</li>
-</ul>
-<a href="#acceso-profesional" class="inline-flex items-center gap-2 mt-2 px-space-lg py-3 rounded-full bg-primary text-on-primary font-label-lg hover:bg-primary-container w-fit transition-all">Solicitar demo <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
-</div>
-</div>
-</div>
-</section>
 <!-- 4. FAQ PRO + CTA -->
 <section class="max-w-[860px] mx-auto px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop pb-space-3xl" id="faq-pro">
 <div class="flex flex-col items-center text-center mb-space-2xl">
@@ -889,7 +892,7 @@
 </button>
 <div class="faq-answer"><div class="faq-answer-inner">
 <div class="faq-content px-space-lg pb-space-lg pt-0 text-text-secondary font-body-md border-t border-border-subtle">
-              Con consentimiento explícito del paciente. Cada persona decide qué comparte y puede revocar el acceso cuando quiera. Vos ves panel agregado y reportes por paciente vinculado.
+              Con consentimiento explícito del paciente. Cada persona decide qué comparte y puede revocar el acceso cuando quiera. Usted ve panel agregado y reportes por paciente vinculado.
             </div>
 </div></div>
 </div>
@@ -920,19 +923,28 @@
 <div class="absolute -top-20 -right-20 w-72 h-72 bg-primary/20 rounded-full blur-3xl pointer-events-none"></div>
 <div class="flex flex-col lg:flex-row lg:items-center gap-space-xl relative z-10">
 <div class="flex-1 flex flex-col gap-space-md">
-<h2 class="theme-panel-text font-headline-lg text-headline-lg-mobile md:text-headline-lg font-extrabold">Empezá a acompañar con evidencia, no con suposiciones.</h2>
-<p class="theme-panel-muted font-body-lg text-body-lg">Dejanos tu email profesional y te habilitamos el panel + una demo de 20 minutos con casos reales anonimizados.</p>
+<h2 class="theme-panel-text font-headline-lg text-headline-lg-mobile md:text-headline-lg font-extrabold">Acompañe con evidencia, no con suposiciones.</h2>
+<p class="theme-panel-muted font-body-lg text-body-lg">Déjenos su email profesional y le habilitamos acceso al panel con casos ficticios. Respuesta en 24-48 h hábiles. Sin compromiso.</p>
 </div>
-<form class="flex-1 flex flex-col sm:flex-row gap-space-sm w-full" onsubmit="event.preventDefault(); window.location.href='profesionales/dashboard.html';">
-<input required type="email" placeholder="tu@emailprofesional.com" class="flex-1 px-5 py-4 rounded-full bg-surface-container-lowest border border-outline-variant text-on-surface placeholder:text-text-tertiary focus:outline-none focus:border-primary"/>
-<button class="px-space-xl py-4 rounded-full bg-primary text-on-primary font-label-lg font-bold hover:bg-primary-container whitespace-nowrap transition-all" type="submit">Entrar al dashboard →</button>
+<form id="pro-form" class="flex-1 flex flex-col w-full gap-space-xs" novalidate>
+<label for="pro-email" class="font-label-md text-label-md font-bold theme-panel-text">Email profesional</label>
+<div class="flex flex-col sm:flex-row gap-space-sm w-full">
+<input id="pro-email" name="email" required type="email" autocomplete="email" placeholder="nombre@clinica.com" class="flex-1 px-5 py-4 rounded-full bg-surface-container-lowest border border-outline-variant text-on-surface placeholder:text-text-secondary focus:outline-none focus:border-primary"/>
+<button class="px-space-xl py-4 rounded-full bg-primary text-on-primary font-label-lg font-bold hover:bg-[#3A2BA8] whitespace-nowrap transition-all" type="submit">Solicitar acceso</button>
+</div>
+<p class="font-body-sm text-body-sm theme-panel-muted">Usaremos su email solo para coordinar el acceso. Puede revocar el consentimiento cuando quiera.</p>
+<p id="pro-ok" hidden class="font-body-md text-body-md theme-panel-text font-bold" role="status">¡Gracias! Hemos recibido su solicitud. Le contactaremos a la brevedad con el acceso al panel.</p>
 </form>
 </div>
-<p id="pro-ok" class="mt-4 font-body-md text-body-md theme-panel-muted relative z-10">Flujo: login simulado → <a class="underline theme-panel-text font-bold" href="profesionales/dashboard.html">/profesionales/dashboard</a> → selección de paciente → monitoreo. También podés deep-linkear: <span class="font-bold">dashboard.html?patient=mateo</span></p>
+<p class="mt-4 font-body-md text-body-md theme-panel-muted relative z-10">¿Prefiere explorar por su cuenta? <a class="underline theme-panel-text font-bold" href="profesionales/dashboard.html">Abrir demo interactiva con datos simulados</a></p>
 </div>
 </section>
 </div>
 </main>
+<!-- Sticky CTA: solo Solicitar acceso; se oculta al llegar al CTA final -->
+<div id="sticky-cta" class="fixed bottom-4 left-1/2 -translate-x-1/2 z-40 hidden items-center px-2 py-2 rounded-full bg-surface-container-lowest border border-border-subtle shadow-2xl max-w-[calc(100vw-2rem)]">
+<a href="#acceso-profesional" class="inline-flex items-center gap-1 px-5 py-3 rounded-full bg-primary text-on-primary font-label-lg font-bold hover:bg-[#3A2BA8] whitespace-nowrap">Solicitar acceso</a>
+</div>
 <!-- FOOTER: misma estructura que index.html -->
 <footer class="w-full bg-surface-container-lowest border-t border-border-subtle pt-space-3xl pb-space-xl">
 <div class="max-w-[1200px] mx-auto px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop">
@@ -993,7 +1005,7 @@
 </div>
 <div class="pt-space-lg flex flex-col md:flex-row items-center justify-between gap-space-md border-t border-border-subtle">
 <div class="flex flex-col sm:flex-row items-center gap-space-xs sm:gap-space-md text-center sm:text-left">
-<p class="font-body-sm text-body-sm text-text-tertiary">© 2024 SugarCoach. Todos los derechos reservados.</p>
+<p class="font-body-sm text-body-sm text-text-tertiary">© 2026 SugarCoach. Todos los derechos reservados.</p>
 <span class="hidden sm:inline text-text-tertiary">•</span>
 <p class="font-body-sm text-body-sm text-text-tertiary">Diseñado con empatía para familias y profesionales de la salud.</p>
 </div>
@@ -1019,6 +1031,10 @@
   const labels = { light: 'Claro', dark: 'Oscuro', a11y: 'Accesible' };
 
   function currentTheme() {
+    try {
+      const stored = localStorage.getItem('sugarcoach-theme');
+      if (stored === 'dark' || stored === 'a11y' || stored === 'light') return stored;
+    } catch (e) {}
     if (document.documentElement.classList.contains('dark')) return 'dark';
     if (document.documentElement.classList.contains('a11y')) return 'a11y';
     return 'light';
@@ -1027,6 +1043,7 @@
     document.documentElement.classList.remove('dark', 'a11y');
     if (mode === 'dark') document.documentElement.classList.add('dark');
     if (mode === 'a11y') document.documentElement.classList.add('a11y');
+    try { localStorage.setItem('sugarcoach-theme', mode); } catch (e) {}
     themeItems.forEach(b => b.setAttribute('aria-current', b.dataset.theme === mode ? 'true' : 'false'));
     themeMenuBtn.setAttribute('aria-label', 'Modo de color: ' + labels[mode] + '. Cambiar modo');
   }
@@ -1062,6 +1079,90 @@
 <script>
   // Acordeón FAQ (mismo patrón que index.html: grid-rows sin cambios de ancho)
   document.addEventListener('DOMContentLoaded', () => {
+    // Form honesto: valida y confirma sin redirigir
+    const form = document.getElementById('pro-form');
+    const ok = document.getElementById('pro-ok');
+    if (form) {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const input = document.getElementById('pro-email');
+        if (input && !input.checkValidity()) { input.reportValidity(); return; }
+        if (ok) ok.hidden = false;
+        form.querySelector('button[type="submit"]').textContent = 'Solicitud enviada';
+      });
+    }
+    // Sticky CTA: visible tras hero, oculto al llegar al CTA final (#acceso-profesional)
+    const sticky = document.getElementById('sticky-cta');
+    const finalCta = document.getElementById('acceso-profesional');
+    let finalVisible = false;
+    const toggleSticky = () => {
+      if (!sticky) return;
+      const show = window.scrollY > 650 && !finalVisible;
+      sticky.classList.toggle('hidden', !show);
+      sticky.classList.toggle('flex', show);
+    };
+    if (finalCta && 'IntersectionObserver' in window) {
+      new IntersectionObserver((entries) => {
+        finalVisible = entries[0].isIntersecting;
+        toggleSticky();
+      }, { threshold: 0.15 }).observe(finalCta);
+    }
+    window.addEventListener('scroll', toggleSticky, { passive: true });
+    toggleSticky();
+    // Lightbox de capturas 1-5 con navegación
+    const shots = [
+      { src: 'contenido/lovable-pictures/1.png', title: 'Pantalla 1 · Inicio', alt: 'Dashboard médico, pestaña Inicio: medición actual, Tiempo en Rango y curva de 7 días (datos simulados)', desc: 'Estado general de un vistazo: valor actual, Tiempo en Rango a 7 días y tendencia.' },
+      { src: 'contenido/lovable-pictures/2.png', title: 'Pantalla 2 · Historial', alt: 'Dashboard médico, pestaña Historial: registros por comida con insulina y alertas (datos simulados)', desc: 'Detalle por comida con alertas de hipo/hiper y filtros por período.' },
+      { src: 'contenido/lovable-pictures/3.png', title: 'Pantalla 3 · Estadísticas', alt: 'Dashboard médico, pestaña Estadísticas: Tiempo en Rango, carbohidratos y actividad (datos simulados)', desc: 'Tendencias semanales: TIR, actividad y estado emocional.' },
+      { src: 'contenido/lovable-pictures/4.png', title: 'Pantalla 4 · Tratamiento', alt: 'Dashboard médico, pestaña Tratamiento: objetivos glucémicos e insulina basal (datos simulados)', desc: 'Esquema en modo solo lectura, visible durante la revisión.' },
+      { src: 'contenido/lovable-pictures/5.png', title: 'Pantalla 5 · Perfil', alt: 'Dashboard médico, pestaña Perfil: ficha del paciente con datos clínicos simulados', desc: 'Contexto clínico ficticio para preparar la consulta.' }
+    ];
+    const lightbox = document.getElementById('shot-lightbox');
+    const lbImg = document.getElementById('shot-lightbox-img');
+    const lbTitle = document.getElementById('shot-lightbox-title');
+    const lbDesc = document.getElementById('shot-lightbox-desc');
+    const lbCounter = document.getElementById('shot-lightbox-counter');
+    const lbClose = document.getElementById('shot-lightbox-close');
+    const lbPrev = document.getElementById('shot-lightbox-prev');
+    const lbNext = document.getElementById('shot-lightbox-next');
+    let lbIndex = 0;
+    let lastFocused = null;
+    function renderShot() {
+      const s = shots[lbIndex];
+      lbImg.src = s.src;
+      lbImg.alt = s.alt;
+      lbTitle.textContent = s.title;
+      lbDesc.textContent = s.desc;
+      lbCounter.textContent = (lbIndex + 1) + ' / ' + shots.length;
+    }
+    function openShot(i) {
+      lbIndex = (i + shots.length) % shots.length;
+      renderShot();
+      lastFocused = document.activeElement;
+      lightbox.hidden = false;
+      document.body.style.overflow = 'hidden';
+      lbClose.focus();
+    }
+    function closeShot() {
+      lightbox.hidden = true;
+      document.body.style.overflow = '';
+      if (lastFocused && lastFocused.focus) lastFocused.focus();
+    }
+    document.querySelectorAll('[data-shot-index]').forEach((btn) => {
+      btn.addEventListener('click', () => openShot(parseInt(btn.getAttribute('data-shot-index'), 10) || 0));
+    });
+    if (lbClose) lbClose.addEventListener('click', closeShot);
+    if (lbPrev) lbPrev.addEventListener('click', () => { lbIndex = (lbIndex - 1 + shots.length) % shots.length; renderShot(); });
+    if (lbNext) lbNext.addEventListener('click', () => { lbIndex = (lbIndex + 1) % shots.length; renderShot(); });
+    if (lightbox) {
+      lightbox.querySelectorAll('[data-shot-close]').forEach((el) => el.addEventListener('click', closeShot));
+      document.addEventListener('keydown', (e) => {
+        if (lightbox.hidden) return;
+        if (e.key === 'Escape') closeShot();
+        if (e.key === 'ArrowLeft') { lbIndex = (lbIndex - 1 + shots.length) % shots.length; renderShot(); }
+        if (e.key === 'ArrowRight') { lbIndex = (lbIndex + 1) % shots.length; renderShot(); }
+      });
+    }
     const items = document.querySelectorAll('.faq-item');
     items.forEach(item => {
       const btn = item.querySelector('.faq-btn');
@@ -1079,4 +1180,26 @@
     });
   });
 </script>
+<!-- Lightbox capturas: hijo directo de body para quedar por encima del header fijo -->
+<div id="shot-lightbox" hidden>
+<div class="shot-lightbox-backdrop" data-shot-close></div>
+<div class="shot-lightbox-card" role="dialog" aria-modal="true" aria-labelledby="shot-lightbox-title">
+<div class="shot-lightbox-head flex items-center justify-between gap-3 px-5 py-4 border-b border-border-subtle">
+<div class="flex flex-col">
+<span id="shot-lightbox-counter" class="font-label-sm text-label-sm font-bold text-primary" aria-live="polite">1 / 5</span>
+<h3 id="shot-lightbox-title" class="font-headline-sm text-headline-sm font-bold text-on-surface">Pantalla 1 · Inicio</h3>
+</div>
+<button type="button" id="shot-lightbox-close" class="shot-nav-btn" aria-label="Cerrar vista ampliada"><span class="material-symbols-outlined text-[22px]">close</span></button>
+</div>
+<div class="shot-lightbox-body p-4 md:p-6">
+<img id="shot-lightbox-img" src="contenido/lovable-pictures/1.png" alt="" width="1327" height="651"/>
+<p id="shot-lightbox-desc" class="mt-4 font-body-md text-body-md text-on-surface-variant"></p>
+</div>
+<div class="shot-lightbox-foot flex items-center justify-between gap-3 px-5 py-4 border-t border-border-subtle">
+<button type="button" id="shot-lightbox-prev" class="shot-nav-btn" aria-label="Ver captura anterior"><span class="material-symbols-outlined text-[22px]">arrow_back</span></button>
+<a href="profesionales/dashboard.html" class="font-label-lg text-label-lg font-bold text-primary underline">Abrir esta vista en la demo</a>
+<button type="button" id="shot-lightbox-next" class="shot-nav-btn" aria-label="Ver captura siguiente"><span class="material-symbols-outlined text-[22px]">arrow_forward</span></button>
+</div>
+</div>
+</div>
 </body></html>
