@@ -14,26 +14,22 @@
   :root{
     --ok:#55CEBA; --ok-dim:#3AB4A2; --low:#EF7D8A; --high:#EABE53;
     --page-a:#281B4C; --page-b:#552D90; --page-c:#893057; --page-d:#C04576; --page-e:#DD6D75;
-
-    /* Alturas de layout: una sola fuente de verdad para navbar + aire superior */
-    --nav-h:64px;
-    --gap-top:40px;          /* aire entre navbar y contenido */
-    --sticky-top:calc(var(--nav-h) + var(--gap-top));
+    --topbar-h:56px;      /* barra superior compacta, solo mobile */
+    --sidebar-w:320px;    /* ancho fijo del panel de pacientes, estilo WhatsApp Web */
   }
 
-  /* Reserva siempre el canal del scrollbar: sin esto el layout salta de lado
-     al pasar de un paciente con mucho contenido a uno con poco. */
-  html{ scrollbar-gutter:stable; }
-  html,body{ margin:0; padding:0; }
+  html,body{ height:100%; margin:0; padding:0; }
   body{
     font-family:"Plus Jakarta Sans",system-ui,sans-serif;
+    display:flex; flex-direction:column;
+    height:100vh; height:100dvh;
+    overflow:hidden; /* la app no scrollea como página: cada columna scrollea la suya */
     /* Velo crema sobre el degradado: baja la saturación general y calienta
        las zonas claras sin lavar el contraste del texto. */
     background:
       radial-gradient(1100px 700px at 12% 6%, rgba(244,237,226,.12), transparent 62%),
       radial-gradient(900px 900px at 92% 96%, rgba(244,237,226,.10), transparent 60%),
       linear-gradient(135deg, var(--page-a) 0%, var(--page-b) 32%, var(--page-c) 60%, var(--page-d) 82%, var(--page-e) 100%);
-    background-attachment: fixed;
     color:#F6F3F1;
     -webkit-font-smoothing:antialiased;
   }
@@ -49,7 +45,7 @@
   .chip-hiper{ border-color:rgba(234,190,83,.5); color:#EABE53; background:rgba(234,190,83,.08); }
   .chip-target{ border-color:rgba(85,206,186,.55); color:#93E4D9; background:rgba(85,206,186,.10); }
 
-  .tab-btn{ position:relative; padding:.55rem .25rem; font-weight:600; font-size:14.5px; color:rgba(247,248,252,.55); border-bottom:2px solid transparent; transition:color .15s ease, border-color .15s ease; }
+  .tab-btn{ position:relative; padding:.55rem .25rem; font-weight:600; font-size:14.5px; color:rgba(247,248,252,.55); border-bottom:2px solid transparent; transition:color .15s ease, border-color .15s ease; white-space:nowrap; }
   .tab-btn:hover{ color:#fff; }
   .tab-btn.active{ color:#fff; border-color:var(--ok); }
 
@@ -72,6 +68,9 @@
   .btn-invite{ background:linear-gradient(135deg,#CD3694 0%,#9D2A81 100%); box-shadow:0 10px 24px -8px rgba(205,54,148,.6); }
   .btn-invite:hover{ filter:brightness(1.08); }
 
+  .icon-btn{ width:2.25rem; height:2.25rem; border-radius:9999px; background:rgba(251,249,245,.06); border:1px solid rgba(251,249,245,.15); display:flex; align-items:center; justify-content:center; transition:background .15s ease; }
+  .icon-btn:hover{ background:rgba(251,249,245,.12); }
+
   .row-line{ display:flex; align-items:center; justify-content:space-between; gap:1.5rem; padding:.85rem 0; border-bottom:1px solid rgba(251,249,245,.08); }
   .row-line:last-child{ border-bottom:none; }
   .row-label{ font-size:11.5px; letter-spacing:.06em; text-transform:uppercase; font-weight:700; color:rgba(251,249,245,.4); }
@@ -79,33 +78,41 @@
   .row-note{ display:block; font-weight:500; font-size:12px; color:rgba(251,249,245,.4); margin-top:.15rem; }
   .row-muted .row-value{ color:rgba(251,249,245,.45); font-weight:600; }
 
-  /* ---------- Sidebar ---------- */
-  /* Panel de vidrio en vez de bloque sólido: toma el color del degradado
-     que tiene detrás, así el contraste con el contenido es suave. */
+  /* ---------- App shell (estilo WhatsApp Web: dos columnas, alto completo) ---------- */
+  .app-shell{ flex:1 1 auto; min-height:0; display:flex; width:100%; }
+
+  /* ---------- Sidebar (lista de pacientes) ---------- */
+  /* Mobile-first: panel flotante que entra desde la izquierda. */
   #sidebar{
-    background:linear-gradient(180deg, rgba(44,30,77,.55) 0%, rgba(44,30,77,.34) 100%);
-    border:1px solid rgba(251,249,245,.12);
-    backdrop-filter:blur(22px) saturate(140%);
-    -webkit-backdrop-filter:blur(22px) saturate(140%);
-    box-shadow:0 30px 60px -40px rgba(20,14,13,.60);
-    transition:transform .28s ease;
+    position:fixed; inset:0 auto 0 0; height:100dvh; width:min(86vw,320px); z-index:60;
+    transform:translateX(-105%); transition:transform .28s ease;
+    display:flex; flex-direction:column; gap:1rem; padding:1.15rem;
+    border-radius:0 1.5rem 1.5rem 0;
+    background:linear-gradient(180deg, rgba(36,24,63,.97) 0%, rgba(30,20,52,.97) 100%);
+    border:1px solid rgba(251,249,245,.12); border-left:none;
+    box-shadow:0 30px 60px -30px rgba(20,14,13,.7);
   }
+  #sidebar.open{ transform:translateX(0); }
+
   @media (min-width:1024px){
+    /* Desktop: columna fija, alto completo, sin superposición ni bordes redondeados —
+       igual que el panel de chats de WhatsApp Web. */
     #sidebar{
-      position:sticky;
-      top:var(--sticky-top);
-      align-self:flex-start;               /* no se estira con el contenido */
-      max-height:calc(100vh - var(--sticky-top) - 24px);
+      position:static; height:100%; width:var(--sidebar-w); flex-shrink:0;
+      transform:none; box-shadow:none; border-radius:0;
+      background:linear-gradient(180deg, rgba(44,30,77,.55) 0%, rgba(44,30,77,.34) 100%);
+      border:1px solid rgba(251,249,245,.12); border-top:none; border-bottom:none; border-left:none;
+      backdrop-filter:blur(22px) saturate(140%);
+      -webkit-backdrop-filter:blur(22px) saturate(140%);
     }
   }
-  @media (max-width:1023px){
-    #sidebar{
-      position:fixed; top:0; left:0; bottom:0; z-index:60;
-      transform:translateX(-105%); width:300px; border-radius:0 1.5rem 1.5rem 0;
-      background:linear-gradient(180deg, rgba(36,24,63,.96) 0%, rgba(30,20,52,.96) 100%);
-    }
-    #sidebar.open{ transform:translateX(0); }
-  }
+
+  #patient-list{ flex:1 1 auto; min-height:0; overflow-y:auto; scrollbar-gutter:stable; display:flex; flex-direction:column; gap:.375rem; margin:0 -.3rem; padding:0 .3rem; }
+
+  /* ---------- Main panel ---------- */
+  #main-panel{ flex:1 1 auto; min-width:0; display:flex; flex-direction:column; height:100%; overflow:hidden; }
+  #patient-header-block{ flex-shrink:0; }
+  #content-scroll{ flex:1 1 auto; min-height:0; overflow-y:auto; scrollbar-gutter:stable; }
 
   /* Donut de tiempo en rango: agujero real con mask, así no depende de un
      color sólido que tenga que coincidir con el fondo. */
@@ -118,37 +125,47 @@
   @media (prefers-reduced-motion:reduce){ *{ transition:none !important; } }
 </style>
 </head>
-<body class="min-h-screen">
+<body>
 
-<!-- ============ TOPBAR ============ -->
-<header class="fixed top-0 left-0 w-full z-50 border-b border-white/[0.08]" style="height:var(--nav-h); background:rgba(36,24,63,.55); backdrop-filter:blur(20px) saturate(140%); -webkit-backdrop-filter:blur(20px) saturate(140%);">
-  <div class="h-full max-w-[1400px] mx-auto px-4 md:px-8 flex items-center justify-between">
-    <a href="../profesionales.html" class="flex items-center gap-2.5 group">
-      <span class="w-9 h-9 rounded-xl flex items-center justify-center font-extrabold text-[13px]" style="background:linear-gradient(135deg,#7EE4D0,#55CEBA); color:#152D29;">SC</span>
-      <span class="font-extrabold text-[15px] tracking-tight text-white hidden sm:inline">SugarCoach <span class="font-medium text-white/45">· Profesionales</span></span>
-    </a>
-    <a href="../profesionales.html" class="inline-flex items-center gap-2 h-10 px-4 rounded-full bg-white/[0.06] border border-white/15 text-[13px] font-semibold text-white hover:bg-white/[0.12] transition-colors">
-      <span class="material-symbols-outlined text-[18px]">logout</span>
-      <span>Salir</span>
-    </a>
-  </div>
+<!-- ============ TOPBAR (solo mobile/tablet) ============ -->
+<header class="lg:hidden flex items-center justify-between px-4 shrink-0 border-b border-white/[0.08]" style="height:var(--topbar-h); background:rgba(36,24,63,.55); backdrop-filter:blur(20px) saturate(140%); -webkit-backdrop-filter:blur(20px) saturate(140%);">
+  <button id="btn-menu-mobile" class="icon-btn" aria-label="Abrir lista de pacientes">
+    <span class="material-symbols-outlined text-[20px]">menu</span>
+  </button>
+  <a href="../profesionales.html" class="flex items-center gap-2">
+    <span class="w-8 h-8 rounded-lg flex items-center justify-center font-extrabold text-[12px]" style="background:linear-gradient(135deg,#7EE4D0,#55CEBA); color:#152D29;">SC</span>
+    <span class="font-extrabold text-[14px] tracking-tight text-white">SugarCoach</span>
+  </a>
+  <a href="../profesionales.html" class="icon-btn" aria-label="Salir" title="Salir">
+    <span class="material-symbols-outlined text-[19px]">logout</span>
+  </a>
 </header>
 
 <div id="overlay" class="hidden fixed inset-0 bg-black/60 z-50 lg:hidden"></div>
 
-<!-- ============ LAYOUT ============ -->
-<div class="max-w-[1400px] mx-auto flex gap-6 px-4 md:px-8 items-start"
-     style="padding-top:calc(var(--nav-h) + var(--gap-top)); padding-bottom:40px;">
+<!-- ============ APP SHELL (sidebar + panel, estilo WhatsApp Web) ============ -->
+<div class="app-shell">
 
-  <!-- SIDEBAR -->
-  <aside id="sidebar" class="w-[280px] shrink-0 rounded-3xl p-5 flex flex-col gap-4 overflow-y-auto">
-    <div class="flex items-center justify-between lg:hidden">
+  <!-- SIDEBAR: lista de pacientes, ocupa todo el alto disponible -->
+  <aside id="sidebar">
+    <div class="flex items-center justify-between lg:hidden shrink-0">
       <span class="text-xs uppercase tracking-wider text-white/40 font-bold">Pacientes</span>
       <button id="btn-close" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center" aria-label="Cerrar"><span class="material-symbols-outlined text-[18px]">close</span></button>
     </div>
 
+    <!-- Marca + salir (solo desktop, reemplaza la topbar aquí) -->
+    <div class="hidden lg:flex items-center justify-between pb-3 border-b border-white/10 shrink-0">
+      <a href="../profesionales.html" class="flex items-center gap-2 group">
+        <span class="w-8 h-8 rounded-lg flex items-center justify-center font-extrabold text-[12px]" style="background:linear-gradient(135deg,#7EE4D0,#55CEBA); color:#152D29;">SC</span>
+        <span class="font-extrabold text-[13.5px] tracking-tight text-white">SugarCoach</span>
+      </a>
+      <a href="../profesionales.html" class="icon-btn" aria-label="Salir" title="Salir">
+        <span class="material-symbols-outlined text-[16px]">logout</span>
+      </a>
+    </div>
+
     <!-- Doctor profile -->
-    <div class="flex items-center gap-3">
+    <div class="flex items-center gap-3 shrink-0">
       <div class="avatar avatar-accent w-11 h-11">DG</div>
       <div class="min-w-0">
         <p class="font-bold text-white text-[15px] truncate">Dra. García</p>
@@ -157,218 +174,216 @@
     </div>
 
     <!-- Search -->
-    <div class="flex items-center gap-2 px-4 h-11 rounded-full bg-black/20 border border-white/10 focus-within:border-[#55CEBA]/60 transition-colors">
+    <div class="flex items-center gap-2 px-4 h-11 rounded-full bg-black/20 border border-white/10 focus-within:border-[#55CEBA]/60 transition-colors shrink-0">
       <span class="material-symbols-outlined text-white/40 text-[19px]">search</span>
       <input id="search" type="text" autocomplete="off" placeholder="Buscar paciente…" class="bg-transparent border-0 outline-none ring-0 focus:ring-0 w-full text-[14px] text-white placeholder:text-white/35 p-0"/>
       <button id="search-clear" class="hidden w-6 h-6 rounded-full bg-white/10 items-center justify-center" aria-label="Limpiar búsqueda">
         <span class="material-symbols-outlined text-[14px] text-white/60">close</span>
       </button>
     </div>
-    <p id="search-count" class="text-[12px] text-white/35 -mt-2"></p>
+    <p id="search-count" class="text-[12px] text-white/35 -mt-2 shrink-0"></p>
 
-    <div id="patient-list" class="flex flex-col gap-1.5"></div>
+    <div id="patient-list"></div>
 
-    <button id="btn-invite" class="mt-1 inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full btn-invite text-white font-bold text-[14px] transition-all active:scale-95">
+    <button id="btn-invite" class="shrink-0 inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full btn-invite text-white font-bold text-[14px] transition-all active:scale-95">
       <span class="material-symbols-outlined text-[19px]">person_add</span> Invitar paciente
     </button>
-    <p class="text-[11.5px] text-white/35 leading-snug">Acceso en solo lectura. El paciente aprueba qué se comparte.</p>
+    <p class="shrink-0 text-[11.5px] text-white/35 leading-snug">Acceso en solo lectura. El paciente aprueba qué se comparte.</p>
   </aside>
 
-  <!-- MAIN -->
-  <!-- min-height fija: evita que la página se acorte al abrir un paciente
-       sin datos y que aparezca/desaparezca el scroll. -->
-  <main class="flex-1 min-w-0 flex flex-col gap-5" style="min-height:calc(100vh - var(--nav-h) - 80px);">
+  <!-- MAIN: paciente seleccionado -->
+  <main id="main-panel">
 
-    <button id="btn-search-mobile" class="lg:hidden flex items-center gap-2 px-4 h-11 rounded-full bg-white/[0.06] border border-white/10 text-left w-full">
-      <span class="material-symbols-outlined text-white/40 text-[19px]">search</span>
-      <span class="text-[13.5px] text-white/50">Buscar paciente…</span>
-      <span class="ml-auto text-[12.5px] text-[#55CEBA] font-bold">Ver lista</span>
-    </button>
-
-    <!-- Patient header -->
-    <div class="flex flex-col md:flex-row md:items-center gap-4 justify-between">
-      <div class="flex items-center gap-4 min-w-0">
-        <div id="p-avatar" class="avatar avatar-accent w-14 h-14 text-[16px]">MP</div>
-        <div class="min-w-0">
-          <h2 id="p-name" class="font-extrabold text-[22px] leading-tight text-white truncate">Martina Pérez</h2>
-          <p id="p-meta" class="text-[13.5px] text-white/50">28 años · Diagnóstico: 2018 · Tipo 1</p>
+    <!-- Header fijo: paciente + tabs (no scrollea con el contenido) -->
+    <div id="patient-header-block" class="flex flex-col gap-4 px-4 md:px-8 pt-5 md:pt-6">
+      <div class="flex flex-col md:flex-row md:items-center gap-4 justify-between">
+        <div class="flex items-center gap-4 min-w-0">
+          <div id="p-avatar" class="avatar avatar-accent w-14 h-14 text-[16px]">MP</div>
+          <div class="min-w-0">
+            <h2 id="p-name" class="font-extrabold text-[22px] leading-tight text-white truncate">Martina Pérez</h2>
+            <p id="p-meta" class="text-[13.5px] text-white/50">28 años · Diagnóstico: 2018 · Tipo 1</p>
+          </div>
+        </div>
+        <div class="flex flex-wrap items-center gap-2.5">
+          <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/[0.06] border border-white/15 text-[12.5px] font-semibold text-white/80">
+            <span class="material-symbols-outlined text-[16px]">visibility</span> Solo lectura
+          </span>
+          <span id="last-update" class="text-[12.5px] text-white/40">Actualizado hace 8 min</span>
+          <button id="btn-refresh" class="icon-btn active:scale-95 transition-transform" aria-label="Actualizar">
+            <span class="material-symbols-outlined text-[19px] text-[#55CEBA]">refresh</span>
+          </button>
         </div>
       </div>
-      <div class="flex flex-wrap items-center gap-2.5">
-        <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/[0.06] border border-white/15 text-[12.5px] font-semibold text-white/80">
-          <span class="material-symbols-outlined text-[16px]">visibility</span> Solo lectura
-        </span>
-        <span id="last-update" class="text-[12.5px] text-white/40">Actualizado hace 8 min</span>
-        <button id="btn-refresh" class="w-10 h-10 rounded-full bg-white/[0.06] border border-white/15 flex items-center justify-center hover:bg-white/[0.12] transition-all active:scale-95" aria-label="Actualizar">
-          <span class="material-symbols-outlined text-[19px] text-[#55CEBA]">refresh</span>
-        </button>
+
+      <!-- Tabs -->
+      <div class="flex gap-6 overflow-x-auto border-b border-white/10" role="tablist" aria-label="Secciones del paciente">
+        <button data-tab="inicio" class="tab-btn active">Inicio</button>
+        <button data-tab="historial" class="tab-btn">Historial</button>
+        <button data-tab="estadisticas" class="tab-btn">Estadísticas</button>
+        <button data-tab="tratamiento" class="tab-btn">Tratamiento</button>
+        <button data-tab="perfil" class="tab-btn">Perfil</button>
       </div>
     </div>
 
-    <!-- Tabs -->
-    <div class="flex gap-6 overflow-x-auto border-b border-white/10" role="tablist" aria-label="Secciones del paciente">
-      <button data-tab="inicio" class="tab-btn active">Inicio</button>
-      <button data-tab="historial" class="tab-btn">Historial</button>
-      <button data-tab="estadisticas" class="tab-btn">Estadísticas</button>
-      <button data-tab="tratamiento" class="tab-btn">Tratamiento</button>
-      <button data-tab="perfil" class="tab-btn">Perfil</button>
-    </div>
+    <!-- Contenido: única zona que scrollea dentro del panel principal -->
+    <div id="content-scroll" class="px-4 md:px-8 pt-5 pb-10 flex flex-col gap-5">
 
-    <!-- PENDING STATE -->
-    <div id="pending-panel" class="hidden card p-10 flex flex-col items-center text-center gap-2">
-      <span class="material-symbols-outlined text-[36px] text-white/30">hourglass_top</span>
-      <p class="font-bold text-white text-[16px]">Invitación pendiente</p>
-      <p class="text-white/45 text-[13.5px] max-w-sm">Este paciente todavía no aceptó la invitación. En cuanto vincule su cuenta vas a ver sus datos acá.</p>
-    </div>
-
-    <div id="tab-content">
-
-      <!-- TAB: INICIO -->
-      <div id="tab-inicio" class="tab-panel flex-col gap-5 flex">
-        <div class="grid grid-cols-1 lg:grid-cols-[1.15fr_1fr] gap-5">
-          <div class="card p-8 flex flex-col items-center text-center gap-5">
-            <p class="text-[12px] uppercase tracking-wider text-white/40 font-bold">Medición actual</p>
-            <div class="relative w-[190px] h-[190px]">
-              <svg viewBox="0 0 200 200" class="w-full h-full -rotate-90">
-                <circle cx="100" cy="100" r="85" stroke="rgba(251,249,245,.09)" stroke-width="14" fill="none"/>
-                <circle id="gauge-arc" cx="100" cy="100" r="85" stroke="#55CEBA" stroke-width="14" fill="none" stroke-linecap="round"/>
-              </svg>
-              <div class="absolute inset-0 flex flex-col items-center justify-center">
-                <span id="big-value" class="font-extrabold text-white" style="font-size:44px;line-height:1">116</span>
-                <span class="text-[13px] text-white/50 mt-1">mg/dL</span>
-                <span id="big-state" class="text-[13px] font-bold mt-1.5" style="color:#55CEBA">En rango</span>
-              </div>
-            </div>
-            <div class="flex flex-wrap justify-center gap-2">
-              <span id="chip-hipo" class="chip chip-hipo"><span id="r-min">70</span> mg/dL · Hipo</span>
-              <span id="chip-hiper" class="chip chip-hiper"><span id="r-max">180</span> mg/dL · Hiper</span>
-              <span id="chip-target" class="chip chip-target"><span id="r-target">100</span> mg/dL · Objetivo</span>
-            </div>
-          </div>
-
-          <div class="flex flex-col gap-4">
-            <div class="card-soft p-5">
-              <p class="text-[11.5px] uppercase tracking-wider text-white/40 font-bold">En rango (7 días)</p>
-              <p class="font-extrabold text-white text-[30px] mt-1"><span id="tir">78</span>%</p>
-              <p id="tir-delta" class="text-[12.5px] font-semibold mt-1" style="color:#55CEBA">↑ 4% vs semana anterior</p>
-            </div>
-            <div class="card-soft p-5">
-              <p class="text-[11.5px] uppercase tracking-wider text-white/40 font-bold">Promedio semanal</p>
-              <p class="font-extrabold text-white text-[30px] mt-1"><span id="avg">134</span> <span class="text-[15px] font-semibold text-white/50">mg/dL</span></p>
-              <p class="text-[12.5px] text-white/40 mt-1">Últimos 7 días</p>
-            </div>
-            <div class="card-soft p-5">
-              <p class="text-[11.5px] uppercase tracking-wider text-white/40 font-bold">Último registro</p>
-              <p id="last-log-time" class="font-extrabold text-white text-[19px] mt-1">hace 8 min</p>
-              <p id="last-log-detail" class="text-[12.5px] text-white/40 mt-1">Desayuno · 2U insulina · 45g HC</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="card p-6">
-          <h3 class="font-bold text-white text-[16px]">Glucemia — últimos 7 días</h3>
-          <p class="text-[12.5px] text-white/40 mb-1">Banda objetivo 70–180 mg/dL</p>
-          <div class="w-full overflow-x-auto"><canvas id="chart" class="w-full" style="min-width:520px;height:230px"></canvas></div>
-        </div>
+      <!-- PENDING STATE -->
+      <div id="pending-panel" class="hidden card p-10 flex flex-col items-center text-center gap-2">
+        <span class="material-symbols-outlined text-[36px] text-white/30">hourglass_top</span>
+        <p class="font-bold text-white text-[16px]">Invitación pendiente</p>
+        <p class="text-white/45 text-[13.5px] max-w-sm">Este paciente todavía no aceptó la invitación. En cuanto vincule su cuenta vas a ver sus datos acá.</p>
       </div>
 
-      <!-- TAB: HISTORIAL -->
-      <div id="tab-historial" class="tab-panel hidden flex-col gap-4 flex">
-        <div class="flex flex-wrap items-center justify-between gap-3">
-          <h3 class="font-bold text-white text-[17px]">Historial de registros</h3>
-          <div class="flex gap-2">
-            <button class="toggle-pill history-range active" data-range="7">7 días</button>
-            <button class="toggle-pill history-range" data-range="30">30 días</button>
-            <button class="toggle-pill history-range" data-range="all">Todo</button>
-          </div>
-        </div>
-        <div id="history-list" class="flex flex-col gap-5"></div>
-      </div>
+      <div id="tab-content">
 
-      <!-- TAB: ESTADÍSTICAS -->
-      <div id="tab-estadisticas" class="tab-panel hidden flex-col gap-4 flex">
-        <div class="flex gap-2">
-          <button class="toggle-pill stats-range" data-range="diario">Diario</button>
-          <button class="toggle-pill stats-range active" data-range="semanal">Semanal</button>
-          <button class="toggle-pill stats-range" data-range="mensual">Mensual</button>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-          <div class="card p-6">
-            <h4 class="font-bold text-white text-[15px] mb-4">Tiempo en rango</h4>
-            <div class="flex items-center gap-5">
-              <div class="relative w-[110px] h-[110px] shrink-0">
-                <div id="tir-donut" class="donut absolute inset-0 rounded-full"></div>
-                <div class="absolute inset-0 flex items-center justify-center">
-                  <span id="tir-donut-value" class="font-extrabold text-white text-[22px]">78%</span>
+        <!-- TAB: INICIO -->
+        <div id="tab-inicio" class="tab-panel flex-col gap-5 flex">
+          <div class="grid grid-cols-1 lg:grid-cols-[1.15fr_1fr] gap-5">
+            <div class="card p-8 flex flex-col items-center text-center gap-5">
+              <p class="text-[12px] uppercase tracking-wider text-white/40 font-bold">Medición actual</p>
+              <div class="relative w-[190px] h-[190px]">
+                <svg viewBox="0 0 200 200" class="w-full h-full -rotate-90">
+                  <circle cx="100" cy="100" r="85" stroke="rgba(251,249,245,.09)" stroke-width="14" fill="none"/>
+                  <circle id="gauge-arc" cx="100" cy="100" r="85" stroke="#55CEBA" stroke-width="14" fill="none" stroke-linecap="round"/>
+                </svg>
+                <div class="absolute inset-0 flex flex-col items-center justify-center">
+                  <span id="big-value" class="font-extrabold text-white" style="font-size:44px;line-height:1">116</span>
+                  <span class="text-[13px] text-white/50 mt-1">mg/dL</span>
+                  <span id="big-state" class="text-[13px] font-bold mt-1.5" style="color:#55CEBA">En rango</span>
                 </div>
               </div>
-              <div class="flex flex-col gap-2 text-[13px]">
-                <span class="flex items-center gap-2 text-white/75"><span class="w-2.5 h-2.5 rounded-full" style="background:#55CEBA"></span> En rango · <span id="stat-ok">78</span>%</span>
-                <span class="flex items-center gap-2 text-white/75"><span class="w-2.5 h-2.5 rounded-full" style="background:#EF7D8A"></span> Hipoglucemia · <span id="stat-low">12</span>%</span>
-                <span class="flex items-center gap-2 text-white/75"><span class="w-2.5 h-2.5 rounded-full" style="background:#EABE53"></span> Hiperglucemia · <span id="stat-high">10</span>%</span>
+              <div class="flex flex-wrap justify-center gap-2">
+                <span id="chip-hipo" class="chip chip-hipo"><span id="r-min">70</span> mg/dL · Hipo</span>
+                <span id="chip-hiper" class="chip chip-hiper"><span id="r-max">180</span> mg/dL · Hiper</span>
+                <span id="chip-target" class="chip chip-target"><span id="r-target">100</span> mg/dL · Objetivo</span>
+              </div>
+            </div>
+
+            <div class="flex flex-col gap-4">
+              <div class="card-soft p-5">
+                <p class="text-[11.5px] uppercase tracking-wider text-white/40 font-bold">En rango (7 días)</p>
+                <p class="font-extrabold text-white text-[30px] mt-1"><span id="tir">78</span>%</p>
+                <p id="tir-delta" class="text-[12.5px] font-semibold mt-1" style="color:#55CEBA">↑ 4% vs semana anterior</p>
+              </div>
+              <div class="card-soft p-5">
+                <p class="text-[11.5px] uppercase tracking-wider text-white/40 font-bold">Promedio semanal</p>
+                <p class="font-extrabold text-white text-[30px] mt-1"><span id="avg">134</span> <span class="text-[15px] font-semibold text-white/50">mg/dL</span></p>
+                <p class="text-[12.5px] text-white/40 mt-1">Últimos 7 días</p>
+              </div>
+              <div class="card-soft p-5">
+                <p class="text-[11.5px] uppercase tracking-wider text-white/40 font-bold">Último registro</p>
+                <p id="last-log-time" class="font-extrabold text-white text-[19px] mt-1">hace 8 min</p>
+                <p id="last-log-detail" class="text-[12.5px] text-white/40 mt-1">Desayuno · 2U insulina · 45g HC</p>
               </div>
             </div>
           </div>
 
           <div class="card p-6">
-            <h4 class="font-bold text-white text-[15px] mb-4">Carbohidratos por comida</h4>
-            <div id="carbs-chart" class="flex items-end justify-around gap-3 h-[140px]"></div>
+            <h3 class="font-bold text-white text-[16px]">Glucemia — últimos 7 días</h3>
+            <p class="text-[12.5px] text-white/40 mb-1">Banda objetivo 70–180 mg/dL</p>
+            <div class="w-full overflow-x-auto"><canvas id="chart" class="w-full" style="min-width:520px;height:230px"></canvas></div>
           </div>
+        </div>
 
+        <!-- TAB: HISTORIAL -->
+        <div id="tab-historial" class="tab-panel hidden flex-col gap-4 flex">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <h3 class="font-bold text-white text-[17px]">Historial de registros</h3>
+            <div class="flex gap-2">
+              <button class="toggle-pill history-range active" data-range="7">7 días</button>
+              <button class="toggle-pill history-range" data-range="30">30 días</button>
+              <button class="toggle-pill history-range" data-range="all">Todo</button>
+            </div>
+          </div>
+          <div id="history-list" class="flex flex-col gap-5"></div>
+        </div>
+
+        <!-- TAB: ESTADÍSTICAS -->
+        <div id="tab-estadisticas" class="tab-panel hidden flex-col gap-4 flex">
+          <div class="flex gap-2">
+            <button class="toggle-pill stats-range" data-range="diario">Diario</button>
+            <button class="toggle-pill stats-range active" data-range="semanal">Semanal</button>
+            <button class="toggle-pill stats-range" data-range="mensual">Mensual</button>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div class="card p-6">
+              <h4 class="font-bold text-white text-[15px] mb-4">Tiempo en rango</h4>
+              <div class="flex items-center gap-5">
+                <div class="relative w-[110px] h-[110px] shrink-0">
+                  <div id="tir-donut" class="donut absolute inset-0 rounded-full"></div>
+                  <div class="absolute inset-0 flex items-center justify-center">
+                    <span id="tir-donut-value" class="font-extrabold text-white text-[22px]">78%</span>
+                  </div>
+                </div>
+                <div class="flex flex-col gap-2 text-[13px]">
+                  <span class="flex items-center gap-2 text-white/75"><span class="w-2.5 h-2.5 rounded-full" style="background:#55CEBA"></span> En rango · <span id="stat-ok">78</span>%</span>
+                  <span class="flex items-center gap-2 text-white/75"><span class="w-2.5 h-2.5 rounded-full" style="background:#EF7D8A"></span> Hipoglucemia · <span id="stat-low">12</span>%</span>
+                  <span class="flex items-center gap-2 text-white/75"><span class="w-2.5 h-2.5 rounded-full" style="background:#EABE53"></span> Hiperglucemia · <span id="stat-high">10</span>%</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="card p-6">
+              <h4 class="font-bold text-white text-[15px] mb-4">Carbohidratos por comida</h4>
+              <div id="carbs-chart" class="flex items-end justify-around gap-3 h-[140px]"></div>
+            </div>
+
+            <div class="card p-6">
+              <h4 class="font-bold text-white text-[15px]">Actividad física</h4>
+              <p id="activity-sub" class="text-[12.5px] text-white/40 mb-4">4 de 7 días</p>
+              <div id="activity-dots" class="flex justify-between"></div>
+            </div>
+
+            <div class="card p-6">
+              <h4 class="font-bold text-white text-[15px] mb-4">Estado emocional</h4>
+              <div id="emotional-bars" class="flex flex-col gap-3"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB: TRATAMIENTO -->
+        <div id="tab-tratamiento" class="tab-panel hidden flex-col gap-5 flex">
           <div class="card p-6">
-            <h4 class="font-bold text-white text-[15px]">Actividad física</h4>
-            <p id="activity-sub" class="text-[12.5px] text-white/40 mb-4">4 de 7 días</p>
-            <div id="activity-dots" class="flex justify-between"></div>
+            <h4 class="font-bold text-white text-[15px] mb-1">Objetivos glucémicos</h4>
+            <div id="objetivos-rows"></div>
           </div>
-
           <div class="card p-6">
-            <h4 class="font-bold text-white text-[15px] mb-4">Estado emocional</h4>
-            <div id="emotional-bars" class="flex flex-col gap-3"></div>
+            <div class="flex items-center justify-between mb-1">
+              <h4 class="font-bold text-white text-[15px]">Insulina basal</h4>
+            </div>
+            <div id="basal-rows"></div>
+          </div>
+          <div class="card p-6">
+            <h4 class="font-bold text-white text-[15px] mb-1">Insulina correctora</h4>
+            <div id="correctora-rows"></div>
+          </div>
+          <div class="card p-6">
+            <h4 class="font-bold text-white text-[15px]">Ratios y factores</h4>
+            <p class="text-[12.5px] text-white/40 mb-1">Cargados por el paciente desde la app</p>
+            <div id="ratios-rows"></div>
+          </div>
+          <div class="card p-6">
+            <h4 class="font-bold text-white text-[15px]">Dispositivos</h4>
+            <p class="text-[12.5px] text-white/40 mb-1">Equipos vinculados a la cuenta</p>
+            <div id="dispositivos-rows"></div>
           </div>
         </div>
-      </div>
 
-      <!-- TAB: TRATAMIENTO -->
-      <div id="tab-tratamiento" class="tab-panel hidden flex-col gap-5 flex">
-        <div class="card p-6">
-          <h4 class="font-bold text-white text-[15px] mb-1">Objetivos glucémicos</h4>
-          <div id="objetivos-rows"></div>
-        </div>
-        <div class="card p-6">
-          <div class="flex items-center justify-between mb-1">
-            <h4 class="font-bold text-white text-[15px]">Insulina basal</h4>
+        <!-- TAB: PERFIL -->
+        <div id="tab-perfil" class="tab-panel hidden grid-cols-1 md:grid-cols-[280px_1fr] gap-5">
+          <div class="card p-8 flex flex-col items-center text-center gap-3">
+            <div id="perfil-avatar" class="avatar avatar-accent w-20 h-20 text-[22px]">MP</div>
+            <p id="perfil-name" class="font-extrabold text-white text-[17px]">Martina Pérez</p>
+            <p id="perfil-email" class="text-[13px] text-white/45">martina.perez@gmail.com</p>
+            <span id="perfil-account" class="chip chip-target">Premium +</span>
           </div>
-          <div id="basal-rows"></div>
+          <div class="card p-6">
+            <div id="perfil-rows"></div>
+          </div>
         </div>
-        <div class="card p-6">
-          <h4 class="font-bold text-white text-[15px] mb-1">Insulina correctora</h4>
-          <div id="correctora-rows"></div>
-        </div>
-        <div class="card p-6">
-          <h4 class="font-bold text-white text-[15px]">Ratios y factores</h4>
-          <p class="text-[12.5px] text-white/40 mb-1">Cargados por el paciente desde la app</p>
-          <div id="ratios-rows"></div>
-        </div>
-        <div class="card p-6">
-          <h4 class="font-bold text-white text-[15px]">Dispositivos</h4>
-          <p class="text-[12.5px] text-white/40 mb-1">Equipos vinculados a la cuenta</p>
-          <div id="dispositivos-rows"></div>
-        </div>
-      </div>
 
-      <!-- TAB: PERFIL -->
-      <div id="tab-perfil" class="tab-panel hidden grid-cols-1 md:grid-cols-[280px_1fr] gap-5">
-        <div class="card p-8 flex flex-col items-center text-center gap-3">
-          <div id="perfil-avatar" class="avatar avatar-accent w-20 h-20 text-[22px]">MP</div>
-          <p id="perfil-name" class="font-extrabold text-white text-[17px]">Martina Pérez</p>
-          <p id="perfil-email" class="text-[13px] text-white/45">martina.perez@gmail.com</p>
-          <span id="perfil-account" class="chip chip-target">Premium +</span>
-        </div>
-        <div class="card p-6">
-          <div id="perfil-rows"></div>
-        </div>
       </div>
-
     </div>
   </main>
 </div>
@@ -624,6 +639,7 @@ function selectPatient(id){
   }
 
   renderList(document.getElementById("search").value);
+  document.getElementById("content-scroll").scrollTop = 0;
 }
 
 function renderInicio(p){
@@ -824,34 +840,182 @@ document.getElementById("btn-refresh").onclick = ()=>{
 };
 
 // ---------- Gráfico canvas ----------
-function drawChart(p){
+function drawChart(p) {
   const c = document.getElementById("chart");
-  const dpr = window.devicePixelRatio||1;
-  const W = c.clientWidth||600, H = 230;
-  c.width = W*dpr; c.height = H*dpr;
-  const ctx = c.getContext("2d"); ctx.setTransform(1,0,0,1,0,0); ctx.scale(dpr,dpr); ctx.clearRect(0,0,W,H);
-  const padL=40,padR=10,padT=14,padB=26;
-  const min=40,max=280;
-  const X = i=> padL + (W-padL-padR)*(i/(p.days.length-1));
-  const Y = v=> padT + (H-padT-padB)*(1-(v-min)/(max-min));
+  const dpr = window.devicePixelRatio || 1;
+  const W = c.clientWidth || 600;
+  const H = 230;
 
+  c.width = W * dpr;
+  c.height = H * dpr;
+
+  const ctx = c.getContext("2d");
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.scale(dpr, dpr);
+  ctx.clearRect(0, 0, W, H);
+
+  const padL = 40;
+  const padR = 10;
+  const padT = 14;
+  const padB = 26;
+
+  const min = 40;
+  const max = 280;
+
+  const X = i =>
+    padL + (W - padL - padR) * (i / (p.days.length - 1));
+
+  const Y = v =>
+    padT +
+    (H - padT - padB) *
+      (1 - (v - min) / (max - min));
+
+  // Target range
   ctx.fillStyle = "rgba(85,206,186,0.08)";
-  ctx.fillRect(padL, Y(p.max), W-padL-padR, Y(p.min)-Y(p.max));
+  ctx.fillRect(
+    padL,
+    Y(p.max),
+    W - padL - padR,
+    Y(p.min) - Y(p.max)
+  );
 
-  ctx.strokeStyle="rgba(251,249,245,0.08)"; ctx.fillStyle="rgba(251,249,245,0.4)"; ctx.font="11px 'Plus Jakarta Sans'";
-  [70,140,180,250].forEach(v=>{ ctx.beginPath(); ctx.moveTo(padL,Y(v)); ctx.lineTo(W-padR,Y(v)); ctx.stroke(); ctx.fillText(v+"",6,Y(v)+4); });
+  // Grid lines
+  ctx.strokeStyle = "rgba(251,249,245,0.08)";
+  ctx.fillStyle = "rgba(251,249,245,0.4)";
+  ctx.font = "11px 'Plus Jakarta Sans'";
 
-  const grad = ctx.createLinearGradient(0,padT,0,H-padB);
-  grad.addColorStop(0,"rgba(85,206,186,0.30)"); grad.addColorStop(1,"rgba(85,206,186,0)");
-  ctx.beginPath(); p.series.forEach((v,i)=>{ i?ctx.lineTo(X(i),Y(v)):ctx.moveTo(X(i),Y(v)); });
-  ctx.strokeStyle="#55CEBA"; ctx.lineWidth=3; ctx.lineJoin="round"; ctx.stroke();
-  ctx.lineTo(X(p.series.length-1),H-padB); ctx.lineTo(X(0),H-padB); ctx.closePath(); ctx.fillStyle=grad; ctx.fill();
+  [70, 140, 180, 250].forEach(v => {
+    ctx.beginPath();
+    ctx.moveTo(padL, Y(v));
+    ctx.lineTo(W - padR, Y(v));
+    ctx.stroke();
 
-  p.series.forEach((v,i)=>{
-    ctx.beginPath(); ctx.arc(X(i),Y(v),5,0,7);
-    ctx.fillStyle = v<p.min ? "#EF7D8A" : v>p.max ? "#EABE53" : "#55CEBA";
-    ctx.fill(); ctx.lineWidth=2; ctx.strokeStyle="rgba(36,24,63,0.85)"; ctx.stroke();
-    ctx.fillStyle="rgba(251,249,245,0.45)"; ctx.fillText(p.days[i], X(i)-10, H-8);
+    ctx.fillText(v + "", 6, Y(v) + 4);
+  });
+
+  // Gradient
+  const grad = ctx.createLinearGradient(
+    0,
+    padT,
+    0,
+    H - padB
+  );
+
+  grad.addColorStop(0, "rgba(85,206,186,0.30)");
+  grad.addColorStop(1, "rgba(85,206,186,0)");
+
+  /*
+   * Build a smooth cubic Bézier curve.
+   *
+   * Instead of:
+   *
+   *   point 1 -------- point 2
+   *
+   * we create:
+   *
+   *   point 1 ~~~~~~~~ point 2
+   */
+
+  const points = p.series.map((v, i) => ({
+    x: X(i),
+    y: Y(v)
+  }));
+
+  function drawSmoothCurve() {
+    ctx.beginPath();
+    ctx.moveTo(points[0].x, points[0].y);
+
+    for (let i = 0; i < points.length - 1; i++) {
+      const current = points[i];
+      const next = points[i + 1];
+
+      const previous = points[i - 1] || current;
+      const following = points[i + 2] || next;
+
+      const tension = 0.18;
+
+      const cp1x =
+        current.x +
+        (next.x - previous.x) * tension;
+
+      const cp1y =
+        current.y +
+        (next.y - previous.y) * tension;
+
+      const cp2x =
+        next.x -
+        (following.x - current.x) * tension;
+
+      const cp2y =
+        next.y -
+        (following.y - current.y) * tension;
+
+      ctx.bezierCurveTo(
+        cp1x,
+        cp1y,
+        cp2x,
+        cp2y,
+        next.x,
+        next.y
+      );
+    }
+  }
+
+  // Draw filled area first
+  drawSmoothCurve();
+
+  ctx.lineTo(
+    points[points.length - 1].x,
+    H - padB
+  );
+
+  ctx.lineTo(points[0].x, H - padB);
+  ctx.closePath();
+
+  ctx.fillStyle = grad;
+  ctx.fill();
+
+  // Draw smooth line on top
+  drawSmoothCurve();
+
+  ctx.strokeStyle = "#55CEBA";
+  ctx.lineWidth = 3;
+  ctx.lineJoin = "round";
+  ctx.lineCap = "round";
+  ctx.stroke();
+
+  // Points and labels
+  p.series.forEach((v, i) => {
+    const point = points[i];
+
+    ctx.beginPath();
+    ctx.arc(
+      point.x,
+      point.y,
+      5,
+      0,
+      Math.PI * 2
+    );
+
+    ctx.fillStyle =
+      v < p.min
+        ? "#EF7D8A"
+        : v > p.max
+          ? "#EABE53"
+          : "#55CEBA";
+
+    ctx.fill();
+
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = "rgba(36,24,63,0.85)";
+    ctx.stroke();
+
+    ctx.fillStyle = "rgba(251,249,245,0.45)";
+    ctx.fillText(
+      p.days[i],
+      point.x - 10,
+      H - 8
+    );
   });
 }
 window.addEventListener("resize", ()=>{ const p=patients.find(x=>x.id===currentId); if(!p.pending) drawChart(p); });
@@ -869,6 +1033,7 @@ document.querySelectorAll(".tab-btn").forEach(b=>b.onclick=()=>{
     el.classList.toggle("flex", show && k!=="perfil");
   });
   if(t==="inicio"){ const p=patients.find(x=>x.id===currentId); if(!p.pending) drawChart(p); }
+  document.getElementById("content-scroll").scrollTop = 0;
 });
 
 // ---------- Sidebar mobile / modal ----------
@@ -878,8 +1043,7 @@ function openSidebar(focusSearch=false){
   sb.classList.add("open"); ov.classList.remove("hidden");
   if(focusSearch) setTimeout(()=>document.getElementById("search").focus(), 300);
 }
-const btnSearchMobile=document.getElementById("btn-search-mobile");
-if(btnSearchMobile) btnSearchMobile.onclick=()=>openSidebar(true);
+document.getElementById("btn-menu-mobile").onclick=()=>openSidebar();
 document.getElementById("btn-close").onclick=closeSidebar; ov.onclick=closeSidebar;
 
 const modal=document.getElementById("modal");
