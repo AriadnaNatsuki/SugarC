@@ -1,153 +1,126 @@
 "use client";
 
-import Link from "next/link";
 import Image from "next/image";
-import { motion, useReducedMotion } from "framer-motion";
-import { Download, PlayCircle, Star, TrendingDown, Users } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { GlowBlob } from "@/components/ui/GlowBlob";
-import { floatY } from "@/lib/animations";
+import { MaterialIcon } from "@/components/ui/MaterialIcon";
 import { PHONES } from "@/lib/images";
+import { useLanguage } from "@/lib/i18n";
 
+/** Sección Hero, calcada 1:1 de index.html (sección 1). */
 export function Hero() {
-  const reduceMotion = useReducedMotion();
+  const { t } = useLanguage();
   return (
-    <div className="relative w-full overflow-hidden bg-base">
-      <GlowBlob color="purple" size={500} className="left-[-150px] top-[-120px]" opacity={0.3} />
-      <GlowBlob color="blue" size={450} className="right-[-120px] top-[10%]" opacity={0.28} />
-
-      <section className="relative z-10 mx-auto grid max-w-[1200px] grid-cols-1 items-center gap-10 px-4 pb-14 pt-10 md:px-6 md:pt-14 lg:grid-cols-12 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="flex flex-col gap-6 lg:col-span-6"
-        >
-          <span className="inline-flex w-fit items-center gap-2 rounded-full border border-line/10 bg-tint/[0.04] px-4 py-1.5 text-xs font-bold text-ink">
-            <Star className="h-4 w-4 fill-amber-400 text-amber-400" />
-            Compañero diario para niños, jóvenes y familias
-          </span>
-          <h1 className="text-4xl font-extrabold leading-[44px] tracking-tight md:text-5xl md:leading-[56px]">
-            Cuidar tu diabetes puede sentirse más <span className="text-brand-gradient">simple</span>.
-          </h1>
-          <p className="max-w-xl text-[17px] leading-[26px] text-body">
-            SugarCoach te ayuda a registrar tus controles, sumar puntos por tu constancia,
-            organizar reportes médicos y mantener conectada a tu familia. Con calidez,
-            gamificación positiva y sin estrés clínico.
-          </p>
-          <div className="flex flex-col gap-3 sm:flex-row">
-            <Link href="#descargar">
-              <Button variant="gradient" size="lg" className="w-full sm:w-auto">
-                <Download /> Descargar SugarCoach gratis
-              </Button>
-            </Link>
-            <Link href="#como-funciona">
-              <Button variant="outline" size="lg" className="w-full sm:w-auto">
-                <PlayCircle /> Ver cómo funciona
-              </Button>
-            </Link>
-          </div>
-          <div className="flex items-center gap-4 pt-2">
-            <div className="flex -space-x-3">
-              {["LF", "MA", "SR", "+8k"].map((t) => (
-                <div key={t} className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-base bg-card text-xs font-bold text-ink shadow">
-                  {t}
-                </div>
-              ))}
+    <div className="relative w-full overflow-hidden bg-bg-deep">
+      <div className="pointer-events-none absolute -top-24 left-1/4 h-[520px] w-[520px] rounded-full bg-primary/15 blur-[140px]" />
+      <div className="pointer-events-none absolute right-10 top-48 h-[460px] w-[460px] rounded-full bg-neon-magenta/15 blur-[150px]" />
+      <div className="pointer-events-none absolute left-[-100px] top-72 h-[400px] w-[400px] rounded-full bg-secondary/10 blur-[130px]" />
+      <section className="relative z-10 mx-auto max-w-[1200px] px-gutter-mobile pb-space-3xl pt-space-xl md:px-gutter-tablet md:pt-space-2xl lg:px-gutter-desktop">
+        <div className="grid grid-cols-1 items-center gap-space-2xl lg:grid-cols-12">
+          <div className="flex flex-col gap-space-lg lg:col-span-6">
+            <div className="inline-flex w-fit items-center gap-space-xs rounded-full border border-border-subtle bg-surface-tier-1 px-3.5 py-1.5 text-primary shadow-md backdrop-blur-md">
+              <MaterialIcon name="star" filled className="text-accent-yellow" style={{ fontSize: 18 }} />
+              <span className="font-label-md text-label-md font-bold tracking-tight text-text-primary">{t("hero.badge")}</span>
             </div>
-            <div className="flex flex-col">
-              <div className="flex items-center gap-1 text-amber-400">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Star key={i} className="h-4 w-4 fill-amber-400" />
-                ))}
-                <span className="ml-1 text-xs font-bold text-ink">4.9 / 5</span>
+            <h1 className="font-display-lg text-display-lg-mobile font-extrabold tracking-tight text-text-primary md:text-display-lg">
+              <span>{t("hero.titlePrefix")}</span>
+              <span className="gradient-text underline decoration-secondary decoration-wavy underline-offset-8">{t("hero.titleHighlight")}</span>
+              <span>{t("hero.titleSuffix")}</span>
+            </h1>
+            <p className="font-body-lg max-w-xl text-body-lg text-text-secondary">{t("hero.description")}</p>
+            <div className="flex flex-col items-stretch gap-space-md pt-space-xs sm:flex-row sm:items-center">
+              <a
+                className="inline-flex items-center justify-center gap-space-xs rounded-full btn-gradient border border-white/20 px-space-xl py-4 font-label-lg text-label-lg text-white transition-all active:scale-[0.98]"
+                href="#descargar"
+              >
+                <MaterialIcon name="download" style={{ fontSize: 20 }} />
+                <span>{t("btn.downloadFree")}</span>
+              </a>
+              <a
+                className="inline-flex items-center justify-center gap-space-xs rounded-full border border-outline-variant bg-surface-container px-space-xl py-4 font-label-lg text-label-lg text-on-surface transition-all hover:border-outline hover:bg-surface-container-high active:scale-[0.98]"
+                href="#como-funciona"
+              >
+                <MaterialIcon name="play_circle" className="text-primary" style={{ fontSize: 20 }} />
+                <span>{t("btn.seeHow")}</span>
+              </a>
+            </div>
+            <div className="flex items-center gap-space-lg pt-space-md">
+              <div className="flex -space-x-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-bg-deep bg-secondary-fixed font-label-md font-bold text-on-secondary-fixed shadow-sm">LF</div>
+                <div className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-bg-deep bg-primary-fixed font-label-md font-bold text-on-primary-fixed shadow-sm">MA</div>
+                <div className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-bg-deep bg-tertiary-fixed font-label-md font-bold text-on-tertiary-fixed shadow-sm">SR</div>
+                <div className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-bg-deep bg-surface-container-highest font-label-md font-bold text-primary shadow-sm">+8k</div>
               </div>
-              <span className="text-[13px] text-body">Familias y pacientes más tranquilos cada día</span>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Mockups de teléfono (estructura del code.html, sin depender de imágenes externas rotas) */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.15 }}
-          className="relative flex items-center justify-center pt-8 lg:col-span-6 lg:pt-0"
-        >
-          <div className="absolute h-80 w-80 rounded-full bg-glow-purple/30 blur-3xl md:h-96 md:w-96" />
-          {/* Tarjeta flotante 1 (code.html: `animate-bounce` con duration 5s) */}
-          <motion.div
-            variants={reduceMotion ? undefined : floatY}
-            animate={reduceMotion ? undefined : "animate"}
-            className="absolute -top-2 left-2 z-30 flex items-center gap-3 rounded-2xl border border-line/10 bg-card/90 px-4 py-3 shadow-2xl backdrop-blur sm:-left-4"
-          >
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-500/20 text-emerald-300">
-              <TrendingDown className="h-5 w-5" />
-            </div>
-            <div className="flex flex-col">
-              <span className="text-[11px] text-muted">Última medición</span>
-              <span className="text-[15px] font-extrabold text-ink">116 mg/dL • En rango</span>
-            </div>
-          </motion.div>
-          <div className="absolute bottom-10 -left-4 z-30 flex items-center gap-3 rounded-2xl border border-line/10 bg-card/90 px-4 py-3 shadow-2xl backdrop-blur sm:-left-8">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-amber-400/20 text-amber-300">
-              <Star className="h-5 w-5 fill-amber-300" />
-            </div>
-            <div className="flex flex-col">
-              <span className="font-bold text-ink">1100 pts • Nivel 1</span>
-              <span className="text-[11px] text-muted">¡Racha y constancia activa!</span>
-            </div>
-          </div>
-          <div className="absolute right-0 top-1/3 z-30 hidden items-center gap-3 rounded-2xl border border-line/10 bg-card/90 px-4 py-3 shadow-2xl backdrop-blur sm:flex">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-sky-500/20 text-sky-300">
-              <Users className="h-5 w-5" />
-            </div>
-            <div className="flex flex-col">
-              <span className="font-bold text-ink">Familia conectada</span>
-              <span className="text-[11px] text-muted">Sincronización al instante</span>
+              <div className="flex flex-col">
+                <div className="flex items-center gap-1 text-accent-yellow">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <MaterialIcon key={i} name="star" filled style={{ fontSize: 16 }} />
+                  ))}
+                  <span className="ml-1 font-label-md text-label-md font-bold text-text-primary">4.9 / 5</span>
+                </div>
+                <span className="font-body-sm text-body-sm text-text-secondary">{t("hero.socialProof")}</span>
+              </div>
             </div>
           </div>
 
-          {/* Teléfono de apoyo inclinado (code.html: `rotate-6 hover:rotate-2 transition-transform duration-300 opacity-90`) */}
-          <motion.div
-            initial={reduceMotion ? undefined : { rotate: 6 }}
-            whileHover={reduceMotion ? undefined : { rotate: 2, scale: 1.01 }}
-            transition={{ duration: 0.3 }}
-            className="absolute -right-6 top-8 z-10 hidden w-[240px] rounded-[36px] border-4 border-line/15 bg-[#110e2d] p-2.5 opacity-90 shadow-2xl sm:block"
-          >
-            <div className="overflow-hidden rounded-[28px] bg-black">
-              <Image
-                src={PHONES.dailyLog}
-                alt="Pantalla real SugarCoach Daily Log"
-                width={240}
-                height={480}
-                loading="lazy"
-                sizes="240px"
-                className="aspect-[9/19.5] w-full object-cover"
-              />
+          <div className="relative flex items-center justify-center pt-8 lg:col-span-6 lg:pt-0">
+            <div className="absolute h-80 w-80 rounded-full bg-gradient-to-tr from-primary/25 via-neon-magenta/20 to-secondary/15 blur-3xl md:h-96 md:w-96" />
+            <div
+              className="absolute -top-6 left-2 z-30 flex animate-bounce items-center gap-3 rounded-2xl border border-border-subtle bg-surface-container-lowest px-4 py-3 shadow-xl sm:-left-4"
+              style={{ animationDuration: "5s" }}
+            >
+              <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-emerald-500/30 bg-emerald-500/20 text-emerald-600 dark:text-emerald-400">
+                <MaterialIcon name="trending_down" style={{ fontSize: 20 }} />
+              </div>
+              <div className="flex flex-col">
+                <span className="font-label-sm text-[11px] text-text-tertiary">{t("hero.lastReading")}</span>
+                <span className="font-label-md text-[15px] font-extrabold text-text-primary">{t("hero.readingStatus")}</span>
+              </div>
             </div>
-          </motion.div>
-
-          {/* Teléfono principal (code.html: `hover:scale-[1.01] transition-transform`) */}
-          <motion.div
-            whileHover={reduceMotion ? undefined : { scale: 1.01 }}
-            transition={{ duration: 0.3 }}
-            className="relative z-20 w-[280px] rounded-[44px] border-4 border-line/15 bg-[#110e2d] p-3 shadow-2xl sm:w-[310px]"
-          >
-            <div className="mx-auto mb-2 h-4 w-24 rounded-full bg-black opacity-80" />
-            <div className="overflow-hidden rounded-[32px] bg-black shadow-inner">
-              <Image
-                src={PHONES.home}
-                alt="Pantalla real SugarCoach Home: Nivel 1, 1100 pts"
-                width={310}
-                height={620}
-                priority
-                sizes="(max-width: 640px) 280px, 310px"
-                className="aspect-[9/19.5] w-full object-cover"
-              />
+            <div className="absolute -left-6 bottom-10 z-30 flex items-center gap-3 rounded-2xl border border-border-subtle bg-surface-container-lowest px-4 py-3 shadow-xl sm:-left-8">
+              <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-amber-400/30 bg-amber-400/20 font-bold text-accent-yellow">
+                <MaterialIcon name="star" filled style={{ fontSize: 20 }} />
+              </div>
+              <div className="flex flex-col">
+                <span className="font-label-md font-bold text-text-primary">{t("hero.points")}</span>
+                <span className="font-label-sm text-[11px] text-text-tertiary">{t("hero.streak")}</span>
+              </div>
             </div>
-          </motion.div>
-        </motion.div>
+            <div className="absolute -right-6 top-1/3 z-30 hidden items-center gap-3 rounded-2xl border border-border-subtle bg-surface-container-lowest px-4 py-3 shadow-xl sm:flex">
+              <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-secondary/30 bg-secondary/20 text-secondary">
+                <MaterialIcon name="family_restroom" style={{ fontSize: 20 }} />
+              </div>
+              <div className="flex flex-col">
+                <span className="font-label-md font-bold text-text-primary">{t("hero.familyConnected")}</span>
+                <span className="font-label-sm text-[11px] text-text-tertiary">{t("hero.sync")}</span>
+              </div>
+            </div>
+            <div className="absolute -right-6 top-8 z-10 hidden w-[240px] rotate-6 rounded-[36px] border-2 border-border-subtle bg-[#070D1F] p-2.5 opacity-85 shadow-2xl transition-transform duration-300 hover:rotate-2 sm:block">
+              <div className="aspect-[9/19.5] overflow-hidden rounded-[28px] bg-black">
+                <Image
+                  src={PHONES.heroDailyLog}
+                  alt="Pantalla real SugarCoach Daily Log"
+                  width={240}
+                  height={480}
+                  sizes="240px"
+                  className="h-full w-full object-cover"
+                />
+              </div>
+            </div>
+            <div className="relative z-20 w-[280px] rounded-[44px] border-2 border-white/[0.16] bg-[#0A1024] p-3 phone-mockup-glow transition-transform hover:scale-[1.01] sm:w-[310px]">
+              <div className="mx-auto mb-2 h-4 w-24 rounded-full border border-white/[0.05] bg-black/80" />
+              <div className="aspect-[9/19.5] overflow-hidden rounded-[32px] bg-black shadow-inner">
+                <Image
+                  src={PHONES.home}
+                  alt="Pantalla real SugarCoach Home"
+                  width={310}
+                  height={620}
+                  priority
+                  sizes="(max-width: 640px) 280px, 310px"
+                  className="h-full w-full object-cover"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
     </div>
   );
