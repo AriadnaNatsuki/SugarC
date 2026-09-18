@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Reveal } from "@/components/ui/Reveal";
 import { PHONES } from "@/lib/images";
+import { useLanguage } from "@/lib/i18n";
 import { Check, ChevronRight, Sparkles, Zap, Utensils, Clock, Target, FileText, BarChart3, type LucideIcon } from "lucide-react";
 
 interface FloatingChip {
@@ -33,102 +34,106 @@ interface StepItem {
   features: string[];
 }
 
-const STEPS: StepItem[] = [
-  {
-    id: "step-1",
-    n: "01",
-    tag: "Entrada rápida",
-    title: "Registrá en segundos",
-    headline: "Un par de toques, sin planillas ni complicaciones",
-    desc: "Anotá glucemia capilar o continua, insulina basal y rápida, gramos de carbohidratos, colaciones y tu estado de ánimo con un par de toques.",
-    image: PHONES.registro,
-    alt: "Pantalla real de registro de alimentos y carbohidratos SugarCoach",
-    accentBg: "bg-[#C45CFF]/15 text-[#7100A5] dark:text-[#C45CFF] border-[#C45CFF]/30",
-    activeBorder: "border-[#C45CFF] shadow-[0_0_24px_rgba(196,92,255,0.18)] dark:border-[#C45CFF]",
-    glow: "from-[#C45CFF]/20 via-[#DA44AF]/10 to-transparent",
-    accentColor: "text-[#7100A5] dark:text-[#C45CFF]",
-    barColor: "bg-gradient-to-r from-[#C45CFF] to-[#DA44AF]",
-    chips: {
-      topRight: {
-        label: "Registro en < 5 seg",
-        icon: Zap,
+function buildSteps(t: (key: string) => string): StepItem[] {
+  return [
+    {
+      id: "step-1",
+      n: "01",
+      tag: t("howShowcase.step1.tag"),
+      title: t("howShowcase.step1.title"),
+      headline: t("howShowcase.step1.headline"),
+      desc: t("howShowcase.step1.desc"),
+      image: PHONES.registro,
+      alt: t("howShowcase.step1.alt"),
+      accentBg: "bg-[#C45CFF]/15 text-[#7100A5] dark:text-[#C45CFF] border-[#C45CFF]/30",
+      activeBorder: "border-[#C45CFF] shadow-[0_0_24px_rgba(196,92,255,0.18)] dark:border-[#C45CFF]",
+      glow: "from-[#C45CFF]/20 via-[#DA44AF]/10 to-transparent",
+      accentColor: "text-[#7100A5] dark:text-[#C45CFF]",
+      barColor: "bg-gradient-to-r from-[#C45CFF] to-[#DA44AF]",
+      chips: {
+        topRight: {
+          label: t("howShowcase.step1.chipTopRight"),
+          icon: Zap,
+        },
+        bottomLeft: {
+          label: t("howShowcase.step1.chipBottomLeft"),
+          icon: Utensils,
+        },
       },
-      bottomLeft: {
-        label: "Biblioteca de colaciones",
-        icon: Utensils,
-      },
+      features: [
+        t("howShowcase.step1.feature1"),
+        t("howShowcase.step1.feature2"),
+        t("howShowcase.step1.feature3"),
+      ],
     },
-    features: [
-      "Búsqueda rápida de alimentos comunes",
-      "Calculadora de insulina para corrección",
-      "Registro de estado de ánimo y síntomas",
-    ],
-  },
-  {
-    id: "step-2",
-    n: "02",
-    tag: "Historial claro",
-    title: "Organizá tu día",
-    headline: "Tu jornada completa ordenada en una línea de tiempo",
-    desc: "El Daily Log agrupa cronológicamente almuerzos, cenas, correcciones y actividad con etiquetas de colores claros y comprensibles para vos y tu médico.",
-    image: PHONES.dailyLog,
-    alt: "Pantalla real Daily Log diario SugarCoach",
-    accentBg: "bg-[#2BC5C7]/15 text-[#006064] dark:text-[#2BC5C7] border-[#2BC5C7]/30",
-    activeBorder: "border-[#2BC5C7] shadow-[0_0_24px_rgba(43,197,199,0.18)] dark:border-[#2BC5C7]",
-    glow: "from-[#2BC5C7]/20 via-teal-500/10 to-transparent",
-    accentColor: "text-[#006064] dark:text-[#2BC5C7]",
-    barColor: "bg-gradient-to-r from-[#2BC5C7] to-teal-400",
-    chips: {
-      topRight: {
-        label: "Cronología automática",
-        icon: Clock,
+    {
+      id: "step-2",
+      n: "02",
+      tag: t("howShowcase.step2.tag"),
+      title: t("howShowcase.step2.title"),
+      headline: t("howShowcase.step2.headline"),
+      desc: t("howShowcase.step2.desc"),
+      image: PHONES.dailyLog,
+      alt: t("howShowcase.step2.alt"),
+      accentBg: "bg-[#2BC5C7]/15 text-[#006064] dark:text-[#2BC5C7] border-[#2BC5C7]/30",
+      activeBorder: "border-[#2BC5C7] shadow-[0_0_24px_rgba(43,197,199,0.18)] dark:border-[#2BC5C7]",
+      glow: "from-[#2BC5C7]/20 via-teal-500/10 to-transparent",
+      accentColor: "text-[#006064] dark:text-[#2BC5C7]",
+      barColor: "bg-gradient-to-r from-[#2BC5C7] to-teal-400",
+      chips: {
+        topRight: {
+          label: t("howShowcase.step2.chipTopRight"),
+          icon: Clock,
+        },
+        bottomLeft: {
+          label: t("howShowcase.step2.chipBottomLeft"),
+          icon: Target,
+        },
       },
-      bottomLeft: {
-        label: "Rango objetivo 70-180 mg/dL",
-        icon: Target,
-      },
+      features: [
+        t("howShowcase.step2.feature1"),
+        t("howShowcase.step2.feature2"),
+        t("howShowcase.step2.feature3"),
+      ],
     },
-    features: [
-      "Línea de tiempo cronológica automática",
-      "Códigos de color según rangos clínicos",
-      "Sin duplicados ni planillas de papel",
-    ],
-  },
-  {
-    id: "step-3",
-    n: "03",
-    tag: "Tratamiento claro",
-    title: "Controlá tu esquema",
-    headline: "Parámetros médicos personalizados y reportes al instante",
-    desc: "Visualizá rangos personalizados (Hipo 70, Target 100, Híper 180 mg/dL), bombas o lapiceras y compartí el reporte clínico consolidado con un clic.",
-    image: PHONES.treatmentSteps,
-    alt: "Pantalla real de tratamiento y rangos objetivos SugarCoach",
-    accentBg: "bg-[#FF3FB4]/15 text-[#9E1679] dark:text-[#FF3FB4] border-[#FF3FB4]/30",
-    activeBorder: "border-[#FF3FB4] shadow-[0_0_24px_rgba(255,63,180,0.18)] dark:border-[#FF3FB4]",
-    glow: "from-[#FF3FB4]/20 via-[#DA44AF]/10 to-transparent",
-    accentColor: "text-[#9E1679] dark:text-[#FF3FB4]",
-    barColor: "bg-gradient-to-r from-[#FF3FB4] to-pink-400",
-    chips: {
-      topRight: {
-        label: "Reporte médico en 1 clic",
-        icon: FileText,
+    {
+      id: "step-3",
+      n: "03",
+      tag: t("howShowcase.step3.tag"),
+      title: t("howShowcase.step3.title"),
+      headline: t("howShowcase.step3.headline"),
+      desc: t("howShowcase.step3.desc"),
+      image: PHONES.treatmentSteps,
+      alt: t("howShowcase.step3.alt"),
+      accentBg: "bg-[#FF3FB4]/15 text-[#9E1679] dark:text-[#FF3FB4] border-[#FF3FB4]/30",
+      activeBorder: "border-[#FF3FB4] shadow-[0_0_24px_rgba(255,63,180,0.18)] dark:border-[#FF3FB4]",
+      glow: "from-[#FF3FB4]/20 via-[#DA44AF]/10 to-transparent",
+      accentColor: "text-[#9E1679] dark:text-[#FF3FB4]",
+      barColor: "bg-gradient-to-r from-[#FF3FB4] to-pink-400",
+      chips: {
+        topRight: {
+          label: t("howShowcase.step3.chipTopRight"),
+          icon: FileText,
+        },
+        bottomLeft: {
+          label: t("howShowcase.step3.chipBottomLeft"),
+          icon: BarChart3,
+        },
       },
-      bottomLeft: {
-        label: "Tiempo en Rango (TIR)",
-        icon: BarChart3,
-      },
+      features: [
+        t("howShowcase.step3.feature1"),
+        t("howShowcase.step3.feature2"),
+        t("howShowcase.step3.feature3"),
+      ],
     },
-    features: [
-      "Esquemas basales y bolos configurables",
-      "Exportación en PDF lista para tu consulta",
-      "Compatibilidad con lapiceras y microinfusoras",
-    ],
-  },
-];
+  ];
+}
 
 const AUTO_ROTATE_INTERVAL = 6000;
 
 export function HowItWorksSection() {
+  const { t } = useLanguage();
+  const STEPS = useMemo(() => buildSteps(t), [t]);
   const [activeIdx, setActiveIdx] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const reduceMotion = useReducedMotion();
@@ -165,14 +170,13 @@ export function HowItWorksSection() {
       <Reveal className="mx-auto mb-12 flex max-w-2xl flex-col items-center text-center">
         <span className="mb-2 inline-flex items-center gap-1.5 rounded-full border border-[#006064]/20 bg-[#006064]/10 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-[#006064] dark:border-[#2BC5C7]/30 dark:bg-[#2BC5C7]/15 dark:text-[#2BC5C7]">
           <Sparkles className="h-3.5 w-3.5" />
-          Paso a paso interactivo
+          {t("howShowcase.eyebrowBadge")}
         </span>
         <h2 id="how-it-works-title" className="text-3xl font-extrabold tracking-tight text-ink md:text-4xl">
-          Simple desde el primer día
+          {t("howShowcase.title")}
         </h2>
         <p className="mt-3 max-w-xl text-sm sm:text-base leading-relaxed text-body dark:text-[#A8B0C5]">
-          Sin curvas de aprendizaje complejas. Pantallas intuitivas con colores claros, íconos y respuestas inmediatas
-          para tu día a día.
+          {t("howShowcase.description")}
         </p>
       </Reveal>
 
@@ -185,7 +189,7 @@ export function HowItWorksSection() {
               key={s.id}
               role="tab"
               aria-selected={isActive}
-              aria-label={`Paso ${s.n}: ${s.title}`}
+              aria-label={`${t("howShowcase.stepWord")} ${s.n}: ${s.title}`}
               onClick={() => handleSelectStep(idx)}
               className={`flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-bold transition-all ${
                 isActive

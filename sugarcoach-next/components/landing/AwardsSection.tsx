@@ -4,6 +4,7 @@ import React from "react";
 import Image from "next/image";
 import { Reveal } from "@/components/ui/Reveal";
 import { Badge } from "@/components/ui/badge";
+import { useLanguage } from "@/lib/i18n";
 
 export interface AwardItem {
   id: string;
@@ -73,6 +74,7 @@ export const AWARDS: AwardItem[] = [
 const MARQUEE_ITEMS = [...AWARDS, ...AWARDS];
 
 export function AwardsSection() {
+  const { t } = useLanguage();
   return (
     <section
       id="premios"
@@ -95,16 +97,16 @@ export function AwardsSection() {
           {/* Section Header */}
           <Reveal className="mx-auto max-w-3xl px-6 sm:px-8 lg:px-10 text-center">
             <Badge variant="brand" className="mb-3 uppercase tracking-wider text-xs font-bold">
-              Validación y confianza global
+              {t("awardsShowcase.eyebrow")}
             </Badge>
             <h2
               id="awards-heading"
               className="text-3xl font-extrabold tracking-tight sm:text-4xl text-headings text-ink"
             >
-              Premios y Reconocimientos
+              {t("awardsShowcase.title")}
             </h2>
             <p className="section-subtitle mt-3 max-w-2xl mx-auto text-base leading-relaxed text-body sm:text-lg">
-              Respaldados por instituciones, aceleradoras e iniciativas de innovación en salud y tecnología.
+              {t("awardsShowcase.description")}
             </p>
           </Reveal>
 
@@ -113,7 +115,7 @@ export function AwardsSection() {
             <div
               tabIndex={0}
               role="region"
-              aria-label="Carrusel continuo de premios y reconocimientos"
+              aria-label={t("awardsShowcase.carouselAriaLabel")}
               className="sc-awards-marquee-wrap group relative mt-6 sm:mt-8 w-full overflow-hidden py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
             >
               {/* Left / Right subtle gradient fade masks - flush to outer edges and very discrete */}

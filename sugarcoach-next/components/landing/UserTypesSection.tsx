@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useMemo } from "react";
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import {
@@ -21,6 +21,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
+import { useLanguage } from "@/lib/i18n";
 
 type AudienceId = "pacientes" | "familias" | "profesionales";
 
@@ -54,128 +55,140 @@ interface AudiencePillar {
   previewBadge: string;
 }
 
-const PILLARS: AudiencePillar[] = [
-  {
-    id: "pacientes",
-    name: "Para vos",
-    roleSubtitle: "Niños, jóvenes y personas con diabetes",
-    badge: "Autonomía y motivación",
-    icon: Heart,
-    purposePrompt: "¿Para qué la usás?",
-    purposeSummary: "Registro express en segundos y motivación diaria sin culpa médica.",
-    headline: "Tu tratamiento a tu ritmo, sin juzgar tus valores",
-    description:
-      "Diseñado para que registrar tu glucosa, comidas y dosis no sea una carga clínica, sino un hábito ágil donde sumás puntos, cuidás tu salud y aprendés a entender tu cuerpo.",
-    accentColor: "text-[#9E1679] dark:text-[#DA44AF] [.a11y_&]:text-[#7100A5]",
-    accentBorder: "border-[#DA44AF]/30 dark:border-[#DA44AF]/40",
-    activeBorder: "border-[#DA44AF] shadow-[0_0_24px_rgba(218,68,175,0.18)] dark:border-[#DA44AF]",
-    accentBg: "bg-[#DA44AF]/10 dark:bg-[#DA44AF]/15",
-    iconBoxBg: "bg-gradient-to-br from-[#DA44AF]/25 to-[#C747CA]/25 text-[#9E1679] dark:text-[#DA44AF] [.a11y_&]:text-[#7100A5]",
-    glowGradient: "from-[#DA44AF]/10 via-[#DA44AF]/5 to-transparent",
-    useCases: [
-      {
-        title: "Carga rápida en 2 toques",
-        desc: "Ingresá glucemia, carbohidratos, bolos de insulina y actividad física en menos de 10 segundos.",
-        icon: Zap,
-      },
-      {
-        title: "Gamificación respetuosa",
-        desc: "Sumá puntos diarios y desbloqueá niveles por tu constancia. Los números son información médica, nunca calificaciones morales.",
-        icon: Sparkles,
-      },
-      {
-        title: "Aprender sin estrés",
-        desc: "Reconocé de un vistazo el impacto de tus comidas y ejercicios con feedback visual claro y amigable.",
-        icon: ShieldCheck,
-      },
-    ],
-    metrics: ["Carga en < 10 seg", "+100 Pts por día", "Sin reproches clínicos"],
-    ctaLink: "#como-funciona",
-    ctaLabel: "Ver cómo se siente el día a día",
-    previewImage: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=600&q=80",
-    previewBadge: "Niños y jóvenes",
-  },
-  {
-    id: "familias",
-    name: "Para tu familia",
-    roleSubtitle: "Madres, padres, tutores y cuidadores",
-    badge: "Tranquilidad compartida",
-    icon: Users,
-    purposePrompt: "¿Para qué la usás?",
-    purposeSummary: "Acompañar de cerca en tiempo real sin invadir su rutina ni su independencia.",
-    headline: "Paz mental sabiendo que están seguros en todo momento",
-    description:
-      "Para las familias, el equilibrio entre proteger y fomentar la autonomía es clave. SugarCoach mantiene conectados a los cuidadores mediante datos en la nube sin necesidad de mensajes insistentes.",
-    accentColor: "text-[#006064] dark:text-[#2BC5C7] [.a11y_&]:text-[#004d40]",
-    accentBorder: "border-[#2BC5C7]/30 dark:border-[#2BC5C7]/40",
-    activeBorder: "border-[#2BC5C7] shadow-[0_0_24px_rgba(43,197,199,0.18)] dark:border-[#2BC5C7]",
-    accentBg: "bg-[#2BC5C7]/10 dark:bg-[#2BC5C7]/15",
-    iconBoxBg: "bg-gradient-to-br from-[#2BC5C7]/25 to-teal-500/25 text-[#006064] dark:text-[#2BC5C7] [.a11y_&]:text-[#004d40]",
-    glowGradient: "from-[#2BC5C7]/10 via-[#2BC5C7]/5 to-transparent",
-    useCases: [
-      {
-        title: "Sincronización en la nube",
-        desc: "Cada control diario se sincroniza al instante en los dispositivos autorizados del círculo familiar.",
-        icon: Cloud,
-      },
-      {
-        title: "Alertas inteligentes y discretas",
-        desc: "Recibí notificaciones prioritarias únicamente cuando se requiera una intervención real o confirmación.",
-        icon: Bell,
-      },
-      {
-        title: "Libertad escolar y social",
-        desc: "Sabé que tus hijos están protegidos durante clases, entrenamientos deportivos y salidas con amigos.",
-        icon: ShieldCheck,
-      },
-    ],
-    metrics: ["Sync en tiempo real", "Alertas configurables", "Acompañamiento sin asfixia"],
-    ctaLink: "#descargar",
-    ctaLabel: "Descargar para toda la familia",
-    previewImage: "https://images.unsplash.com/photo-1542037104857-ffbb0b9155fb?auto=format&fit=crop&w=600&q=80",
-    previewBadge: "Familias y cuidadores",
-  },
-  {
-    id: "profesionales",
-    name: "Para profesionales",
-    roleSubtitle: "Diabetólogos, endocrinólogos y nutricionistas",
-    badge: "Precisión clínica",
-    icon: Stethoscope,
-    purposePrompt: "¿Para qué la usás?",
-    purposeSummary: "Consultas enfocadas con curvas de Tiempo en Rango (TIR) y reportes médicos consolidados.",
-    headline: "Datos claros y estructurados para consultas médicas más humanas",
-    description:
-      "Transformá libretas incompletas y notas aisladas en métricas estandarizadas de calidad médica. Visualizá variabilidad, correlaciones y respuestas a la terapia en un informe consolidado.",
-    accentColor: "text-[#7100A5] dark:text-[#C45CFF] [.a11y_&]:text-[#2f1f9e]",
-    accentBorder: "border-[#C45CFF]/30 dark:border-[#C45CFF]/40",
-    activeBorder: "border-[#C45CFF] shadow-[0_0_24px_rgba(196,92,255,0.18)] dark:border-[#C45CFF]",
-    accentBg: "bg-[#C45CFF]/10 dark:bg-[#C45CFF]/15",
-    iconBoxBg: "bg-gradient-to-br from-[#C45CFF]/25 to-indigo-500/25 text-[#7100A5] dark:text-[#C45CFF] [.a11y_&]:text-[#2f1f9e]",
-    glowGradient: "from-[#C45CFF]/10 via-[#C45CFF]/5 to-transparent",
-    useCases: [
-      {
-        title: "Métricas TIR estandarizadas",
-        desc: "Porcentajes precisos en rango objetivo (70-180 mg/dL), hipoglucemias y perfiles AGP de 14 a 90 días.",
-        icon: BarChart3,
-      },
-      {
-        title: "Correlación terapéutica",
-        desc: "Cruzá dosis basales/bolos con carbohidratos consumidos para calibrar ratios de sensibilidad con fundamento.",
-        icon: Activity,
-      },
-      {
-        title: "Exportación clínica en 1 clic",
-        desc: "Generá reportes en formato PDF y hojas de cálculo para adjuntar a la historia clínica digital del paciente.",
-        icon: FileText,
-      },
-    ],
-    metrics: ["Reportes TIR / AGP", "Exportación PDF y Excel", "Consultas 40% más ágiles"],
-    ctaLink: "#tratamiento",
-    ctaLabel: "Ver módulo de tratamiento",
-    previewImage: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=600&q=80",
-    previewBadge: "Médicos y especialistas",
-  },
-];
+function buildPillars(t: (key: string) => string): AudiencePillar[] {
+  const purposePrompt = t("userTypes.purposePrompt");
+  return [
+    {
+      id: "pacientes",
+      name: t("userTypes.pacientes.name"),
+      roleSubtitle: t("userTypes.pacientes.roleSubtitle"),
+      badge: t("userTypes.pacientes.badge"),
+      icon: Heart,
+      purposePrompt,
+      purposeSummary: t("userTypes.pacientes.purposeSummary"),
+      headline: t("userTypes.pacientes.headline"),
+      description: t("userTypes.pacientes.description"),
+      accentColor: "text-[#9E1679] dark:text-[#DA44AF] [.a11y_&]:text-[#7100A5]",
+      accentBorder: "border-[#DA44AF]/30 dark:border-[#DA44AF]/40",
+      activeBorder: "border-[#DA44AF] shadow-[0_0_24px_rgba(218,68,175,0.18)] dark:border-[#DA44AF]",
+      accentBg: "bg-[#DA44AF]/10 dark:bg-[#DA44AF]/15",
+      iconBoxBg: "bg-gradient-to-br from-[#DA44AF]/25 to-[#C747CA]/25 text-[#9E1679] dark:text-[#DA44AF] [.a11y_&]:text-[#7100A5]",
+      glowGradient: "from-[#DA44AF]/10 via-[#DA44AF]/5 to-transparent",
+      useCases: [
+        {
+          title: t("userTypes.pacientes.useCase1.title"),
+          desc: t("userTypes.pacientes.useCase1.desc"),
+          icon: Zap,
+        },
+        {
+          title: t("userTypes.pacientes.useCase2.title"),
+          desc: t("userTypes.pacientes.useCase2.desc"),
+          icon: Sparkles,
+        },
+        {
+          title: t("userTypes.pacientes.useCase3.title"),
+          desc: t("userTypes.pacientes.useCase3.desc"),
+          icon: ShieldCheck,
+        },
+      ],
+      metrics: [
+        t("userTypes.pacientes.metric1"),
+        t("userTypes.pacientes.metric2"),
+        t("userTypes.pacientes.metric3"),
+      ],
+      ctaLink: "#como-funciona",
+      ctaLabel: t("userTypes.pacientes.ctaLabel"),
+      previewImage: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=600&q=80",
+      previewBadge: t("userTypes.pacientes.previewBadge"),
+    },
+    {
+      id: "familias",
+      name: t("userTypes.familias.name"),
+      roleSubtitle: t("userTypes.familias.roleSubtitle"),
+      badge: t("userTypes.familias.badge"),
+      icon: Users,
+      purposePrompt,
+      purposeSummary: t("userTypes.familias.purposeSummary"),
+      headline: t("userTypes.familias.headline"),
+      description: t("userTypes.familias.description"),
+      accentColor: "text-[#006064] dark:text-[#2BC5C7] [.a11y_&]:text-[#004d40]",
+      accentBorder: "border-[#2BC5C7]/30 dark:border-[#2BC5C7]/40",
+      activeBorder: "border-[#2BC5C7] shadow-[0_0_24px_rgba(43,197,199,0.18)] dark:border-[#2BC5C7]",
+      accentBg: "bg-[#2BC5C7]/10 dark:bg-[#2BC5C7]/15",
+      iconBoxBg: "bg-gradient-to-br from-[#2BC5C7]/25 to-teal-500/25 text-[#006064] dark:text-[#2BC5C7] [.a11y_&]:text-[#004d40]",
+      glowGradient: "from-[#2BC5C7]/10 via-[#2BC5C7]/5 to-transparent",
+      useCases: [
+        {
+          title: t("userTypes.familias.useCase1.title"),
+          desc: t("userTypes.familias.useCase1.desc"),
+          icon: Cloud,
+        },
+        {
+          title: t("userTypes.familias.useCase2.title"),
+          desc: t("userTypes.familias.useCase2.desc"),
+          icon: Bell,
+        },
+        {
+          title: t("userTypes.familias.useCase3.title"),
+          desc: t("userTypes.familias.useCase3.desc"),
+          icon: ShieldCheck,
+        },
+      ],
+      metrics: [
+        t("userTypes.familias.metric1"),
+        t("userTypes.familias.metric2"),
+        t("userTypes.familias.metric3"),
+      ],
+      ctaLink: "#descargar",
+      ctaLabel: t("userTypes.familias.ctaLabel"),
+      previewImage: "https://images.unsplash.com/photo-1542037104857-ffbb0b9155fb?auto=format&fit=crop&w=600&q=80",
+      previewBadge: t("userTypes.familias.previewBadge"),
+    },
+    {
+      id: "profesionales",
+      name: t("userTypes.profesionales.name"),
+      roleSubtitle: t("userTypes.profesionales.roleSubtitle"),
+      badge: t("userTypes.profesionales.badge"),
+      icon: Stethoscope,
+      purposePrompt,
+      purposeSummary: t("userTypes.profesionales.purposeSummary"),
+      headline: t("userTypes.profesionales.headline"),
+      description: t("userTypes.profesionales.description"),
+      accentColor: "text-[#7100A5] dark:text-[#C45CFF] [.a11y_&]:text-[#2f1f9e]",
+      accentBorder: "border-[#C45CFF]/30 dark:border-[#C45CFF]/40",
+      activeBorder: "border-[#C45CFF] shadow-[0_0_24px_rgba(196,92,255,0.18)] dark:border-[#C45CFF]",
+      accentBg: "bg-[#C45CFF]/10 dark:bg-[#C45CFF]/15",
+      iconBoxBg: "bg-gradient-to-br from-[#C45CFF]/25 to-indigo-500/25 text-[#7100A5] dark:text-[#C45CFF] [.a11y_&]:text-[#2f1f9e]",
+      glowGradient: "from-[#C45CFF]/10 via-[#C45CFF]/5 to-transparent",
+      useCases: [
+        {
+          title: t("userTypes.profesionales.useCase1.title"),
+          desc: t("userTypes.profesionales.useCase1.desc"),
+          icon: BarChart3,
+        },
+        {
+          title: t("userTypes.profesionales.useCase2.title"),
+          desc: t("userTypes.profesionales.useCase2.desc"),
+          icon: Activity,
+        },
+        {
+          title: t("userTypes.profesionales.useCase3.title"),
+          desc: t("userTypes.profesionales.useCase3.desc"),
+          icon: FileText,
+        },
+      ],
+      metrics: [
+        t("userTypes.profesionales.metric1"),
+        t("userTypes.profesionales.metric2"),
+        t("userTypes.profesionales.metric3"),
+      ],
+      ctaLink: "#tratamiento",
+      ctaLabel: t("userTypes.profesionales.ctaLabel"),
+      previewImage: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=600&q=80",
+      previewBadge: t("userTypes.profesionales.previewBadge"),
+    },
+  ];
+}
 
 const smoothPillarTransition = {
   duration: 0.65,
@@ -183,6 +196,8 @@ const smoothPillarTransition = {
 };
 
 export function UserTypesSection() {
+  const { t } = useLanguage();
+  const PILLARS = useMemo(() => buildPillars(t), [t]);
   const [activeId, setActiveId] = useState<AudienceId>("pacientes");
   const reduceMotion = useReducedMotion();
   const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -218,21 +233,20 @@ export function UserTypesSection() {
         {/* Encabezado principal de la sección */}
         <Reveal className="mx-auto mb-12 flex max-w-2xl flex-col items-center text-center">
           <span className="mb-2.5 inline-flex items-center gap-1.5 rounded-full border border-line/15 bg-tint/[0.04] px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-brand-from dark:border-white/10 dark:text-[#C45CFF]">
-            Una app, tres miradas complementarias
+            {t("userTypes.eyebrow")}
           </span>
           <h2 id="user-types-heading" className="text-3xl font-extrabold tracking-tight text-ink md:text-4xl">
-            Diseñado para cada integrante del cuidado
+            {t("userTypes.title")}
           </h2>
           <p className="mt-3 max-w-xl text-sm leading-relaxed text-body sm:text-base dark:text-[#A8B0C5]">
-            Cada persona vive el tratamiento desde un lugar distinto. Explorá cómo SugarCoach adapta sus herramientas
-            según quién la esté usando:
+            {t("userTypes.description")}
           </p>
         </Reveal>
 
         {/* Pilares cinéticos interactivos (Desktop: altura fija bloqueada para eliminar saltos de página / Mobile: acordeón) */}
         <div
           role="tablist"
-          aria-label="Perfiles de usuario de SugarCoach"
+          aria-label={t("userTypes.ariaProfiles")}
           className="flex flex-col gap-4 lg:h-[580px] lg:max-h-[580px] lg:flex-row lg:items-stretch"
         >
           {PILLARS.map((pillar) => {
@@ -388,7 +402,7 @@ export function UserTypesSection() {
                   >
                     <Image
                       src={pillar.previewImage}
-                      alt={`Representación de ${pillar.name}`}
+                      alt={`${t("userTypes.previewAlt")} ${pillar.name}`}
                       fill
                       sizes="(max-width: 1024px) 100vw, 420px"
                       className="object-cover object-top select-none transition-transform duration-700 ease-out group-hover:scale-105"
@@ -403,7 +417,7 @@ export function UserTypesSection() {
                     {/* Cartel "Ver detalles" superpuesto al pie de la imagen */}
                     <div className="absolute bottom-0 left-0 right-0 z-20 flex items-center justify-between px-6 py-4 text-white">
                       <div className="flex w-full items-center justify-between text-xs font-bold text-white/90">
-                        <span className="drop-shadow-sm">Ver detalles</span>
+                        <span className="drop-shadow-sm">{t("userTypes.viewDetails")}</span>
                         <ChevronRight className="h-4 w-4 text-white/80 transition-transform duration-300 group-hover:translate-x-1" />
                       </div>
                     </div>

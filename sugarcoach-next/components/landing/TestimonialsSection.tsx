@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useMemo, useRef, useCallback } from "react";
 import { ChevronLeft, ChevronRight, Star } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Reveal } from "@/components/ui/Reveal";
 import { cn } from "@/lib/utils";
+import { useLanguage } from "@/lib/i18n";
 
 export interface TestimonialItem {
   id: string;
@@ -14,50 +15,49 @@ export interface TestimonialItem {
   quote: string;
 }
 
-const TESTIMONIALS: TestimonialItem[] = [
-  {
-    id: "mariana-lopez",
-    name: "Mariana López",
-    role: "Paciente",
-    rating: 5,
-    quote:
-      "Desde que uso SugarCoach siento que tengo más control sobre mi salud. La app es muy fácil de usar y me ayuda a mantener mis hábitos día a día. ¡Totalmente recomendada!",
-  },
-  {
-    id: "diego-fernandez",
-    name: "Diego Fernández",
-    role: "Paciente",
-    rating: 5,
-    quote:
-      "La plataforma me dio herramientas para entender mejor mi enfermedad y sentirme acompañado en todo el proceso. El equipo de profesionales es excelente.",
-  },
-  {
-    id: "valentina-rojas",
-    name: "Valentina Rojas",
-    role: "Familiar",
-    rating: 5,
-    quote:
-      "SugarCoach es una herramienta innovadora que nos permite acompañar a nuestros pacientes de forma más cercana y personalizada. La tecnología y el enfoque humano hacen la diferencia.",
-  },
-  {
-    id: "sofia-acosta",
-    name: "Sofía Acosta",
-    role: "Paciente",
-    rating: 5,
-    quote:
-      "Me ayuda a ordenar mis controles y a entender mejor mis rutinas. Sentir que hay un equipo detrás hace que todo sea mucho más llevadero.",
-  },
-  {
-    id: "julian-mendez",
-    name: "Julián Méndez",
-    role: "Familiar",
-    rating: 5,
-    quote:
-      "Los reportes me permiten llegar a la consulta con todo más claro y aprovechar mejor el tiempo con mi profesional.",
-  },
-];
+function buildTestimonials(t: (key: string) => string): TestimonialItem[] {
+  return [
+    {
+      id: "mariana-lopez",
+      name: "Mariana López",
+      role: t("testimonialsShowcase.mariana.role"),
+      rating: 5,
+      quote: t("testimonialsShowcase.mariana.quote"),
+    },
+    {
+      id: "diego-fernandez",
+      name: "Diego Fernández",
+      role: t("testimonialsShowcase.diego.role"),
+      rating: 5,
+      quote: t("testimonialsShowcase.diego.quote"),
+    },
+    {
+      id: "valentina-rojas",
+      name: "Valentina Rojas",
+      role: t("testimonialsShowcase.valentina.role"),
+      rating: 5,
+      quote: t("testimonialsShowcase.valentina.quote"),
+    },
+    {
+      id: "sofia-acosta",
+      name: "Sofía Acosta",
+      role: t("testimonialsShowcase.sofia.role"),
+      rating: 5,
+      quote: t("testimonialsShowcase.sofia.quote"),
+    },
+    {
+      id: "julian-mendez",
+      name: "Julián Méndez",
+      role: t("testimonialsShowcase.julian.role"),
+      rating: 5,
+      quote: t("testimonialsShowcase.julian.quote"),
+    },
+  ];
+}
 
 export function TestimonialsSection() {
+  const { t } = useLanguage();
+  const TESTIMONIALS = useMemo(() => buildTestimonials(t), [t]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [perView, setPerView] = useState(3);
   const [isPaused, setIsPaused] = useState(false);
@@ -170,19 +170,19 @@ export function TestimonialsSection() {
         {/* Header */}
         <Reveal className="mx-auto mb-10 flex max-w-3xl flex-col items-center text-center">
           <Badge variant="brand" className="mb-3 uppercase tracking-wider text-xs">
-            Testimonios
+            {t("testimonialsShowcase.eyebrow")}
           </Badge>
           <h2
             id="testimonials-heading"
             className="text-3xl font-extrabold tracking-tight sm:text-4xl text-headings text-ink"
           >
-            Lo que dicen nuestros{" "}
+            {t("testimonialsShowcase.titlePrefix")}{" "}
             <span className="bg-gradient-to-r from-[#C45CFF] to-[#FF3FB4] bg-clip-text text-transparent">
-              pacientes
+              {t("testimonialsShowcase.titleHighlight")}
             </span>
           </h2>
           <p className="section-subtitle mt-3 max-w-2xl text-base leading-relaxed text-body sm:text-lg">
-            Historias reales de personas que eligen SugarCoach para cuidar su salud y ordenar su día a día.
+            {t("testimonialsShowcase.description")}
           </p>
         </Reveal>
 
@@ -192,7 +192,7 @@ export function TestimonialsSection() {
             ref={containerRef}
             tabIndex={0}
             role="region"
-            aria-label="Carrusel de testimonios"
+            aria-label={t("testimonialsShowcase.carouselAriaLabel")}
             onKeyDown={handleKeyDown}
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
@@ -206,7 +206,7 @@ export function TestimonialsSection() {
                 type="button"
                 onClick={handlePrev}
                 disabled={isAtStart}
-                aria-label="Testimonio anterior"
+                aria-label={t("testimonialsShowcase.prevAriaLabel")}
                 className={cn(
                   "group hidden sm:flex shrink-0 items-center justify-center p-1 transition-all duration-300",
                   "bg-transparent border-0 text-ink/75 dark:text-white/85",
@@ -270,7 +270,7 @@ export function TestimonialsSection() {
                             </div>
                             <div
                               className="flex items-center gap-1 shrink-0 pt-0.5"
-                              aria-label={`${item.rating} de 5 estrellas`}
+                              aria-label={`${item.rating} ${t("testimonialsShowcase.ratingAriaLabel")}`}
                             >
                               {[...Array(item.rating)].map((_, starIdx) => (
                                 <Star
@@ -297,7 +297,7 @@ export function TestimonialsSection() {
                 type="button"
                 onClick={handleNext}
                 disabled={isAtEnd}
-                aria-label="Siguiente testimonio"
+                aria-label={t("testimonialsShowcase.nextAriaLabel")}
                 className={cn(
                   "group hidden sm:flex shrink-0 items-center justify-center p-1 transition-all duration-300",
                   "bg-transparent border-0 text-ink/75 dark:text-white/85",
@@ -319,7 +319,7 @@ export function TestimonialsSection() {
                 type="button"
                 onClick={handlePrev}
                 disabled={isAtStart}
-                aria-label="Testimonio anterior"
+                aria-label={t("testimonialsShowcase.prevAriaLabel")}
                 className={cn(
                   "flex items-center justify-center p-1 bg-transparent border-0 text-ink dark:text-white transition-transform",
                   isAtStart
@@ -338,7 +338,7 @@ export function TestimonialsSection() {
                     key={dotIdx}
                     type="button"
                     onClick={() => handleDotClick(dotIdx)}
-                    aria-label={`Ir al testimonio ${dotIdx + 1}`}
+                    aria-label={`${t("testimonialsShowcase.dotAriaLabelPrefix")} ${dotIdx + 1}`}
                     className={cn(
                       "h-2.5 rounded-full transition-all duration-300 cursor-pointer",
                       dotIdx === activeIndex
@@ -353,7 +353,7 @@ export function TestimonialsSection() {
                 type="button"
                 onClick={handleNext}
                 disabled={isAtEnd}
-                aria-label="Siguiente testimonio"
+                aria-label={t("testimonialsShowcase.nextAriaLabel")}
                 className={cn(
                   "flex items-center justify-center p-1 bg-transparent border-0 text-ink dark:text-white transition-transform",
                   isAtEnd
@@ -369,14 +369,14 @@ export function TestimonialsSection() {
             {/* Desktop Dots Navigation (one for each testimonial) */}
             <div
               className="mt-6 hidden sm:flex items-center justify-center gap-2.5"
-              aria-label="Paginación de testimonios"
+              aria-label={t("testimonialsShowcase.paginationAriaLabel")}
             >
               {TESTIMONIALS.map((_, dotIdx) => (
                 <button
                   key={dotIdx}
                   type="button"
                   onClick={() => handleDotClick(dotIdx)}
-                  aria-label={`Ir al testimonio de ${TESTIMONIALS[dotIdx].name}`}
+                  aria-label={`${t("testimonialsShowcase.dotOfAriaLabelPrefix")} ${TESTIMONIALS[dotIdx].name}`}
                   className={cn(
                     "h-2.5 rounded-full transition-all duration-300 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary",
                     dotIdx === activeIndex

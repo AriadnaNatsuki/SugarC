@@ -6,8 +6,18 @@ import { Reveal } from "@/components/ui/Reveal";
 import { Badge } from "@/components/ui/badge";
 import { mockTeam } from "@/lib/mock-data";
 import { cn } from "@/lib/utils";
+import { useLanguage } from "@/lib/i18n";
+
+const TEAM_I18N_KEY: Record<string, string> = {
+  "isabel-berizzo": "isabel",
+  "veronica-avendano": "veronica",
+  "debora-biain": "debora",
+  "agustina-olivo": "agustina",
+  "karin-chmiel": "karin",
+};
 
 export function AboutSection() {
+  const { t } = useLanguage();
   const [teamIndex, setTeamIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const touchStartX = useRef<number | null>(null);
@@ -90,17 +100,16 @@ export function AboutSection() {
         {/* Header */}
         <Reveal className="mx-auto mb-10 flex max-w-3xl flex-col items-center text-center">
           <Badge variant="brand" className="mb-3 uppercase tracking-wider text-xs">
-            Talento y corazón
+            {t("teamShowcase.eyebrow")}
           </Badge>
           <h2
             id="about-heading"
             className="text-3xl font-extrabold tracking-tight sm:text-4xl text-headings text-ink"
           >
-            Conocé a nuestro equipo
+            {t("teamShowcase.title")}
           </h2>
           <p className="section-subtitle mt-3 max-w-2xl text-base leading-relaxed text-body sm:text-lg">
-            Nacimos de una historia real: hecho por familias, para familias. Liderazgo tecnológico,
-            compromiso médico y vivencia directa en cada decisión.
+            {t("teamShowcase.description")}
           </p>
         </Reveal>
 
@@ -109,7 +118,7 @@ export function AboutSection() {
           <div
             tabIndex={0}
             role="region"
-            aria-label="Carrusel del equipo SugarCoach"
+            aria-label={t("teamShowcase.carouselAriaLabel")}
             onKeyDown={handleKeyDown}
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
@@ -126,6 +135,13 @@ export function AboutSection() {
                 {mockTeam.map((member, i) => {
                   const stateClass = getCardClass(i);
                   const isActive = stateClass === "sc-team-active";
+                  const i18nKey = TEAM_I18N_KEY[member.id];
+                  const area = i18nKey ? t(`teamShowcase.${i18nKey}.area`) : member.area || member.role;
+                  const roleLine = member.role === member.area ? area : member.role;
+                  const bio = i18nKey ? t(`teamShowcase.${i18nKey}.bio`) : member.bio;
+                  const tags = i18nKey
+                    ? [t(`teamShowcase.${i18nKey}.tag1`), t(`teamShowcase.${i18nKey}.tag2`)]
+                    : member.tags ?? [];
 
                   return (
                     <article
@@ -153,7 +169,7 @@ export function AboutSection() {
                       {/* Header info */}
                       <div className="text-center">
                         <span className="text-xs font-bold uppercase tracking-wider text-primary dark:text-[#FF3FB4] block">
-                          {member.area || member.role}
+                          {area}
                         </span>
 
                         <h3 className="mt-1 text-2xl font-black text-ink tracking-tight">
@@ -161,18 +177,18 @@ export function AboutSection() {
                         </h3>
 
                         <strong className="text-xs font-semibold text-muted block mt-0.5">
-                          {member.role}
+                          {roleLine}
                         </strong>
                       </div>
 
                       {/* Bio */}
                       <p className="mt-2.5 text-xs sm:text-[13px] leading-relaxed text-body dark:text-[#CBD5E1] line-clamp-4 flex-1 text-center">
-                        {member.bio}
+                        {bio}
                       </p>
 
                       {/* Tags */}
                       <div className="mt-3.5 flex flex-wrap justify-center gap-1.5 pt-1">
-                        {member.tags?.map((tag) => (
+                        {tags.map((tag) => (
                           <span
                             key={tag}
                             className="rounded-full border border-line/20 dark:border-white/10 bg-tint/[0.04] dark:bg-white/[0.06] px-2.5 py-1 text-[11px] font-semibold text-body dark:text-[#E2E8F0]"
@@ -190,14 +206,14 @@ export function AboutSection() {
             {/* Interactive Dots Navigation */}
             <div
               className="mt-8 flex items-center justify-center gap-2.5"
-              aria-label="Seleccionar integrante del equipo"
+              aria-label={t("teamShowcase.dotsAriaLabel")}
             >
               {mockTeam.map((member, i) => (
                 <button
                   key={member.id}
                   type="button"
                   onClick={() => setTeamIndex(i)}
-                  aria-label={`Ver a ${member.name}`}
+                  aria-label={`${t("teamShowcase.viewMemberPrefix")} ${member.name}`}
                   aria-current={i === teamIndex ? "true" : "false"}
                   className={cn(
                     "h-2.5 rounded-full transition-all duration-300 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary",
