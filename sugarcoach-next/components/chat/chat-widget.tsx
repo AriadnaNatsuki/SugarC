@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { MessageSquare, X, ListChecks, Send } from "lucide-react";
-import { useLang } from "@/components/lang-provider";
+import { useLang } from "@/lib/lang";
 import { CHAT_CHROME, TOP_LEVEL_OPTIONS } from "@/lib/chat/data";
 import { getBotReply } from "@/lib/chat/api";
 
