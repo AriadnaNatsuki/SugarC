@@ -177,7 +177,7 @@ html.a11y {
 }
 
 /* Zoom en tarjetas (features, FAQ, mockups) */
-.a11y .rounded-3xl,
+.a11y [class*="rounded-"],
 .a11y .faq-item {
   transition:
     transform 0.15s ease,
@@ -186,7 +186,8 @@ html.a11y {
 .a11y .rounded-3xl:hover,
 .a11y .rounded-3xl:focus-within,
 .a11y .faq-item:hover,
-.a11y .faq-item:focus-within {
+.a11y .faq-item:focus-within,
+.a11y [class*="rounded-"]:has(p:hover, li:hover) {
   transform: scale(1.09);
   position: relative;
   z-index: 25;
@@ -208,4 +209,20 @@ html.a11y {
   z-index: 20;
   background-color: rgba(0, 0, 0, 0.05);
   border-radius: 0.5rem;
+}
+
+/* Dentro de cualquier tarjeta con esquinas redondeadas (incluye valores
+ * arbitrarios como rounded-[32px]) el zoom es de toda la tarjeta, no del
+ * texto o botón suelto: si no, el elemento se escala por su cuenta y termina
+ * saliéndose o recortado por el overflow de la tarjeta, o se suma al zoom de
+ * la tarjeta (doble escala). */
+.a11y [class*="rounded-"] p:hover,
+.a11y [class*="rounded-"] li:hover {
+  transform: none;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+.a11y .faq-item button:hover,
+.a11y .faq-item button:focus-visible {
+  transform: none;
+  box-shadow: none;
 }
