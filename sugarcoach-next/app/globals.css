@@ -323,6 +323,8 @@
 /* ============================================================
  * Modo Accesible (.a11y) — reglas tomadas del HTML de modos:
  * alto contraste real, foco visible, sin blobs, zoom al hover/foco.
+ * El sistema de zoom (botones, tarjetas y bloques de texto) también
+ * se replica en Modo Oscuro (.dark), más abajo en este mismo bloque.
  * Van sin capas para que prevalezcan sobre las utilidades.
  * ============================================================ */
 
@@ -349,7 +351,9 @@ html.a11y {
 
 /* Zoom en botones y links al hover/foco */
 .a11y button,
-.a11y a {
+.a11y a,
+.dark button,
+.dark a {
   transition:
     transform 0.15s ease,
     box-shadow 0.15s ease;
@@ -357,7 +361,11 @@ html.a11y {
 .a11y button:hover,
 .a11y button:focus-visible,
 .a11y a:hover,
-.a11y a:focus-visible {
+.a11y a:focus-visible,
+.dark button:hover,
+.dark button:focus-visible,
+.dark a:hover,
+.dark a:focus-visible {
   transform: scale(1.18);
   position: relative;
   z-index: 30;
@@ -366,7 +374,9 @@ html.a11y {
 
 /* Zoom en tarjetas (features, FAQ, mockups) */
 .a11y [class*="rounded-"],
-.a11y .faq-item {
+.a11y .faq-item,
+.dark [class*="rounded-"],
+.dark .faq-item {
   transition:
     transform 0.15s ease,
     box-shadow 0.15s ease;
@@ -375,7 +385,12 @@ html.a11y {
 .a11y .rounded-3xl:focus-within,
 .a11y .faq-item:hover,
 .a11y .faq-item:focus-within,
-.a11y [class*="rounded-"]:has(p:hover, li:hover) {
+.a11y [class*="rounded-"]:has(p:hover, li:hover),
+.dark .rounded-3xl:hover,
+.dark .rounded-3xl:focus-within,
+.dark .faq-item:hover,
+.dark .faq-item:focus-within,
+.dark [class*="rounded-"]:has(p:hover, li:hover) {
   transform: scale(1.09);
   position: relative;
   z-index: 25;
@@ -384,14 +399,18 @@ html.a11y {
 
 /* Zoom en bloques de texto (párrafos y listas) */
 .a11y p,
-.a11y li {
+.a11y li,
+.dark p,
+.dark li {
   transition:
     transform 0.15s ease,
     background-color 0.15s ease;
   transform-origin: top left;
 }
 .a11y p:hover,
-.a11y li:hover {
+.a11y li:hover,
+.dark p:hover,
+.dark li:hover {
   transform: scale(1.16);
   position: relative;
   z-index: 20;
@@ -405,14 +424,41 @@ html.a11y {
  * saliéndose o recortado por el overflow de la tarjeta, o se suma al zoom de
  * la tarjeta (doble escala). */
 .a11y [class*="rounded-"] p:hover,
-.a11y [class*="rounded-"] li:hover {
+.a11y [class*="rounded-"] li:hover,
+.dark [class*="rounded-"] p:hover,
+.dark [class*="rounded-"] li:hover {
   transform: none;
   background-color: rgba(0, 0, 0, 0.04);
 }
 .a11y .faq-item button:hover,
-.a11y .faq-item button:focus-visible {
+.a11y .faq-item button:focus-visible,
+.dark .faq-item button:hover,
+.dark .faq-item button:focus-visible {
   transform: none;
   box-shadow: none;
+}
+
+/* Cartas de "Conocé a nuestro equipo": el texto no tiene tarjeta con clase
+ * `rounded-*` que lo contenga (usa `.sc-team-card`, con su propio radio y
+ * `overflow: hidden`), así que el párrafo de la bio se salía de la tarjeta
+ * al escalar solo. Se anula el zoom de texto y se escala la tarjeta entera. */
+.a11y .sc-team-card p:hover,
+.a11y .sc-team-card li:hover,
+.dark .sc-team-card p:hover,
+.dark .sc-team-card li:hover {
+  transform: none;
+  background-color: transparent;
+}
+.a11y .sc-team-card:hover,
+.a11y .sc-team-card:focus-within {
+  transform: translate(-50%, -50%) scale(1.06) !important;
+  z-index: 25;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+}
+.dark .sc-team-card.sc-team-active:hover,
+.dark .sc-team-card.sc-team-active:focus-within {
+  transform: translate(-50%, -50%) scale(1.08);
+  box-shadow: 0 0 50px rgba(255, 63, 180, 0.42), 0 30px 80px rgba(0, 0, 0, 0.55);
 }
 
 /* ============================================================

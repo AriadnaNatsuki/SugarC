@@ -1,88 +1,405 @@
 "use client";
 
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { Reveal } from "@/components/ui/Reveal";
 import { PHONES } from "@/lib/images";
-import { useLanguage } from "@/lib/i18n";
+import { Check, ChevronRight, Sparkles, Zap, Utensils, Clock, Target, FileText, BarChart3, type LucideIcon } from "lucide-react";
 
-const STEP_IMAGES = [
-  { image: PHONES.registro, alt: "Pantalla real de registro de alimentos y carbohidratos SugarCoach" },
-  { image: PHONES.dailyLog, alt: "Pantalla real Daily Log diario SugarCoach" },
-  { image: PHONES.treatmentSteps, alt: "Pantalla real de tratamiento y rangos objetivos SugarCoach" },
+interface FloatingChip {
+  label: string;
+  icon: LucideIcon;
+}
+
+interface StepItem {
+  id: string;
+  n: string;
+  tag: string;
+  title: string;
+  headline: string;
+  desc: string;
+  image: string;
+  alt: string;
+  accentBg: string;
+  activeBorder: string;
+  glow: string;
+  accentColor: string;
+  barColor: string;
+  chips: {
+    topRight: FloatingChip;
+    bottomLeft: FloatingChip;
+  };
+  features: string[];
+}
+
+const STEPS: StepItem[] = [
+  {
+    id: "step-1",
+    n: "01",
+    tag: "Entrada rápida",
+    title: "Registrá en segundos",
+    headline: "Un par de toques, sin planillas ni complicaciones",
+    desc: "Anotá glucemia capilar o continua, insulina basal y rápida, gramos de carbohidratos, colaciones y tu estado de ánimo con un par de toques.",
+    image: PHONES.registro,
+    alt: "Pantalla real de registro de alimentos y carbohidratos SugarCoach",
+    accentBg: "bg-[#C45CFF]/15 text-[#7100A5] dark:text-[#C45CFF] border-[#C45CFF]/30",
+    activeBorder: "border-[#C45CFF] shadow-[0_0_24px_rgba(196,92,255,0.18)] dark:border-[#C45CFF]",
+    glow: "from-[#C45CFF]/20 via-[#DA44AF]/10 to-transparent",
+    accentColor: "text-[#7100A5] dark:text-[#C45CFF]",
+    barColor: "bg-gradient-to-r from-[#C45CFF] to-[#DA44AF]",
+    chips: {
+      topRight: {
+        label: "Registro en < 5 seg",
+        icon: Zap,
+      },
+      bottomLeft: {
+        label: "Biblioteca de colaciones",
+        icon: Utensils,
+      },
+    },
+    features: [
+      "Búsqueda rápida de alimentos comunes",
+      "Calculadora de insulina para corrección",
+      "Registro de estado de ánimo y síntomas",
+    ],
+  },
+  {
+    id: "step-2",
+    n: "02",
+    tag: "Historial claro",
+    title: "Organizá tu día",
+    headline: "Tu jornada completa ordenada en una línea de tiempo",
+    desc: "El Daily Log agrupa cronológicamente almuerzos, cenas, correcciones y actividad con etiquetas de colores claros y comprensibles para vos y tu médico.",
+    image: PHONES.dailyLog,
+    alt: "Pantalla real Daily Log diario SugarCoach",
+    accentBg: "bg-[#2BC5C7]/15 text-[#006064] dark:text-[#2BC5C7] border-[#2BC5C7]/30",
+    activeBorder: "border-[#2BC5C7] shadow-[0_0_24px_rgba(43,197,199,0.18)] dark:border-[#2BC5C7]",
+    glow: "from-[#2BC5C7]/20 via-teal-500/10 to-transparent",
+    accentColor: "text-[#006064] dark:text-[#2BC5C7]",
+    barColor: "bg-gradient-to-r from-[#2BC5C7] to-teal-400",
+    chips: {
+      topRight: {
+        label: "Cronología automática",
+        icon: Clock,
+      },
+      bottomLeft: {
+        label: "Rango objetivo 70-180 mg/dL",
+        icon: Target,
+      },
+    },
+    features: [
+      "Línea de tiempo cronológica automática",
+      "Códigos de color según rangos clínicos",
+      "Sin duplicados ni planillas de papel",
+    ],
+  },
+  {
+    id: "step-3",
+    n: "03",
+    tag: "Tratamiento claro",
+    title: "Controlá tu esquema",
+    headline: "Parámetros médicos personalizados y reportes al instante",
+    desc: "Visualizá rangos personalizados (Hipo 70, Target 100, Híper 180 mg/dL), bombas o lapiceras y compartí el reporte clínico consolidado con un clic.",
+    image: PHONES.treatmentSteps,
+    alt: "Pantalla real de tratamiento y rangos objetivos SugarCoach",
+    accentBg: "bg-[#FF3FB4]/15 text-[#9E1679] dark:text-[#FF3FB4] border-[#FF3FB4]/30",
+    activeBorder: "border-[#FF3FB4] shadow-[0_0_24px_rgba(255,63,180,0.18)] dark:border-[#FF3FB4]",
+    glow: "from-[#FF3FB4]/20 via-[#DA44AF]/10 to-transparent",
+    accentColor: "text-[#9E1679] dark:text-[#FF3FB4]",
+    barColor: "bg-gradient-to-r from-[#FF3FB4] to-pink-400",
+    chips: {
+      topRight: {
+        label: "Reporte médico en 1 clic",
+        icon: FileText,
+      },
+      bottomLeft: {
+        label: "Tiempo en Rango (TIR)",
+        icon: BarChart3,
+      },
+    },
+    features: [
+      "Esquemas basales y bolos configurables",
+      "Exportación en PDF lista para tu consulta",
+      "Compatibilidad con lapiceras y microinfusoras",
+    ],
+  },
 ];
 
-// Clases completas y literales (Tailwind no genera CSS para clases armadas con template strings).
-const STEP_STYLES = [
-  {
-    cardHover: "hover:border-primary/40",
-    numberWrap: "border-primary/30 bg-primary/20 text-primary",
-    badgeText: "text-secondary",
-    mockupHover: "group-hover:border-primary/40",
-  },
-  {
-    cardHover: "hover:border-secondary/40",
-    numberWrap: "border-secondary/30 bg-secondary/20 text-secondary",
-    badgeText: "text-primary",
-    mockupHover: "group-hover:border-secondary/40",
-  },
-  {
-    cardHover: "hover:border-tertiary-container/40",
-    numberWrap: "border-tertiary-container/30 bg-tertiary-container/20 text-neon-magenta",
-    badgeText: "text-neon-magenta",
-    mockupHover: "group-hover:border-tertiary-container/40",
-  },
-];
+const AUTO_ROTATE_INTERVAL = 6000;
 
-/** "Cómo funciona", calcado 1:1 de index.html (sección 3, id `como-funciona`). */
 export function HowItWorksSection() {
-  const { t } = useLanguage();
-  const steps = [
-    { badge: t("how.step1.badge"), title: t("how.step1.title"), desc: t("how.step1.description") },
-    { badge: t("how.step2.badge"), title: t("how.step2.title"), desc: t("how.step2.description") },
-    { badge: t("how.step3.badge"), title: t("how.step3.title"), desc: t("how.step3.description") },
-  ];
+  const [activeIdx, setActiveIdx] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const reduceMotion = useReducedMotion();
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
+
+  const activeStep = STEPS[activeIdx];
+
+  // Auto-rotación sutil estilo showcase
+  useEffect(() => {
+    if (isPaused || reduceMotion) return;
+
+    timerRef.current = setTimeout(() => {
+      setActiveIdx((prev) => (prev + 1) % STEPS.length);
+    }, AUTO_ROTATE_INTERVAL);
+
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, [activeIdx, isPaused, reduceMotion]);
+
+  const handleSelectStep = (idx: number) => {
+    if (timerRef.current) clearTimeout(timerRef.current);
+    setActiveIdx(idx);
+    setIsPaused(true);
+  };
+
   return (
-    <section className="mx-auto max-w-[1200px] px-gutter-mobile py-space-3xl md:px-gutter-tablet lg:px-gutter-desktop" id="como-funciona">
-      <div className="mx-auto mb-space-2xl flex max-w-2xl flex-col items-center text-center">
-        <span className="mb-2 font-label-md text-label-md font-bold uppercase tracking-wider text-secondary">{t("how.eyebrow")}</span>
-        <h2 className="font-headline-lg text-headline-lg font-extrabold tracking-tight text-text-primary">{t("how.title")}</h2>
-        <p className="mt-space-xs font-body-md text-body-md text-text-secondary">{t("how.description")}</p>
-      </div>
-      <div className="grid grid-cols-1 gap-space-xl md:grid-cols-3">
-        {steps.map((s, i) => {
-          const style = STEP_STYLES[i];
+    <section
+      id="como-funciona"
+      className="relative mx-auto max-w-[1440px] px-4 py-20 sm:px-6 lg:px-8"
+      aria-labelledby="how-it-works-title"
+    >
+      {/* Encabezado */}
+      <Reveal className="mx-auto mb-12 flex max-w-2xl flex-col items-center text-center">
+        <span className="mb-2 inline-flex items-center gap-1.5 rounded-full border border-[#006064]/20 bg-[#006064]/10 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-[#006064] dark:border-[#2BC5C7]/30 dark:bg-[#2BC5C7]/15 dark:text-[#2BC5C7]">
+          <Sparkles className="h-3.5 w-3.5" />
+          Paso a paso interactivo
+        </span>
+        <h2 id="how-it-works-title" className="text-3xl font-extrabold tracking-tight text-ink md:text-4xl">
+          Simple desde el primer día
+        </h2>
+        <p className="mt-3 max-w-xl text-sm sm:text-base leading-relaxed text-body dark:text-[#A8B0C5]">
+          Sin curvas de aprendizaje complejas. Pantallas intuitivas con colores claros, íconos y respuestas inmediatas
+          para tu día a día.
+        </p>
+      </Reveal>
+
+      {/* Selector rápido móvil */}
+      <div className="mb-8 flex lg:hidden items-center justify-center gap-2" role="tablist">
+        {STEPS.map((s, idx) => {
+          const isActive = idx === activeIdx;
           return (
-            <div
-              key={s.title}
-              className={`group flex flex-col overflow-hidden rounded-3xl border border-border-subtle bg-surface-tier-1 shadow-xl transition-all ${style.cardHover}`}
+            <button
+              key={s.id}
+              role="tab"
+              aria-selected={isActive}
+              aria-label={`Paso ${s.n}: ${s.title}`}
+              onClick={() => handleSelectStep(idx)}
+              className={`flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-bold transition-all ${
+                isActive
+                  ? `${s.accentBg} shadow-sm ring-1 ring-black/10 dark:ring-white/15`
+                  : "bg-base/60 text-muted hover:text-ink border border-line/10 dark:bg-white/[0.04]"
+              }`}
             >
-              <div className="flex flex-col items-start p-space-lg pb-0">
-                <div className="mb-3 flex w-full items-center justify-between">
-                  <span className={`flex h-9 w-9 items-center justify-center rounded-full border font-headline-sm font-extrabold ${style.numberWrap}`}>
-                    {i + 1}
-                  </span>
-                  <span className={`font-label-sm font-bold uppercase tracking-wider ${style.badgeText}`}>{s.badge}</span>
-                </div>
-                <h3 className="font-headline-sm text-headline-sm font-bold text-text-primary">{s.title}</h3>
-                <p className="mt-1 font-body-sm text-body-sm text-text-secondary">{s.desc}</p>
-              </div>
-              <div className="mt-4 flex justify-center bg-gradient-to-b from-transparent to-[#070D1F] px-6 pb-0 pt-4">
-                <div className={`w-[200px] rounded-t-3xl border-x-2 border-t-2 border-border-subtle bg-[#070D1F] p-2 shadow-xl transition-colors ${style.mockupHover}`}>
-                  <div className="aspect-[9/13] overflow-hidden rounded-t-2xl">
-                    <Image
-                      src={STEP_IMAGES[i].image}
-                      alt={STEP_IMAGES[i].alt}
-                      width={200}
-                      height={290}
-                      loading="lazy"
-                      sizes="200px"
-                      className="h-full w-full object-cover object-top"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
+              <span>{s.n}</span>
+              <span className="hidden sm:inline">{s.tag}</span>
+            </button>
           );
         })}
+      </div>
+
+      {/* Grid Showcase Desktop */}
+      <div
+        className="grid grid-cols-1 items-center gap-8 lg:grid-cols-12 lg:gap-12"
+        onMouseEnter={() => setIsPaused(true)}
+        onMouseLeave={() => setIsPaused(false)}
+      >
+        {/* Columna Izquierda: Stepper interactivo */}
+        <div className="flex flex-col gap-3.5 lg:col-span-7 xl:col-span-7" role="tablist" aria-orientation="vertical">
+          {STEPS.map((s, idx) => {
+            const isActive = idx === activeIdx;
+
+            return (
+              <div
+                key={s.id}
+                role="tab"
+                tabIndex={0}
+                aria-selected={isActive}
+                id={`tab-${s.id}`}
+                aria-controls={`panel-${s.id}`}
+                onClick={() => handleSelectStep(idx)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    handleSelectStep(idx);
+                  }
+                }}
+                className={`group relative cursor-pointer overflow-hidden rounded-3xl border p-5 sm:p-6 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#DA44AF] sc-card-glass ${
+                  isActive
+                    ? s.activeBorder
+                    : "border-line/10 hover:border-line/25 opacity-80 hover:opacity-100"
+                }`}
+              >
+                {/* Halo decorativo sutil en la tarjeta activa */}
+                {isActive && (
+                  <div
+                    aria-hidden
+                    className={`pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-gradient-to-br ${s.glow} blur-2xl`}
+                  />
+                )}
+
+                {/* Cabecera del paso */}
+                <div className="relative z-10 flex items-start justify-between gap-3">
+                  <div className="flex items-center gap-3">
+                    <span
+                      className={`flex h-8 w-8 items-center justify-center rounded-full border text-xs font-black transition-colors ${
+                        isActive
+                          ? s.accentBg
+                          : "border-line/15 bg-base text-muted dark:border-white/10 dark:text-[#747F9B]"
+                      }`}
+                    >
+                      {s.n}
+                    </span>
+                    <div>
+                      <span className={`block text-[11px] font-black uppercase tracking-wider ${s.accentColor}`}>
+                        {s.tag}
+                      </span>
+                      <h3 className="text-lg sm:text-xl font-bold tracking-tight text-ink leading-snug">
+                        {s.title}
+                      </h3>
+                    </div>
+                  </div>
+
+                  <ChevronRight
+                    className={`h-5 w-5 shrink-0 transition-transform duration-300 ${
+                      isActive ? `rotate-90 ${s.accentColor}` : "text-muted group-hover:translate-x-0.5"
+                    }`}
+                  />
+                </div>
+
+                {/* Contenido expandible del paso activo */}
+                <AnimatePresence initial={false}>
+                  {isActive && (
+                    <motion.div
+                      id={`panel-${s.id}`}
+                      initial={reduceMotion ? { opacity: 0 } : { opacity: 0, height: 0 }}
+                      animate={reduceMotion ? { opacity: 1 } : { opacity: 1, height: "auto" }}
+                      exit={reduceMotion ? { opacity: 0 } : { opacity: 0, height: 0 }}
+                      transition={{ duration: 0.3, ease: "easeOut" }}
+                      className="relative z-10 mt-3.5 space-y-3 overflow-hidden border-t border-line/10 pt-3 dark:border-white/[0.06]"
+                    >
+                      <p className="text-xs sm:text-sm font-semibold text-ink leading-relaxed">
+                        {s.headline}
+                      </p>
+                      <p className="text-xs sm:text-sm leading-relaxed text-body dark:text-[#A8B0C5]">
+                        {s.desc}
+                      </p>
+
+                      {/* Lista de características clave */}
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+                        {s.features.map((feat, i) => (
+                          <div key={i} className="flex items-center gap-2 text-xs font-medium text-ink/90 dark:text-[#CAD3E8]">
+                            <div className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full ${s.accentBg}`}>
+                              <Check className="h-2.5 w-2.5" />
+                            </div>
+                            <span>{feat}</span>
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* Barra de progreso de auto-play cuando no está en pausa */}
+                      {!isPaused && !reduceMotion && (
+                        <div className="relative mt-2 h-1 w-full overflow-hidden rounded-full bg-base dark:bg-white/5">
+                          <motion.div
+                            key={`progress-${idx}`}
+                            initial={{ width: "0%" }}
+                            animate={{ width: "100%" }}
+                            transition={{ duration: AUTO_ROTATE_INTERVAL / 1000, ease: "linear" }}
+                            className={`h-full ${s.barColor}`}
+                          />
+                        </div>
+                      )}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Columna Derecha: Mockup del celular en gran formato */}
+        <div className="relative flex justify-center lg:col-span-5 xl:col-span-5">
+          {/* Halo ambiental dinámico detrás del dispositivo */}
+          <div
+            aria-hidden
+            className={`pointer-events-none absolute -inset-8 rounded-full bg-gradient-to-tr ${activeStep.glow} blur-3xl opacity-70 transition-all duration-700`}
+          />
+
+          {/* Chip flotante superior */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={`chip-tr-${activeStep.id}`}
+              initial={{ opacity: 0, y: -8, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -8, scale: 0.95 }}
+              transition={{ duration: 0.25 }}
+              className="absolute -right-2 sm:-right-6 top-8 z-30 hidden sm:flex items-center gap-2.5 rounded-2xl border border-line/15 bg-card/95 px-3.5 py-2 shadow-2xl backdrop-blur-md dark:border-white/10 dark:bg-[#0E1A38]/95"
+            >
+              <div
+                className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border ${activeStep.accentBg}`}
+              >
+                <activeStep.chips.topRight.icon className="h-3.5 w-3.5" />
+              </div>
+              <span className="text-xs font-bold text-ink drop-shadow-sm">
+                {activeStep.chips.topRight.label}
+              </span>
+            </motion.div>
+          </AnimatePresence>
+
+          {/* Chip flotante inferior */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={`chip-bl-${activeStep.id}`}
+              initial={{ opacity: 0, y: 8, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 8, scale: 0.95 }}
+              transition={{ duration: 0.25 }}
+              className="absolute -left-2 sm:-left-6 bottom-12 z-30 hidden sm:flex items-center gap-2.5 rounded-2xl border border-line/15 bg-card/95 px-3.5 py-2 shadow-2xl backdrop-blur-md dark:border-white/10 dark:bg-[#0E1A38]/95"
+            >
+              <div
+                className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border ${activeStep.accentBg}`}
+              >
+                <activeStep.chips.bottomLeft.icon className="h-3.5 w-3.5" />
+              </div>
+              <span className="text-xs font-bold text-ink drop-shadow-sm">
+                {activeStep.chips.bottomLeft.label}
+              </span>
+            </motion.div>
+          </AnimatePresence>
+
+          {/* Chasis de celular premium en alta resolución */}
+          <div className="relative z-20 w-[270px] sm:w-[310px] rounded-[46px] border-[6px] sm:border-[8px] border-slate-800/80 bg-slate-950 p-2 sm:p-2.5 shadow-2xl ring-1 ring-black/20 dark:border-slate-800 dark:ring-white/10">
+            {/* Altavoz y notch frontal estilizado */}
+            <div className="relative mb-2 flex items-center justify-center">
+              <div className="h-3.5 w-24 sm:w-28 rounded-full bg-slate-900 shadow-inner" />
+            </div>
+
+            {/* Pantalla del dispositivo con transición animada */}
+            <div className="relative aspect-[9/18.5] w-full overflow-hidden rounded-[34px] bg-black">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeStep.id}
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -12 }}
+                  transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                  className="relative h-full w-full"
+                >
+                  <Image
+                    src={activeStep.image}
+                    alt={activeStep.alt}
+                    fill
+                    sizes="(max-width: 640px) 270px, 310px"
+                    priority={activeIdx === 0}
+                    className="h-full w-full object-cover object-top select-none"
+                  />
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );

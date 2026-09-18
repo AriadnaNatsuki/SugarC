@@ -6,20 +6,19 @@ import { useLanguage } from "@/lib/i18n";
 import { MaterialIcon } from "@/components/ui/MaterialIcon";
 
 const ITEMS: { value: Theme; icon: string }[] = [
-  { value: "light", icon: "light_mode" },
   { value: "dark", icon: "dark_mode" },
-  { value: "a11y", icon: "accessibility_new" },
+  { value: "a11y", icon: "light_mode" },
 ];
 
 /**
- * Selector de modo de color (Claro / Oscuro / Accesible), calcado del
+ * Selector de modo de color (Oscuro / Claro), calcado del
  * `#themeMenuBtn` / `#themeMenu` de index.html: botón redondo `.theme-toggle`
  * con menú `.theme-menu`, `aria-current`, cierre con Escape y clic afuera.
  */
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
   const { t } = useLanguage();
-  const LABELS: Record<Theme, string> = { light: t("theme.light"), dark: t("theme.dark"), a11y: t("theme.accessible") };
+  const LABELS: Record<Theme, string> = { light: t("theme.light"), dark: t("theme.dark"), a11y: t("theme.light") };
   const [open, setOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
   const btnRef = useRef<HTMLButtonElement>(null);
