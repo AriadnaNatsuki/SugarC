@@ -31,7 +31,7 @@ export const AWARDS: AwardItem[] = [
   {
     id: "wise",
     name: "WISE",
-    imageSrc: "/images/marcas/wise.png",
+    imageSrc: "/images/marcas/wiseNew.png",
   },
   {
     id: "bid",
