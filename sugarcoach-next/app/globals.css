@@ -3,6 +3,25 @@
 @tailwind utilities;
 
 /*
+ * Fuente autohospedada (public/fonts/), en vez de un <link> a
+ * fonts.googleapis.com: ese <link> con `display=swap` hacía que el primer
+ * pintado de CADA carga mostrara la fuente de respaldo del sistema (más
+ * ancha) hasta terminar de bajar el webfont desde otro origen. Como el modo
+ * por defecto del navegador resuelve a claro, ese primer pintado sin fuente
+ * quedaba "pegado" siempre al modo claro, dando la impresión de que el modo
+ * claro usaba una tipografía más grande. Es un único archivo de fuente
+ * variable (pesos 400–800 en un solo .woff2) servido desde el propio
+ * dominio, así que no hay ida y vuelta a otro origen.
+ */
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url("/fonts/PlusJakartaSans-variable.woff2") format("woff2");
+}
+
+/*
  * Tokens de tema como canales RGB (ver `tailwind.config.ts`).
  * - `:root` = Modo Claro (paleta clara del HTML de modos)
  * - `.dark` = Modo Oscuro (identidad #01081F + gradiente #DA44AF → #C747CA)
@@ -240,6 +259,13 @@
   body {
     margin: 0;
     padding: 0;
+    /* Mismo suavizado de fuente en claro y oscuro: sin esto, el texto
+       oscuro sobre fondo claro renderiza más grueso/grande que el texto
+       claro sobre fondo oscuro (Windows/Chrome), aunque el font-size sea
+       idéntico en ambos modos. */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
   body {
     @apply bg-base text-body font-sans antialiased;
@@ -1096,4 +1122,165 @@ html {
 }
 ::-webkit-scrollbar {
   display: none;
+}
+
+/* ==========================================================================
+   Página /profesionales (calcada 1:1 de profesionales.html): estado activo
+   de navegación y galería de capturas del dashboard con lightbox.
+   ========================================================================== */
+
+.nav-link-active {
+  color: var(--c-primary) !important;
+  position: relative;
+}
+.nav-link-active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -8px;
+  height: 2px;
+  border-radius: 9999px;
+  background: var(--c-primary);
+}
+.dark .nav-link-active {
+  color: #fff !important;
+}
+.dark .nav-link-active::after {
+  background: linear-gradient(90deg, #c45cff 0%, #ff3fb4 100%);
+}
+
+.shot-card {
+  background: var(--c-surface-container-lowest);
+  border: 1px solid var(--c-outline-variant);
+  border-radius: 28px;
+  padding: 1.25rem;
+  box-shadow: 0 20px 45px -20px rgba(27, 25, 47, 0.25);
+}
+@media (min-width: 768px) {
+  .shot-card {
+    padding: 2rem;
+  }
+}
+.shot-frame {
+  overflow: hidden;
+  border-radius: 20px;
+  border: 1px solid var(--c-outline-variant);
+  background: var(--c-surface-tier-1);
+}
+.shot-frame-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.65rem 1rem;
+  border-bottom: 1px solid var(--c-outline-variant);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--c-on-surface-variant);
+}
+.shot-dots {
+  display: inline-flex;
+  gap: 6px;
+}
+.shot-dots span {
+  width: 10px;
+  height: 10px;
+  border-radius: 9999px;
+  background: var(--c-outline-variant);
+  display: inline-block;
+}
+.shot-expand {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid var(--c-outline-variant);
+  border-radius: 9999px;
+  padding: 8px 14px;
+  min-height: 44px;
+  cursor: pointer;
+  background: var(--c-surface-container);
+  color: var(--c-on-surface);
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.shot-expand:hover {
+  background: var(--c-surface-container-high);
+}
+.shot-img-btn {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+}
+.shot-img-btn img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+#shot-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5.5rem 1rem 1.5rem;
+}
+@media (min-width: 1024px) {
+  #shot-lightbox {
+    padding: 6rem 1.5rem 2rem;
+  }
+}
+.shot-lightbox-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 8, 25, 0.72);
+  backdrop-filter: blur(4px);
+}
+.shot-lightbox-card {
+  position: relative;
+  width: min(1100px, calc(100vw - 2rem));
+  max-height: 90vh;
+  overflow: hidden;
+  border-radius: 24px;
+  background: var(--c-surface-container-lowest);
+  color: var(--c-on-surface);
+  border: 1px solid var(--c-outline-variant);
+  box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+}
+.shot-lightbox-body {
+  overflow: auto;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+.shot-lightbox-head,
+.shot-lightbox-foot {
+  flex: 0 0 auto;
+}
+.shot-lightbox-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+  background: #fff;
+}
+.shot-nav-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--c-outline-variant);
+  background: var(--c-surface-container);
+  color: var(--c-on-surface);
+  cursor: pointer;
+}
+.shot-nav-btn:hover {
+  background: var(--c-surface-container-high);
 }
