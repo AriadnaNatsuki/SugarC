@@ -4,8 +4,8 @@ import { useState } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "sonner";
 import { ThemeProvider, useTheme } from "@/lib/theme";
-import { LanguageProvider } from "@/lib/i18n";
-import { ChatWidget } from "@/components/chat/chat-widget"; //import del chat
+import { LangProvider } from "@/lib/lang";
+import { ChatWidget } from "@/components/chat/chat-widget";
 
 function ThemedToaster() {
   // Sonner solo conoce light/dark: el modo accesible usa el claro.
@@ -24,13 +24,13 @@ export function Providers({ children }: { children: React.ReactNode }) {
   );
   return (
     <ThemeProvider>
-      <LanguageProvider>
+      <LangProvider>
         <QueryClientProvider client={client}>
           {children}
           <ChatWidget />
           <ThemedToaster />
         </QueryClientProvider>
-      </LanguageProvider>
+      </LangProvider>
     </ThemeProvider>
   );
 }
