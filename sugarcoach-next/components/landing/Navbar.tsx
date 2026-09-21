@@ -2,16 +2,19 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { Crown } from "lucide-react";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { LanguageToggle } from "@/components/ui/LanguageToggle";
 import { MaterialIcon } from "@/components/ui/MaterialIcon";
 import { LOGO_SRC } from "@/lib/images";
 import { useLanguage } from "@/lib/i18n";
+import { cn } from "@/lib/utils";
 
 /** Header + menú móvil deslizante, calcado 1:1 de index.html. */
 export function Navbar() {
   const { t } = useLanguage();
+  const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
@@ -27,18 +30,21 @@ export function Navbar() {
     };
   }, [mobileOpen]);
 
+  // Anclas con prefijo "/" para que funcionen igual desde la home y desde
+  // páginas propias como /profesionales (calcado del patrón de
+  // profesionales.html, que usaba `index.html#ancla` fuera de la home).
   const NAV_LINKS = [
-    { href: "#como-funciona", label: t("nav.comoFunciona") },
-    { href: "#familias", label: t("nav.familias") },
-    { href: "#profesionales", label: t("nav.profesionales") },
-    { href: "#preguntas-frecuentes", label: t("nav.faq") },
+    { href: "/#como-funciona", label: t("nav.comoFunciona") },
+    { href: "/#familias", label: t("nav.familias") },
+    { href: "/profesionales", label: t("nav.profesionales") },
+    { href: "/#preguntas-frecuentes", label: t("nav.faq") },
   ];
 
   return (
     <>
       <header className="fixed left-0 top-0 z-50 w-full border-b border-border-subtle bg-bg-deep/85 shadow-[0_10px_35px_-10px_rgba(0,0,0,0.6)] backdrop-blur-xl">
         <div className="mx-auto flex h-20 max-w-[1200px] items-center justify-between gap-space-md px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop">
-          <a className="group flex items-center gap-2" href="#">
+          <a className="group flex items-center gap-2" href="/">
             <div className="rounded-xl border border-border-subtle bg-surface-container/60 p-1.5 transition-colors group-hover:border-primary/40">
               <Image
                 src={LOGO_SRC}
@@ -52,7 +58,15 @@ export function Navbar() {
           </a>
           <nav className="hidden items-center gap-space-lg lg:flex">
             {NAV_LINKS.map((l) => (
-              <a key={l.href} className="font-label-lg text-label-lg text-text-secondary transition-colors hover:text-primary" href={l.href}>
+              <a
+                key={l.href}
+                className={cn(
+                  "font-label-lg text-label-lg text-text-secondary transition-colors hover:text-primary",
+                  pathname === l.href && "nav-link-active",
+                )}
+                href={l.href}
+                aria-current={pathname === l.href ? "page" : undefined}
+              >
                 {l.label}
               </a>
             ))}
@@ -69,7 +83,7 @@ export function Navbar() {
             <ThemeToggle />
             <a
               className="hidden min-h-[44px] items-center justify-center gap-2 rounded-full btn-gradient border border-white/20 px-3.5 py-space-xs font-label-lg text-label-lg text-white transition-all active:scale-95 sm:inline-flex sm:px-space-lg"
-              href="#descargar"
+              href="/#descargar"
             >
               <MaterialIcon name="download" className="text-[18px]" />
               <span>{t("btn.shortDownload")}</span>
@@ -138,7 +152,7 @@ export function Navbar() {
             <a
               onClick={() => setMobileOpen(false)}
               className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full btn-gradient border border-white/20 px-space-lg py-space-sm font-label-lg text-label-lg text-white"
-              href="#descargar"
+              href="/#descargar"
             >
               <MaterialIcon name="download" className="text-[18px]" />
               <span>{t("btn.shortDownload")}</span>
@@ -156,3 +170,4 @@ export function Navbar() {
     </>
   );
 }
+
