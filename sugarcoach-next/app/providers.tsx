@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "sonner";
 import { ThemeProvider, useTheme } from "@/lib/theme";
 import { LangProvider } from "@/lib/lang";
+import { LanguageProvider } from "@/lib/i18n";
 import { ChatWidget } from "@/components/chat/chat-widget";
 
 function ThemedToaster() {
@@ -24,13 +25,15 @@ export function Providers({ children }: { children: React.ReactNode }) {
   );
   return (
     <ThemeProvider>
-      <LangProvider>
-        <QueryClientProvider client={client}>
-          {children}
-          <ChatWidget />
-          <ThemedToaster />
-        </QueryClientProvider>
-      </LangProvider>
+      <LanguageProvider>
+        <LangProvider>
+          <QueryClientProvider client={client}>
+            {children}
+            <ChatWidget />
+            <ThemedToaster />
+          </QueryClientProvider>
+        </LangProvider>
+      </LanguageProvider>
     </ThemeProvider>
   );
 }
