@@ -44,8 +44,8 @@
   --c-background: #fcf8ff;
   --c-bg-canvas: #fcf8ff;
   --c-bg-deep: #fcf8ff;
-  --c-border-glow: #c8c4d7;
-  --c-border-subtle: #c8c4d7;
+  --c-border-glow: rgba(75, 59, 203, 0.12);
+  --c-border-subtle: rgba(27, 25, 47, 0.08);
   --c-error: #ba1a1a;
   --c-error-container: #ffdad6;
   --c-inverse-on-surface: #f3eeff;
@@ -72,7 +72,7 @@
   --c-on-tertiary-fixed: #410003;
   --c-on-tertiary-fixed-variant: #86211e;
   --c-outline: #787586;
-  --c-outline-variant: #c8c4d7;
+  --c-outline-variant: rgba(27, 25, 47, 0.08);
   --c-primary: #4b3bcb;
   --c-primary-container: #6457e5;
   --c-primary-fixed: #e3dfff;
@@ -112,9 +112,9 @@
   --c-download-text: #1b192f;
   --c-panel-chip-bg: rgba(75, 59, 203, 0.08);
   --c-panel-chip-text: #312e81;
-  --c-panel-chip-border: rgba(75, 59, 203, 0.18);
+  --c-panel-chip-border: rgba(75, 59, 203, 0.12);
   --c-panel-card-bg: rgba(255, 255, 255, 0.72);
-  --c-panel-card-border: rgba(27, 25, 47, 0.12);
+  --c-panel-card-border: rgba(27, 25, 47, 0.08);
 }
 
 .dark {
@@ -134,8 +134,8 @@
   --c-background: #050b1d;
   --c-bg-canvas: #08122b;
   --c-bg-deep: #050b1d;
-  --c-border-glow: rgba(196, 92, 255, 0.25);
-  --c-border-subtle: rgba(255, 255, 255, 0.08);
+  --c-border-glow: rgba(196, 92, 255, 0.20);
+  --c-border-subtle: rgba(255, 255, 255, 0.07);
   --c-error: #ffb4ab;
   --c-error-container: #93000a;
   --c-inverse-on-surface: #050b1d;
@@ -154,7 +154,7 @@
   --c-on-secondary: #003737;
   --c-on-secondary-container: #004141;
   --c-on-secondary-fixed: #002020;
-  --c-on-secondary-fixed-variant: #004f50;
+  --c-on-secondary-fixed-variant: #00504d;
   --c-on-surface: #f7f8fc;
   --c-on-surface-variant: #a8b0c5;
   --c-on-tertiary: #620041;
@@ -162,7 +162,7 @@
   --c-on-tertiary-fixed: #3d0027;
   --c-on-tertiary-fixed-variant: #8a005d;
   --c-outline: #747f9b;
-  --c-outline-variant: rgba(255, 255, 255, 0.12);
+  --c-outline-variant: rgba(255, 255, 255, 0.08);
   --c-primary: #c45cff;
   --c-primary-container: #a94fce;
   --c-primary-fixed: #f5d9ff;
@@ -202,56 +202,9 @@
   --c-download-text: #f7f8fc;
   --c-panel-chip-bg: rgba(255, 255, 255, 0.1);
   --c-panel-chip-text: #6ef7f8;
-  --c-panel-chip-border: rgba(255, 255, 255, 0.1);
+  --c-panel-chip-border: rgba(255, 255, 255, 0.08);
   --c-panel-card-bg: rgba(255, 255, 255, 0.06);
-  --c-panel-card-border: rgba(255, 255, 255, 0.1);
-}
-
-.a11y {
-  color-scheme: light;
-  --sc-base: 255 255 255;
-  --sc-alt: 245 245 245;
-  --sc-footer: 255 255 255;
-  --sc-card: 255 255 255;
-  --sc-body: 26 26 26;
-  --sc-muted: 26 26 26;
-  --sc-ink: 0 0 0;
-  --sc-line: 51 51 51;
-  --sc-tint: 0 0 0;
-
-  /* ---- Tokens 1:1 de `index.html` ---- */
-  --c-surface: #ffffff;
-  --c-background: #ffffff;
-  --c-surface-container-lowest: #ffffff;
-  --c-surface-container-low: #f5f5f5;
-  --c-surface-container: #eeeeee;
-  --c-surface-container-high: #e2e2e2;
-  --c-surface-container-highest: #d6d6d6;
-  --c-surface-dim: #e6e6e6;
-  --c-surface-bright: #ffffff;
-  --c-on-surface: #000000;
-  --c-on-background: #000000;
-  --c-on-surface-variant: #1a1a1a;
-  --c-outline: #1a1a1a;
-  --c-outline-variant: #333333;
-  --c-primary: #1e1266;
-  --c-on-primary: #ffffff;
-  --c-border-subtle: #333333;
-  --c-border-glow: #333333;
-  --c-gamification-bg-start: #ffffff;
-  --c-gamification-bg-mid: #f5f5f5;
-  --c-gamification-bg-end: #ffffff;
-  --c-gamification-text: #000000;
-  --c-gamification-muted: #1a1a1a;
-  --c-download-bg-start: #f5f5f5;
-  --c-download-bg-mid: #eeeeee;
-  --c-download-bg-end: #ffffff;
-  --c-download-text: #000000;
-  --c-panel-chip-bg: #eeeeee;
-  --c-panel-chip-text: #000000;
-  --c-panel-chip-border: #333333;
-  --c-panel-card-bg: #f5f5f5;
-  --c-panel-card-border: #333333;
+  --c-panel-card-border: rgba(255, 255, 255, 0.07);
 }
 
 @layer base {
@@ -296,25 +249,25 @@
     -webkit-text-fill-color: transparent;
     color: transparent;
   }
-  /* Card glassmorphism sutil (en claro: tarjeta blanca con borde gris) */
+  /* Card glassmorphism sutil (en claro: tarjeta blanca con borde sutil) */
   .glass-card {
-    @apply rounded-3xl border border-line/[0.25] bg-card shadow-sm transition-all duration-300;
+    @apply rounded-3xl border border-line/[0.10] bg-card shadow-sm transition-all duration-300;
   }
   .glass-card:hover {
     @apply -translate-y-1 border-pink-400/40;
     box-shadow:
-      0 20px 40px -15px rgba(0, 0, 0, 0.25),
-      0 0 24px rgba(218, 68, 175, 0.15);
+      0 20px 40px -15px rgba(0, 0, 0, 0.15),
+      0 0 24px rgba(218, 68, 175, 0.12);
   }
   .dark .glass-card {
-    @apply border-line/[0.08] bg-tint/[0.03] shadow-none;
+    @apply border-line/[0.06] bg-tint/[0.03] shadow-none;
   }
   .dark .glass-card:hover {
     box-shadow:
-      0 20px 40px -15px rgba(0, 0, 0, 0.6),
+      0 20px 40px -15px rgba(0, 0, 0, 0.5),
       0 0 24px rgba(218, 68, 175, 0.15);
   }
-  /* Toggle de tema (claro/oscuro/accesible), como en el HTML de modos */
+  /* Toggle de tema (claro/oscuro), como en el HTML de modos */
   .theme-menu-item[aria-current="true"] {
     @apply bg-brand-gradient text-white;
   }
@@ -347,139 +300,121 @@
 }
 
 /* ============================================================
- * Modo Accesible (.a11y) — reglas tomadas del HTML de modos:
- * alto contraste real, foco visible, sin blobs, zoom al hover/foco.
- * El sistema de zoom (botones, tarjetas y bloques de texto) también
- * se replica en Modo Oscuro (.dark), más abajo en este mismo bloque.
- * Van sin capas para que prevalezcan sobre las utilidades.
+ * Sistema de Zoom de Lupa al Hover/Foco (Modo Claro y Modo Oscuro)
+ * Efecto lupa en títulos, párrafos, listas, botones y tarjetas.
  * ============================================================ */
 
-/* Tipografía ~14% más grande (escala rem: arrastra textos y espaciados) */
-html.a11y {
-  font-size: 114%;
-}
-
-/* Sin blobs decorativos: menos ruido visual para baja visión */
-.a11y [class*="blur-3xl"] {
-  display: none !important;
-}
-
-/* Foco de teclado bien visible */
-.a11y :focus-visible {
-  outline: 3px solid #2f1f9e !important;
-  outline-offset: 2px;
-}
-
-/* Bordes con contraste real en tarjetas */
-.a11y .glass-card {
-  border-width: 2px;
-}
-
-/* Zoom en botones y links al hover/foco */
-.a11y button,
-.a11y a,
-.dark button,
-.dark a {
+/* 1. Zoom en botones y links al hover/foco */
+button:not(.faq-btn):not(#sc-chat-close):not(#sc-chat-menu),
+a:not(.nav-link) {
   transition:
-    transform 0.15s ease,
-    box-shadow 0.15s ease;
+    transform 0.18s cubic-bezier(0.2, 0, 0, 1),
+    box-shadow 0.18s cubic-bezier(0.2, 0, 0, 1);
 }
-.a11y button:hover,
-.a11y button:focus-visible,
-.a11y a:hover,
-.a11y a:focus-visible,
-.dark button:hover,
-.dark button:focus-visible,
-.dark a:hover,
-.dark a:focus-visible {
-  transform: scale(1.18);
+button:not(.faq-btn):not(#sc-chat-close):not(#sc-chat-menu):hover,
+button:not(.faq-btn):not(#sc-chat-close):not(#sc-chat-menu):focus-visible,
+a:not(.nav-link):hover,
+a:not(.nav-link):focus-visible {
+  transform: scale(1.08);
   position: relative;
   z-index: 30;
-  box-shadow: 0 12px 28px -8px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 10px 24px -8px rgba(0, 0, 0, 0.2);
 }
 
-/* Zoom en tarjetas (features, FAQ, mockups) */
-.a11y [class*="rounded-"],
-.a11y .faq-item,
-.dark [class*="rounded-"],
-.dark .faq-item {
-  transition:
-    transform 0.15s ease,
-    box-shadow 0.15s ease;
+/* Enlaces del navbar: zoom suave para no provocar salto de línea */
+.nav-link {
+  transition: transform 0.15s ease, color 0.15s ease;
+  transform-origin: center center;
 }
-.a11y .rounded-3xl:hover,
-.a11y .rounded-3xl:focus-within,
-.a11y .faq-item:hover,
-.a11y .faq-item:focus-within,
-.a11y [class*="rounded-"]:has(p:hover, li:hover),
-.dark .rounded-3xl:hover,
-.dark .rounded-3xl:focus-within,
-.dark .faq-item:hover,
-.dark .faq-item:focus-within,
-.dark [class*="rounded-"]:has(p:hover, li:hover) {
-  transform: scale(1.09);
-  position: relative;
-  z-index: 25;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+.nav-link:hover,
+.nav-link:focus-visible {
+  transform: scale(1.06);
 }
 
-/* Zoom en bloques de texto (párrafos y listas) */
-.a11y p,
-.a11y li,
-.dark p,
-.dark li {
+/* 2. Zoom de lupa en títulos y subtítulos (h1, h2, h3, h4, h5) */
+h1,
+h2,
+h3,
+h4,
+h5 {
   transition:
-    transform 0.15s ease,
-    background-color 0.15s ease;
-  transform-origin: top left;
+    transform 0.2s cubic-bezier(0.2, 0, 0, 1),
+    color 0.15s ease;
+  transform-origin: left center;
 }
-.a11y p:hover,
-.a11y li:hover,
-.dark p:hover,
-.dark li:hover {
-  transform: scale(1.16);
+.text-center h1,
+.text-center h2,
+.text-center h3,
+.text-center h4,
+.text-center h5,
+h1.text-center,
+h2.text-center,
+h3.text-center,
+h4.text-center,
+h5.text-center {
+  transform-origin: center center;
+}
+h1:hover,
+h2:hover,
+h3:hover,
+h4:hover,
+h5:hover {
+  transform: scale(1.06);
   position: relative;
   z-index: 20;
-  background-color: rgba(0, 0, 0, 0.05);
-  border-radius: 0.5rem;
 }
 
-/* Dentro de cualquier tarjeta con esquinas redondeadas (incluye valores
- * arbitrarios como rounded-[32px]) el zoom es de toda la tarjeta, no del
- * texto o botón suelto: si no, el elemento se escala por su cuenta y termina
- * saliéndose o recortado por el overflow de la tarjeta, o se suma al zoom de
- * la tarjeta (doble escala). */
-.a11y [class*="rounded-"] p:hover,
-.a11y [class*="rounded-"] li:hover,
-.dark [class*="rounded-"] p:hover,
-.dark [class*="rounded-"] li:hover {
-  transform: none;
-  background-color: rgba(0, 0, 0, 0.04);
+/* 3. Zoom de lupa en bloques de texto (párrafos y listas) */
+p,
+li {
+  transition:
+    transform 0.2s cubic-bezier(0.2, 0, 0, 1),
+    background-color 0.18s ease;
+  transform-origin: left center;
 }
-.a11y .faq-item button:hover,
-.a11y .faq-item button:focus-visible,
-.dark .faq-item button:hover,
-.dark .faq-item button:focus-visible {
-  transform: none;
-  box-shadow: none;
+.text-center p,
+p.text-center,
+.text-center li,
+li.text-center {
+  transform-origin: center center;
+}
+p:hover,
+li:hover {
+  transform: scale(1.08);
+  position: relative;
+  z-index: 20;
+  border-radius: 0.375rem;
+}
+:root p:hover,
+:root li:hover {
+  background-color: rgba(75, 59, 203, 0.05);
+}
+.dark p:hover,
+.dark li:hover {
+  background-color: rgba(255, 255, 255, 0.06);
 }
 
-/* Cartas de "Conocé a nuestro equipo": el texto no tiene tarjeta con clase
- * `rounded-*` que lo contenga (usa `.sc-team-card`, con su propio radio y
- * `overflow: hidden`), así que el párrafo de la bio se salía de la tarjeta
- * al escalar solo. Se anula el zoom de texto y se escala la tarjeta entera. */
-.a11y .sc-team-card p:hover,
-.a11y .sc-team-card li:hover,
-.dark .sc-team-card p:hover,
-.dark .sc-team-card li:hover {
+/* Preguntas frecuentes (FAQ): botón no salta, el título adentro hace lupa */
+.faq-btn {
+  transform: none !important;
+  box-shadow: none !important;
+}
+.faq-btn:hover span {
+  transform: scale(1.03);
+  display: inline-block;
+}
+
+/* Cartas de "Conocé a nuestro equipo": mantienen su transform 3D */
+.sc-team-card p:hover,
+.sc-team-card li:hover {
   transform: none;
   background-color: transparent;
 }
-.a11y .sc-team-card:hover,
-.a11y .sc-team-card:focus-within {
+.sc-team-card:hover,
+.sc-team-card:focus-within {
   transform: translate(-50%, -50%) scale(1.06) !important;
   z-index: 25;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
 }
 .dark .sc-team-card.sc-team-active:hover,
 .dark .sc-team-card.sc-team-active:focus-within {
@@ -488,88 +423,50 @@ html.a11y {
 }
 
 /* ============================================================
- * Réplica 1:1 de los estilos custom de `index.html` (colores,
- * paneles de tema, marquee de reconocimientos, carruseles de
- * equipo/testimonios y acordeón de FAQ con animación de grid).
+ * Estilo de tarjetas inspirado en ui-disenio (Rewards / Pilares)
+ * Gradiente a 145deg, borde sutil y reflejo especular inset.
  * ============================================================ */
+.sc-card-glass,
+.glass-card,
+[data-kinetic-pillar="true"] {
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
 
-.a11y .border-surface-container {
-  border-color: #333333 !important;
-  border-width: 2px !important;
+/* Modo Claro: gradiente 145deg de alt a card como en ui-disenio */
+:root .sc-card-glass,
+:root .glass-card,
+:root [data-kinetic-pillar="true"] {
+  color: rgb(var(--sc-body));
+  background: linear-gradient(145deg, rgb(var(--sc-alt) / 0.92), rgb(var(--sc-card))) !important;
+  border-color: rgb(var(--sc-line) / 0.10) !important;
+  box-shadow: 0 9px 24px rgba(0, 0, 0, 0.04);
 }
-.a11y [class*="text-amber-"] {
-  color: #78350f !important;
+
+/* Modo Oscuro: gradiente translúcido 145deg con relieve inset superior */
+.dark .sc-card-glass,
+.dark .glass-card,
+.dark [data-kinetic-pillar="true"] {
+  color: rgb(var(--sc-body));
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.065),
+    rgba(255, 255, 255, 0.018)
+  ) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.13), 0 1px 0 rgba(255, 255, 255, 0.05) inset;
 }
-.a11y [class*="text-accent-yellow"] {
-  color: #78350f !important;
+
+:root .sc-card-glass:hover,
+:root .glass-card:hover {
+  border-color: rgba(196, 92, 255, 0.35) !important;
+  box-shadow: 0 15px 34px rgba(196, 92, 255, 0.12);
 }
-.a11y [class*="text-emerald-"] {
-  color: #064e3b !important;
-}
-.a11y [class*="text-indigo-"] {
-  color: #312e81 !important;
-}
-.a11y [class*="text-teal-"] {
-  color: #134e4a !important;
-}
-.a11y [class*="text-cyan-"] {
-  color: #164e63 !important;
-}
-.a11y [class*="text-rose-"] {
-  color: #881337 !important;
-}
-.a11y .gradient-text {
-  background: none;
-  -webkit-text-fill-color: currentColor;
-  color: #1e1266;
-}
-.a11y .text-display-lg {
-  font-size: 55px !important;
-  line-height: 64px !important;
-}
-.a11y .text-display-lg-mobile {
-  font-size: 41px !important;
-  line-height: 50px !important;
-}
-.a11y .text-headline-lg {
-  font-size: 36px !important;
-  line-height: 46px !important;
-}
-.a11y .text-headline-lg-mobile {
-  font-size: 30px !important;
-  line-height: 39px !important;
-}
-.a11y .text-headline-md {
-  font-size: 25px !important;
-  line-height: 34px !important;
-}
-.a11y .text-headline-sm {
-  font-size: 21px !important;
-  line-height: 30px !important;
-}
-.a11y .text-label-lg {
-  font-size: 16px !important;
-  line-height: 23px !important;
-}
-.a11y .text-label-md {
-  font-size: 14px !important;
-  line-height: 18px !important;
-}
-.a11y .text-label-sm {
-  font-size: 13px !important;
-  line-height: 16px !important;
-}
-.a11y .text-body-md {
-  font-size: 17px !important;
-  line-height: 27px !important;
-}
-.a11y .text-body-sm {
-  font-size: 15px !important;
-  line-height: 23px !important;
-}
-.a11y .text-body-lg {
-  font-size: 19px !important;
-  line-height: 30px !important;
+
+.dark .sc-card-glass:hover,
+.dark .glass-card:hover {
+  border-color: rgba(255, 255, 255, 0.18) !important;
+  box-shadow: 0 13px 28px rgba(0, 0, 0, 0.25), 0 1px 0 rgba(255, 255, 255, 0.08) inset;
 }
 
 /* Paneles de tema (Gamificación / Descarga): degradés que cambian con el modo */
@@ -1214,8 +1111,8 @@ html {
   #sc-chat-panel { right: 12px; bottom: 144px; }
   #sc-chat-btn { right: 12px; bottom: 64px; }
 }
-  #sc-chat-btn { right: 12px; bottom: 12px; }
-}
+ 
+
 
 /* ==========================================================================
    Página /profesionales (calcada 1:1 de profesionales.html): estado activo

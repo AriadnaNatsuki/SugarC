@@ -45,16 +45,14 @@ export function Navbar() {
       <header className="fixed left-0 top-0 z-50 w-full border-b border-border-subtle bg-bg-deep/85 shadow-[0_10px_35px_-10px_rgba(0,0,0,0.6)] backdrop-blur-xl">
         <div className="mx-auto flex h-20 max-w-[1200px] items-center justify-between gap-space-md px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop">
           <a className="group flex items-center gap-2" href="/">
-            <div className="rounded-xl border border-border-subtle bg-surface-container/60 p-1.5 transition-colors group-hover:border-primary/40">
-              <Image
-                src={LOGO_SRC}
-                alt="SugarCoach Logo Oficial"
-                width={140}
-                height={40}
-                priority
-                className="h-8 w-auto object-contain drop-shadow-[0_2px_8px_rgba(196,92,255,0.3)] transition-transform group-hover:scale-105 md:h-9"
-              />
-            </div>
+            <Image
+              src={LOGO_SRC}
+              alt="SugarCoach Logo Oficial"
+              width={140}
+              height={40}
+              priority
+              className="h-8 w-auto object-contain drop-shadow-[0_2px_8px_rgba(196,92,255,0.3)] transition-transform group-hover:scale-105 md:h-9"
+            />
           </a>
           <nav className="hidden items-center gap-space-lg lg:flex">
             {NAV_LINKS.map((l) => (

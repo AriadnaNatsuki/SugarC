@@ -64,31 +64,31 @@ export default function PremiumPage() {
   };
 
   return (
-    <div className="min-h-screen bg-base text-body">
+    <div className="min-h-screen bg-base text-text-primary">
       <Navbar />
 
-      <main className="mx-auto max-w-[1100px] px-4 pb-20 pt-28 md:px-6 lg:px-8">
-        {/* Navegación de retorno */}
+      <main className="mx-auto max-w-7xl px-4 pt-28 pb-16 sm:px-6 lg:px-8">
+        {/* Enlace para volver a la Home */}
         <div className="mb-6">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-muted hover:text-ink transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-muted hover:text-ink transition-colors"
           >
             <ArrowLeft className="h-4 w-4" />
-            <span>Volver al inicio</span>
+            <span>Volver a la página principal</span>
           </Link>
         </div>
 
         {/* Header de la página Premium */}
         <div className="mx-auto max-w-3xl text-center mb-10">
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-400/40 bg-amber-400/15 px-3.5 py-1 text-xs font-bold text-amber-700 dark:text-amber-300 mb-3 [.a11y_&]:border-2 [.a11y_&]:border-amber-600 [.a11y_&]:bg-amber-100 [.a11y_&]:text-amber-950">
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-400/40 bg-amber-400/15 px-3.5 py-1 text-xs font-bold text-amber-700 dark:text-amber-300 mb-3">
             <Sparkles className="h-3.5 w-3.5 fill-amber-400 text-amber-500 dark:fill-amber-300 dark:text-amber-300" />
             Plan SugarCoach Premium
           </span>
           <h1 className="text-3xl font-extrabold tracking-tight text-ink sm:text-4xl md:text-5xl">
             Todo el potencial de SugarCoach a tu alcance
           </h1>
-          <p className="mt-3 text-sm sm:text-base leading-relaxed text-body dark:text-[#A8B0C5]">
+          <p className="mt-3 text-sm sm:text-base leading-relaxed text-text-secondary">
             Acompañamiento integral, sincronización familiar en tiempo real y reportes clínicos profesionales.
           </p>
         </div>
@@ -96,7 +96,7 @@ export default function PremiumPage() {
         {/* =========================================================================
          * BANNER DESTACADO: BENEFICIO PACIENTES EN ARGENTINA
          * ========================================================================= */}
-        <div className="mb-12 overflow-hidden rounded-3xl border-2 border-sky-500/30 bg-gradient-to-br from-sky-500/10 via-blue-500/5 to-transparent p-6 shadow-xl dark:border-sky-400/30 dark:bg-[#07132B] md:p-8">
+        <div className="mb-12 overflow-hidden rounded-3xl border border-sky-500/20 bg-gradient-to-br from-sky-500/10 via-blue-500/5 to-transparent p-6 shadow-xl dark:border-sky-400/25 dark:bg-[#07132B] md:p-8">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
             <div className="flex items-start gap-4">
               <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-sky-500/20 text-sky-700 dark:text-sky-300 shadow-sm">
@@ -109,7 +109,7 @@ export default function PremiumPage() {
                 <h2 className="mt-1 text-lg sm:text-xl font-extrabold text-ink">
                   “Si estás en Argentina podés acceder a cupón de descuento (100%) ingresando acá (Solo para el paciente).”
                 </h2>
-                <p className="mt-1.5 text-xs sm:text-sm text-body dark:text-[#A8B0C5] leading-relaxed">
+                <p className="mt-1.5 text-xs sm:text-sm text-text-secondary leading-relaxed">
                   Completá el formulario para vincular a tu médico o diabetólogo tratante y activá tu{" "}
                   <strong className="text-ink font-bold">descuento del 100% válido por 6 meses</strong> para el paciente.
                 </p>
@@ -284,7 +284,7 @@ export default function PremiumPage() {
                       <h3 className="text-xl font-extrabold text-ink">
                         ¡Beneficio otorgado con éxito!
                       </h3>
-                      <p className="text-sm text-body dark:text-[#A8B0C5] leading-relaxed">
+                      <p className="text-sm text-text-secondary leading-relaxed">
                         Registramos a <strong className="text-ink">{formData.patientName}</strong> en relación con el equipo de{" "}
                         <strong className="text-ink">{formData.doctorName}</strong>. Tu cuenta cuenta con{" "}
                         <strong className="text-emerald-700 dark:text-emerald-400">100% de descuento durante 6 meses</strong>.
@@ -320,7 +320,7 @@ export default function PremiumPage() {
          * ========================================================================= */}
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 items-stretch">
           {/* Card Premium */}
-          <div className="lg:col-span-7 flex flex-col justify-between rounded-3xl border-2 border-[#E2A632] bg-card p-8 shadow-xl dark:bg-[#0E1530] dark:border-[#E2A632]/80">
+          <div className="lg:col-span-7 flex flex-col justify-between rounded-3xl border border-[#E2A632]/40 bg-card p-8 shadow-xl dark:bg-[#0E1530] dark:border-[#E2A632]/40">
             <div>
               <div className="flex items-center justify-between gap-4 border-b border-line/10 pb-5">
                 <div>
@@ -346,7 +346,7 @@ export default function PremiumPage() {
                   {PREMIUM_FEATURES.map((feat, index) => (
                     <div key={index} className="flex items-start gap-2.5">
                       <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-600 dark:text-emerald-400 mt-0.5" />
-                      <span className="text-xs leading-relaxed text-body dark:text-[#A8B0C5]">{feat}</span>
+                      <span className="text-xs leading-relaxed text-text-secondary">{feat}</span>
                     </div>
                   ))}
                 </div>

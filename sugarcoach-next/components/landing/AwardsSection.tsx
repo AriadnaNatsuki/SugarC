@@ -105,7 +105,7 @@ export function AwardsSection() {
             >
               {t("awardsShowcase.title")}
             </h2>
-            <p className="section-subtitle mt-3 max-w-2xl mx-auto text-base leading-relaxed text-body sm:text-lg">
+            <p className="section-subtitle mt-3 max-w-2xl mx-auto text-base leading-relaxed text-text-secondary sm:text-lg">
               {t("awardsShowcase.description")}
             </p>
           </Reveal>

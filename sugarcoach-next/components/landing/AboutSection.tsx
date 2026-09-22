@@ -108,7 +108,7 @@ export function AboutSection() {
           >
             {t("teamShowcase.title")}
           </h2>
-          <p className="section-subtitle mt-3 max-w-2xl text-base leading-relaxed text-body sm:text-lg">
+          <p className="section-subtitle mt-3 max-w-2xl text-base leading-relaxed text-text-secondary sm:text-lg">
             {t("teamShowcase.description")}
           </p>
         </Reveal>

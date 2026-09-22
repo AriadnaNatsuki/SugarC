@@ -18,7 +18,7 @@ function renderToggle() {
 }
 
 describe("ThemeToggle", () => {
-  it("muestra el modo actual y abre el menú con las 3 opciones", async () => {
+  it("muestra el modo actual y abre el menú con las opciones", async () => {
     const user = userEvent.setup();
     renderToggle();
 
@@ -31,7 +31,6 @@ describe("ThemeToggle", () => {
     expect(screen.getByRole("menu", { name: /modo de color/i })).toBeInTheDocument();
     expect(screen.getByRole("menuitemradio", { name: /claro/i })).toHaveAttribute("aria-checked", "true");
     expect(screen.getByRole("menuitemradio", { name: /oscuro/i })).toBeInTheDocument();
-    expect(screen.getByRole("menuitemradio", { name: /accesible/i })).toBeInTheDocument();
   });
 
   it("cambia a oscuro: aplica la clase y persiste", async () => {
@@ -46,15 +45,11 @@ describe("ThemeToggle", () => {
     expect(screen.getByRole("button", { name: /modo de color: oscuro/i })).toBeInTheDocument();
   });
 
-  it("cambia a accesible y cierra con Escape", async () => {
+  it("cambia entre modos y cierra con Escape", async () => {
     const user = userEvent.setup();
     renderToggle();
 
     await user.click(screen.getByRole("button", { name: /modo de color/i }));
-    await user.click(screen.getByRole("menuitemradio", { name: /accesible/i }));
-    expect(document.documentElement.classList.contains("a11y")).toBe(true);
-
-    await user.click(screen.getByRole("button", { name: /modo de color: accesible/i }));
     expect(screen.getByRole("menu")).toBeInTheDocument();
     await user.keyboard("{Escape}");
     expect(screen.queryByRole("menu")).not.toBeInTheDocument();
