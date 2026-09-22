@@ -1329,10 +1329,6 @@ html {
 @media (max-width: 480px) {
   #sc-chat-panel { right: 12px; bottom: 144px; }
   #sc-chat-btn { right: 12px; bottom: 64px; }
-<<<<<<< HEAD
-
-=======
->>>>>>> 87b820d (fix: remove awards borders and refine carousel)
 }
 
 /* ==========================================================================
