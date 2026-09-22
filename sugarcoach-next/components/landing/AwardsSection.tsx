@@ -158,7 +158,6 @@ export function AwardsSection() {
                     aria-label={award.name}
                   >
                     <div className="sc-award-logo flex items-center justify-center">
-<<<<<<< HEAD
                       <div className="relative flex h-16 w-40 sm:h-[72px] sm:w-44 items-center justify-center bg-transparent">
                         <Image
                           src={award.imageSrc}
@@ -166,15 +165,6 @@ export function AwardsSection() {
                           width={176}
                           height={68}
                           className="max-h-16 w-auto max-w-[160px] sm:max-w-[176px] object-contain drop-shadow-sm select-none transition-transform duration-300 group-hover/card:scale-105"
-=======
-                      <div className="relative flex h-12 w-28 items-center justify-center bg-transparent sm:w-32">
-                        <Image
-                          src={award.imageSrc}
-                          alt={award.name}
-                          width={120}
-                          height={46}
-                          className="max-h-11 w-auto max-w-[110px] select-none object-contain drop-shadow-sm transition-transform duration-300 group-hover/card:scale-105 sm:max-w-[118px]"
->>>>>>> 7e917a4 (fix: improve landing carousels styling)
                         />
                       </div>
                     </div>
