@@ -579,8 +579,8 @@ html.a11y {
   transform: none;
   background-color: transparent;
 }
-.a11y .sc-team-card:hover,
-.a11y .sc-team-card:focus-within {
+.a11y .sc-team-card.sc-team-active:hover,
+.a11y .sc-team-card.sc-team-active:focus-within {
   transform: translate(-50%, -50%) scale(1.06) !important;
   z-index: 25;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
@@ -899,6 +899,32 @@ html.a11y {
   box-shadow: 0 0 50px rgba(255, 63, 180, 0.42), 0 30px 80px rgba(0, 0, 0, 0.55);
 }
 
+/* Modo Claro: la tarjeta blanca (--sc-card) casi no contrasta con el fondo
+   lavanda de la sección (--sc-base), así que a baja opacidad las tarjetas
+   laterales quedaban invisibles (en Modo Oscuro sí se ven porque la tarjeta
+   contrasta con el fondo). Se les da un fondo con tinte propio, borde/sombra
+   más marcados y algo más de opacidad para que se noten sin tocar el modo
+   oscuro. */
+:root:not(.dark) .sc-team-card {
+  background: rgb(var(--sc-alt));
+  border-color: rgb(75 59 203 / 0.16);
+  box-shadow: 0 14px 34px rgba(75, 59, 203, 0.12);
+}
+
+:root:not(.dark) .sc-team-card.sc-team-active {
+  background: rgb(var(--sc-card));
+}
+
+:root:not(.dark) .sc-team-card.sc-team-next-1,
+:root:not(.dark) .sc-team-card.sc-team-prev-1 {
+  opacity: 0.75;
+}
+
+:root:not(.dark) .sc-team-card.sc-team-next-2,
+:root:not(.dark) .sc-team-card.sc-team-prev-2 {
+  opacity: 0.45;
+}
+
 .sc-team-card.sc-team-next-1 {
   transform: translate(calc(-50% + 245px), -50%) rotate(4deg) scale(0.88);
   opacity: 0.55;
@@ -1027,11 +1053,7 @@ html.a11y {
 
 .a11y .sc-team-card {
   border-width: 2px !important;
-  transform: translate(-50%, -50%) !important;
   filter: none !important;
-}
-.a11y .sc-team-card:not(.sc-team-active) {
-  display: none !important;
 }
 
 /* ==========================================================================
