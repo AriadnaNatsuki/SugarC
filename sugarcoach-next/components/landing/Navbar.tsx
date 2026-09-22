@@ -72,7 +72,7 @@ export function Navbar() {
             ))}
             <a
               className="inline-flex items-center gap-1.5 rounded-full bg-amber-400/20 px-3.5 py-1.5 text-sm font-bold text-amber-800 transition-all hover:scale-105 hover:bg-amber-400/35 dark:bg-amber-400/15 dark:text-amber-300 dark:hover:bg-amber-400/25"
-              href="#"
+              href="/premium"
             >
               <Crown className="h-4 w-4 fill-amber-500 text-amber-600 dark:fill-amber-300 dark:text-amber-300" />
               <span>{t("nav.premium")}</span>
@@ -143,7 +143,7 @@ export function Navbar() {
           <a
             onClick={() => setMobileOpen(false)}
             className="mt-1 flex items-center gap-2 rounded-xl bg-amber-400/20 px-3 py-3 font-label-lg font-bold text-amber-800 transition-colors hover:bg-amber-400/30 dark:bg-amber-400/15 dark:text-amber-300 dark:hover:bg-amber-400/25"
-            href="#"
+            href="/premium"
           >
             <Crown className="h-[18px] w-[18px] fill-amber-500 text-amber-600 dark:fill-amber-300 dark:text-amber-300" />
             <span>{t("nav.premium")}</span>
