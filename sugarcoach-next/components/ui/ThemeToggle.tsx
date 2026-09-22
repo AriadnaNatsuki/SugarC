@@ -7,7 +7,7 @@ import { MaterialIcon } from "@/components/ui/MaterialIcon";
 
 const ITEMS: { value: Theme; icon: string }[] = [
   { value: "dark", icon: "dark_mode" },
-  { value: "a11y", icon: "light_mode" },
+  { value: "light", icon: "light_mode" },
 ];
 
 /**

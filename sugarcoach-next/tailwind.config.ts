@@ -47,8 +47,13 @@ const config: Config = {
       // Se agregan sin tocar los `sc-*` existentes (usados por /login,
       // /register, /dashboard) para no romper esas páginas.
       // ------------------------------------------------------------------
-      colors: {
+      backgroundColor: {
         base: withAlpha("--sc-base"),
+      },
+      borderColor: {
+        base: withAlpha("--sc-base"),
+      },
+      colors: {
         alt: withAlpha("--sc-alt"),
         footer: withAlpha("--sc-footer"),
         card: withAlpha("--sc-card"),

@@ -69,8 +69,8 @@ function buildPillars(t: (key: string) => string): AudiencePillar[] {
       headline: t("userTypes.pacientes.headline"),
       description: t("userTypes.pacientes.description"),
       accentColor: "text-[#9E1679] dark:text-[#DA44AF] [.a11y_&]:text-[#7100A5]",
-      accentBorder: "border-[#DA44AF]/30 dark:border-[#DA44AF]/40",
-      activeBorder: "border-[#DA44AF] shadow-[0_0_24px_rgba(218,68,175,0.18)] dark:border-[#DA44AF]",
+      accentBorder: "border-[#DA44AF]/15 dark:border-[#DA44AF]/20",
+      activeBorder: "border-[#DA44AF]/60 shadow-[0_0_24px_rgba(218,68,175,0.18)] dark:border-[#DA44AF]/70",
       accentBg: "bg-[#DA44AF]/10 dark:bg-[#DA44AF]/15",
       iconBoxBg: "bg-gradient-to-br from-[#DA44AF]/25 to-[#C747CA]/25 text-[#9E1679] dark:text-[#DA44AF] [.a11y_&]:text-[#7100A5]",
       glowGradient: "from-[#DA44AF]/10 via-[#DA44AF]/5 to-transparent",
@@ -112,8 +112,8 @@ function buildPillars(t: (key: string) => string): AudiencePillar[] {
       headline: t("userTypes.familias.headline"),
       description: t("userTypes.familias.description"),
       accentColor: "text-[#006064] dark:text-[#2BC5C7] [.a11y_&]:text-[#004d40]",
-      accentBorder: "border-[#2BC5C7]/30 dark:border-[#2BC5C7]/40",
-      activeBorder: "border-[#2BC5C7] shadow-[0_0_24px_rgba(43,197,199,0.18)] dark:border-[#2BC5C7]",
+      accentBorder: "border-[#2BC5C7]/15 dark:border-[#2BC5C7]/20",
+      activeBorder: "border-[#2BC5C7]/60 shadow-[0_0_24px_rgba(43,197,199,0.18)] dark:border-[#2BC5C7]/70",
       accentBg: "bg-[#2BC5C7]/10 dark:bg-[#2BC5C7]/15",
       iconBoxBg: "bg-gradient-to-br from-[#2BC5C7]/25 to-teal-500/25 text-[#006064] dark:text-[#2BC5C7] [.a11y_&]:text-[#004d40]",
       glowGradient: "from-[#2BC5C7]/10 via-[#2BC5C7]/5 to-transparent",
@@ -155,8 +155,8 @@ function buildPillars(t: (key: string) => string): AudiencePillar[] {
       headline: t("userTypes.profesionales.headline"),
       description: t("userTypes.profesionales.description"),
       accentColor: "text-[#7100A5] dark:text-[#C45CFF] [.a11y_&]:text-[#2f1f9e]",
-      accentBorder: "border-[#C45CFF]/30 dark:border-[#C45CFF]/40",
-      activeBorder: "border-[#C45CFF] shadow-[0_0_24px_rgba(196,92,255,0.18)] dark:border-[#C45CFF]",
+      accentBorder: "border-[#C45CFF]/15 dark:border-[#C45CFF]/20",
+      activeBorder: "border-[#C45CFF]/60 shadow-[0_0_24px_rgba(196,92,255,0.18)] dark:border-[#C45CFF]/70",
       accentBg: "bg-[#C45CFF]/10 dark:bg-[#C45CFF]/15",
       iconBoxBg: "bg-gradient-to-br from-[#C45CFF]/25 to-indigo-500/25 text-[#7100A5] dark:text-[#C45CFF] [.a11y_&]:text-[#2f1f9e]",
       glowGradient: "from-[#C45CFF]/10 via-[#C45CFF]/5 to-transparent",
@@ -238,7 +238,7 @@ export function UserTypesSection() {
           <h2 id="user-types-heading" className="text-3xl font-extrabold tracking-tight text-ink md:text-4xl">
             {t("userTypes.title")}
           </h2>
-          <p className="mt-3 max-w-xl text-sm leading-relaxed text-body sm:text-base dark:text-[#A8B0C5]">
+          <p className="mt-3 max-w-xl text-sm leading-relaxed text-text-secondary sm:text-base">
             {t("userTypes.description")}
           </p>
         </Reveal>
@@ -345,7 +345,7 @@ export function UserTypesSection() {
                         <h4 className="text-sm font-bold text-ink leading-snug">
                           {pillar.headline}
                         </h4>
-                        <p className="mt-0.5 text-xs leading-relaxed text-body dark:text-[#A8B0C5] line-clamp-2">
+                        <p className="mt-0.5 text-xs leading-relaxed text-text-secondary line-clamp-2">
                           {pillar.description}
                         </p>
                       </div>
@@ -369,7 +369,7 @@ export function UserTypesSection() {
                                   {uc.title}
                                 </h5>
                               </div>
-                              <p className="text-[10.5px] leading-snug text-body dark:text-[#A8B0C5] line-clamp-2">
+                              <p className="text-[10.5px] leading-snug text-text-secondary line-clamp-2">
                                 {uc.desc}
                               </p>
                             </div>
