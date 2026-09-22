@@ -1180,6 +1180,38 @@ html.a11y {
   font-weight: 800 !important;
 }
 
+
+/* Awards: eliminar bordes en modo claro */
+:root:not(.dark) .sc-awards-shell,
+:root:not(.dark) .sc-award-item,
+:root:not(.dark) .sc-award-logo {
+  border: none !important;
+  outline: none;
+  box-shadow: none;
+}
+
+/* Mantener bordes en modo oscuro */
+.dark .sc-awards-shell {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dark .sc-award-item {
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+/* Eliminar la línea negra de las tarjetas de premios */
+.sc-award-item::before,
+.sc-award-item::after {
+  content: none !important;
+  display: none !important;
+}
+
+/* Eliminar bordes y sombras decorativas */
+.sc-award-item {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .sc-awards-track {
     animation-play-state: paused !important;
