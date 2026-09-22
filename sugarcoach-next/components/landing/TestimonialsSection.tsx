@@ -1,7 +1,15 @@
 "use client";
 
-import React, { useState, useEffect, useMemo, useRef, useCallback } from "react";
+import React, {
+  useState,
+  useEffect,
+  useMemo,
+  useRef,
+  useCallback,
+} from "react";
+
 import { ChevronLeft, ChevronRight, Star } from "lucide-react";
+
 import { Badge } from "@/components/ui/badge";
 import { Reveal } from "@/components/ui/Reveal";
 import { cn } from "@/lib/utils";
@@ -57,21 +65,23 @@ function buildTestimonials(t: (key: string) => string): TestimonialItem[] {
 
 export function TestimonialsSection() {
   const { t } = useLanguage();
+
   const TESTIMONIALS = useMemo(() => buildTestimonials(t), [t]);
+
   const [activeIndex, setActiveIndex] = useState(0);
   const [perView, setPerView] = useState(3);
   const [isPaused, setIsPaused] = useState(false);
 
   const touchStartX = useRef<number | null>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
 
-  // Responsive items per view detection
+  // Responsive items per view
   useEffect(() => {
     const handleResize = () => {
-      const w = window.innerWidth;
-      if (w < 640) {
+      const width = window.innerWidth;
+
+      if (width < 640) {
         setPerView(1);
-      } else if (w < 1024) {
+      } else if (width < 1024) {
         setPerView(2);
       } else {
         setPerView(3);
@@ -79,17 +89,27 @@ export function TestimonialsSection() {
     };
 
     handleResize();
+
     window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
+  // Keep active index valid when testimonials change
+  useEffect(() => {
+    setActiveIndex((prev) => Math.min(prev, TESTIMONIALS.length - 1));
+  }, [TESTIMONIALS.length]);
+
   const totalCards = TESTIMONIALS.length;
+
   const maxTrackOffset = Math.max(0, totalCards - perView);
 
-  // Track offset ensures the active card stays in view
+  // Keep the active card visible without moving it vertically
   const trackOffset = Math.min(
     Math.max(0, activeIndex - Math.floor(perView / 2)),
-    maxTrackOffset
+    maxTrackOffset,
   );
 
   const isAtStart = activeIndex === 0;
@@ -107,47 +127,54 @@ export function TestimonialsSection() {
     setActiveIndex(index);
   }, []);
 
-  const handleCardClick = (cardIndex: number) => {
+  const handleCardClick = useCallback((cardIndex: number) => {
     setActiveIndex(cardIndex);
-  };
+  }, []);
 
-  // Auto-play timer (cycles gently only when not hovered/interacting)
+  // Autoplay
   useEffect(() => {
-    if (isPaused) return;
-    const timer = setInterval(() => {
+    if (isPaused || totalCards <= 1) return;
+
+    const timer = window.setInterval(() => {
       setActiveIndex((prev) => (prev >= totalCards - 1 ? 0 : prev + 1));
     }, 6000);
-    return () => clearInterval(timer);
+
+    return () => window.clearInterval(timer);
   }, [isPaused, totalCards]);
 
   // Touch swipe support
-  const handleTouchStart = (e: React.TouchEvent) => {
+  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
     touchStartX.current = e.touches[0].clientX;
   };
 
-  const handleTouchEnd = (e: React.TouchEvent) => {
+  const handleTouchEnd = (e: React.TouchEvent<HTMLDivElement>) => {
     if (touchStartX.current === null) return;
+
     const deltaX = e.changedTouches[0].clientX - touchStartX.current;
+
     if (deltaX > 40) {
       handlePrev();
     } else if (deltaX < -40) {
       handleNext();
     }
+
     touchStartX.current = null;
   };
 
   // Keyboard navigation
-  const handleKeyDown = (e: React.KeyboardEvent) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === "ArrowLeft") {
       e.preventDefault();
       handlePrev();
-    } else if (e.key === "ArrowRight") {
+    }
+
+    if (e.key === "ArrowRight") {
       e.preventDefault();
       handleNext();
     }
   };
 
-  // Track translation percentage
+  // Track translation
   const offsetPercentage = trackOffset * (100 / perView);
 
   return (
@@ -156,40 +183,45 @@ export function TestimonialsSection() {
       aria-labelledby="testimonials-heading"
       className="relative overflow-hidden py-14 sm:py-18 lg:py-20"
     >
-      {/* Background ambient lighting */}
+      {/* Ambient background lighting */}
       <div
         className="pointer-events-none absolute -top-28 -right-28 h-[450px] w-[450px] rounded-full bg-primary/10 blur-3xl dark:bg-[#FF3FB4]/15 [.a11y_&]:hidden"
         aria-hidden="true"
       />
+
       <div
         className="pointer-events-none absolute -bottom-28 -left-28 h-[420px] w-[420px] rounded-full bg-brand/10 blur-3xl dark:bg-[#732995]/20 [.a11y_&]:hidden"
         aria-hidden="true"
       />
 
-      <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="relative z-10 mx-auto w-full max-w-[1440px] px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <Reveal className="mx-auto mb-10 flex max-w-3xl flex-col items-center text-center">
-          <Badge variant="brand" className="mb-3 uppercase tracking-wider text-xs">
+          <Badge
+            variant="brand"
+            className="mb-3 text-xs uppercase tracking-wider"
+          >
             {t("testimonialsShowcase.eyebrow")}
           </Badge>
+
           <h2
             id="testimonials-heading"
-            className="text-3xl font-extrabold tracking-tight sm:text-4xl text-headings text-ink"
+            className="text-3xl font-extrabold tracking-tight text-headings text-ink sm:text-4xl"
           >
             {t("testimonialsShowcase.titlePrefix")}{" "}
             <span className="bg-gradient-to-r from-[#C45CFF] to-[#FF3FB4] bg-clip-text text-transparent">
               {t("testimonialsShowcase.titleHighlight")}
             </span>
           </h2>
-          <p className="section-subtitle mt-3 max-w-2xl text-base leading-relaxed text-text-secondary sm:text-lg">
+
+          <p className="section-subtitle mt-3 max-w-2xl text-base leading-relaxed text-body sm:text-lg">
             {t("testimonialsShowcase.description")}
           </p>
         </Reveal>
 
-        {/* Carousel Container */}
+        {/* Carousel */}
         <Reveal delay={0.15}>
           <div
-            ref={containerRef}
             tabIndex={0}
             role="region"
             aria-label={t("testimonialsShowcase.carouselAriaLabel")}
@@ -197,91 +229,139 @@ export function TestimonialsSection() {
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
             onFocus={() => setIsPaused(true)}
-            onBlur={() => setIsPaused(false)}
-            className="relative outline-none"
+            onBlur={(e) => {
+              if (!e.currentTarget.contains(e.relatedTarget as Node | null)) {
+                setIsPaused(false);
+              }
+            }}
+            className="relative w-full min-w-0 outline-none"
           >
-            <div className="flex items-center gap-2 sm:gap-4 lg:gap-6">
-              {/* Prev Button — Large, Floating, No Background */}
+            <div className="flex w-full min-w-0 items-center gap-2 sm:gap-4 lg:gap-6">
+              {/* Previous button */}
               <button
                 type="button"
                 onClick={handlePrev}
                 disabled={isAtStart}
                 aria-label={t("testimonialsShowcase.prevAriaLabel")}
                 className={cn(
-                  "group hidden sm:flex shrink-0 items-center justify-center p-1 transition-all duration-300",
-                  "bg-transparent border-0 text-ink/75 dark:text-white/85",
+                  "group hidden shrink-0 items-center justify-center rounded-lg border-0 bg-transparent p-1 sm:flex",
+                  "text-ink/75 transition-colors duration-200 dark:text-white/85",
                   isAtStart
-                    ? "opacity-25 cursor-not-allowed"
-                    : "cursor-pointer hover:text-primary dark:hover:text-[#FF3FB4] hover:scale-115 active:scale-95",
-                  "drop-shadow-[0_4px_12px_rgba(0,0,0,0.15)] dark:drop-shadow-[0_0_20px_rgba(255,63,180,0.6)]",
-                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg",
-                  "[.a11y_&]:text-black [.a11y_&]:drop-shadow-none"
+                    ? "cursor-not-allowed opacity-25"
+                    : "cursor-pointer hover:text-primary dark:hover:text-[#FF3FB4]",
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary",
+                  "[.a11y_&]:text-black",
                 )}
               >
-                <ChevronLeft className="h-12 w-12 lg:h-16 lg:w-16 stroke-[2] transition-transform duration-300 group-hover:-translate-x-1.5" />
+                <ChevronLeft className="h-10 w-10 stroke-[2] transition-transform duration-200 group-hover:-translate-x-0.5 lg:h-12 lg:w-12" />
               </button>
 
               {/* Viewport */}
               <div
-                className="w-full overflow-hidden py-3 px-1 cursor-grab active:cursor-grabbing"
+                className="relative w-full min-w-0 overflow-hidden px-1 py-3"
                 onTouchStart={handleTouchStart}
                 onTouchEnd={handleTouchEnd}
               >
                 {/* Track */}
                 <div
-                  className="flex -mx-2 sm:-mx-3 transition-transform duration-500 ease-[cubic-bezier(0.22,0.61,0.36,1)] will-change-transform"
+                  className="flex w-full min-w-0 transition-transform duration-500 ease-out"
                   style={{
                     transform: `translateX(-${offsetPercentage}%)`,
                   }}
                 >
                   {TESTIMONIALS.map((item, index) => {
                     const isActive = index === activeIndex;
+
                     const isVisible =
                       index >= trackOffset && index < trackOffset + perView;
 
                     return (
                       <div
                         key={item.id}
-                        className="w-full sm:w-1/2 lg:w-1/3 shrink-0 px-2 sm:px-3"
+                        className="min-w-0 shrink-0 px-2"
+                        style={{
+                          width: `${100 / perView}%`,
+                        }}
                       >
                         <article
                           onClick={() => handleCardClick(index)}
+                          style={{
+                            border: "none",
+                          }}
                           className={cn(
-                            "flex h-full flex-col justify-between rounded-2xl p-5 sm:p-6 transition-all duration-500 ease-out",
-                            "bg-card/90 dark:bg-gradient-to-b dark:from-[#0D1535]/95 dark:to-[#080E25]/95 backdrop-blur-sm",
-                            "border cursor-pointer select-none",
+                            // Card structure
+                            "relative flex h-full min-h-[280px] flex-col justify-between",
+                            "rounded-2xl p-5 sm:p-6",
+                            "cursor-pointer select-none",
+
+                            // No borders or outlines
+                            "border-0 outline-none ring-0",
+
+                            // Light theme
+                            "bg-white",
+                            "shadow-sm",
+                            "hover:shadow-md",
+
+                            // Dark theme
+                            "dark:bg-gradient-to-b",
+                            "dark:from-[#0D1535]/95",
+                            "dark:to-[#080E25]/95",
+                            "dark:shadow-[0_0_20px_rgba(255,63,180,0.08)]",
+
+                            // Smooth transitions without zoom
+                            "transition-[box-shadow,opacity] duration-300 ease-out",
+
+                            // Active card
                             isActive
-                              ? "border-primary/60 dark:border-[#FF3FB4]/70 shadow-[0_12px_35px_rgba(255,63,180,0.18)] dark:shadow-[0_0_30px_rgba(255,63,180,0.25)] -translate-y-1 opacity-100 scale-100 z-10 ring-1 ring-[#FF3FB4]/25 dark:ring-[#FF3FB4]/35"
+                              ? [
+                                  "opacity-100",
+                                  "shadow-md",
+                                  "dark:shadow-[0_0_24px_rgba(255,63,180,0.18)]",
+                                ].join(" ")
                               : isVisible
-                              ? "border-line/15 dark:border-white/[0.08] opacity-75 hover:opacity-95 scale-[0.98] shadow-sm"
-                              : "border-line/10 dark:border-white/[0.04] opacity-35 scale-95 pointer-events-none"
+                                ? "opacity-85 hover:opacity-100"
+                                : "pointer-events-none opacity-40",
+
+                            // Accessibility
+                            "[.a11y_&]:opacity-100",
+                            "[.a11y_&]:border-0",
+                            "[.a11y_&]:shadow-none",
+                            "[.a11y_&]:bg-white",
                           )}
                         >
-                          {/* Header: Name, Role, Stars (No avatar box) */}
+                          {/* Card header */}
                           <div className="flex items-start justify-between gap-3">
-                            <div>
-                              <h3 className="font-extrabold text-ink text-base sm:text-lg leading-snug">
+                            <div className="min-w-0">
+                              <h3 className="text-base font-extrabold leading-snug text-ink sm:text-lg">
                                 {item.name}
                               </h3>
-                              <span className="text-xs font-semibold text-muted tracking-wide block mt-0.5">
+
+                              <span className="mt-0.5 block text-xs font-semibold tracking-wide text-muted">
                                 {item.role}
                               </span>
                             </div>
+
+                            {/* Rating */}
                             <div
-                              className="flex items-center gap-1 shrink-0 pt-0.5"
-                              aria-label={`${item.rating} ${t("testimonialsShowcase.ratingAriaLabel")}`}
+                              className="flex shrink-0 items-center gap-1 pt-0.5"
+                              aria-label={`${item.rating} ${t(
+                                "testimonialsShowcase.ratingAriaLabel",
+                              )}`}
                             >
-                              {[...Array(item.rating)].map((_, starIdx) => (
-                                <Star
-                                  key={starIdx}
-                                  className="h-4 w-4 fill-amber-400 text-amber-400 dark:fill-[#FF3FB4] dark:text-[#FF3FB4]"
-                                />
-                              ))}
+                              {Array.from(
+                                { length: item.rating },
+                                (_, starIdx) => (
+                                  <Star
+                                    key={starIdx}
+                                    className="h-3.5 w-3.5 fill-amber-400 text-amber-400 dark:fill-[#FF3FB4] dark:text-[#FF3FB4] sm:h-4 sm:w-4"
+                                  />
+                                ),
+                              )}
                             </div>
                           </div>
 
-                          {/* Quote Body */}
-                          <p className="mt-4 text-sm sm:text-[15px] leading-relaxed text-body dark:text-[#E5E8F5]">
+                          {/* Quote */}
+                          <p className="mt-4 text-sm leading-relaxed text-body dark:text-[#E5E8F5] sm:text-[15px]">
                             “{item.quote}”
                           </p>
                         </article>
@@ -291,58 +371,60 @@ export function TestimonialsSection() {
                 </div>
               </div>
 
-              {/* Next Button — Large, Floating, No Background */}
+              {/* Next button */}
               <button
                 type="button"
                 onClick={handleNext}
                 disabled={isAtEnd}
                 aria-label={t("testimonialsShowcase.nextAriaLabel")}
                 className={cn(
-                  "group hidden sm:flex shrink-0 items-center justify-center p-1 transition-all duration-300",
-                  "bg-transparent border-0 text-ink/75 dark:text-white/85",
+                  "group hidden shrink-0 items-center justify-center rounded-lg border-0 bg-transparent p-1 sm:flex",
+                  "text-ink/75 transition-colors duration-200 dark:text-white/85",
                   isAtEnd
-                    ? "opacity-25 cursor-not-allowed"
-                    : "cursor-pointer hover:text-primary dark:hover:text-[#FF3FB4] hover:scale-115 active:scale-95",
-                  "drop-shadow-[0_4px_12px_rgba(0,0,0,0.15)] dark:drop-shadow-[0_0_20px_rgba(255,63,180,0.6)]",
-                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg",
-                  "[.a11y_&]:text-black [.a11y_&]:drop-shadow-none"
+                    ? "cursor-not-allowed opacity-25"
+                    : "cursor-pointer hover:text-primary dark:hover:text-[#FF3FB4]",
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary",
+                  "[.a11y_&]:text-black",
                 )}
               >
-                <ChevronRight className="h-12 w-12 lg:h-16 lg:w-16 stroke-[2] transition-transform duration-300 group-hover:translate-x-1.5" />
+                <ChevronRight className="h-10 w-10 stroke-[2] transition-transform duration-200 group-hover:translate-x-0.5 lg:h-12 lg:w-12" />
               </button>
             </div>
 
-            {/* Mobile Controls: Large floating buttons & dots */}
-            <div className="mt-5 flex sm:hidden items-center justify-between px-3">
+            {/* Mobile controls */}
+            <div className="mt-5 flex items-center justify-between px-3 sm:hidden">
               <button
                 type="button"
                 onClick={handlePrev}
                 disabled={isAtStart}
                 aria-label={t("testimonialsShowcase.prevAriaLabel")}
                 className={cn(
-                  "flex items-center justify-center p-1 bg-transparent border-0 text-ink dark:text-white transition-transform",
+                  "flex items-center justify-center border-0 bg-transparent p-1 text-ink transition-colors dark:text-white",
                   isAtStart
-                    ? "opacity-25 cursor-not-allowed"
-                    : "cursor-pointer hover:text-primary dark:hover:text-[#FF3FB4] active:scale-90",
-                  "[.a11y_&]:text-black"
+                    ? "cursor-not-allowed opacity-25"
+                    : "cursor-pointer hover:text-primary dark:hover:text-[#FF3FB4]",
+                  "[.a11y_&]:text-black",
                 )}
               >
                 <ChevronLeft className="h-9 w-9 stroke-[2.2]" />
               </button>
 
-              {/* Dots for mobile */}
+              {/* Mobile dots */}
               <div className="flex items-center gap-2">
                 {TESTIMONIALS.map((_, dotIdx) => (
                   <button
                     key={dotIdx}
                     type="button"
                     onClick={() => handleDotClick(dotIdx)}
-                    aria-label={`${t("testimonialsShowcase.dotAriaLabelPrefix")} ${dotIdx + 1}`}
+                    aria-label={`${t(
+                      "testimonialsShowcase.dotAriaLabelPrefix",
+                    )} ${dotIdx + 1}`}
                     className={cn(
-                      "h-2.5 rounded-full transition-all duration-300 cursor-pointer",
+                      "h-2.5 rounded-full border-0 transition-all duration-300",
+                      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary",
                       dotIdx === activeIndex
-                        ? "w-7 bg-gradient-to-r from-[#C45CFF] to-[#FF3FB4] shadow-[0_0_10px_rgba(255,63,180,0.5)]"
-                        : "w-2.5 bg-line/25 dark:bg-white/20 hover:bg-line/45 dark:hover:bg-white/40"
+                        ? "w-7 bg-gradient-to-r from-[#C45CFF] to-[#FF3FB4] shadow-[0_0_10px_rgba(255,63,180,0.3)]"
+                        : "w-2.5 bg-line/25 dark:bg-white/20 hover:bg-line/45 dark:hover:bg-white/40",
                     )}
                   />
                 ))}
@@ -354,20 +436,20 @@ export function TestimonialsSection() {
                 disabled={isAtEnd}
                 aria-label={t("testimonialsShowcase.nextAriaLabel")}
                 className={cn(
-                  "flex items-center justify-center p-1 bg-transparent border-0 text-ink dark:text-white transition-transform",
+                  "flex items-center justify-center border-0 bg-transparent p-1 text-ink transition-colors dark:text-white",
                   isAtEnd
-                    ? "opacity-25 cursor-not-allowed"
-                    : "cursor-pointer hover:text-primary dark:hover:text-[#FF3FB4] active:scale-90",
-                  "[.a11y_&]:text-black"
+                    ? "cursor-not-allowed opacity-25"
+                    : "cursor-pointer hover:text-primary dark:hover:text-[#FF3FB4]",
+                  "[.a11y_&]:text-black",
                 )}
               >
                 <ChevronRight className="h-9 w-9 stroke-[2.2]" />
               </button>
             </div>
 
-            {/* Desktop Dots Navigation (one for each testimonial) */}
+            {/* Desktop pagination */}
             <div
-              className="mt-6 hidden sm:flex items-center justify-center gap-2.5"
+              className="mt-6 hidden items-center justify-center gap-2.5 sm:flex"
               aria-label={t("testimonialsShowcase.paginationAriaLabel")}
             >
               {TESTIMONIALS.map((_, dotIdx) => (
@@ -375,12 +457,15 @@ export function TestimonialsSection() {
                   key={dotIdx}
                   type="button"
                   onClick={() => handleDotClick(dotIdx)}
-                  aria-label={`${t("testimonialsShowcase.dotOfAriaLabelPrefix")} ${TESTIMONIALS[dotIdx].name}`}
+                  aria-label={`${t(
+                    "testimonialsShowcase.dotOfAriaLabelPrefix",
+                  )} ${TESTIMONIALS[dotIdx].name}`}
                   className={cn(
-                    "h-2.5 rounded-full transition-all duration-300 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary",
+                    "h-2.5 rounded-full border-0 transition-all duration-300",
+                    "cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary",
                     dotIdx === activeIndex
-                      ? "w-8 bg-gradient-to-r from-[#C45CFF] to-[#FF3FB4] shadow-[0_0_12px_rgba(255,63,180,0.5)]"
-                      : "w-2.5 bg-line/25 dark:bg-white/20 hover:bg-line/45 dark:hover:bg-white/40"
+                      ? "w-8 bg-gradient-to-r from-[#C45CFF] to-[#FF3FB4] shadow-[0_0_12px_rgba(255,63,180,0.3)]"
+                      : "w-2.5 bg-line/25 dark:bg-white/20 hover:bg-line/45 dark:hover:bg-white/40",
                   )}
                 />
               ))}

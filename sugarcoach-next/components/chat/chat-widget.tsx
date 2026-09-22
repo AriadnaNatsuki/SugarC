@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { MessageSquare, X, ListChecks, Send } from "lucide-react";
-import { useLang } from "@/lib/lang";
+import { useLanguage } from "@/lib/i18n";
 import { CHAT_CHROME, TOP_LEVEL_OPTIONS } from "@/lib/chat/data";
 import { getBotReply } from "@/lib/chat/api";
 
@@ -27,7 +27,7 @@ function clearOldOptions(msgs: ChatMessage[]): ChatMessage[] {
 }
 
 export function ChatWidget() {
-  const { lang } = useLang();
+  const { lang } = useLanguage();
   const chrome = CHAT_CHROME[lang];
 
   const [open, setOpen] = useState(false);
@@ -220,3 +220,4 @@ export function ChatWidget() {
     </>
   );
 }
+
