@@ -463,6 +463,67 @@ a:not(.nav-link) {
   }
 }
 
+/* La navbar fija mide igual en ambos modos (ver bloque sc-navbar-*). */
+/* Navbar identica en ambos modos: el modo claro es accesible (rem x1.14),
+   asi que aqui se compensan las medidas rem de la barra fija con el factor
+   inverso via calc (sin pixeles magicos). El contenido de la pagina y el
+   menu movil conservan el zoom accesible. */
+.a11y header .text-label-lg {
+  font-size: 14px !important;
+  line-height: 20px !important;
+}
+.a11y .sc-navbar-inner {
+  height: calc(5rem / 1.14);
+  gap: calc(1rem / 1.14);
+  padding-left: calc(1rem / 1.14);
+  padding-right: calc(1rem / 1.14);
+}
+.a11y .sc-navbar-brand { gap: calc(0.5rem / 1.14); }
+.a11y .sc-navbar-brand-box { padding: calc(0.375rem / 1.14); }
+.a11y .sc-navbar-logo { height: calc(2rem / 1.14); }
+.a11y .sc-navbar-links { gap: calc(1.5rem / 1.14); }
+.a11y .sc-navbar-premium {
+  font-size: calc(0.875rem / 1.14);
+  line-height: calc(1.25rem / 1.14);
+  gap: calc(0.375rem / 1.14);
+  padding-top: calc(0.375rem / 1.14);
+  padding-bottom: calc(0.375rem / 1.14);
+  padding-left: calc(0.875rem / 1.14);
+  padding-right: calc(0.875rem / 1.14);
+}
+.a11y .sc-navbar-actions { gap: calc(0.75rem / 1.14); }
+.a11y .sc-navbar-cta {
+  padding-top: calc(0.5rem / 1.14);
+  padding-bottom: calc(0.5rem / 1.14);
+  padding-left: calc(0.875rem / 1.14);
+  padding-right: calc(0.875rem / 1.14);
+}
+.a11y .sc-navbar-crown {
+  width: calc(1rem / 1.14);
+  height: calc(1rem / 1.14);
+}
+@media (min-width: 640px) {
+.a11y .sc-navbar-cta {
+  gap: calc(0.5rem / 1.14);
+    padding-left: calc(1.5rem / 1.14);
+    padding-right: calc(1.5rem / 1.14);
+  }
+}
+@media (min-width: 768px) {
+  .a11y .sc-navbar-inner {
+    padding-left: calc(1.5rem / 1.14);
+    padding-right: calc(1.5rem / 1.14);
+  }
+  .a11y .sc-navbar-actions { gap: calc(1rem / 1.14); }
+  .a11y .sc-navbar-logo { height: calc(2.25rem / 1.14); }
+}
+@media (min-width: 1024px) {
+  .a11y .sc-navbar-inner {
+    padding-left: calc(2rem / 1.14);
+    padding-right: calc(2rem / 1.14);
+  }
+}
+
 /* Sin blobs decorativos: menos ruido visual para baja visión */
 .a11y [class*="blur-3xl"] {
   display: none !important;
@@ -501,12 +562,61 @@ h4.text-center,
 h5.text-center {
   transform-origin: center center;
 }
-h1:hover,
-h2:hover,
-h3:hover,
-h4:hover,
-h5:hover {
-  transform: scale(1.06);
+
+/* La navbar fija en modo oscuro mantiene un feedback sutil (1.05).
+   En modo claro (accesible) la navbar conserva el zoom 1.18 global,
+   igual que el resto del contenido. El zoom es transform: no altera
+   layout ni mueve vecinos. */
+.dark header button:hover,
+.dark header button:focus-visible,
+.dark header a:hover,
+.dark header a:focus-visible {
+  transform: scale(1.05);
+  position: static;
+  z-index: auto;
+  box-shadow: none;
+}
+
+/* Zoom en tarjetas (features, FAQ, mockups) */
+.a11y [class*="rounded-"],
+.a11y .faq-item,
+.dark [class*="rounded-"],
+.dark .faq-item {
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+.a11y .rounded-3xl:hover,
+.a11y .rounded-3xl:focus-within,
+.a11y .faq-item:hover,
+.a11y .faq-item:focus-within,
+.a11y [class*="rounded-"]:has(p:hover, li:hover),
+.dark .rounded-3xl:hover,
+.dark .rounded-3xl:focus-within,
+.dark .faq-item:hover,
+.dark .faq-item:focus-within,
+.dark [class*="rounded-"]:has(p:hover, li:hover) {
+  transform: scale(1.09);
+  position: relative;
+  z-index: 25;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+}
+
+/* Zoom en bloques de texto (párrafos y listas) */
+.a11y p,
+.a11y li,
+.dark p,
+.dark li {
+  transition:
+    transform 0.15s ease,
+    background-color 0.15s ease;
+  transform-origin: top left;
+}
+.a11y p:hover,
+.a11y li:hover,
+.dark p:hover,
+.dark li:hover {
+  transform: scale(1.16);
   position: relative;
   z-index: 20;
 }

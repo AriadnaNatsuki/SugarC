@@ -2,26 +2,12 @@
 <html lang="es"><head>
 <script>
   (function() {
-    try {
-      var stored = localStorage.getItem('sugarcoach-theme');
-      if (stored === 'dark') {
-        document.documentElement.classList.add('dark');
-        return;
-      }
-      if (stored === 'a11y') {
-        document.documentElement.classList.add('a11y');
-        return;
-      }
-      if (stored === 'light') {
-        return; // explicit light choice, nothing to add
-      }
-      // No saved preference yet: default to light, regardless of OS dark-mode setting.
-      var wantsMoreContrast = window.matchMedia && window.matchMedia('(prefers-contrast: more)').matches;
-      if (wantsMoreContrast) {
-        document.documentElement.classList.add('a11y');
-      }
-    } catch (e) {
-      // localStorage unavailable (e.g. private browsing) — fall back to light.
+    var wantsDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    var wantsMoreContrast = window.matchMedia && window.matchMedia('(prefers-contrast: more)').matches;
+    if (wantsMoreContrast) {
+      document.documentElement.classList.add('a11y');
+    } else if (wantsDark) {
+      document.documentElement.classList.add('dark');
     }
   })();
 </script>

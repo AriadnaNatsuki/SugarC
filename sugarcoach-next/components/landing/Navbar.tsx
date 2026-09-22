@@ -9,7 +9,20 @@ import { LanguageToggle } from "@/components/ui/LanguageToggle";
 import { MaterialIcon } from "@/components/ui/MaterialIcon";
 import { LOGO_SRC } from "@/lib/images";
 import { useLanguage } from "@/lib/i18n";
+import { es as esDict, en as enDict } from "@/lib/translations";
 import { cn } from "@/lib/utils";
+
+/**
+ * Sizer invisible: el botón reserva el ancho del label más largo entre
+ * idiomas (ES/EN), así al cambiar de idioma el ancho queda fijo y los
+ * vecinos (toggles) no se desplazan. Sin números mágicos: si cambia una
+ * traducción, la reserva se recalcula sola.
+ */
+function longest(a: string, b: string): string {
+  return a.length >= b.length ? a : b;
+}
+const DOWNLOAD_SIZER = longest(esDict["btn.shortDownload"], enDict["btn.shortDownload"]);
+const LOGIN_SIZER = longest(esDict["nav.login"], enDict["nav.login"]);
 
 /** Header + menú móvil deslizante, calcado 1:1 de index.html. */
 export function Navbar() {
@@ -34,60 +47,77 @@ export function Navbar() {
   // páginas propias como /profesionales (calcado del patrón de
   // profesionales.html, que usaba `index.html#ancla` fuera de la home).
   const NAV_LINKS = [
-    { href: "/#como-funciona", label: t("nav.comoFunciona") },
-    { href: "/#familias", label: t("nav.familias") },
-    { href: "/profesionales", label: t("nav.profesionales") },
-    { href: "/#preguntas-frecuentes", label: t("nav.faq") },
+    { href: "/#como-funciona", key: "nav.comoFunciona", label: t("nav.comoFunciona") },
+    { href: "/#familias", key: "nav.familias", label: t("nav.familias") },
+    { href: "/profesionales", key: "nav.profesionales", label: t("nav.profesionales") },
+    { href: "/#preguntas-frecuentes", key: "nav.faq", label: t("nav.faq") },
   ];
 
   return (
     <>
       <header className="fixed left-0 top-0 z-50 w-full border-b border-border-subtle bg-bg-deep/85 shadow-[0_10px_35px_-10px_rgba(0,0,0,0.6)] backdrop-blur-xl">
-        <div className="mx-auto flex h-20 max-w-[1200px] items-center justify-between gap-space-md px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop">
-          <a className="group flex items-center gap-2" href="/">
-            <Image
-              src={LOGO_SRC}
-              alt="SugarCoach Logo Oficial"
-              width={140}
-              height={40}
-              priority
-              className="h-8 w-auto object-contain drop-shadow-[0_2px_8px_rgba(196,92,255,0.3)] transition-transform group-hover:scale-105 md:h-9"
-            />
+        <div className="sc-navbar-inner mx-auto flex h-20 max-w-[1200px] items-center justify-between gap-space-md px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop">
+          <a className="sc-navbar-brand group flex flex-none items-center gap-2" href="/">
+            <div className="sc-navbar-brand-box rounded-xl border border-border-subtle bg-surface-container/60 p-1.5 transition-colors group-hover:border-primary/40">
+              <Image
+                src={LOGO_SRC}
+                alt="SugarCoach Logo Oficial"
+                width={140}
+                height={40}
+                priority
+                className="sc-navbar-logo h-8 w-auto object-contain drop-shadow-[0_2px_8px_rgba(196,92,255,0.3)] transition-transform group-hover:scale-105 md:h-9"
+              />
+            </div>
           </a>
-          <nav className="hidden items-center gap-space-lg lg:flex">
+          <nav className="sc-navbar-links hidden items-center gap-space-lg lg:flex">
             {NAV_LINKS.map((l) => (
               <a
                 key={l.href}
                 className={cn(
-                  "font-label-lg text-label-lg text-text-secondary transition-colors hover:text-primary",
+                  "shrink-0 whitespace-nowrap font-label-lg text-label-lg text-text-secondary transition-colors hover:text-primary",
                   pathname === l.href && "nav-link-active",
                 )}
                 href={l.href}
                 aria-current={pathname === l.href ? "page" : undefined}
               >
-                {l.label}
+                <span className="grid whitespace-nowrap">
+                  <span aria-hidden="true" className="invisible col-start-1 row-start-1">
+                    {longest(esDict[l.key] ?? l.key, enDict[l.key] ?? l.key)}
+                  </span>
+                  <span className="col-start-1 row-start-1">{l.label}</span>
+                </span>
               </a>
             ))}
             <a
-              className="inline-flex items-center gap-1.5 rounded-full bg-amber-400/20 px-3.5 py-1.5 text-sm font-bold text-amber-800 transition-all hover:scale-105 hover:bg-amber-400/35 dark:bg-amber-400/15 dark:text-amber-300 dark:hover:bg-amber-400/25"
-              href="/premium"
+              className="sc-navbar-premium inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full bg-amber-400/20 px-3.5 py-1.5 text-sm font-bold text-amber-800 transition-all hover:scale-105 hover:bg-amber-400/35 dark:bg-amber-400/15 dark:text-amber-300 dark:hover:bg-amber-400/25"
+              href="#"
             >
-              <Crown className="h-4 w-4 fill-amber-500 text-amber-600 dark:fill-amber-300 dark:text-amber-300" />
+              <Crown className="sc-navbar-crown h-4 w-4 fill-amber-500 text-amber-600 dark:fill-amber-300 dark:text-amber-300" />
               <span>{t("nav.premium")}</span>
             </a>
           </nav>
-          <div className="flex items-center gap-space-sm md:gap-space-md">
+          <div className="sc-navbar-actions flex items-center gap-space-sm md:gap-space-md">
             <LanguageToggle />
             <ThemeToggle />
             <a
-              className="hidden min-h-[44px] items-center justify-center gap-2 rounded-full btn-gradient border border-white/20 px-3.5 py-space-xs font-label-lg text-label-lg text-white transition-all active:scale-95 sm:inline-flex sm:px-space-lg"
+              className="sc-navbar-cta hidden min-h-[44px] shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-full btn-gradient border border-white/20 px-3.5 py-space-xs font-label-lg text-label-lg text-white transition-all active:scale-95 sm:inline-flex sm:px-space-lg"
               href="/#descargar"
             >
               <MaterialIcon name="download" className="text-[18px]" />
-              <span>{t("btn.shortDownload")}</span>
+              <span className="grid whitespace-nowrap">
+                <span aria-hidden="true" className="invisible col-start-1 row-start-1">
+                  {DOWNLOAD_SIZER}
+                </span>
+                <span className="col-start-1 row-start-1">{t("btn.shortDownload")}</span>
+              </span>
             </a>
-            <a className="hidden font-label-lg text-label-lg text-text-secondary transition-colors hover:text-primary lg:inline-flex" href="/login">
-              {t("nav.login")}
+            <a className="hidden shrink-0 items-center justify-center whitespace-nowrap font-label-lg text-label-lg text-text-secondary transition-colors hover:text-primary lg:inline-flex" href="/login">
+              <span className="grid whitespace-nowrap">
+                <span aria-hidden="true" className="invisible col-start-1 row-start-1">
+                  {LOGIN_SIZER}
+                </span>
+                <span className="col-start-1 row-start-1">{t("nav.login")}</span>
+              </span>
             </a>
             <button
               aria-expanded={mobileOpen}
@@ -119,14 +149,6 @@ export function Navbar() {
           mobileOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <button
-          aria-label="Cerrar menú"
-          className="theme-toggle absolute right-4 top-4"
-          type="button"
-          onClick={() => setMobileOpen(false)}
-        >
-          <MaterialIcon name="close" style={{ fontSize: 22 }} />
-        </button>
         <nav className="flex flex-col gap-1 px-gutter-mobile pb-space-lg pt-20">
           {NAV_LINKS.map((l) => (
             <a
