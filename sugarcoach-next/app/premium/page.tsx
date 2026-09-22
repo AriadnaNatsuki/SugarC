@@ -18,20 +18,42 @@ import {
   Check,
   Copy,
   ChevronDown,
+  X,
 } from "lucide-react";
 import { Navbar } from "@/components/landing/Navbar";
 import { Footer } from "@/components/landing/Footer";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
-const PREMIUM_FEATURES = [
-  "Registro ilimitado de glucemia, insulina, carbohidratos y ejercicio",
-  "Sincronización en la nube en vivo para todo el círculo familiar",
-  "Notificaciones inteligentes para cuidadores y tutores",
-  "Reportes clínicos estandarizados con métricas TIR (Tiempo en Rango)",
-  "Gráficos de correlación médica entre dosis de insulina y alimentación",
-  "Exportación en PDF y Excel lista para adjuntar a la historia clínica",
-  "Gamificación completa: puntos diarios, rachas y logros sin reproches",
-  "Soporte prioritario y copias de seguridad automáticas en la nube",
+interface PricingPlanFeature {
+  text: string;
+  included: boolean;
+}
+
+const BASIC_FEATURES: PricingPlanFeature[] = [
+  { text: "Registro de glucemia", included: true },
+  { text: "Dosis de insulina", included: true },
+  { text: "Carbohidratos consumidos", included: true },
+  { text: "Nivel de actividad diario", included: true },
+  { text: "Estado de ánimo", included: true },
+  { text: "Recompensas: fondos personalizables", included: true },
+  { text: "Notificación SMS", included: false },
+  { text: "Geolocalización", included: false },
+  { text: "Control familiar", included: false },
+  { text: "Acceso con tu médico", included: false },
+];
+
+const PREMIUM_PLAN_FEATURES: PricingPlanFeature[] = [
+  { text: "Registro de glucemia", included: true },
+  { text: "Dosis de insulina", included: true },
+  { text: "Carbohidratos consumidos", included: true },
+  { text: "Nivel de actividad diario", included: true },
+  { text: "Estado de ánimo", included: true },
+  { text: "Recompensas: fondos personalizables y tarjetas regalo Amazon, etc.", included: true },
+  { text: "Notificación SMS", included: true },
+  { text: "Geolocalización", included: true },
+  { text: "Control familiar", included: true },
+  { text: "Acceso con tu médico", included: true },
 ];
 
 export default function PremiumPage() {
@@ -316,95 +338,162 @@ export default function PremiumPage() {
         </div>
 
         {/* =========================================================================
-         * TARJETA PRINCIPAL DE PRECIOS PREMIUM ($4.99 USD)
+         * COMPARATIVA DE PLANES (BASIC VS PREMIUM) + TRANQUILIDAD
          * ========================================================================= */}
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 items-stretch">
-          {/* Card Premium */}
-          <div className="lg:col-span-7 flex flex-col justify-between rounded-3xl border border-[#E2A632]/40 bg-card p-8 shadow-xl dark:bg-[#0E1530] dark:border-[#E2A632]/40">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-3 items-stretch">
+          {/* Tarjeta Plan Basic */}
+          <div className="flex flex-col justify-between rounded-3xl border border-line/15 bg-white p-6 sm:p-7 shadow-xl dark:bg-[#101026] dark:border-white/10">
             <div>
-              <div className="flex items-center justify-between gap-4 border-b border-line/10 pb-5">
-                <div>
-                  <span className="text-xs font-extrabold uppercase tracking-wider text-amber-600 dark:text-amber-400">
-                    Suscripción Mensual
-                  </span>
-                  <h3 className="text-2xl font-black text-ink">SugarCoach Pro</h3>
-                </div>
-                <div className="text-right">
-                  <div className="flex items-baseline gap-1">
-                    <span className="text-4xl font-black text-ink sm:text-5xl">$4.99</span>
-                    <span className="text-sm font-bold text-muted">USD / mes</span>
-                  </div>
-                  <span className="text-xs text-muted block mt-0.5">Sin contratos • Cancelás cuando quieras</span>
+              <div className="border-b border-line/10 pb-4">
+                <h3 className="text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">Basic</h3>
+                <div className="mt-1 flex items-baseline gap-1">
+                  <span className="text-3xl font-black text-ink sm:text-4xl">$0</span>
+                  <span className="text-xs sm:text-sm font-semibold text-muted">USD / mes</span>
                 </div>
               </div>
 
-              <div className="mt-6 space-y-3">
-                <p className="text-xs font-extrabold uppercase tracking-wider text-muted">
-                  Qué incluye tu suscripción:
-                </p>
-                <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 pt-1">
-                  {PREMIUM_FEATURES.map((feat, index) => (
-                    <div key={index} className="flex items-start gap-2.5">
-                      <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-600 dark:text-emerald-400 mt-0.5" />
-                      <span className="text-xs leading-relaxed text-text-secondary">{feat}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
+              <ul className="mt-5 space-y-3">
+                {BASIC_FEATURES.map((item, idx) => (
+                  <li
+                    key={idx}
+                    className={cn(
+                      "flex items-start gap-3 pb-2.5 border-b border-line/10 last:border-b-0",
+                      idx === 5 && "min-h-[42px]",
+                      !item.included && "opacity-45"
+                    )}
+                  >
+                    {item.included ? (
+                      <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 mt-0.5">
+                        <Check className="h-3 w-3 stroke-[3]" />
+                      </div>
+                    ) : (
+                      <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-rose-500/20 text-rose-500 dark:text-rose-400 mt-0.5">
+                        <X className="h-3 w-3 stroke-[3]" />
+                      </div>
+                    )}
+                    <span
+                      className={cn(
+                        "text-xs sm:text-[13px] leading-relaxed",
+                        item.included ? "text-ink font-medium" : "text-muted"
+                      )}
+                    >
+                      {item.text}
+                    </span>
+                  </li>
+                ))}
+              </ul>
             </div>
 
-            <div className="mt-8 pt-6 border-t border-line/10 flex flex-col sm:flex-row items-center justify-between gap-4">
-              <div className="flex items-center gap-2 text-xs text-muted">
-                <ShieldCheck className="h-4 w-4 text-emerald-600" />
-                <span>Cobro seguro vía App Store & Google Play</span>
-              </div>
-              <Link href="#descargar" className="w-full sm:w-auto">
-                <Button variant="gradient" size="lg" className="w-full font-bold !text-white">
-                  <span className=" !text-white font-bold">Comenzar con SugarCoach</span>
+            <div className="mt-8 pt-4 border-t border-line/10">
+              <Link href="#descargar" className="block w-full">
+                <Button variant="outline" size="lg" className="w-full font-bold">
+                  Comenzar gratis
                 </Button>
               </Link>
+              <div className="mt-2.5 text-center text-[11px] text-muted">
+                Sin tarjeta de crédito requerida
+              </div>
+            </div>
+          </div>
+
+          {/* Tarjeta Plan Premium (Recomendado) */}
+          <div className="relative flex flex-col justify-between rounded-3xl border-2 border-amber-400/50 bg-white p-6 sm:p-7 shadow-2xl shadow-amber-500/5 dark:bg-[#161233] dark:border-amber-400/50">
+            {/* Badge Recomendado flotante */}
+            <div className="absolute -top-3.5 right-6 z-10">
+              <span className="inline-flex items-center rounded-full bg-gradient-to-r from-amber-400 to-amber-500 px-3.5 py-1 text-[11px] font-extrabold uppercase tracking-wider text-slate-950 shadow-md">
+                Recomendado
+              </span>
+            </div>
+
+            <div>
+              <div className="border-b border-line/10 pb-4">
+                <h3 className="text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">Premium</h3>
+                <div className="mt-1 flex items-baseline gap-1">
+                  <span className="text-3xl font-black text-ink sm:text-4xl">$4.99</span>
+                  <span className="text-xs sm:text-sm font-semibold text-muted">USD / mes</span>
+                </div>
+              </div>
+
+              <ul className="mt-5 space-y-3">
+                {PREMIUM_PLAN_FEATURES.map((item, idx) => (
+                  <li
+                    key={idx}
+                    className={cn(
+                      "flex items-start gap-3 pb-2.5 border-b border-line/10 last:border-b-0",
+                      idx === 5 && "min-h-[42px]"
+                    )}
+                  >
+                    <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 mt-0.5">
+                      <Check className="h-3 w-3 stroke-[3]" />
+                    </div>
+                    <span className="text-xs sm:text-[13px] leading-relaxed text-ink font-medium">
+                      {item.text}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="mt-8 pt-4 border-t border-line/10">
+              <Link href="#descargar" className="block w-full">
+                <Button variant="gradient" size="lg" className="w-full font-bold !text-white shadow-brand-glow">
+                  <span className="!text-white font-bold">Comenzar con SugarCoach</span>
+                </Button>
+              </Link>
+              <div className="mt-2.5 flex items-center justify-center gap-1.5 text-[11px] text-muted text-center">
+                <ShieldCheck className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                <span>Cobro seguro vía App Store & Google Play</span>
+              </div>
             </div>
           </div>
 
           {/* Columna Lateral: Resumen de Tranquilidad */}
-          <div className="lg:col-span-5 flex flex-col justify-between rounded-3xl border border-line/15 bg-base/60 p-8 shadow-sm dark:bg-[#070D22]">
+          <div className="flex flex-col justify-between rounded-3xl border border-line/15 bg-slate-50/80 p-6 sm:p-7 shadow-sm dark:bg-[#070D22] dark:border-line/10">
             <div className="space-y-6">
-              <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#DA44AF]/15 text-[#DA44AF]">
+              <div className="flex items-start gap-3.5">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#DA44AF]/15 text-[#DA44AF]">
                   <Calendar className="h-5 w-5" />
                 </div>
                 <div>
                   <h4 className="text-sm font-bold text-ink">Sin permanencia</h4>
-                  <p className="text-xs text-muted">Pausá o cancelá desde la tienda de tu teléfono en 1 toque.</p>
+                  <p className="mt-0.5 text-xs text-muted leading-relaxed">
+                    Pausá o cancelá desde la tienda de tu teléfono en 1 toque.
+                  </p>
                 </div>
               </div>
 
-              <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#2BC5C7]/15 text-[#2BC5C7]">
+              <div className="flex items-start gap-3.5">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#2BC5C7]/15 text-[#2BC5C7]">
                   <Stethoscope className="h-5 w-5" />
                 </div>
                 <div>
                   <h4 className="text-sm font-bold text-ink">Avalado clínicamente</h4>
-                  <p className="text-xs text-muted">Métricas internacionales compatibles con sensores y tiras reactivas.</p>
+                  <p className="mt-0.5 text-xs text-muted leading-relaxed">
+                    Métricas internacionales compatibles con sensores y tiras reactivas.
+                  </p>
                 </div>
               </div>
 
-              <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#C45CFF]/15 text-[#C45CFF]">
+              <div className="flex items-start gap-3.5">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#C45CFF]/15 text-[#C45CFF]">
                   <ShieldCheck className="h-5 w-5" />
                 </div>
                 <div>
                   <h4 className="text-sm font-bold text-ink">Privacidad garantizada</h4>
-                  <p className="text-xs text-muted">Tus registros de salud están encriptados y nunca se comercializan.</p>
+                  <p className="mt-0.5 text-xs text-muted leading-relaxed">
+                    Tus registros de salud están encriptados y nunca se comercializan.
+                  </p>
                 </div>
               </div>
             </div>
 
-            <div className="mt-8 rounded-2xl border border-line/10 bg-card p-4 text-center">
-              <span className="text-xs font-semibold text-muted block">¿Tenés dudas sobre el plan o la suscripción?</span>
+            <div className="mt-8 rounded-2xl border border-line/15 bg-white/80 p-5 text-center dark:bg-[#0E1530]">
+              <span className="text-xs sm:text-sm font-semibold text-muted block">
+                ¿Tenés dudas sobre el plan o la suscripción?
+              </span>
               <a
                 href="mailto:contacto@sugarcoach.app"
-                className="text-xs font-bold text-brand-from hover:underline mt-1 inline-block"
+                className="mt-1.5 inline-block text-xs sm:text-sm font-bold text-brand-from hover:underline"
               >
                 Escribinos a contacto@sugarcoach.app
               </a>
