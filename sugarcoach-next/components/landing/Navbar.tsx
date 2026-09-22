@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Crown } from "lucide-react";
@@ -29,6 +29,9 @@ export function Navbar() {
   const { t } = useLanguage();
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const toggleRef = useRef<HTMLButtonElement>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
+  const wasOpen = useRef(false);
 
   useEffect(() => {
     if (!mobileOpen) return;
@@ -41,6 +44,18 @@ export function Navbar() {
       document.removeEventListener("keydown", onKeyDown);
       document.body.style.overflow = "";
     };
+  }, [mobileOpen]);
+
+  // El panel móvil es un diálogo: al abrir, el foco va al botón de cerrar
+  // interno; al cerrar, vuelve al botón hamburguesa del header.
+  useEffect(() => {
+    if (mobileOpen) {
+      wasOpen.current = true;
+      closeRef.current?.focus();
+    } else if (wasOpen.current) {
+      wasOpen.current = false;
+      toggleRef.current?.focus();
+    }
   }, [mobileOpen]);
 
   // Anclas con prefijo "/" para que funcionen igual desde la home y desde
@@ -120,6 +135,7 @@ export function Navbar() {
               </span>
             </a>
             <button
+              ref={toggleRef}
               aria-expanded={mobileOpen}
               aria-controls="mobileMenu"
               aria-label={mobileOpen ? "Cerrar menú" : "Abrir menú"}
@@ -141,20 +157,34 @@ export function Navbar() {
         }`}
         aria-hidden="true"
       />
+      {/* Panel por encima del header (z-[70]): trae su propio botón de
+          cerrar en la barra superior, alineado con la altura del header. */}
       <aside
+        id="mobileMenu"
         role="dialog"
         aria-modal="true"
         aria-label="Menú de navegación"
-        className={`fixed right-0 top-0 z-50 h-full w-[85%] max-w-sm overflow-y-auto border-l border-border-subtle bg-bg-deep shadow-2xl transition-transform duration-300 lg:hidden ${
+        className={`fixed right-0 top-0 z-[70] h-full w-[85%] max-w-sm overflow-y-auto border-l border-border-subtle bg-bg-deep shadow-2xl transition-transform duration-300 lg:hidden ${
           mobileOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <nav className="flex flex-col gap-1 px-gutter-mobile pb-space-lg pt-20">
+        <div className="flex h-20 items-center justify-end px-gutter-mobile">
+          <button
+            ref={closeRef}
+            type="button"
+            aria-label="Cerrar menú"
+            className="theme-toggle"
+            onClick={() => setMobileOpen(false)}
+          >
+            <MaterialIcon name="close" style={{ fontSize: 22 }} />
+          </button>
+        </div>
+        <nav className="flex flex-col gap-1 px-gutter-mobile pb-space-lg pt-2 text-center">
           {NAV_LINKS.map((l) => (
             <a
               key={l.href}
               onClick={() => setMobileOpen(false)}
-              className="rounded-xl px-3 py-3 font-label-lg text-text-secondary transition-all hover:bg-surface-container hover:text-primary"
+              className="rounded-xl px-3 py-3 text-center font-label-lg text-text-secondary transition-all hover:bg-surface-container hover:text-primary"
               href={l.href}
             >
               {l.label}
@@ -162,7 +192,7 @@ export function Navbar() {
           ))}
           <a
             onClick={() => setMobileOpen(false)}
-            className="mt-1 flex items-center gap-2 rounded-xl bg-amber-400/20 px-3 py-3 font-label-lg font-bold text-amber-800 transition-colors hover:bg-amber-400/30 dark:bg-amber-400/15 dark:text-amber-300 dark:hover:bg-amber-400/25"
+            className="mt-1 flex items-center justify-center gap-2 rounded-xl bg-amber-400/20 px-3 py-3 text-center font-label-lg font-bold text-amber-800 transition-colors hover:bg-amber-400/30 dark:bg-amber-400/15 dark:text-amber-300 dark:hover:bg-amber-400/25"
             href="/premium"
           >
             <Crown className="h-[18px] w-[18px] fill-amber-500 text-amber-600 dark:fill-amber-300 dark:text-amber-300" />

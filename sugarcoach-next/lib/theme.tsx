@@ -21,10 +21,18 @@ export const THEME_LABELS: Record<Theme, string> = {
 };
 
 function readInitialTheme(): Theme {
-  if (typeof window === "undefined" || typeof document === "undefined") return "a11y";
+  if (typeof window === "undefined" || typeof document === "undefined") return "light";
   // El script pre-hidratación de `app/layout.tsx` ya dejó la clase correcta.
   if (document.documentElement.classList.contains("a11y")) return "a11y";
   if (document.documentElement.classList.contains("dark")) return "dark";
+  // Sin clase: respeta el tema guardado (por si el script no corrió) y, si no
+  // hay ninguno, arranca en modo Claro, el defecto del selector.
+  try {
+    const stored = window.localStorage.getItem(THEME_STORAGE_KEY);
+    if (stored === "dark" || stored === "a11y" || stored === "light") return stored;
+  } catch {
+    // localStorage no disponible: se usa el defecto.
+  }
   return "light";
 }
 
@@ -41,15 +49,15 @@ interface ThemeContextValue {
 }
 
 const ThemeContext = createContext<ThemeContextValue>({
-  theme: "a11y",
+  theme: "light",
   setTheme: () => {},
 });
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   // SSR-safe: el primer render del cliente debe coincidir con el servidor
-  // ("a11y", el default). El tema real se sincroniza en un efecto tras
+  // (modo Claro, sin clase). El tema real se sincroniza en un efecto tras
   // montar, para no provocar hydration mismatch si el usuario cambió de tema.
-  const [theme, setThemeState] = useState<Theme>("a11y");
+  const [theme, setThemeState] = useState<Theme>("light");
 
   const setTheme = useCallback((mode: Theme) => {
     setThemeState(mode);
