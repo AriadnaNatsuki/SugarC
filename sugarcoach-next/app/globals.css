@@ -359,6 +359,90 @@ html.a11y {
   font-size: 114%;
 }
 
+/* La navbar debe verse igual que en Modo Claro (misma altura, tipografía y
+   espaciado), sin heredar el +14% de `html.a11y`: como todo en Tailwind está
+   en `rem` (relativo a la raíz del documento), no alcanza con un font-size
+   local en el <header>; hay que fijar en `px` los mismos valores exactos que
+   esas clases resuelven al 100%. El resto del Modo Accesible (zooms, alto
+   contraste, foco visible) no se toca. */
+.a11y header .h-20 {
+  height: 80px;
+}
+.a11y header .h-8 {
+  height: 32px;
+}
+.a11y header .h-4 {
+  height: 16px;
+}
+.a11y header .w-4 {
+  width: 16px;
+}
+.a11y header .rounded-xl {
+  border-radius: 12px;
+}
+.a11y header .gap-2 {
+  gap: 8px;
+}
+.a11y header .gap-1\.5 {
+  gap: 6px;
+}
+.a11y header .p-1\.5 {
+  padding: 6px;
+}
+.a11y header .px-3\.5 {
+  padding-left: 14px;
+  padding-right: 14px;
+}
+.a11y header .py-1\.5 {
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+.a11y header .py-space-xs {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+.a11y header .gap-space-sm {
+  gap: 12px;
+}
+.a11y header .gap-space-md {
+  gap: 16px;
+}
+.a11y header .gap-space-lg {
+  gap: 24px;
+}
+.a11y header .px-gutter-mobile {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+.a11y header .text-sm {
+  font-size: 14px;
+  line-height: 20px;
+}
+@media (min-width: 640px) {
+  .a11y header .sm\:px-space-lg {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+@media (min-width: 768px) {
+  .a11y header .md\:h-9 {
+    height: 36px;
+  }
+  .a11y header .md\:gap-space-md {
+    gap: 16px;
+  }
+  .a11y header .md\:px-gutter-tablet {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+@media (min-width: 1024px) {
+  .a11y header .lg\:px-gutter-desktop {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+}
+
 /* Sin blobs decorativos: menos ruido visual para baja visión */
 .a11y [class*="blur-3xl"] {
   display: none !important;
