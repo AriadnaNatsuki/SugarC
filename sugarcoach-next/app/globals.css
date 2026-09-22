@@ -115,6 +115,15 @@
   --c-panel-chip-border: rgba(75, 59, 203, 0.18);
   --c-panel-card-bg: rgba(255, 255, 255, 0.72);
   --c-panel-card-border: rgba(27, 25, 47, 0.12);
+
+  --c-primary-rgb: 75 59 203;
+  --c-secondary-rgb: 0 106 102;
+  --c-neon-magenta-rgb: 75 59 203;
+  --c-neon-cyan-rgb: 0 106 102;
+  --c-tertiary-rgb: 153 47 42;
+  --c-accent-yellow-rgb: 245 158 11;
+  --c-tertiary-container-rgb: 186 70 64;
+  --c-surface-container-rgb: 240 235 255;
 }
 
 .dark {
@@ -205,6 +214,15 @@
   --c-panel-chip-border: rgba(255, 255, 255, 0.1);
   --c-panel-card-bg: rgba(255, 255, 255, 0.06);
   --c-panel-card-border: rgba(255, 255, 255, 0.1);
+
+  --c-primary-rgb: 196 92 255;
+  --c-secondary-rgb: 43 197 199;
+  --c-neon-magenta-rgb: 255 63 180;
+  --c-neon-cyan-rgb: 61 217 245;
+  --c-tertiary-rgb: 255 175 212;
+  --c-accent-yellow-rgb: 246 199 68;
+  --c-tertiary-container-rgb: 255 63 180;
+  --c-surface-container-rgb: 13 23 51;
 }
 
 .a11y {
@@ -252,6 +270,8 @@
   --c-panel-chip-border: #333333;
   --c-panel-card-bg: #f5f5f5;
   --c-panel-card-border: #333333;
+
+  --c-primary-rgb: 30 18 102;
 }
 
 @layer base {
