@@ -1162,10 +1162,19 @@ html {
   display: flex; align-items: center; justify-content: center;
   box-shadow: 0 14px 34px -6px rgba(0,0,0,0.42), 0 4px 16px -2px rgba(0,0,0,0.3);
   transition: transform .15s ease, box-shadow .15s ease;
+  translate: 0 0;
+  animation: sc-btn-float 3.2s ease-in-out infinite;
 }
 #sc-chat-btn:hover {
   transform: scale(1.08);
   box-shadow: 0 16px 38px -6px rgba(0,0,0,0.48), 0 4px 18px -2px rgba(0,0,0,0.35);
+}
+@keyframes sc-btn-float {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #sc-chat-btn { animation: none; }
 }
 
 #sc-chat-panel {
