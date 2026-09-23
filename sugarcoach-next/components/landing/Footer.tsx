@@ -4,6 +4,7 @@ import Image from "next/image";
 import { MaterialIcon } from "@/components/ui/MaterialIcon";
 import { LOGO_SRC } from "@/lib/images";
 import { useLanguage } from "@/lib/i18n";
+import { GooglePlayIcon } from "../ui/GooglePlayIcon";
 
 /** Footer, calcado 1:1 de index.html. */
 export function Footer() {
@@ -44,12 +45,13 @@ export function Footer() {
               </div>
             </a>
             <p className="max-w-sm font-body-md text-body-md text-text-secondary">{t("footer.description")}</p>
-            <div className="flex flex-wrap gap-space-sm pt-space-xs">
-              <a className="inline-flex items-center gap-space-xs rounded-xl border border-outline-variant bg-inverse-surface px-space-md py-space-xs text-inverse-on-surface transition-opacity hover:opacity-90" href="#">
-                <MaterialIcon name="shop" style={{ fontSize: 20 }} />
+                        <div className="flex flex-wrap gap-space-sm pt-space-xs">
+              <a className="inline-flex items-center gap-space-xs rounded-full border border-border-subtle bg-surface-container px-space-md py-space-xs text-text-primary transition-colors hover:bg-surface-container-high"
+                href="#">
+                <GooglePlayIcon className="h-6 w-6 flex-shrink-0" />
                 <div className="flex flex-col text-left">
-                  <span className="font-label-sm text-[10px] leading-tight text-outline-variant">{t("footer.available")}</span>
-                  <span className="font-label-md text-label-md font-bold leading-tight">{t("footer.googlePlay")}</span>
+                  <span className="font-label-sm text-[10px] leading-tight text-text-secondary">{t("footer.available")}</span>
+                  <span className="font-label-md text-label-md font-bold leading-tight text-text-primary">{t("footer.googlePlay")}</span>
                 </div>
               </a>
             </div>

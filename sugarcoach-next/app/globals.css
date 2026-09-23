@@ -1044,18 +1044,43 @@ li:hover {
 }
 
 .dark .sc-award-item {
-  border: none;
-  background: linear-gradient(
-    145deg,
-    rgba(255, 255, 255, 0.065),
-    rgba(255, 255, 255, 0.018)
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.30),
+    0 1px 0 rgba(255, 255, 255, 0.10) inset;
+  position: relative;
+  overflow: hidden;
+}
+
+.dark .sc-award-item::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at 50% 50%,
+    rgba(196, 92, 255, 0.35) 0%,
+    rgba(150, 70, 220, 0.25) 40%,
+    rgba(100, 50, 180, 0.15) 70%,
+    transparent 100%
   );
-  box-shadow: none;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.dark .sc-award-item > * {
+  position: relative;
+  z-index: 1;
 }
 
 .dark .sc-award-item:hover {
-  border-color: transparent;
-  box-shadow: none;
+  border-color: rgba(255, 63, 180, 0.40);
+  box-shadow:
+    0 8px 28px rgba(196, 92, 255, 0.28),
+    0 1px 0 rgba(255, 255, 255, 0.10) inset;
+  transform: translateY(-4px) scale(1.025);
 }
 
 .dark .sc-award-name {
@@ -1103,16 +1128,13 @@ li:hover {
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.dark .sc-award-item {
-  border: 1px solid rgba(255, 255, 255, 0.15);
-}
-/* Eliminar la línea negra de las tarjetas de premios */
-.sc-award-item::before,
-.sc-award-item::after {
-  content: none !important;
-  display: none !important;
-}
 
+/* Eliminar bordes y sombras decorativas en modo claro */
+:root:not(.dark) .sc-award-item {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
 /* Eliminar bordes y sombras decorativas */
 .sc-award-item {
   border: none !important;
