@@ -250,12 +250,12 @@
   --c-on-surface: #000000;
   --c-on-background: #000000;
   --c-on-surface-variant: #1a1a1a;
-  --c-outline: #1a1a1a;
-  --c-outline-variant: #333333;
-  --c-primary: #1e1266;
+  --c-outline: #787586;
+  --c-outline-variant: rgba(27, 25, 47, 0.08);
+  --c-primary: #4b3bcb;
   --c-on-primary: #ffffff;
-  --c-border-subtle: #333333;
-  --c-border-glow: #333333;
+  --c-border-subtle: rgba(27, 25, 47, 0.08);
+  --c-border-glow: rgba(75, 59, 203, 0.12);
   --c-gamification-bg-start: #ffffff;
   --c-gamification-bg-mid: #f5f5f5;
   --c-gamification-bg-end: #ffffff;
@@ -267,11 +267,11 @@
   --c-download-text: #000000;
   --c-panel-chip-bg: #eeeeee;
   --c-panel-chip-text: #000000;
-  --c-panel-chip-border: #333333;
+  --c-panel-chip-border: rgba(75, 59, 203, 0.12);
   --c-panel-card-bg: #f5f5f5;
-  --c-panel-card-border: #333333;
+  --c-panel-card-border: rgba(27, 25, 47, 0.08);
 
-  --c-primary-rgb: 30 18 102;
+  --c-primary-rgb: 75 59 203;
 }
 
 @layer base {
@@ -379,89 +379,7 @@ a:not(.nav-link) {
     box-shadow 0.18s cubic-bezier(0.2, 0, 0, 1);
 }
 
-/* La navbar debe verse igual que en Modo Claro (misma altura, tipografía y
-   espaciado), sin heredar el +14% de `html.a11y`: como todo en Tailwind está
-   en `rem` (relativo a la raíz del documento), no alcanza con un font-size
-   local en el <header>; hay que fijar en `px` los mismos valores exactos que
-   esas clases resuelven al 100%. El resto del Modo Accesible (zooms, alto
-   contraste, foco visible) no se toca. */
-.a11y header .h-20 {
-  height: 80px;
-}
-.a11y header .h-8 {
-  height: 32px;
-}
-.a11y header .h-4 {
-  height: 16px;
-}
-.a11y header .w-4 {
-  width: 16px;
-}
-.a11y header .rounded-xl {
-  border-radius: 12px;
-}
-.a11y header .gap-2 {
-  gap: 8px;
-}
-.a11y header .gap-1\.5 {
-  gap: 6px;
-}
-.a11y header .p-1\.5 {
-  padding: 6px;
-}
-.a11y header .px-3\.5 {
-  padding-left: 14px;
-  padding-right: 14px;
-}
-.a11y header .py-1\.5 {
-  padding-top: 6px;
-  padding-bottom: 6px;
-}
-.a11y header .py-space-xs {
-  padding-top: 8px;
-  padding-bottom: 8px;
-}
-.a11y header .gap-space-sm {
-  gap: 12px;
-}
-.a11y header .gap-space-md {
-  gap: 16px;
-}
-.a11y header .gap-space-lg {
-  gap: 24px;
-}
-.a11y header .px-gutter-mobile {
-  padding-left: 16px;
-  padding-right: 16px;
-}
-.a11y header .text-sm {
-  font-size: 14px;
-  line-height: 20px;
-}
-@media (min-width: 640px) {
-  .a11y header .sm\:px-space-lg {
-    padding-left: 24px;
-    padding-right: 24px;
-  }
-}
-@media (min-width: 768px) {
-  .a11y header .md\:h-9 {
-    height: 36px;
-  }
-  .a11y header .md\:gap-space-md {
-    gap: 16px;
-  }
-  .a11y header .md\:px-gutter-tablet {
-    padding-left: 24px;
-    padding-right: 24px;
-  }
-}
-@media (min-width: 1024px) {
-  .a11y header .lg\:px-gutter-desktop {
-    padding-left: 32px;
-    padding-right: 32px;
-  }
-}
+
 
 /* Sin blobs decorativos: menos ruido visual para baja visión */
 .a11y [class*="blur-3xl"] {
@@ -992,7 +910,6 @@ li:hover {
 }
 
 .a11y .sc-team-card {
-  border-width: 2px !important;
   filter: none !important;
 }
 
@@ -1167,7 +1084,6 @@ li:hover {
 
 .a11y .sc-awards-shell {
   background: #fff !important;
-  border: 2px solid #111 !important;
   box-shadow: none !important;
 }
 
