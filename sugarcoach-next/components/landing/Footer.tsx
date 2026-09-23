@@ -4,24 +4,27 @@ import Image from "next/image";
 import { MaterialIcon } from "@/components/ui/MaterialIcon";
 import { LOGO_SRC } from "@/lib/images";
 import { useLanguage } from "@/lib/i18n";
+import { GooglePlayIcon } from "../ui/GooglePlayIcon";
 
 /** Footer, calcado 1:1 de index.html. */
 export function Footer() {
   const { t } = useLanguage();
+  // Anclas con prefijo "/" para que funcionen igual desde la home y desde
+  // páginas propias como /profesionales.
   const product = [
-    ["#como-funciona", t("footer.how")],
-    ["#familias", t("footer.families")],
-    ["#profesionales", t("footer.professionals")],
-    ["#gamificacion", t("footer.achievements")],
-    ["#tratamiento", t("footer.treatment")],
+    ["/#como-funciona", t("footer.how")],
+    ["/#familias", t("footer.families")],
+    ["/profesionales", t("footer.professionals")],
+    ["/#gamificacion", t("footer.achievements")],
+    ["/#tratamiento", t("footer.treatment")],
   ];
   const community = [
-    ["#quienes-somos", t("footer.whoWeAre")],
-    ["#reconocimientos", t("footer.awards")],
-    ["#testimonios", t("footer.testimonials")],
+    ["/#quienes-somos", t("footer.whoWeAre")],
+    ["/#reconocimientos", t("footer.awards")],
+    ["/#testimonios", t("footer.testimonials")],
   ];
   const legal = [
-    ["#preguntas-frecuentes", t("footer.faq")],
+    ["/#preguntas-frecuentes", t("footer.faq")],
     ["#", t("footer.privacy")],
     ["#", t("footer.terms")],
   ];
@@ -30,7 +33,7 @@ export function Footer() {
       <div className="mx-auto max-w-[1200px] px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop">
         <div className="grid grid-cols-1 gap-space-2xl pb-space-2xl md:grid-cols-2 lg:grid-cols-5">
           <div className="flex flex-col gap-space-md lg:col-span-2">
-            <a className="flex items-center gap-2" href="#">
+            <a className="flex items-center gap-2" href="/">
               <div className="w-fit rounded-xl border border-border-subtle bg-surface-container-high p-1.5">
                 <Image
                   src={LOGO_SRC}
@@ -42,12 +45,13 @@ export function Footer() {
               </div>
             </a>
             <p className="max-w-sm font-body-md text-body-md text-text-secondary">{t("footer.description")}</p>
-            <div className="flex flex-wrap gap-space-sm pt-space-xs">
-              <a className="inline-flex items-center gap-space-xs rounded-xl border border-outline-variant bg-inverse-surface px-space-md py-space-xs text-inverse-on-surface transition-opacity hover:opacity-90" href="#">
-                <MaterialIcon name="shop" style={{ fontSize: 20 }} />
+                        <div className="flex flex-wrap gap-space-sm pt-space-xs">
+              <a className="inline-flex items-center gap-space-xs rounded-full border border-border-subtle bg-surface-container px-space-md py-space-xs text-text-primary transition-colors hover:bg-surface-container-high"
+                href="#">
+                <GooglePlayIcon className="h-6 w-6 flex-shrink-0" />
                 <div className="flex flex-col text-left">
-                  <span className="font-label-sm text-[10px] leading-tight text-outline-variant">{t("footer.available")}</span>
-                  <span className="font-label-md text-label-md font-bold leading-tight">{t("footer.googlePlay")}</span>
+                  <span className="font-label-sm text-[10px] leading-tight text-text-secondary">{t("footer.available")}</span>
+                  <span className="font-label-md text-label-md font-bold leading-tight text-text-primary">{t("footer.googlePlay")}</span>
                 </div>
               </a>
             </div>

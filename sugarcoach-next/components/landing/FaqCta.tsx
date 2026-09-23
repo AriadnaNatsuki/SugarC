@@ -6,6 +6,7 @@ import { MaterialIcon } from "@/components/ui/MaterialIcon";
 import { CTA_LOGO } from "@/lib/images";
 import { useLanguage } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
+import { GooglePlayIcon } from "../ui/GooglePlayIcon";
 
 const FAQ_IDS = [1, 2, 3, 4] as const;
 
@@ -86,7 +87,7 @@ export function CtaSection() {
             </div>
             <div className="flex flex-wrap items-center gap-space-sm pt-space-xs">
               <a className="theme-panel-card inline-flex items-center gap-space-xs rounded-xl border px-space-md py-space-xs backdrop-blur-md transition-all hover:scale-[1.02]" href="#">
-                <MaterialIcon name="shop" className="theme-panel-text" style={{ fontSize: 22 }} />
+                <GooglePlayIcon className="h-6 w-6 flex-shrink-0" />
                 <div className="flex flex-col text-left">
                   <span className="theme-panel-muted font-label-sm text-[10px] leading-tight">{t("footer.available")}</span>
                   <span className="theme-panel-text font-label-md text-label-md font-bold leading-tight">{t("footer.googlePlay")}</span>

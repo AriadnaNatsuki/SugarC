@@ -1,0 +1,160 @@
+{
+  "name": "SugarCoach - Asistente funcional",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "sugarcoach-chat",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-trigger",
+      "name": "Webhook (Trigger)",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -1120,
+        300
+      ],
+      "notes": "Recibe { message, sessionId } desde el BFF (.NET/NestJS). NUNCA exponer esta URL directo al browser — el widget le habla al BFF, y el BFF reenvía acá dentro de la red privada."
+    },
+    {
+      "parameters": {
+        "jsCode": "// ---- Validar el mensaje ----\nconst body = $input.first().json.body || $input.first().json;\nconst raw = (body.message || '').toString();\nconst sessionId = body.sessionId || null;\nconst lang = (body.lang || 'es').toLowerCase().startsWith('en') ? 'en' : 'es';\nconst trimmed = raw.trim();\n\nconst MSG = {\n  es: { empty: 'Escribime tu consulta primero \\ud83d\\ude42', tooLong: 'Tu mensaje es un poco largo, \\u00bfpod\\u00e9s resumirlo?' },\n  en: { empty: 'Type your question first \\ud83d\\ude42', tooLong: 'Your message is a bit long, could you shorten it?' },\n};\n\nlet valid = true;\nlet reply = null;\n\nif (!trimmed) {\n  valid = false;\n  reply = MSG[lang].empty;\n} else if (trimmed.length > 400) {\n  valid = false;\n  reply = MSG[lang].tooLong;\n}\n\nconst clean = trimmed.replace(/<[^>]*>/g, '');\n\nreturn [{ json: { valid, reply, message: clean, sessionId, lang } }];"
+      },
+      "id": "validate",
+      "name": "Validar mensaje",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -900,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "cond-valid",
+              "leftValue": "={{ $json.valid }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "if-valid",
+      "name": "¿Es válido?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -680,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// ---- Clasificar intenci\\u00f3n (misma l\\u00f3gica que el widget) ----\nconst text = ($json.message || '').toLowerCase();\nconst lang = $json.lang || 'es';\n\nconst CLINICAL_KEYWORDS = ['dosis','cuanta insulina','cu\\u00e1nta insulina','me pongo','sintoma','s\\u00edntoma','me siento mal','hipoglucemia','hiperglucemia','desmay','emergencia','me duele','dolor','dose','dosage','how much insulin','symptom','i feel sick','hypoglycemia','hyperglycemia','passed out','emergency','it hurts','pain'];\n\nconst TOPICS = [\n  { id: 'registro', keywords: ['registrar','registro','cargar','carga','anotar','glucosa','insulina','comida','carbohidr','log','logging','record','entry','glucose','insulin','meal','carb'],\n    reply: { es: 'Pod\\u00e9s registrar glucosa, insulina, comidas y actividad desde el bot\\u00f3n \\\"+\\\" en la pantalla principal. Se guarda en segundos y suma puntos a tu racha.', en: 'You can log glucose, insulin, meals and activity from the \\\"+\\\" button on the main screen. It saves in seconds and adds points to your streak.' },\n    options: { es: ['\\u00bfC\\u00f3mo sumo puntos?', '\\u00bfD\\u00f3nde veo mis reportes?'], en: ['How do I earn points?', 'Where can I see my reports?'] } },\n  { id: 'puntos', keywords: ['punto','puntos','nivel','logro','recompensa','racha','estrella','point','points','level','achievement','reward','streak','star'],\n    reply: { es: 'Gan\\u00e1s puntos por cada registro diario completo. Los puntos suben tu nivel y desbloquean logros \\u2014 nunca califican tus valores de glucosa, solo tu constancia.', en: 'You earn points for every complete daily log. Points level you up and unlock achievements \\u2014 they never grade your glucose values, only your consistency.' },\n    options: { es: ['\\u00bfC\\u00f3mo registro mis datos?', '\\u00bfQu\\u00e9 incluye cada plan?'], en: ['How do I log my data?', 'What\\'s included in each plan?'] } },\n  { id: 'reportes', keywords: ['reporte','grafico','gr\\u00e1fico','tiempo en rango','tir','estadistica','estad\\u00edstica','historial','report','chart','graph','time in range','statistics','history'],\n    reply: { es: 'En la secci\\u00f3n de Reportes vas a encontrar tu Tiempo en Rango (TIR) y el cruce de glucosa vs. insulina, listos para compartir en tu consulta.', en: 'In the Reports section you\\'ll find your Time in Range (TIR) and the glucose vs. insulin comparison, ready to share at your appointment.' },\n    options: { es: ['Hablar con alguien del equipo'], en: ['Talk to someone on the team'] } },\n  { id: 'compartir_datos', keywords: ['datos al medico','datos al m\\u00e9dico','enviar datos','compartir datos','mandar datos','codigo qr','c\\u00f3digo qr','send data','share data','data to my doctor','data to the doctor','doctor scan','qr code'],\n    reply: { es: 'Escane\\u00e1 el c\\u00f3digo QR que te comparte tu m\\u00e9dico y tus datos se env\\u00edan autom\\u00e1ticamente \\u2014 no hace falta exportar ni mandar nada a mano.', en: 'Scan the QR code your doctor shares with you and your data is sent automatically \\u2014 no need to export or send anything by hand.' },\n    options: { es: [], en: [] } },\n  { id: 'tratamiento', keywords: ['tratamiento','rango','hipo','hiper','target','dosis basal','esquema','treatment','range','low target','high target','basal dose','regimen'],\n    reply: { es: 'En \\\"Tratamiento\\\" configur\\u00e1s tus rangos objetivo (hipo, target, hiper) junto con tu profesional de salud. Yo no puedo definir esos valores por vos.', en: 'In \\\"Treatment\\\" you set your target ranges (low, target, high) together with your healthcare professional. I can\\'t set those values for you.' },\n    options: { es: ['Hablar con alguien del equipo'], en: ['Talk to someone on the team'] } },\n  { id: 'telemedicina', keywords: ['telemedicina','turno','consulta','medico','m\\u00e9dico','doctora','doctor','videollamada','cita','telehealth','appointment','video call','physician'],\n    reply: { es: 'Pod\\u00e9s agendar una consulta de telemedicina desde la secci\\u00f3n \\\"Mi equipo\\\". Vas a ver los horarios disponibles de tu profesional asignado.', en: 'You can schedule a telehealth visit from the \\\"My team\\\" section. You\\'ll see the available times for your assigned professional.' },\n    options: { es: ['Hablar con alguien del equipo'], en: ['Talk to someone on the team'] } },\n  { id: 'planes', keywords: ['plan','precio','premium','gratis','suscripcion','suscripci\\u00f3n','pagar','costo','price','pricing','free','subscription','pay','cost'],\n    reply: { es: 'El plan gratuito incluye registro y reportes b\\u00e1sicos por 60 d\\u00edas. El plan Premium suma telemedicina ilimitada y reportes avanzados.', en: 'The free plan includes basic logging and reports for 60 days. The Premium plan adds unlimited telehealth and advanced reports.' },\n    options: { es: ['Hablar con alguien del equipo'], en: ['Talk to someone on the team'] } },\n  { id: 'familia', keywords: ['familia','padre','madre','cuidador','conectar','vincular','compartir acceso','family','parent','caregiver','connect','link','share access'],\n    reply: { es: 'Gener\\u00e1 un c\\u00f3digo QR desde la app y pedile a tu familiar que lo escanee desde la suya \\u2014 el v\\u00ednculo se crea autom\\u00e1ticamente, sin pasos extra.', en: 'Generate a QR code from the app and have your family member scan it from theirs \\u2014 the link is created automatically, no extra steps.' },\n    options: { es: ['\\u00bfC\\u00f3mo registro mis datos?'], en: ['How do I log my data?'] } },\n  { id: 'soporte', keywords: ['soporte','ayuda humana','hablar con alguien','contacto','persona','humano','support','human help','talk to someone','contact','human'],\n    reply: { es: 'Te dejo el contacto de soporte: soporte@sugar.coach. Un humano te responde a la brevedad.', en: 'Here\\'s our support contact: soporte@sugar.coach. A person will get back to you shortly.' },\n    options: { es: [], en: [] } },\n];\n\nconst TOP_LEVEL_OPTIONS = {\n  es: ['C\\u00f3mo registrar mis datos','Puntos y logros','Ver mis reportes','C\\u00f3mo enviar datos al m\\u00e9dico','C\\u00f3mo vincular a mi familia','Planes y precios','Hablar con soporte'],\n  en: ['How to log my data','Points and achievements','View my reports','How to send data to my doctor','How to link my family','Plans and pricing','Talk to support'],\n};\n\nlet result;\nif (CLINICAL_KEYWORDS.some(k => text.includes(k))) {\n  result = {\n    intent: 'clinical_redirect',\n    reply: lang === 'en'\n      ? \"I can't give medical advice \\u2014 that's something your healthcare team needs to handle. I can help with how to use the app, or connect you with your team.\"\n      : 'No puedo darte indicaciones m\\u00e9dicas \\u2014 eso lo tiene que ver tu equipo de salud. Puedo ayudarte con c\\u00f3mo usar la app, o coordinar que hables con tu equipo.',\n    options: lang === 'en' ? ['Talk to someone on the team', 'How do I log my data?'] : ['Hablar con alguien del equipo', '\\u00bfC\\u00f3mo registro mis datos?'],\n  };\n} else {\n  const topic = TOPICS.find(tp => tp.keywords.some(k => text.includes(k)));\n  if (topic) {\n    result = { intent: topic.id, reply: topic.reply[lang], options: topic.options[lang] };\n  } else {\n    result = {\n      intent: 'unknown',\n      reply: lang === 'en' ? \"I'm not sure I understood. Pick an option, or tell me in other words:\" : 'No estoy seguro de haber entendido. Eleg\\u00ed una opci\\u00f3n, o contame con otras palabras:',\n      options: TOP_LEVEL_OPTIONS[lang],\n    };\n  }\n}\n\nreturn [{ json: { ...result, sessionId: $json.sessionId, message: $json.message, lang } }];"
+      },
+      "id": "classify",
+      "name": "Clasificar intención",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -460,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { reply: $json.reply, options: $json.options } }}"
+      },
+      "id": "respond-valid",
+      "name": "Responder (válido)",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        -240,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { reply: $json.reply, options: [] } }}"
+      },
+      "id": "respond-invalid",
+      "name": "Responder (inválido)",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        -460,
+        400
+      ]
+    }
+  ],
+  "connections": {
+    "Webhook (Trigger)": {
+      "main": [
+        [
+          {
+            "node": "Validar mensaje",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validar mensaje": {
+      "main": [
+        [
+          {
+            "node": "¿Es válido?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "¿Es válido?": {
+      "main": [
+        [
+          {
+            "node": "Clasificar intención",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Responder (inválido)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Clasificar intención": {
+      "main": [
+        [
+          {
+            "node": "Responder (válido)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

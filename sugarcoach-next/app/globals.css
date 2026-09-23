@@ -3,6 +3,25 @@
 @tailwind utilities;
 
 /*
+ * Fuente autohospedada (public/fonts/), en vez de un <link> a
+ * fonts.googleapis.com: ese <link> con `display=swap` hacía que el primer
+ * pintado de CADA carga mostrara la fuente de respaldo del sistema (más
+ * ancha) hasta terminar de bajar el webfont desde otro origen. Como el modo
+ * por defecto del navegador resuelve a claro, ese primer pintado sin fuente
+ * quedaba "pegado" siempre al modo claro, dando la impresión de que el modo
+ * claro usaba una tipografía más grande. Es un único archivo de fuente
+ * variable (pesos 400–800 en un solo .woff2) servido desde el propio
+ * dominio, así que no hay ida y vuelta a otro origen.
+ */
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url("/fonts/PlusJakartaSans-variable.woff2") format("woff2");
+}
+
+/*
  * Tokens de tema como canales RGB (ver `tailwind.config.ts`).
  * - `:root` = Modo Claro (paleta clara del HTML de modos)
  * - `.dark` = Modo Oscuro (identidad #01081F + gradiente #DA44AF → #C747CA)
@@ -25,8 +44,8 @@
   --c-background: #fcf8ff;
   --c-bg-canvas: #fcf8ff;
   --c-bg-deep: #fcf8ff;
-  --c-border-glow: #c8c4d7;
-  --c-border-subtle: #c8c4d7;
+  --c-border-glow: rgba(75, 59, 203, 0.12);
+  --c-border-subtle: rgba(27, 25, 47, 0.08);
   --c-error: #ba1a1a;
   --c-error-container: #ffdad6;
   --c-inverse-on-surface: #f3eeff;
@@ -53,7 +72,7 @@
   --c-on-tertiary-fixed: #410003;
   --c-on-tertiary-fixed-variant: #86211e;
   --c-outline: #787586;
-  --c-outline-variant: #c8c4d7;
+  --c-outline-variant: rgba(27, 25, 47, 0.08);
   --c-primary: #4b3bcb;
   --c-primary-container: #6457e5;
   --c-primary-fixed: #e3dfff;
@@ -93,9 +112,18 @@
   --c-download-text: #1b192f;
   --c-panel-chip-bg: rgba(75, 59, 203, 0.08);
   --c-panel-chip-text: #312e81;
-  --c-panel-chip-border: rgba(75, 59, 203, 0.18);
+  --c-panel-chip-border: rgba(75, 59, 203, 0.12);
   --c-panel-card-bg: rgba(255, 255, 255, 0.72);
   --c-panel-card-border: rgba(27, 25, 47, 0.12);
+
+  --c-primary-rgb: 75 59 203;
+  --c-secondary-rgb: 0 106 102;
+  --c-neon-magenta-rgb: 75 59 203;
+  --c-neon-cyan-rgb: 0 106 102;
+  --c-tertiary-rgb: 153 47 42;
+  --c-accent-yellow-rgb: 245 158 11;
+  --c-tertiary-container-rgb: 186 70 64;
+  --c-surface-container-rgb: 240 235 255;
 }
 
 .dark {
@@ -115,8 +143,8 @@
   --c-background: #050b1d;
   --c-bg-canvas: #08122b;
   --c-bg-deep: #050b1d;
-  --c-border-glow: rgba(196, 92, 255, 0.25);
-  --c-border-subtle: rgba(255, 255, 255, 0.08);
+  --c-border-glow: rgba(196, 92, 255, 0.20);
+  --c-border-subtle: rgba(255, 255, 255, 0.07);
   --c-error: #ffb4ab;
   --c-error-container: #93000a;
   --c-inverse-on-surface: #050b1d;
@@ -135,7 +163,7 @@
   --c-on-secondary: #003737;
   --c-on-secondary-container: #004141;
   --c-on-secondary-fixed: #002020;
-  --c-on-secondary-fixed-variant: #004f50;
+  --c-on-secondary-fixed-variant: #00504d;
   --c-on-surface: #f7f8fc;
   --c-on-surface-variant: #a8b0c5;
   --c-on-tertiary: #620041;
@@ -143,7 +171,7 @@
   --c-on-tertiary-fixed: #3d0027;
   --c-on-tertiary-fixed-variant: #8a005d;
   --c-outline: #747f9b;
-  --c-outline-variant: rgba(255, 255, 255, 0.12);
+  --c-outline-variant: rgba(255, 255, 255, 0.08);
   --c-primary: #c45cff;
   --c-primary-container: #a94fce;
   --c-primary-fixed: #f5d9ff;
@@ -183,9 +211,18 @@
   --c-download-text: #f7f8fc;
   --c-panel-chip-bg: rgba(255, 255, 255, 0.1);
   --c-panel-chip-text: #6ef7f8;
-  --c-panel-chip-border: rgba(255, 255, 255, 0.1);
+  --c-panel-chip-border: rgba(255, 255, 255, 0.08);
   --c-panel-card-bg: rgba(255, 255, 255, 0.06);
   --c-panel-card-border: rgba(255, 255, 255, 0.1);
+
+  --c-primary-rgb: 196 92 255;
+  --c-secondary-rgb: 43 197 199;
+  --c-neon-magenta-rgb: 255 63 180;
+  --c-neon-cyan-rgb: 61 217 245;
+  --c-tertiary-rgb: 255 175 212;
+  --c-accent-yellow-rgb: 246 199 68;
+  --c-tertiary-container-rgb: 255 63 180;
+  --c-surface-container-rgb: 13 23 51;
 }
 
 .a11y {
@@ -213,12 +250,12 @@
   --c-on-surface: #000000;
   --c-on-background: #000000;
   --c-on-surface-variant: #1a1a1a;
-  --c-outline: #1a1a1a;
-  --c-outline-variant: #333333;
-  --c-primary: #1e1266;
+  --c-outline: #787586;
+  --c-outline-variant: rgba(27, 25, 47, 0.08);
+  --c-primary: #4b3bcb;
   --c-on-primary: #ffffff;
-  --c-border-subtle: #333333;
-  --c-border-glow: #333333;
+  --c-border-subtle: rgba(27, 25, 47, 0.08);
+  --c-border-glow: rgba(75, 59, 203, 0.12);
   --c-gamification-bg-start: #ffffff;
   --c-gamification-bg-mid: #f5f5f5;
   --c-gamification-bg-end: #ffffff;
@@ -230,9 +267,11 @@
   --c-download-text: #000000;
   --c-panel-chip-bg: #eeeeee;
   --c-panel-chip-text: #000000;
-  --c-panel-chip-border: #333333;
+  --c-panel-chip-border: rgba(75, 59, 203, 0.12);
   --c-panel-card-bg: #f5f5f5;
-  --c-panel-card-border: #333333;
+  --c-panel-card-border: rgba(27, 25, 47, 0.08);
+
+  --c-primary-rgb: 75 59 203;
 }
 
 @layer base {
@@ -240,6 +279,13 @@
   body {
     margin: 0;
     padding: 0;
+    /* Mismo suavizado de fuente en claro y oscuro: sin esto, el texto
+       oscuro sobre fondo claro renderiza más grueso/grande que el texto
+       claro sobre fondo oscuro (Windows/Chrome), aunque el font-size sea
+       idéntico en ambos modos. */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
   body {
     @apply bg-base text-body font-sans antialiased;
@@ -270,25 +316,25 @@
     -webkit-text-fill-color: transparent;
     color: transparent;
   }
-  /* Card glassmorphism sutil (en claro: tarjeta blanca con borde gris) */
+  /* Card glassmorphism sutil (en claro: tarjeta blanca con borde sutil) */
   .glass-card {
-    @apply rounded-3xl border border-line/[0.25] bg-card shadow-sm transition-all duration-300;
+    @apply rounded-3xl border border-line/[0.10] bg-card shadow-sm transition-all duration-300;
   }
   .glass-card:hover {
     @apply -translate-y-1 border-pink-400/40;
     box-shadow:
-      0 20px 40px -15px rgba(0, 0, 0, 0.25),
-      0 0 24px rgba(218, 68, 175, 0.15);
+      0 20px 40px -15px rgba(0, 0, 0, 0.15),
+      0 0 24px rgba(218, 68, 175, 0.12);
   }
   .dark .glass-card {
-    @apply border-line/[0.08] bg-tint/[0.03] shadow-none;
+    @apply border-line/[0.06] bg-tint/[0.03] shadow-none;
   }
   .dark .glass-card:hover {
     box-shadow:
-      0 20px 40px -15px rgba(0, 0, 0, 0.6),
+      0 20px 40px -15px rgba(0, 0, 0, 0.5),
       0 0 24px rgba(218, 68, 175, 0.15);
   }
-  /* Toggle de tema (claro/oscuro/accesible), como en el HTML de modos */
+  /* Toggle de tema (claro/oscuro), como en el HTML de modos */
   .theme-menu-item[aria-current="true"] {
     @apply bg-brand-gradient text-white;
   }
@@ -321,16 +367,24 @@
 }
 
 /* ============================================================
- * Modo Accesible (.a11y) — reglas tomadas del HTML de modos:
- * alto contraste real, foco visible, sin blobs, zoom al hover/foco.
- * El sistema de zoom (botones, tarjetas y bloques de texto) también
- * se replica en Modo Oscuro (.dark), más abajo en este mismo bloque.
- * Van sin capas para que prevalezcan sobre las utilidades.
+ * Sistema de Zoom de Lupa al Hover/Foco (Modo Claro y Modo Oscuro)
+ * Efecto lupa en títulos, párrafos, listas, botones y tarjetas.
  * ============================================================ */
 
-/* Tipografía ~14% más grande (escala rem: arrastra textos y espaciados) */
-html.a11y {
-  font-size: 114%;
+/* 1. Zoom en botones y links al hover/foco */
+button:not(.faq-btn):not(#sc-chat-close):not(#sc-chat-menu),
+a:not(.nav-link):not([href*="premium"]) {
+  transition:
+    transform 0.18s cubic-bezier(0.2, 0, 0, 1),
+    box-shadow 0.18s cubic-bezier(0.2, 0, 0, 1);
+}
+button:not(.faq-btn):not(#sc-chat-close):not(#sc-chat-menu):hover,
+button:not(.faq-btn):not(#sc-chat-close):not(#sc-chat-menu):focus-visible,
+a:not(.nav-link):not([class*="group"]):not([href*="premium"]):hover,
+a:not(.nav-link):not([class*="group"]):not([href*="premium"]):focus-visible {
+  transform: scale(1.06);
+  position: relative;
+  z-index: 20;
 }
 
 /* Sin blobs decorativos: menos ruido visual para baja visión */
@@ -338,122 +392,104 @@ html.a11y {
   display: none !important;
 }
 
-/* Foco de teclado bien visible */
-.a11y :focus-visible {
-  outline: 3px solid #2f1f9e !important;
-  outline-offset: 2px;
-}
-
-/* Bordes con contraste real en tarjetas */
-.a11y .glass-card {
-  border-width: 2px;
-}
-
-/* Zoom en botones y links al hover/foco */
-.a11y button,
-.a11y a,
-.dark button,
-.dark a {
+/* Enlaces del navbar: zoom suave para no provocar salto de línea */
+.nav-link {
   transition:
     transform 0.15s ease,
-    box-shadow 0.15s ease;
+    color 0.15s ease;
+  transform-origin: center center;
 }
-.a11y button:hover,
-.a11y button:focus-visible,
-.a11y a:hover,
-.a11y a:focus-visible,
-.dark button:hover,
-.dark button:focus-visible,
-.dark a:hover,
-.dark a:focus-visible {
-  transform: scale(1.18);
-  position: relative;
-  z-index: 30;
-  box-shadow: 0 12px 28px -8px rgba(0, 0, 0, 0.35);
-}
-
-/* Zoom en tarjetas (features, FAQ, mockups) */
-.a11y [class*="rounded-"],
-.a11y .faq-item,
-.dark [class*="rounded-"],
-.dark .faq-item {
-  transition:
-    transform 0.15s ease,
-    box-shadow 0.15s ease;
-}
-.a11y .rounded-3xl:hover,
-.a11y .rounded-3xl:focus-within,
-.a11y .faq-item:hover,
-.a11y .faq-item:focus-within,
-.a11y [class*="rounded-"]:has(p:hover, li:hover),
-.dark .rounded-3xl:hover,
-.dark .rounded-3xl:focus-within,
-.dark .faq-item:hover,
-.dark .faq-item:focus-within,
-.dark [class*="rounded-"]:has(p:hover, li:hover) {
-  transform: scale(1.09);
-  position: relative;
-  z-index: 25;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
-}
-
-/* Zoom en bloques de texto (párrafos y listas) */
-.a11y p,
-.a11y li,
-.dark p,
-.dark li {
-  transition:
-    transform 0.15s ease,
-    background-color 0.15s ease;
-  transform-origin: top left;
-}
-.a11y p:hover,
-.a11y li:hover,
-.dark p:hover,
-.dark li:hover {
-  transform: scale(1.16);
+.nav-link:hover,
+.nav-link:focus-visible {
+  transform: scale(1.06);
   position: relative;
   z-index: 20;
-  background-color: rgba(0, 0, 0, 0.05);
-  border-radius: 0.5rem;
 }
 
-/* Dentro de cualquier tarjeta con esquinas redondeadas (incluye valores
- * arbitrarios como rounded-[32px]) el zoom es de toda la tarjeta, no del
- * texto o botón suelto: si no, el elemento se escala por su cuenta y termina
- * saliéndose o recortado por el overflow de la tarjeta, o se suma al zoom de
- * la tarjeta (doble escala). */
-.a11y [class*="rounded-"] p:hover,
-.a11y [class*="rounded-"] li:hover,
-.dark [class*="rounded-"] p:hover,
-.dark [class*="rounded-"] li:hover {
-  transform: none;
-  background-color: rgba(0, 0, 0, 0.04);
+/* 2. Zoom de lupa en títulos y subtítulos (h1, h2, h3, h4, h5) */
+h1,
+h2,
+h3,
+h4,
+h5 {
+  transition:
+    transform 0.2s cubic-bezier(0.2, 0, 0, 1),
+    color 0.15s ease;
+  transform-origin: left center;
 }
-.a11y .faq-item button:hover,
-.a11y .faq-item button:focus-visible,
-.dark .faq-item button:hover,
-.dark .faq-item button:focus-visible {
-  transform: none;
-  box-shadow: none;
+.text-center h1,
+.text-center h2,
+.text-center h3,
+.text-center h4,
+.text-center h5,
+h1.text-center,
+h2.text-center,
+h3.text-center,
+h4.text-center,
+h5.text-center {
+  transform-origin: center center;
+}
+h1:hover,
+h2:hover,
+h3:hover,
+h4:hover,
+h5:hover {
+  transform: scale(1.06);
+  position: relative;
+  z-index: 20;
 }
 
-/* Cartas de "Conocé a nuestro equipo": el texto no tiene tarjeta con clase
- * `rounded-*` que lo contenga (usa `.sc-team-card`, con su propio radio y
- * `overflow: hidden`), así que el párrafo de la bio se salía de la tarjeta
- * al escalar solo. Se anula el zoom de texto y se escala la tarjeta entera. */
-.a11y .sc-team-card p:hover,
-.a11y .sc-team-card li:hover,
-.dark .sc-team-card p:hover,
-.dark .sc-team-card li:hover {
+/* 3. Zoom de lupa en bloques de texto (párrafos y listas) */
+p,
+li {
+  transition:
+    transform 0.2s cubic-bezier(0.2, 0, 0, 1),
+    background-color 0.18s ease;
+  transform-origin: left center;
+}
+.text-center p,
+p.text-center,
+.text-center li,
+li.text-center {
+  transform-origin: center center;
+}
+p:hover,
+li:hover {
+  transform: scale(1.08);
+  position: relative;
+  z-index: 20;
+  border-radius: 0.375rem;
+}
+:root p:hover,
+:root li:hover {
+  background-color: rgba(75, 59, 203, 0.05);
+}
+.dark p:hover,
+.dark li:hover {
+  background-color: rgba(255, 255, 255, 0.06);
+}
+
+/* Preguntas frecuentes (FAQ): botón no salta, el título adentro hace lupa */
+.faq-btn {
+  transform: none !important;
+  box-shadow: none !important;
+}
+.faq-btn:hover span {
+  transform: scale(1.03);
+  display: inline-block;
+}
+
+/* Cartas de "Conocé a nuestro equipo": mantienen su transform 3D */
+.sc-team-card p:hover,
+.sc-team-card li:hover {
   transform: none;
   background-color: transparent;
 }
-.a11y .sc-team-card:hover,
-.a11y .sc-team-card:focus-within {
+.a11y .sc-team-card.sc-team-active:hover,
+.a11y .sc-team-card.sc-team-active:focus-within {
   transform: translate(-50%, -50%) scale(1.06) !important;
   z-index: 25;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
 }
 .dark .sc-team-card.sc-team-active:hover,
 .dark .sc-team-card.sc-team-active:focus-within {
@@ -462,88 +498,50 @@ html.a11y {
 }
 
 /* ============================================================
- * Réplica 1:1 de los estilos custom de `index.html` (colores,
- * paneles de tema, marquee de reconocimientos, carruseles de
- * equipo/testimonios y acordeón de FAQ con animación de grid).
+ * Estilo de tarjetas inspirado en ui-disenio (Rewards / Pilares)
+ * Gradiente a 145deg, borde sutil y reflejo especular inset.
  * ============================================================ */
+.sc-card-glass,
+.glass-card,
+[data-kinetic-pillar="true"] {
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
 
-.a11y .border-surface-container {
-  border-color: #333333 !important;
-  border-width: 2px !important;
+/* Modo Claro: gradiente 145deg de alt a card como en ui-disenio */
+:root .sc-card-glass,
+:root .glass-card,
+:root [data-kinetic-pillar="true"] {
+  color: rgb(var(--sc-body));
+  background: linear-gradient(145deg, rgb(var(--sc-alt) / 0.92), rgb(var(--sc-card))) !important;
+  border-color: rgb(var(--sc-line) / 0.10) !important;
+  box-shadow: 0 9px 24px rgba(0, 0, 0, 0.04);
 }
-.a11y [class*="text-amber-"] {
-  color: #78350f !important;
+
+/* Modo Oscuro: gradiente translúcido 145deg con relieve inset superior */
+.dark .sc-card-glass,
+.dark .glass-card,
+.dark [data-kinetic-pillar="true"] {
+  color: rgb(var(--sc-body));
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.065),
+    rgba(255, 255, 255, 0.018)
+  ) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.13), 0 1px 0 rgba(255, 255, 255, 0.05) inset;
 }
-.a11y [class*="text-accent-yellow"] {
-  color: #78350f !important;
+
+:root .sc-card-glass:hover,
+:root .glass-card:hover {
+  border-color: rgba(196, 92, 255, 0.35) !important;
+  box-shadow: 0 15px 34px rgba(196, 92, 255, 0.12);
 }
-.a11y [class*="text-emerald-"] {
-  color: #064e3b !important;
-}
-.a11y [class*="text-indigo-"] {
-  color: #312e81 !important;
-}
-.a11y [class*="text-teal-"] {
-  color: #134e4a !important;
-}
-.a11y [class*="text-cyan-"] {
-  color: #164e63 !important;
-}
-.a11y [class*="text-rose-"] {
-  color: #881337 !important;
-}
-.a11y .gradient-text {
-  background: none;
-  -webkit-text-fill-color: currentColor;
-  color: #1e1266;
-}
-.a11y .text-display-lg {
-  font-size: 55px !important;
-  line-height: 64px !important;
-}
-.a11y .text-display-lg-mobile {
-  font-size: 41px !important;
-  line-height: 50px !important;
-}
-.a11y .text-headline-lg {
-  font-size: 36px !important;
-  line-height: 46px !important;
-}
-.a11y .text-headline-lg-mobile {
-  font-size: 30px !important;
-  line-height: 39px !important;
-}
-.a11y .text-headline-md {
-  font-size: 25px !important;
-  line-height: 34px !important;
-}
-.a11y .text-headline-sm {
-  font-size: 21px !important;
-  line-height: 30px !important;
-}
-.a11y .text-label-lg {
-  font-size: 16px !important;
-  line-height: 23px !important;
-}
-.a11y .text-label-md {
-  font-size: 14px !important;
-  line-height: 18px !important;
-}
-.a11y .text-label-sm {
-  font-size: 13px !important;
-  line-height: 16px !important;
-}
-.a11y .text-body-md {
-  font-size: 17px !important;
-  line-height: 27px !important;
-}
-.a11y .text-body-sm {
-  font-size: 15px !important;
-  line-height: 23px !important;
-}
-.a11y .text-body-lg {
-  font-size: 19px !important;
-  line-height: 30px !important;
+
+.dark .sc-card-glass:hover,
+.dark .glass-card:hover {
+  border-color: rgba(255, 255, 255, 0.18) !important;
+  box-shadow: 0 13px 28px rgba(0, 0, 0, 0.25), 0 1px 0 rgba(255, 255, 255, 0.08) inset;
 }
 
 /* Paneles de tema (Gamificación / Descarga): degradés que cambian con el modo */
@@ -769,6 +767,32 @@ html.a11y {
   box-shadow: 0 0 50px rgba(255, 63, 180, 0.42), 0 30px 80px rgba(0, 0, 0, 0.55);
 }
 
+/* Modo Claro: la tarjeta blanca (--sc-card) casi no contrasta con el fondo
+   lavanda de la sección (--sc-base), así que a baja opacidad las tarjetas
+   laterales quedaban invisibles (en Modo Oscuro sí se ven porque la tarjeta
+   contrasta con el fondo). Se les da un fondo con tinte propio, borde/sombra
+   más marcados y algo más de opacidad para que se noten sin tocar el modo
+   oscuro. */
+:root:not(.dark) .sc-team-card {
+  background: rgb(var(--sc-alt));
+  border-color: rgb(75 59 203 / 0.16);
+  box-shadow: 0 14px 34px rgba(75, 59, 203, 0.12);
+}
+
+:root:not(.dark) .sc-team-card.sc-team-active {
+  background: rgb(var(--sc-card));
+}
+
+:root:not(.dark) .sc-team-card.sc-team-next-1,
+:root:not(.dark) .sc-team-card.sc-team-prev-1 {
+  opacity: 0.75;
+}
+
+:root:not(.dark) .sc-team-card.sc-team-next-2,
+:root:not(.dark) .sc-team-card.sc-team-prev-2 {
+  opacity: 0.45;
+}
+
 .sc-team-card.sc-team-next-1 {
   transform: translate(calc(-50% + 245px), -50%) rotate(4deg) scale(0.88);
   opacity: 0.55;
@@ -896,12 +920,7 @@ html.a11y {
 }
 
 .a11y .sc-team-card {
-  border-width: 2px !important;
-  transform: translate(-50%, -50%) !important;
   filter: none !important;
-}
-.a11y .sc-team-card:not(.sc-team-active) {
-  display: none !important;
 }
 
 /* ==========================================================================
@@ -954,56 +973,42 @@ html.a11y {
 }
 
 .sc-award-item {
-  width: 190px;
-  height: 114px;
-  flex: 0 0 190px;
+  width: 220px;
+  min-height: 148px;
+  flex: 0 0 220px;
   border-radius: 20px;
-  border: 1px solid rgb(var(--sc-line) / 0.17);
-  background: linear-gradient(145deg, rgb(var(--sc-alt) / 0.92), rgb(var(--sc-card)));
+  border: 1px solid rgb(var(--sc-line) / 0.08);
+  background: linear-gradient(145deg, rgb(var(--sc-alt) / 0.55), rgb(var(--sc-card)));
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  box-shadow: 0 9px 24px rgba(0, 0, 0, 0.06);
+  gap: 10px;
+  box-shadow: 0 9px 24px rgba(0, 0, 0, 0.05);
   transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
   position: relative;
   overflow: hidden;
+  padding: 12px 8px;
 }
 
 .sc-award-item:hover {
   transform: translateY(-4px) scale(1.025);
-  border-color: rgba(196, 92, 255, 0.4);
-  box-shadow: 0 15px 34px rgba(196, 92, 255, 0.14);
+  border-color: rgb(var(--sc-line) / 0.14);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
 }
 
-/* Trazo inferior característico de SugarCoach con gradiente de marca */
+/* Trazo inferior característico de SugarCoach con gradiente de marca —
+   oculto: los logos de marcas van sin borde ni contenedor. */
 .sc-award-item::after {
-  content: "";
-  position: absolute;
-  left: 18%;
-  right: 18%;
-  bottom: 0;
-  width: 64%;
-  height: 2px;
-  border-radius: 999px 999px 0 0;
-  background: linear-gradient(
-    90deg,
-    rgba(255, 63, 180, 0.85),
-    rgba(196, 92, 255, 0.8) 50%,
-    rgba(123, 94, 247, 0.75)
-  );
-  opacity: 0.85;
-  transition: opacity 0.25s ease, height 0.25s ease;
+  content: none;
 }
 
 .sc-award-item:hover::after {
-  opacity: 1;
-  height: 2.5px;
+  content: none;
 }
 
 .sc-award-logo {
-  min-height: 44px;
+  min-height: 72px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1039,18 +1044,43 @@ html.a11y {
 }
 
 .dark .sc-award-item {
-  border-color: rgba(255, 255, 255, 0.12);
-  background: linear-gradient(
-    145deg,
-    rgba(255, 255, 255, 0.065),
-    rgba(255, 255, 255, 0.018)
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.30),
+    0 1px 0 rgba(255, 255, 255, 0.10) inset;
+  position: relative;
+  overflow: hidden;
+}
+
+.dark .sc-award-item::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at 50% 50%,
+    rgba(196, 92, 255, 0.35) 0%,
+    rgba(150, 70, 220, 0.25) 40%,
+    rgba(100, 50, 180, 0.15) 70%,
+    transparent 100%
   );
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.13), 0 1px 0 rgba(255, 255, 255, 0.07) inset;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.dark .sc-award-item > * {
+  position: relative;
+  z-index: 1;
 }
 
 .dark .sc-award-item:hover {
-  border-color: rgba(255, 255, 255, 0.25);
-  box-shadow: 0 13px 28px rgba(0, 0, 0, 0.25), 0 1px 0 rgba(255, 255, 255, 0.12) inset;
+  border-color: rgba(255, 63, 180, 0.40);
+  box-shadow:
+    0 8px 28px rgba(196, 92, 255, 0.28),
+    0 1px 0 rgba(255, 255, 255, 0.10) inset;
+  transform: translateY(-4px) scale(1.025);
 }
 
 .dark .sc-award-name {
@@ -1064,25 +1094,52 @@ html.a11y {
 
 .a11y .sc-awards-shell {
   background: #fff !important;
-  border: 2px solid #111 !important;
   box-shadow: none !important;
 }
 
 .a11y .sc-award-item {
-  background: #fff !important;
-  border: 2px solid #111 !important;
+  background: linear-gradient(145deg, var(--c-surface-container), var(--c-surface-container-high)) !important;
+  border: none !important;
+  border-radius: 20px !important;
   box-shadow: none !important;
 }
 
 .a11y .sc-award-item::after {
-  background: #111 !important;
-  opacity: 1 !important;
-  height: 3px !important;
+  content: none !important;
 }
 
 .a11y .sc-award-name {
   color: #111 !important;
   font-weight: 800 !important;
+}
+
+
+/* Awards: eliminar bordes en modo claro */
+:root:not(.dark) .sc-awards-shell,
+:root:not(.dark) .sc-award-item,
+:root:not(.dark) .sc-award-logo {
+  border: none !important;
+  outline: none;
+  box-shadow: none;
+}
+
+/* Mantener bordes en modo oscuro */
+.dark .sc-awards-shell {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+
+/* Eliminar bordes y sombras decorativas en modo claro */
+:root:not(.dark) .sc-award-item {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+/* Eliminar bordes y sombras decorativas */
+.sc-award-item {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1096,4 +1153,261 @@ html {
 }
 ::-webkit-scrollbar {
   display: none;
+}
+/* ===== Chat Widget SugarCoach ===== */
+#sc-chat-btn {
+  position: fixed; right: 20px; bottom: 80px; z-index: 70;
+  width: 68px; height: 68px; border-radius: 9999px; border: none; cursor: pointer;
+  background: var(--c-primary); color: var(--c-on-primary);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 14px 34px -6px rgba(0,0,0,0.42), 0 4px 16px -2px rgba(0,0,0,0.3);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+#sc-chat-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 16px 38px -6px rgba(0,0,0,0.48), 0 4px 18px -2px rgba(0,0,0,0.35);
+}
+
+#sc-chat-panel {
+  position: fixed; right: 20px; bottom: 160px; z-index: 71;
+  width: min(370px, calc(100vw - 40px)); height: min(520px, calc(100vh - 140px));
+  background: var(--c-surface-container-lowest);
+  border: 1px solid var(--c-outline-variant);
+  border-radius: 1.5rem;
+  box-shadow: 0 25px 60px -12px rgba(0,0,0,0.35);
+  display: flex; flex-direction: column; overflow: hidden;
+}
+
+.sc-chat-header {
+  display: flex; align-items: center; gap: 10px;
+  padding: 14px 16px; border-bottom: 1px solid var(--c-outline-variant);
+  background: var(--c-surface-container-low); flex-shrink: 0;
+}
+.sc-chat-header img { width: 34px; height: 34px; border-radius: 9999px; flex-shrink: 0; object-fit: cover; background: var(--c-surface-container-high); }
+.sc-chat-header-text { flex: 1; min-width: 0; }
+.sc-chat-header-text .sc-name { font-weight: 700; color: var(--c-on-surface); font-size: .95rem; }
+.sc-chat-header-text .sc-status { font-size: .78rem; color: var(--c-on-surface-variant); display: flex; align-items: center; gap: 5px; }
+.sc-status .sc-dot { width: 7px; height: 7px; border-radius: 9999px; background: #22c55e; flex-shrink: 0; }
+#sc-chat-menu, #sc-chat-close {
+  width: 36px; height: 36px; border-radius: 9999px; border: none; background: transparent; cursor: pointer;
+  color: var(--c-on-surface-variant); display: flex; align-items: center; justify-content: center;
+  min-width: 36px;
+}
+#sc-chat-menu:hover, #sc-chat-close:hover { background: var(--c-surface-container-high); }
+
+.sc-chat-disclaimer {
+  font-size: .74rem; color: var(--c-on-surface-variant);
+  background: var(--c-surface-container); padding: 8px 14px; flex-shrink: 0;
+}
+
+#sc-chat-messages {
+  flex: 1; overflow-y: auto; padding: 14px; display: flex; flex-direction: column; gap: 10px;
+}
+.sc-msg { display: flex; gap: 8px; max-width: 88%; }
+.sc-msg.sc-user { align-self: flex-end; flex-direction: row-reverse; }
+.sc-msg.sc-bot { align-self: flex-start; }
+.sc-msg img { width: 24px; height: 24px; border-radius: 9999px; flex-shrink: 0; margin-top: 2px; object-fit: cover; background: var(--c-surface-container-high); }
+.sc-bubble {
+  padding: 10px 13px; border-radius: 1rem; font-size: .88rem; line-height: 1.45; margin: 0;
+}
+.sc-user .sc-bubble { background: var(--c-primary); color: var(--c-on-primary); border-bottom-right-radius: .3rem; }
+.sc-bot .sc-bubble { background: var(--c-surface-container); color: var(--c-on-surface); border-bottom-left-radius: .3rem; }
+
+.sc-options { display: flex; flex-direction: column; gap: 6px; margin-top: 6px; align-self: flex-start; max-width: 88%; }
+.sc-option-btn {
+  text-align: left; background: var(--c-surface-container-lowest); color: var(--c-primary);
+  border: 1.5px solid var(--c-primary); border-radius: .85rem; padding: 9px 12px;
+  font-size: .84rem; font-weight: 600; cursor: pointer; min-height: 40px;
+  transition: background .15s ease;
+}
+.sc-option-btn:hover { background: var(--c-primary-container); color: var(--c-on-primary-container); }
+
+.sc-typing { display: flex; gap: 4px; padding: 12px 14px; }
+.sc-typing span {
+  width: 6px; height: 6px; border-radius: 9999px; background: var(--c-on-surface-variant);
+  animation: sc-bounce 1.2s infinite ease-in-out;
+}
+.sc-typing span:nth-child(2) { animation-delay: .15s; }
+.sc-typing span:nth-child(3) { animation-delay: .3s; }
+@keyframes sc-bounce { 0%,60%,100% { transform: translateY(0); opacity:.4; } 30% { transform: translateY(-4px); opacity:1; } }
+
+#sc-chat-form {
+  display: flex; gap: 8px; padding: 12px; border-top: 1px solid var(--c-outline-variant);
+  background: var(--c-surface-container-lowest); flex-shrink: 0;
+}
+#sc-chat-input {
+  flex: 1; border: 1.5px solid var(--c-outline-variant); border-radius: 9999px;
+  padding: 10px 16px; font-size: .88rem; background: var(--c-surface); color: var(--c-on-surface);
+  min-height: 44px;
+}
+#sc-chat-input:focus-visible { outline: 2px solid var(--c-primary); outline-offset: 1px; }
+#sc-chat-send {
+  width: 44px; height: 44px; border-radius: 9999px; border: none; background: var(--c-primary);
+  color: var(--c-on-primary); cursor: pointer; flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+}
+#sc-chat-send:disabled { opacity: .5; cursor: not-allowed; }
+
+@media (max-width: 480px) {
+  #sc-chat-panel { right: 12px; bottom: 144px; }
+  #sc-chat-btn { right: 12px; bottom: 64px; }
+}
+/* ==========================================================================
+   Página /profesionales (calcada 1:1 de profesionales.html): estado activo
+   de navegación y galería de capturas del dashboard con lightbox.
+   ========================================================================== */
+
+.nav-link-active {
+  color: var(--c-primary) !important;
+  position: relative;
+}
+.nav-link-active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -8px;
+  height: 2px;
+  border-radius: 9999px;
+  background: var(--c-primary);
+}
+.dark .nav-link-active {
+  color: #fff !important;
+}
+.dark .nav-link-active::after {
+  background: linear-gradient(90deg, #c45cff 0%, #ff3fb4 100%);
+}
+
+.shot-card {
+  background: var(--c-surface-container-lowest);
+  border: 1px solid var(--c-outline-variant);
+  border-radius: 28px;
+  padding: 1.25rem;
+  box-shadow: 0 20px 45px -20px rgba(27, 25, 47, 0.25);
+}
+@media (min-width: 768px) {
+  .shot-card {
+    padding: 2rem;
+  }
+}
+.shot-frame {
+  overflow: hidden;
+  border-radius: 20px;
+  border: 1px solid var(--c-outline-variant);
+  background: var(--c-surface-tier-1);
+}
+.shot-frame-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.65rem 1rem;
+  border-bottom: 1px solid var(--c-outline-variant);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--c-on-surface-variant);
+}
+.shot-dots {
+  display: inline-flex;
+  gap: 6px;
+}
+.shot-dots span {
+  width: 10px;
+  height: 10px;
+  border-radius: 9999px;
+  background: var(--c-outline-variant);
+  display: inline-block;
+}
+.shot-expand {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid var(--c-outline-variant);
+  border-radius: 9999px;
+  padding: 8px 14px;
+  min-height: 44px;
+  cursor: pointer;
+  background: var(--c-surface-container);
+  color: var(--c-on-surface);
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.shot-expand:hover {
+  background: var(--c-surface-container-high);
+}
+.shot-img-btn {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+}
+.shot-img-btn img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+#shot-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5.5rem 1rem 1.5rem;
+}
+@media (min-width: 1024px) {
+  #shot-lightbox {
+    padding: 6rem 1.5rem 2rem;
+  }
+}
+.shot-lightbox-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 8, 25, 0.72);
+  backdrop-filter: blur(4px);
+}
+.shot-lightbox-card {
+  position: relative;
+  width: min(1100px, calc(100vw - 2rem));
+  max-height: 90vh;
+  overflow: hidden;
+  border-radius: 24px;
+  background: var(--c-surface-container-lowest);
+  color: var(--c-on-surface);
+  border: 1px solid var(--c-outline-variant);
+  box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+}
+.shot-lightbox-body {
+  overflow: auto;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+.shot-lightbox-head,
+.shot-lightbox-foot {
+  flex: 0 0 auto;
+}
+.shot-lightbox-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+  background: #fff;
+}
+.shot-nav-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--c-outline-variant);
+  background: var(--c-surface-container);
+  color: var(--c-on-surface);
+  cursor: pointer;
+}
+.shot-nav-btn:hover {
+  background: var(--c-surface-container-high);
 }

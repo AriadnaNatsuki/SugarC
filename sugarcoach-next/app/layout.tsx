@@ -11,19 +11,24 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es" suppressHydrationWarning>
-      {/* suppressHydrationWarning: el script pre-hidratación ajusta la clase
-          de tema (dark/a11y) antes de hidratar, igual que en el HTML de modos. */}
+      {/* Script pre-hidratación: respeta tema guardado en localStorage o arranca en modo Claro sin forzar a11y */}
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var s=localStorage.getItem('sugarcoach-theme');var m=s;if(!m){var mm=window.matchMedia;var c=mm&&mm('(prefers-contrast: more)').matches;var d=mm&&mm('(prefers-color-scheme: dark)').matches;if(c)m='a11y';else if(d)m='dark';else m='light';}var e=document.documentElement;e.classList.remove('dark','a11y');if(m==='dark')e.classList.add('dark');if(m==='a11y')e.classList.add('a11y');}catch(e){}})();`,
+            __html: `(function(){try{var t=localStorage.getItem('sugarcoach-theme');var e=document.documentElement;e.classList.remove('dark','a11y');if(t==='dark'){e.classList.add('dark');}}catch(e){}})();`,
           }}
         />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* Plus Jakarta Sans ahora se autohospeda (ver app/globals.css); se
+            precarga para que el primer pintado ya la tenga lista y no
+            aparezca la fuente de respaldo del sistema. */}
         <link
-          href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap"
-          rel="stylesheet"
+          rel="preload"
+          as="font"
+          type="font/woff2"
+          href="/fonts/PlusJakartaSans-variable.woff2"
+          crossOrigin="anonymous"
         />
         <link
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"

@@ -34,17 +34,17 @@ export function TreatmentSection() {
           <h2 className="font-headline-lg text-headline-lg font-extrabold tracking-tight text-text-primary">{t("treatment.title")}</h2>
           <p className="font-body-lg text-body-lg text-text-secondary">{t("treatment.description")}</p>
           <div className="grid grid-cols-3 gap-space-sm pt-space-xs text-center">
-            <div className="rounded-2xl border border-cyan-500/30 bg-surface-tier-1 p-space-sm">
+            <div className="rounded-2xl border border-cyan-500/20 bg-surface-tier-1 p-space-sm">
               <span className="block font-label-sm font-bold text-secondary">{t("treatment.hypo")}</span>
               <span className="font-headline-sm text-headline-sm font-extrabold text-text-primary">70</span>
               <span className="font-label-sm text-[10px] text-text-tertiary">mg/dL</span>
             </div>
-            <div className="rounded-2xl border border-emerald-500/30 bg-surface-tier-1 p-space-sm">
+            <div className="rounded-2xl border border-emerald-500/20 bg-surface-tier-1 p-space-sm">
               <span className="block font-label-sm font-bold text-emerald-600 dark:text-emerald-400">{t("treatment.target")}</span>
               <span className="font-headline-sm text-headline-sm font-extrabold text-emerald-700 dark:text-emerald-300">100</span>
               <span className="font-label-sm text-[10px] text-text-tertiary">mg/dL</span>
             </div>
-            <div className="rounded-2xl border border-rose-500/30 bg-surface-tier-1 p-space-sm">
+            <div className="rounded-2xl border border-rose-500/20 bg-surface-tier-1 p-space-sm">
               <span className="block font-label-sm font-bold text-rose-600 dark:text-rose-400">{t("treatment.hyper")}</span>
               <span className="font-headline-sm text-headline-sm font-extrabold text-rose-600 dark:text-rose-400">180</span>
               <span className="font-label-sm text-[10px] text-text-tertiary">mg/dL</span>

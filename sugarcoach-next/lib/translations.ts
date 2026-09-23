@@ -425,6 +425,122 @@ export const es: Dict = {
   "footer.terms": "Términos de servicio",
   "footer.rights": "© 2024 SugarCoach. Todos los derechos reservados.",
   "footer.available": "Disponible en",
+
+  // ---- Página /profesionales (calcada 1:1 de profesionales.html) ----
+  "pro.hero.badge": "Portal profesional · Datos clínicos accionables",
+  "pro.hero.titlePrefix": "Revise a cada paciente en pocos minutos ",
+  "pro.hero.titleHighlight": "antes de entrar a consulta",
+  "pro.hero.titleSuffix": ".",
+  "pro.hero.description":
+    "SugarCoach entrega a su equipo reportes listos para consulta: Tiempo en Rango (TIR), glucosa vs. insulina, adherencia y hábitos. Sus pacientes registran en segundos; usted decide con evidencia.",
+  "pro.hero.ctaPrimary": "Solicitar acceso profesional",
+  "pro.hero.ctaSecondary": "Ver demo interactiva",
+  "pro.hero.badge1": "Datos cifrados",
+  "pro.hero.badge2": "Reportes en 1 clic",
+  "pro.hero.badge3": "Sin juicios, solo hábitos",
+  "pro.hero.shotLabel": "Panel web · Inicio",
+  "pro.hero.shotCta": "Ver recorrido",
+  "pro.hero.shotAlt": "Dashboard web SugarCoach, pestaña Inicio con Tiempo en Rango y curva de 7 días (datos simulados)",
+  "pro.hero.shotCaption": "Captura real del dashboard web (datos simulados). No es la app móvil del paciente.",
+
+  "pro.dashboard.eyebrow": "Panel profesional · Vista guiada",
+  "pro.dashboard.title": "Cómo es el dashboard que usa el médico",
+  "pro.dashboard.description":
+    "Si aún no conoce la herramienta: todo lo que ve el profesional, en un solo lugar. Acceso en modo solo lectura y con consentimiento del paciente. Paciente ficticia con fines ilustrativos: Martina Pérez (28 años, diabetes tipo 1). Todos los datos mostrados son simulados.",
+  "pro.dashboard.description2":
+    "Recorrido visual por las 5 pantallas: capturas reales del panel (vista demo con datos simulados). Cada pantalla indica qué ve usted y qué decisión clínica facilita.",
+  "pro.dashboard.ctaDemo": "Ver demo interactiva",
+
+  "pro.shot1.title": "Pantalla 1 · Inicio",
+  "pro.shot1.alt": "Dashboard médico, pestaña Inicio: medición actual, Tiempo en Rango y curva de 7 días (datos simulados)",
+  "pro.shot1.caption": "Pantalla 1 · Inicio — Estado general.",
+  "pro.shot1.heading": "Estado general de un vistazo",
+  "pro.shot1.description": "Le sirve para abrir la consulta con la situación actual, sin buscar entre menús.",
+  "pro.shot1.bullet1": "Valor actual y Tiempo en Rango a 7 días",
+  "pro.shot1.bullet2": "Promedio semanal y curva de tendencia",
+  "pro.shot1.lightboxDesc": "Estado general de un vistazo: valor actual, Tiempo en Rango a 7 días y tendencia.",
+
+  "pro.shot2.title": "Pantalla 2 · Historial",
+  "pro.shot2.alt": "Dashboard médico, pestaña Historial: registros por comida con insulina y alertas (datos simulados)",
+  "pro.shot2.caption": "Pantalla 2 · Historial — Detalle por comida.",
+  "pro.shot2.heading": "Cada comida, con contexto",
+  "pro.shot2.description":
+    "Le sirve para detectar patrones de hipo/hiper antes de la consulta, con insulina y contexto en cada registro.",
+  "pro.shot2.bullet1": "Cronología por día con alertas de hipo e hiper",
+  "pro.shot2.bullet2": "Filtros por 7 días, 30 días o historial completo",
+  "pro.shot2.lightboxDesc": "Detalle por comida con alertas de hipo/hiper y filtros por período.",
+
+  "pro.shot3.title": "Pantalla 3 · Estadísticas",
+  "pro.shot3.alt": "Dashboard médico, pestaña Estadísticas: Tiempo en Rango, carbohidratos y actividad (datos simulados)",
+  "pro.shot3.caption": "Pantalla 3 · Estadísticas — Tendencias.",
+  "pro.shot3.heading": "Patrones, no números sueltos",
+  "pro.shot3.description": "Le sirve para conversar sobre tendencias semanales en lugar de valores aislados.",
+  "pro.shot3.bullet1": "Tiempo en Rango desagregado por hipo e hiper",
+  "pro.shot3.bullet2": "Actividad y estado emocional en vista diaria, semanal o mensual",
+  "pro.shot3.lightboxDesc": "Tendencias semanales: TIR, actividad y estado emocional.",
+
+  "pro.shot4.title": "Pantalla 4 · Tratamiento",
+  "pro.shot4.alt": "Dashboard médico, pestaña Tratamiento: objetivos glucémicos e insulina basal (datos simulados)",
+  "pro.shot4.caption": "Pantalla 4 · Tratamiento — Esquema en consulta.",
+  "pro.shot4.heading": "Esquema siempre visible",
+  "pro.shot4.description":
+    "Los parámetros que usted indicó, a la vista mientras revisa los registros. El panel es de consulta: no se edita desde aquí.",
+  "pro.shot4.bullet1": "Objetivos e insulina basal por momento del día",
+  "pro.shot4.bullet2": "Solo lectura: se consulta, no se modifica",
+  "pro.shot4.lightboxDesc": "Esquema en modo solo lectura, visible durante la revisión.",
+
+  "pro.shot5.title": "Pantalla 5 · Perfil",
+  "pro.shot5.alt": "Dashboard médico, pestaña Perfil: ficha del paciente con datos clínicos simulados",
+  "pro.shot5.caption": "Pantalla 5 · Perfil — Contexto clínico.",
+  "pro.shot5.heading": "Contexto clínico del paciente",
+  "pro.shot5.description":
+    "La ficha para preparar la consulta antes de abrir los números: datos filiatorios y punto de partida (ficticios).",
+  "pro.shot5.bullet1": "Tipo de diabetes y fecha de diagnóstico simulada",
+  "pro.shot5.bullet2": "Contacto y plan en un solo lugar",
+  "pro.shot5.lightboxDesc": "Contexto clínico ficticio para preparar la consulta.",
+
+  "pro.shot.openInDemo": "Abrir esta vista en la demo",
+  "pro.shot.expand": "Ampliar",
+
+  "pro.flow.eyebrow": "Flujo típico · 4 pasos",
+  "pro.flow.title": "De la invitación a la consulta, en minutos",
+  "pro.flow.description": "Así lo usa un profesional en su semana normal, sin capacitación previa.",
+  "pro.flow.step1.title": "Invite y vincule",
+  "pro.flow.step1.desc": "Envíe un código de vinculación desde “Invitar paciente”. El paciente acepta y define qué comparte.",
+  "pro.flow.step2.title": "Elija al paciente",
+  "pro.flow.step2.desc": "Búsquelo por nombre o tóquelo en la lista. La ficha muestra sincronización y tipo de tratamiento.",
+  "pro.flow.step3.title": "Revise en orden",
+  "pro.flow.step3.desc": "Inicio para el estado actual, Historial para el detalle diario y Estadísticas para patrones semanales.",
+  "pro.flow.step4.title": "Acompañe y exporte",
+  "pro.flow.step4.desc": "Contraste con Tratamiento y Perfil, ajuste el seguimiento y exporte el reporte para la historia clínica.",
+  "pro.flow.privacyTitle": "Privacidad por diseño:",
+  "pro.flow.privacyDesc":
+    "el panel es de solo lectura. Cada paciente decide qué comparte (glucosa, insulina, actividad) y puede revocar el acceso cuando quiera. Sin venta de datos.",
+
+  "pro.faq.eyebrow": "Dudas frecuentes",
+  "pro.faq.title": "Preguntas de profesionales",
+  "pro.faq.q1": "¿Cómo accedo a los datos de mis pacientes?",
+  "pro.faq.a1":
+    "Con consentimiento explícito del paciente. Cada persona decide qué comparte y puede revocar el acceso cuando quiera. Usted ve panel agregado y reportes por paciente vinculado.",
+  "pro.faq.q2": "¿Cumple con privacidad de datos de salud?",
+  "pro.faq.a2":
+    "Sí: cifrado en tránsito y en reposo, control de accesos por rol y sin comercialización de datos a aseguradoras o terceros. Principios de privacidad por diseño.",
+  "pro.faq.q3": "¿Puedo exportar para la historia clínica?",
+  "pro.faq.a3":
+    "Sí, en el Plan Premium exportás PDF con TIR, promedios, glucosa vs. insulina y adherencia, listo para adjuntar a tu sistema.",
+
+  "pro.cta.title": "Acompañe con evidencia, no con suposiciones.",
+  "pro.cta.description":
+    "Déjenos su email profesional y le habilitamos acceso al panel con casos ficticios. Respuesta en 24-48 h hábiles. Sin compromiso.",
+  "pro.cta.emailLabel": "Email profesional",
+  "pro.cta.emailPlaceholder": "nombre@clinica.com",
+  "pro.cta.submit": "Solicitar acceso",
+  "pro.cta.submitted": "Solicitud enviada",
+  "pro.cta.note": "Usaremos su email solo para coordinar el acceso. Puede revocar el consentimiento cuando quiera.",
+  "pro.cta.success": "¡Gracias! Hemos recibido su solicitud. Le contactaremos a la brevedad con el acceso al panel.",
+  "pro.cta.altPrefix": "¿Prefiere explorar por su cuenta? ",
+  "pro.cta.altLink": "Abrir demo interactiva con datos simulados",
+  "pro.stickyCta": "Solicitar acceso",
 };
 
 export const en: Dict = {
@@ -829,6 +945,121 @@ export const en: Dict = {
   "footer.terms": "Terms of service",
   "footer.rights": "© 2024 SugarCoach. All rights reserved.",
   "footer.available": "Available on",
+
+  // ---- /professionals page (1:1 port of profesionales.html) ----
+  "pro.hero.badge": "Professional portal · Actionable clinical data",
+  "pro.hero.titlePrefix": "Review every patient in minutes ",
+  "pro.hero.titleHighlight": "before you walk into the appointment",
+  "pro.hero.titleSuffix": ".",
+  "pro.hero.description":
+    "SugarCoach gives your team reports ready for the appointment: Time in Range (TIR), glucose vs. insulin, adherence, and habits. Your patients log in seconds; you decide with evidence.",
+  "pro.hero.ctaPrimary": "Request professional access",
+  "pro.hero.ctaSecondary": "See interactive demo",
+  "pro.hero.badge1": "Encrypted data",
+  "pro.hero.badge2": "One-click reports",
+  "pro.hero.badge3": "No judgment, just habits",
+  "pro.hero.shotLabel": "Web panel · Home",
+  "pro.hero.shotCta": "See the walkthrough",
+  "pro.hero.shotAlt": "SugarCoach web dashboard, Home tab with Time in Range and 7-day curve (simulated data)",
+  "pro.hero.shotCaption": "Real capture of the web dashboard (simulated data). Not the patient's mobile app.",
+
+  "pro.dashboard.eyebrow": "Professional panel · Guided view",
+  "pro.dashboard.title": "What the doctor's dashboard looks like",
+  "pro.dashboard.description":
+    "If you don't know the tool yet: everything the professional sees, in one place. Read-only access with patient consent. Fictitious patient for illustration purposes: Martina Pérez (28, type 1 diabetes). All data shown is simulated.",
+  "pro.dashboard.description2":
+    "Visual walkthrough of the 5 screens: real captures of the panel (demo view with simulated data). Each screen shows what you see and what clinical decision it enables.",
+  "pro.dashboard.ctaDemo": "See interactive demo",
+
+  "pro.shot1.title": "Screen 1 · Home",
+  "pro.shot1.alt": "Doctor's dashboard, Home tab: current reading, Time in Range and 7-day curve (simulated data)",
+  "pro.shot1.caption": "Screen 1 · Home — General status.",
+  "pro.shot1.heading": "Overall status at a glance",
+  "pro.shot1.description": "Helps you open the appointment with the current situation, without digging through menus.",
+  "pro.shot1.bullet1": "Current value and 7-day Time in Range",
+  "pro.shot1.bullet2": "Weekly average and trend curve",
+  "pro.shot1.lightboxDesc": "Overall status at a glance: current value, 7-day Time in Range, and trend.",
+
+  "pro.shot2.title": "Screen 2 · History",
+  "pro.shot2.alt": "Doctor's dashboard, History tab: meal-by-meal logs with insulin and alerts (simulated data)",
+  "pro.shot2.caption": "Screen 2 · History — Detail per meal.",
+  "pro.shot2.heading": "Every meal, with context",
+  "pro.shot2.description": "Helps you spot hypo/hyper patterns before the appointment, with insulin and context on each entry.",
+  "pro.shot2.bullet1": "Daily timeline with hypo and hyper alerts",
+  "pro.shot2.bullet2": "Filters for 7 days, 30 days, or full history",
+  "pro.shot2.lightboxDesc": "Detail per meal with hypo/hyper alerts and period filters.",
+
+  "pro.shot3.title": "Screen 3 · Statistics",
+  "pro.shot3.alt": "Doctor's dashboard, Statistics tab: Time in Range, carbohydrates and activity (simulated data)",
+  "pro.shot3.caption": "Screen 3 · Statistics — Trends.",
+  "pro.shot3.heading": "Patterns, not isolated numbers",
+  "pro.shot3.description": "Helps you talk about weekly trends instead of isolated values.",
+  "pro.shot3.bullet1": "Time in Range broken down by hypo and hyper",
+  "pro.shot3.bullet2": "Activity and mood in daily, weekly, or monthly view",
+  "pro.shot3.lightboxDesc": "Weekly trends: TIR, activity, and mood.",
+
+  "pro.shot4.title": "Screen 4 · Treatment",
+  "pro.shot4.alt": "Doctor's dashboard, Treatment tab: glycemic targets and basal insulin (simulated data)",
+  "pro.shot4.caption": "Screen 4 · Treatment — Scheme during the visit.",
+  "pro.shot4.heading": "Treatment scheme always visible",
+  "pro.shot4.description":
+    "The parameters you set, visible while you review the logs. The panel is for reference only: it can't be edited from here.",
+  "pro.shot4.bullet1": "Targets and basal insulin by time of day",
+  "pro.shot4.bullet2": "Read-only: it's consulted, not modified",
+  "pro.shot4.lightboxDesc": "Read-only scheme, visible during the review.",
+
+  "pro.shot5.title": "Screen 5 · Profile",
+  "pro.shot5.alt": "Doctor's dashboard, Profile tab: patient record with simulated clinical data",
+  "pro.shot5.caption": "Screen 5 · Profile — Clinical context.",
+  "pro.shot5.heading": "Patient clinical context",
+  "pro.shot5.description":
+    "The record to prepare the appointment before opening the numbers: personal data and starting point (fictitious).",
+  "pro.shot5.bullet1": "Diabetes type and simulated diagnosis date",
+  "pro.shot5.bullet2": "Contact and plan in one place",
+  "pro.shot5.lightboxDesc": "Fictitious clinical context to prepare the appointment.",
+
+  "pro.shot.openInDemo": "Open this view in the demo",
+  "pro.shot.expand": "Expand",
+
+  "pro.flow.eyebrow": "Typical flow · 4 steps",
+  "pro.flow.title": "From invitation to appointment, in minutes",
+  "pro.flow.description": "How a professional uses it in a normal week, with no prior training.",
+  "pro.flow.step1.title": "Invite and link",
+  "pro.flow.step1.desc": "Send a linking code from \"Invite patient.\" The patient accepts and chooses what to share.",
+  "pro.flow.step2.title": "Choose the patient",
+  "pro.flow.step2.desc": "Search by name or tap it in the list. The card shows sync status and treatment type.",
+  "pro.flow.step3.title": "Review in order",
+  "pro.flow.step3.desc": "Home for the current status, History for daily detail, and Statistics for weekly patterns.",
+  "pro.flow.step4.title": "Follow up and export",
+  "pro.flow.step4.desc": "Cross-check with Treatment and Profile, adjust follow-up, and export the report for the medical record.",
+  "pro.flow.privacyTitle": "Privacy by design:",
+  "pro.flow.privacyDesc":
+    "the panel is read-only. Each patient decides what they share (glucose, insulin, activity) and can revoke access anytime. No data sold.",
+
+  "pro.faq.eyebrow": "Frequently asked",
+  "pro.faq.title": "Questions from professionals",
+  "pro.faq.q1": "How do I access my patients' data?",
+  "pro.faq.a1":
+    "With the patient's explicit consent. Each person decides what to share and can revoke access anytime. You see an aggregate panel and reports per linked patient.",
+  "pro.faq.q2": "Does it comply with health data privacy?",
+  "pro.faq.a2":
+    "Yes: encryption in transit and at rest, role-based access control, and no data sales to insurers or third parties. Privacy-by-design principles.",
+  "pro.faq.q3": "Can I export it for the medical record?",
+  "pro.faq.a3":
+    "Yes, on the Premium plan you can export a PDF with TIR, averages, glucose vs. insulin, and adherence, ready to attach to your system.",
+
+  "pro.cta.title": "Support with evidence, not assumptions.",
+  "pro.cta.description":
+    "Leave us your professional email and we'll enable access to the panel with fictitious cases. Response within 24-48 business hours. No commitment.",
+  "pro.cta.emailLabel": "Professional email",
+  "pro.cta.emailPlaceholder": "name@clinic.com",
+  "pro.cta.submit": "Request access",
+  "pro.cta.submitted": "Request sent",
+  "pro.cta.note": "We'll only use your email to coordinate access. You can revoke consent anytime.",
+  "pro.cta.success": "Thank you! We've received your request. We'll contact you shortly with access to the panel.",
+  "pro.cta.altPrefix": "Prefer to explore on your own? ",
+  "pro.cta.altLink": "Open interactive demo with simulated data",
+  "pro.stickyCta": "Request access",
 };
 
 export const translations = { es, en };

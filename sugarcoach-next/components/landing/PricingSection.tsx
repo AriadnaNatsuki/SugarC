@@ -22,7 +22,7 @@ export function PricingSection() {
       <Reveal className="mx-auto mb-8 flex max-w-2xl flex-col items-center text-center">
         <Badge variant="brand" className="mb-2">Planes</Badge>
         <h2 className="text-3xl font-extrabold tracking-tight">Elegí el acompañamiento ideal</h2>
-        <p className="mt-2 text-body">Empezá gratis. Cambiá o cancelá cuando quieras.</p>
+        <p className="mt-2 text-text-secondary">Empezá gratis. Cambiá o cancelá cuando quieras.</p>
         <Tabs value={period} onValueChange={(v) => setPeriod(v as BillingPeriod)} className="mt-6">
           <TabsList aria-label="Periodo de facturación">
             <TabsTrigger value="monthly">Mensual</TabsTrigger>

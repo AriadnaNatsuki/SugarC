@@ -23,8 +23,8 @@ export const THEME_LABELS: Record<Theme, string> = {
 function readInitialTheme(): Theme {
   if (typeof window === "undefined" || typeof document === "undefined") return "light";
   // El script pre-hidratación de `app/layout.tsx` ya dejó la clase correcta.
-  if (document.documentElement.classList.contains("a11y")) return "a11y";
   if (document.documentElement.classList.contains("dark")) return "dark";
+  if (document.documentElement.classList.contains("a11y")) return "a11y";
   return "light";
 }
 
@@ -47,8 +47,8 @@ const ThemeContext = createContext<ThemeContextValue>({
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   // SSR-safe: el primer render del cliente debe coincidir con el servidor
-  // ("light"). El tema real se sincroniza en un efecto tras montar, para
-  // no provocar hydration mismatch cuando hay dark/a11y guardado.
+  // ("light", el default). El tema real se sincroniza en un efecto tras
+  // montar, para no provocar hydration mismatch si el usuario cambió de tema.
   const [theme, setThemeState] = useState<Theme>("light");
 
   const setTheme = useCallback((mode: Theme) => {

@@ -1,0 +1,29 @@
+<button id="sc-chat-btn" aria-haspopup="dialog" aria-expanded="false" aria-controls="sc-chat-panel" aria-label="Abrir el asistente de SugarCoach">
+  <span class="material-symbols-outlined sc-icon-open" style="font-size:26px">forum</span>
+  <span class="material-symbols-outlined sc-icon-close" style="font-size:26px">close</span>
+</button>
+
+<div id="sc-chat-panel" role="dialog" aria-modal="false" aria-labelledby="sc-chat-title" hidden>
+  <div class="sc-chat-header">
+    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFZm0thCmmQiPDtaWr0bChOKpScRGT8p1X7sC6grLXO-g3KvANuFYNQN7kunE7Yd1VlnsuzC7sqxTGifV1HnigDTfp07lN3P2Tmnfwjs80dZUNXR465alau64HEpkawgkZzkIy5mkU2T__Kl8HfyRF2g8mCPe1Ei4EO5Jz4R2f55MbC5bdBNpyrdTJhWJgNSuUpvfcqeyiBy3FHb13G2ehV948SsnrL6jRNBqQgfxOpbJi8d4D3LfWCVvsl03nua_dqg" alt="" aria-hidden="true">
+    <div class="sc-chat-header-text">
+      <div id="sc-chat-title" class="sc-name">Asistente SugarCoach</div>
+      <div class="sc-status"><span class="sc-dot"></span> En línea</div>
+    </div>
+    <button id="sc-chat-menu" aria-label="Ver todas las opciones" type="button">
+      <span class="material-symbols-outlined" style="font-size:20px">list_alt</span>
+    </button>
+    <button id="sc-chat-close" aria-label="Cerrar el asistente" type="button">
+      <span class="material-symbols-outlined" style="font-size:20px">close</span>
+    </button>
+  </div>
+  <div class="sc-chat-disclaimer">Puedo ayudarte con dudas sobre cómo usar la app. No doy indicaciones médicas ni veo tus datos de salud.</div>
+  <div id="sc-chat-messages" aria-live="polite"></div>
+  <form id="sc-chat-form">
+    <label for="sc-chat-input" class="sr-only">Escribí tu consulta</label>
+    <input id="sc-chat-input" type="text" placeholder="Escribí tu consulta..." autocomplete="off" maxlength="400">
+    <button id="sc-chat-send" type="submit" aria-label="Enviar mensaje">
+      <span class="material-symbols-outlined" style="font-size:20px">send</span>
+    </button>
+  </form>
+</div>

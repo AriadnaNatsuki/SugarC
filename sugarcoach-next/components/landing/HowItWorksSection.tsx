@@ -46,7 +46,7 @@ function buildSteps(t: (key: string) => string): StepItem[] {
       image: PHONES.registro,
       alt: t("howShowcase.step1.alt"),
       accentBg: "bg-[#C45CFF]/15 text-[#7100A5] dark:text-[#C45CFF] border-[#C45CFF]/30",
-      activeBorder: "border-[#C45CFF] shadow-[0_0_24px_rgba(196,92,255,0.18)] dark:border-[#C45CFF]",
+      activeBorder: "border-[#C45CFF]/60 shadow-[0_0_24px_rgba(196,92,255,0.18)] dark:border-[#C45CFF]/70",
       glow: "from-[#C45CFF]/20 via-[#DA44AF]/10 to-transparent",
       accentColor: "text-[#7100A5] dark:text-[#C45CFF]",
       barColor: "bg-gradient-to-r from-[#C45CFF] to-[#DA44AF]",
@@ -76,7 +76,7 @@ function buildSteps(t: (key: string) => string): StepItem[] {
       image: PHONES.dailyLog,
       alt: t("howShowcase.step2.alt"),
       accentBg: "bg-[#2BC5C7]/15 text-[#006064] dark:text-[#2BC5C7] border-[#2BC5C7]/30",
-      activeBorder: "border-[#2BC5C7] shadow-[0_0_24px_rgba(43,197,199,0.18)] dark:border-[#2BC5C7]",
+      activeBorder: "border-[#2BC5C7]/60 shadow-[0_0_24px_rgba(43,197,199,0.18)] dark:border-[#2BC5C7]/70",
       glow: "from-[#2BC5C7]/20 via-teal-500/10 to-transparent",
       accentColor: "text-[#006064] dark:text-[#2BC5C7]",
       barColor: "bg-gradient-to-r from-[#2BC5C7] to-teal-400",
@@ -106,7 +106,7 @@ function buildSteps(t: (key: string) => string): StepItem[] {
       image: PHONES.treatmentSteps,
       alt: t("howShowcase.step3.alt"),
       accentBg: "bg-[#FF3FB4]/15 text-[#9E1679] dark:text-[#FF3FB4] border-[#FF3FB4]/30",
-      activeBorder: "border-[#FF3FB4] shadow-[0_0_24px_rgba(255,63,180,0.18)] dark:border-[#FF3FB4]",
+      activeBorder: "border-[#FF3FB4]/60 shadow-[0_0_24px_rgba(255,63,180,0.18)] dark:border-[#FF3FB4]/70",
       glow: "from-[#FF3FB4]/20 via-[#DA44AF]/10 to-transparent",
       accentColor: "text-[#9E1679] dark:text-[#FF3FB4]",
       barColor: "bg-gradient-to-r from-[#FF3FB4] to-pink-400",
@@ -175,7 +175,7 @@ export function HowItWorksSection() {
         <h2 id="how-it-works-title" className="text-3xl font-extrabold tracking-tight text-ink md:text-4xl">
           {t("howShowcase.title")}
         </h2>
-        <p className="mt-3 max-w-xl text-sm sm:text-base leading-relaxed text-body dark:text-[#A8B0C5]">
+        <p className="mt-3 max-w-xl text-sm sm:text-base leading-relaxed text-text-secondary">
           {t("howShowcase.description")}
         </p>
       </Reveal>
@@ -287,7 +287,7 @@ export function HowItWorksSection() {
                       <p className="text-xs sm:text-sm font-semibold text-ink leading-relaxed">
                         {s.headline}
                       </p>
-                      <p className="text-xs sm:text-sm leading-relaxed text-body dark:text-[#A8B0C5]">
+                      <p className="text-xs sm:text-sm leading-relaxed text-text-secondary">
                         {s.desc}
                       </p>
 

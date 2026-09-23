@@ -47,8 +47,13 @@ const config: Config = {
       // Se agregan sin tocar los `sc-*` existentes (usados por /login,
       // /register, /dashboard) para no romper esas páginas.
       // ------------------------------------------------------------------
-      colors: {
+      backgroundColor: {
         base: withAlpha("--sc-base"),
+      },
+      borderColor: {
+        base: withAlpha("--sc-base"),
+      },
+      colors: {
         alt: withAlpha("--sc-alt"),
         footer: withAlpha("--sc-footer"),
         card: withAlpha("--sc-card"),
@@ -58,6 +63,7 @@ const config: Config = {
         line: withAlpha("--sc-line"), // bordes sutiles (reemplaza border-white/*)
         tint: withAlpha("--sc-tint"), // superficies tenues (reemplaza bg-white/*)
         brand: {
+          DEFAULT: "#DA44AF",
           from: "#DA44AF",
           to: "#C747CA",
         },
@@ -66,7 +72,7 @@ const config: Config = {
           blue: "#155EB2",
         },
         // ---- Tokens 1:1 de `index.html` (variables `--c-*` en globals.css) ----
-        "accent-yellow": "var(--c-accent-yellow)",
+        "accent-yellow": withAlpha("--c-accent-yellow-rgb"),
         background: "var(--c-background)",
         "bg-canvas": "var(--c-bg-canvas)",
         "bg-deep": "var(--c-bg-deep)",
@@ -77,8 +83,8 @@ const config: Config = {
         "inverse-on-surface": "var(--c-inverse-on-surface)",
         "inverse-primary": "var(--c-inverse-primary)",
         "inverse-surface": "var(--c-inverse-surface)",
-        "neon-cyan": "var(--c-neon-cyan)",
-        "neon-magenta": "var(--c-neon-magenta)",
+        "neon-cyan": withAlpha("--c-neon-cyan-rgb"),
+        "neon-magenta": withAlpha("--c-neon-magenta-rgb"),
         "neon-magenta-alt": "var(--c-neon-magenta-alt)",
         "on-background": "var(--c-on-background)",
         "on-error": "var(--c-on-error)",
@@ -99,17 +105,17 @@ const config: Config = {
         "on-tertiary-fixed-variant": "var(--c-on-tertiary-fixed-variant)",
         outline: "var(--c-outline)",
         "outline-variant": "var(--c-outline-variant)",
-        primary: "var(--c-primary)",
+        primary: withAlpha("--c-primary-rgb"),
         "primary-container": "var(--c-primary-container)",
         "primary-fixed": "var(--c-primary-fixed)",
         "primary-fixed-dim": "var(--c-primary-fixed-dim)",
-        secondary: "var(--c-secondary)",
+        secondary: withAlpha("--c-secondary-rgb"),
         "secondary-container": "var(--c-secondary-container)",
         "secondary-fixed": "var(--c-secondary-fixed)",
         "secondary-fixed-dim": "var(--c-secondary-fixed-dim)",
         surface: "var(--c-surface)",
         "surface-bright": "var(--c-surface-bright)",
-        "surface-container": "var(--c-surface-container)",
+        "surface-container": withAlpha("--c-surface-container-rgb"),
         "surface-container-high": "var(--c-surface-container-high)",
         "surface-container-highest": "var(--c-surface-container-highest)",
         "surface-container-low": "var(--c-surface-container-low)",
@@ -120,8 +126,8 @@ const config: Config = {
         "surface-tier-3": "var(--c-surface-tier-3)",
         "surface-tint": "var(--c-surface-tint)",
         "surface-variant": "var(--c-surface-variant)",
-        tertiary: "var(--c-tertiary)",
-        "tertiary-container": "var(--c-tertiary-container)",
+        tertiary: withAlpha("--c-tertiary-rgb"),
+        "tertiary-container": withAlpha("--c-tertiary-container-rgb"),
         "tertiary-fixed": "var(--c-tertiary-fixed)",
         "tertiary-fixed-dim": "var(--c-tertiary-fixed-dim)",
         "text-primary": "var(--c-text-primary)",
