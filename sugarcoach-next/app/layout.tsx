@@ -11,14 +11,11 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es" suppressHydrationWarning>
-      {/* suppressHydrationWarning: el script pre-hidratación garantiza que la
-          página siempre arranca en modo Accesible (clase `a11y` en <html>),
-          sin importar el tema guardado o las preferencias del sistema. El
-          usuario puede cambiarlo con el selector una vez cargada la página. */}
+      {/* Script pre-hidratación: respeta tema guardado en localStorage o arranca en modo Claro sin forzar a11y */}
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var e=document.documentElement;e.classList.remove('dark');e.classList.add('a11y');}catch(e){}})();`,
+            __html: `(function(){try{var t=localStorage.getItem('sugarcoach-theme');var e=document.documentElement;e.classList.remove('dark','a11y');if(t==='dark'){e.classList.add('dark');}}catch(e){}})();`,
           }}
         />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
