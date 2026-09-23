@@ -1160,18 +1160,12 @@ html {
   width: 68px; height: 68px; border-radius: 9999px; border: none; cursor: pointer;
   background: var(--c-primary); color: var(--c-on-primary);
   display: flex; align-items: center; justify-content: center;
-  transition: transform .15s ease;
-  animation: sc-btn-float-shadow 3.2s ease-in-out infinite;
+  box-shadow: 0 14px 34px -6px rgba(0,0,0,0.42), 0 4px 16px -2px rgba(0,0,0,0.3);
+  transition: transform .15s ease, box-shadow .15s ease;
 }
 #sc-chat-btn:hover {
   transform: scale(1.08);
-}
-@keyframes sc-btn-float-shadow {
-  0%, 100% { box-shadow: 0 14px 34px -6px rgba(0,0,0,0.42), 0 4px 16px -2px rgba(0,0,0,0.3); }
-  50% { box-shadow: 0 22px 42px -8px rgba(0,0,0,0.38), 0 8px 20px -3px rgba(0,0,0,0.22); }
-}
-@media (prefers-reduced-motion: reduce) {
-  #sc-chat-btn { animation: none; box-shadow: 0 14px 34px -6px rgba(0,0,0,0.42), 0 4px 16px -2px rgba(0,0,0,0.3); }
+  box-shadow: 0 16px 38px -6px rgba(0,0,0,0.48), 0 4px 18px -2px rgba(0,0,0,0.35);
 }
 
 #sc-chat-panel {
