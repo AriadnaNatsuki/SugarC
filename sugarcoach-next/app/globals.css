@@ -373,13 +373,19 @@
 
 /* 1. Zoom en botones y links al hover/foco */
 button:not(.faq-btn):not(#sc-chat-close):not(#sc-chat-menu),
-a:not(.nav-link) {
+a:not(.nav-link):not([href*="premium"]) {
   transition:
     transform 0.18s cubic-bezier(0.2, 0, 0, 1),
     box-shadow 0.18s cubic-bezier(0.2, 0, 0, 1);
 }
-
-
+button:not(.faq-btn):not(#sc-chat-close):not(#sc-chat-menu):hover,
+button:not(.faq-btn):not(#sc-chat-close):not(#sc-chat-menu):focus-visible,
+a:not(.nav-link):not([class*="group"]):not([href*="premium"]):hover,
+a:not(.nav-link):not([class*="group"]):not([href*="premium"]):focus-visible {
+  transform: scale(1.06);
+  position: relative;
+  z-index: 20;
+}
 
 /* Sin blobs decorativos: menos ruido visual para baja visión */
 .a11y [class*="blur-3xl"] {
@@ -388,12 +394,16 @@ a:not(.nav-link) {
 
 /* Enlaces del navbar: zoom suave para no provocar salto de línea */
 .nav-link {
-  transition: transform 0.15s ease, color 0.15s ease;
+  transition:
+    transform 0.15s ease,
+    color 0.15s ease;
   transform-origin: center center;
 }
 .nav-link:hover,
 .nav-link:focus-visible {
   transform: scale(1.06);
+  position: relative;
+  z-index: 20;
 }
 
 /* 2. Zoom de lupa en títulos y subtítulos (h1, h2, h3, h4, h5) */
