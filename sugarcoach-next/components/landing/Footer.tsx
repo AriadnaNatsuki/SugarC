@@ -4,6 +4,7 @@ import Image from "next/image";
 import { MaterialIcon } from "@/components/ui/MaterialIcon";
 import { LOGO_SRC } from "@/lib/images";
 import { useLanguage } from "@/lib/i18n";
+import { GooglePlayIcon } from "../ui/GooglePlayIcon";
 
 /** Footer, calcado 1:1 de index.html. */
 export function Footer() {
