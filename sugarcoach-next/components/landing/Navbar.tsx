@@ -44,7 +44,7 @@ export function Navbar() {
     <>
       <header className="fixed left-0 top-0 z-50 w-full border-b border-border-subtle bg-bg-deep/85 shadow-[0_10px_35px_-10px_rgba(0,0,0,0.6)] backdrop-blur-xl">
         <div className="mx-auto flex h-20 max-w-[1200px] items-center justify-between gap-space-md px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop">
-          <a className="group flex items-center gap-2" href="/">
+          <a className="group flex shrink-0 items-center gap-2" href="/">
             <Image
               src={LOGO_SRC}
               alt="SugarCoach Logo Oficial"
@@ -54,12 +54,12 @@ export function Navbar() {
               className="h-8 w-auto object-contain drop-shadow-[0_2px_8px_rgba(196,92,255,0.3)] transition-transform group-hover:scale-105 md:h-9"
             />
           </a>
-          <nav className="hidden items-center gap-space-lg lg:flex">
+          <nav className="hidden items-center justify-center gap-space-md lg:flex xl:gap-space-lg">
             {NAV_LINKS.map((l) => (
               <a
                 key={l.href}
                 className={cn(
-                  "font-label-lg text-label-lg text-text-secondary transition-colors hover:text-primary",
+                  "nav-link inline-block whitespace-nowrap font-label-lg text-label-lg text-text-secondary transition-colors hover:text-primary",
                   pathname === l.href && "nav-link-active",
                 )}
                 href={l.href}
@@ -69,24 +69,27 @@ export function Navbar() {
               </a>
             ))}
             <a
-              className="inline-flex items-center gap-1.5 rounded-full bg-amber-400/20 px-3.5 py-1.5 text-sm font-bold text-amber-800 transition-all hover:scale-105 hover:bg-amber-400/35 dark:bg-amber-400/15 dark:text-amber-300 dark:hover:bg-amber-400/25"
+              className="inline-flex flex-row items-center gap-1.5 whitespace-nowrap rounded-full bg-amber-400/20 px-3.5 py-1.5 text-sm font-bold text-amber-800 transition-all hover:scale-105 hover:bg-amber-400/35 dark:bg-amber-400/15 dark:text-amber-300 dark:hover:bg-amber-400/25"
               href="/premium"
             >
-              <Crown className="h-4 w-4 fill-amber-500 text-amber-600 dark:fill-amber-300 dark:text-amber-300" />
+              <Crown className="inline-block h-4 w-4 shrink-0 fill-amber-500 text-amber-600 dark:fill-amber-300 dark:text-amber-300" />
               <span>{t("nav.premium")}</span>
             </a>
           </nav>
-          <div className="flex items-center gap-space-sm md:gap-space-md">
+          <div className="flex shrink-0 items-center justify-end gap-space-sm md:gap-space-md lg:min-w-[370px]">
             <LanguageToggle />
             <ThemeToggle />
             <a
-              className="hidden min-h-[44px] items-center justify-center gap-2 rounded-full btn-gradient border border-white/20 px-3.5 py-space-xs font-label-lg text-label-lg text-white transition-all active:scale-95 sm:inline-flex sm:px-space-lg"
+              className="hidden min-h-[44px] min-w-[160px] items-center justify-center gap-2 whitespace-nowrap rounded-full btn-gradient border border-white/20 px-3.5 py-space-xs font-label-lg text-label-lg text-white transition-all active:scale-95 sm:inline-flex sm:px-space-lg"
               href="/#descargar"
             >
               <MaterialIcon name="download" className="text-[18px]" />
               <span>{t("btn.shortDownload")}</span>
             </a>
-            <a className="hidden font-label-lg text-label-lg text-text-secondary transition-colors hover:text-primary lg:inline-flex" href="/login">
+            <a
+              className="nav-link hidden min-w-[105px] items-center justify-center whitespace-nowrap text-center font-label-lg text-label-lg text-text-secondary transition-colors hover:text-primary lg:inline-flex"
+              href="/login"
+            >
               {t("nav.login")}
             </a>
             <button
@@ -140,10 +143,10 @@ export function Navbar() {
           ))}
           <a
             onClick={() => setMobileOpen(false)}
-            className="mt-1 flex items-center gap-2 rounded-xl bg-amber-400/20 px-3 py-3 font-label-lg font-bold text-amber-800 transition-colors hover:bg-amber-400/30 dark:bg-amber-400/15 dark:text-amber-300 dark:hover:bg-amber-400/25"
+            className="mt-1 flex flex-row items-center justify-center gap-2 rounded-xl bg-amber-400/20 px-3 py-3 font-label-lg font-bold text-amber-800 transition-colors hover:bg-amber-400/30 dark:bg-amber-400/15 dark:text-amber-300 dark:hover:bg-amber-400/25"
             href="/premium"
           >
-            <Crown className="h-[18px] w-[18px] fill-amber-500 text-amber-600 dark:fill-amber-300 dark:text-amber-300" />
+            <Crown className="inline-block h-[18px] w-[18px] shrink-0 fill-amber-500 text-amber-600 dark:fill-amber-300 dark:text-amber-300" />
             <span>{t("nav.premium")}</span>
           </a>
           <div className="mt-4 flex flex-col gap-3">
