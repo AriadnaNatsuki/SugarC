@@ -28,8 +28,8 @@ export function DoctorPreview() {
             </h3>
 
             <Image
-            //src={PHONES.treatment}
-            src="/images/celu_treatment.webp"
+            src={PHONES.treatment}
+            //src="/images/celu_treatment.webp"
             alt="App del paciente"
             fill
             className="rounded-[30px] object-contain"
