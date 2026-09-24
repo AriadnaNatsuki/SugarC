@@ -26,7 +26,7 @@ export function DoctorPreview() {
             <h3 className="theme-panel-text mb-space-md font-headline-sm text-[18px] font-bold">
               App paciente
             </h3>
-
+              <div className="relative w-full max-w-[280px] aspect-[9/19]">
             <Image
             src={PHONES.treatment}
             //src="/images/celu_treatment.webp"
@@ -35,6 +35,7 @@ export function DoctorPreview() {
             className="rounded-[30px] object-contain"
             sizes="280px"
         />
+        </div>
           </div>
 
           {/* Dashboard doctor */}
@@ -42,6 +43,7 @@ export function DoctorPreview() {
             <h3 className="theme-panel-text mb-space-md font-headline-sm text-[18px] font-bold">
               Dashboard doctor
             </h3>
+            <div className="relative w-full max-w-[560px] aspect-[16/10]">
               <Image
             src="/contenido/lovable-pictures/5.png"
             alt="Dashboard doctor"
@@ -49,6 +51,7 @@ export function DoctorPreview() {
             className="rounded-[30px] object-contain"
             sizes="280px"
         />
+        </div>
 
           </div>
 
