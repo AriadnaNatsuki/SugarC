@@ -371,19 +371,17 @@
  * Efecto lupa en títulos, párrafos, listas, botones y tarjetas.
  * ============================================================ */
 
-/* 1. Zoom en botones y links al hover/foco */
-button:not(.faq-btn):not(#sc-chat-close):not(#sc-chat-menu),
+button:not(.faq-btn):not(#sc-chat-close):not(#sc-chat-menu):not(#sc-chat-btn):not(#mobileMenuCloseBtn),
 a:not(.nav-link):not([href*="premium"]) {
   transition:
     transform 0.18s cubic-bezier(0.2, 0, 0, 1),
     box-shadow 0.18s cubic-bezier(0.2, 0, 0, 1);
 }
-button:not(.faq-btn):not(#sc-chat-close):not(#sc-chat-menu):hover,
-button:not(.faq-btn):not(#sc-chat-close):not(#sc-chat-menu):focus-visible,
+button:not(.faq-btn):not(#sc-chat-close):not(#sc-chat-menu):not(#sc-chat-btn):not(#mobileMenuCloseBtn):hover,
+button:not(.faq-btn):not(#sc-chat-close):not(#sc-chat-menu):not(#sc-chat-btn):not(#mobileMenuCloseBtn):focus-visible,
 a:not(.nav-link):not([class*="group"]):not([href*="premium"]):hover,
 a:not(.nav-link):not([class*="group"]):not([href*="premium"]):focus-visible {
   transform: scale(1.06);
-  position: relative;
   z-index: 20;
 }
 
@@ -600,6 +598,26 @@ li:hover {
   box-shadow:
     0 25px 65px -12px rgba(196, 92, 255, 0.28),
     0 0 0 1px rgba(196, 92, 255, 0.2);
+}
+
+/* Continuous ambient glow behind the whole page. The tile repeats vertically
+   and every gradient fades out before the tile edge, so there are no seams. */
+.page-ambient {
+  background-image:
+    radial-gradient(640px 520px at 12% 20%, rgb(var(--c-primary-rgb) / 0.11), transparent 70%),
+    radial-gradient(600px 500px at 90% 46%, rgb(var(--c-neon-magenta-rgb) / 0.09), transparent 70%),
+    radial-gradient(620px 520px at 20% 78%, rgb(var(--c-secondary-rgb) / 0.08), transparent 70%);
+  background-size: 100% 1800px;
+  background-repeat: repeat-y;
+}
+.a11y .page-ambient {
+  display: none;
+}
+
+/* For any section that needs a tinted band (light mode): fades in and out. */
+.section-tint-fade {
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 140px, #000 calc(100% - 140px), transparent);
+  mask-image: linear-gradient(to bottom, transparent, #000 140px, #000 calc(100% - 140px), transparent);
 }
 
 /* Header: toggles de idioma/tema */
@@ -929,8 +947,6 @@ li:hover {
 
 .sc-awards-section {
   position: relative;
-  overflow: hidden;
-  background: rgb(var(--sc-base));
 }
 
 .sc-awards-shell {
@@ -1162,10 +1178,19 @@ html {
   display: flex; align-items: center; justify-content: center;
   box-shadow: 0 14px 34px -6px rgba(0,0,0,0.42), 0 4px 16px -2px rgba(0,0,0,0.3);
   transition: transform .15s ease, box-shadow .15s ease;
+  translate: 0 0;
+  animation: sc-btn-float 3.2s ease-in-out infinite;
 }
 #sc-chat-btn:hover {
   transform: scale(1.08);
   box-shadow: 0 16px 38px -6px rgba(0,0,0,0.48), 0 4px 18px -2px rgba(0,0,0,0.35);
+}
+@keyframes sc-btn-float {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #sc-chat-btn { animation: none; }
 }
 
 #sc-chat-panel {
