@@ -216,9 +216,15 @@ export function UserTypesSection() {
   return (
     <section
       id="familias"
-      className="relative w-full overflow-hidden bg-alt/40 py-20 dark:bg-[#050B1E]"
+      className="relative w-full pb-20 pt-12 md:pt-16"
       aria-labelledby="user-types-heading"
     >
+      {/* Light-mode tinted band that fades in and out (replaces bg-alt/40) */}
+      <div
+        aria-hidden
+        className="section-tint-fade pointer-events-none absolute inset-0 -z-10 bg-alt/40 dark:hidden"
+      />
+      
       {/* Halos decorativos de fondo */}
       <div
         aria-hidden

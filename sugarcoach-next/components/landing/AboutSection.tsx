@@ -84,7 +84,7 @@ export function AboutSection() {
     <section
       id="quienes-somos"
       aria-labelledby="about-heading"
-      className="relative overflow-hidden py-16 sm:py-20 lg:py-24"
+      className="relative py-16 sm:py-20 lg:py-24"
     >
       {/* Background ambient lighting */}
       <div
