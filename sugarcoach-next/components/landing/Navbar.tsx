@@ -123,8 +123,9 @@ export function Navbar() {
         }`}
       >
         <button
+          id="mobileMenuCloseBtn"
           aria-label="Cerrar menú"
-          className="theme-toggle absolute right-4 top-4"
+          className="theme-toggle !absolute right-4 top-4 z-10"
           type="button"
           onClick={() => setMobileOpen(false)}
         >

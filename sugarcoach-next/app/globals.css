@@ -371,19 +371,17 @@
  * Efecto lupa en títulos, párrafos, listas, botones y tarjetas.
  * ============================================================ */
 
-/* 1. Zoom en botones y links al hover/foco */
-button:not(.faq-btn):not(#sc-chat-close):not(#sc-chat-menu):not(#sc-chat-btn),
+button:not(.faq-btn):not(#sc-chat-close):not(#sc-chat-menu):not(#sc-chat-btn):not(#mobileMenuCloseBtn),
 a:not(.nav-link):not([href*="premium"]) {
   transition:
     transform 0.18s cubic-bezier(0.2, 0, 0, 1),
     box-shadow 0.18s cubic-bezier(0.2, 0, 0, 1);
 }
-button:not(.faq-btn):not(#sc-chat-close):not(#sc-chat-menu):not(#sc-chat-btn):hover,
-button:not(.faq-btn):not(#sc-chat-close):not(#sc-chat-menu):not(#sc-chat-btn):focus-visible,
+button:not(.faq-btn):not(#sc-chat-close):not(#sc-chat-menu):not(#sc-chat-btn):not(#mobileMenuCloseBtn):hover,
+button:not(.faq-btn):not(#sc-chat-close):not(#sc-chat-menu):not(#sc-chat-btn):not(#mobileMenuCloseBtn):focus-visible,
 a:not(.nav-link):not([class*="group"]):not([href*="premium"]):hover,
 a:not(.nav-link):not([class*="group"]):not([href*="premium"]):focus-visible {
   transform: scale(1.06);
-  position: relative;
   z-index: 20;
 }
 
