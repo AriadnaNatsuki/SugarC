@@ -12,7 +12,7 @@ export const es: Dict = {
   "nav.login": "Iniciar sesión",
   "nav.faq": "FAQ",
   "nav.premium": "Premium",
-  "btn.descargar": "Descargar SugarCoach",
+  "btn.descargar": "Descargar App",
   "btn.shortDownload": "Descargar App",
   "btn.downloadFree": "Descargar App",
   "btn.seeHow": "Ver cómo funciona",
