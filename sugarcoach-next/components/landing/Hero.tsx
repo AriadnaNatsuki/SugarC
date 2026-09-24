@@ -9,11 +9,11 @@ import { useLanguage } from "@/lib/i18n";
 export function Hero() {
   const { t } = useLanguage();
   return (
-    <div className="relative w-full overflow-hidden bg-bg-deep">
+    <div className="relative w-full">
       <div className="pointer-events-none absolute -top-24 left-1/4 h-[520px] w-[520px] rounded-full bg-primary/15 blur-[140px]" />
       <div className="pointer-events-none absolute right-10 top-48 h-[460px] w-[460px] rounded-full bg-neon-magenta/15 blur-[150px]" />
       <div className="pointer-events-none absolute left-[-100px] top-72 h-[400px] w-[400px] rounded-full bg-secondary/10 blur-[130px]" />
-      <section className="relative z-10 mx-auto max-w-[1200px] px-gutter-mobile pb-space-3xl pt-space-xl md:px-gutter-tablet md:pt-space-2xl lg:px-gutter-desktop">
+      <section className="relative z-10 mx-auto max-w-[1200px] px-gutter-mobile pb-space-xl pt-space-xl md:px-gutter-tablet lg:px-gutter-desktop">
         <div className="grid grid-cols-1 items-center gap-space-2xl lg:grid-cols-12">
           <div className="flex flex-col gap-space-lg lg:col-span-6">
             <div className="inline-flex w-fit items-center gap-space-xs rounded-full border border-border-subtle bg-surface-tier-1 px-3.5 py-1.5 text-primary shadow-md backdrop-blur-md">

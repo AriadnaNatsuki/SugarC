@@ -154,7 +154,7 @@ export function TestimonialsSection() {
     <section
       id="testimonios"
       aria-labelledby="testimonials-heading"
-      className="relative overflow-hidden py-14 sm:py-18 lg:py-20"
+      className="relative py-14 sm:py-18 lg:py-20"
     >
       {/* Background ambient lighting */}
       <div

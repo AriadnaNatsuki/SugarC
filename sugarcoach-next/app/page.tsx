@@ -19,7 +19,8 @@ import { Footer } from "@/components/landing/Footer";
 // Quiénes somos + equipo(10) → Testimonios(11) → CTA final(12) → FAQ(13).
 export default function HomePage() {
   return (
-    <main className="w-full bg-bg-deep pt-20 font-body-md text-body-md text-on-surface antialiased selection:bg-neon-magenta selection:text-white">
+    <main className="relative isolate w-full overflow-x-clip bg-bg-deep pt-20 font-body-md ...">
++     <div aria-hidden className="page-ambient pointer-events-none absolute inset-0 -z-10" />
       <Navbar />
       <Hero />
       <UserTypesSection />

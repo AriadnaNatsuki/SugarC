@@ -650,6 +650,26 @@ html.a11y {
     0 0 0 1px rgba(196, 92, 255, 0.2);
 }
 
+/* Continuous ambient glow behind the whole page. The tile repeats vertically
+   and every gradient fades out before the tile edge, so there are no seams. */
+.page-ambient {
+  background-image:
+    radial-gradient(640px 520px at 12% 20%, rgb(var(--c-primary-rgb) / 0.11), transparent 70%),
+    radial-gradient(600px 500px at 90% 46%, rgb(var(--c-neon-magenta-rgb) / 0.09), transparent 70%),
+    radial-gradient(620px 520px at 20% 78%, rgb(var(--c-secondary-rgb) / 0.08), transparent 70%);
+  background-size: 100% 1800px;
+  background-repeat: repeat-y;
+}
+.a11y .page-ambient {
+  display: none;
+}
+
+/* For any section that needs a tinted band (light mode): fades in and out. */
+.section-tint-fade {
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 140px, #000 calc(100% - 140px), transparent);
+  mask-image: linear-gradient(to bottom, transparent, #000 140px, #000 calc(100% - 140px), transparent);
+}
+
 /* Header: toggles de idioma/tema */
 .theme-toggle {
   width: 44px;
@@ -956,8 +976,6 @@ html.a11y {
 
 .sc-awards-section {
   position: relative;
-  overflow: hidden;
-  background: rgb(var(--sc-base));
 }
 
 .sc-awards-shell {

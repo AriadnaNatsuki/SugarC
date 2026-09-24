@@ -9,7 +9,7 @@ import { useLanguage } from "@/lib/i18n";
 export function StatsSection() {
   const { t } = useLanguage();
   return (
-    <section className="relative w-full bg-bg-canvas py-space-3xl" id="profesionales">
+    <section className="relative w-full py-space-3xl" id="profesionales">
       <div className="pointer-events-none absolute right-0 top-1/3 h-96 w-96 rounded-full bg-secondary/10 blur-[140px]" />
       <div className="relative z-10 mx-auto max-w-[1200px] px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop">
         <div className="grid grid-cols-1 items-center gap-space-2xl lg:grid-cols-12">
