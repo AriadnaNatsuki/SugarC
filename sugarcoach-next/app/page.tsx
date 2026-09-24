@@ -12,6 +12,7 @@ import { AboutSection } from "@/components/landing/AboutSection";
 import { TestimonialsSection } from "@/components/landing/TestimonialsSection";
 import { CtaSection, FaqSection } from "@/components/landing/FaqCta";
 import { Footer } from "@/components/landing/Footer";
+import {DoctorPreview} from "@/components/landing/DoctorPreview"
 
 // Orden 1:1 con `index.html`: Hero(1) → Tres tipos de usuario(2) → Cómo
 // funciona(3) → Gamificación(4) → Un día con SugarCoach(5) →
@@ -29,6 +30,7 @@ export default function HomePage() {
       <DayInLifeSection />
       <StatsSection />
       <TreatmentSection />
+      <DoctorPreview/>
       <PrivacySection />
       <AboutSection />
       <AwardsSection />
