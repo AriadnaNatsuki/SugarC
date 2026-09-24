@@ -81,7 +81,7 @@ export function AwardsSection() {
     <section
       id="premios"
       aria-labelledby="awards-heading"
-      className="sc-awards-section relative overflow-hidden py-12 sm:py-16 lg:py-20"
+      className="sc-awards-section relative py-12 sm:py-16 lg:py-20"
     >
       {/* Background ambient lighting */}
       <div
