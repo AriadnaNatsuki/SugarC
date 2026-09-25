@@ -230,7 +230,7 @@ export function HowItWorksSection() {
                     handleSelectStep(idx);
                   }
                 }}
-                className={`group relative cursor-pointer overflow-hidden rounded-3xl border p-5 sm:p-6 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#DA44AF] sc-card-glass ${
+                className={`sc-hover-card group relative cursor-pointer overflow-hidden rounded-3xl border p-5 sm:p-6 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#DA44AF] sc-card-glass ${
                   isActive
                     ? s.activeBorder
                     : "border-line/10 hover:border-line/25 opacity-80 hover:opacity-100"
