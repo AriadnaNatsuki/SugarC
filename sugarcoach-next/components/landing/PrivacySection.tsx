@@ -30,7 +30,7 @@ export function PrivacySection() {
           return (
             <div
               key={item.title}
-              className={`flex flex-col gap-space-sm rounded-3xl border border-border-subtle bg-surface-tier-1 p-space-xl transition-colors ${style.hover}`}
+              className={`sc-hover-card overflow-hidden flex flex-col gap-space-sm rounded-3xl border border-border-subtle bg-surface-tier-1 p-space-xl transition-colors ${style.hover}`}
             >
               <div className={`flex h-12 w-12 items-center justify-center rounded-2xl border ${style.iconWrap}`}>
                 <MaterialIcon name={style.icon} style={{ fontSize: 28 }} />
