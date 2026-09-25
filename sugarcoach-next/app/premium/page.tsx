@@ -24,39 +24,15 @@ import { Navbar } from "@/components/landing/Navbar";
 import { Footer } from "@/components/landing/Footer";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { useLanguage } from "@/lib/i18n";
 
 interface PricingPlanFeature {
   text: string;
   included: boolean;
 }
 
-const BASIC_FEATURES: PricingPlanFeature[] = [
-  { text: "Registro de glucemia", included: true },
-  { text: "Dosis de insulina", included: true },
-  { text: "Carbohidratos consumidos", included: true },
-  { text: "Nivel de actividad diario", included: true },
-  { text: "Estado de ánimo", included: true },
-  { text: "Recompensas: fondos personalizables", included: true },
-  { text: "Notificación SMS", included: false },
-  { text: "Geolocalización", included: false },
-  { text: "Control familiar", included: false },
-  { text: "Acceso con tu médico", included: false },
-];
-
-const PREMIUM_PLAN_FEATURES: PricingPlanFeature[] = [
-  { text: "Registro de glucemia", included: true },
-  { text: "Dosis de insulina", included: true },
-  { text: "Carbohidratos consumidos", included: true },
-  { text: "Nivel de actividad diario", included: true },
-  { text: "Estado de ánimo", included: true },
-  { text: "Recompensas: fondos personalizables y tarjetas regalo Amazon, etc.", included: true },
-  { text: "Notificación SMS", included: true },
-  { text: "Geolocalización", included: true },
-  { text: "Control familiar", included: true },
-  { text: "Acceso con tu médico", included: true },
-];
-
 export default function PremiumPage() {
+  const { t } = useLanguage();
   const [showForm, setShowForm] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -72,6 +48,45 @@ export default function PremiumPage() {
   });
 
   const generatedCoupon = "SUGAR-ARG-6MESES-GRATIS";
+
+  // Mismo texto en los dos planes salvo el ítem 6 (recompensas) y si está incluido o no.
+  const SHARED_FEATURE_KEYS = [
+    "premium.plans.feature1",
+    "premium.plans.feature2",
+    "premium.plans.feature3",
+    "premium.plans.feature4",
+    "premium.plans.feature5",
+  ];
+
+  const BASIC_FEATURES: PricingPlanFeature[] = [
+    ...SHARED_FEATURE_KEYS.map((key) => ({ text: t(key), included: true })),
+    { text: t("premium.plans.feature6Basic"), included: true },
+    { text: t("premium.plans.feature7"), included: false },
+    { text: t("premium.plans.feature8"), included: false },
+    { text: t("premium.plans.feature9"), included: false },
+    { text: t("premium.plans.feature10"), included: false },
+  ];
+
+  const PREMIUM_PLAN_FEATURES: PricingPlanFeature[] = [
+    ...SHARED_FEATURE_KEYS.map((key) => ({ text: t(key), included: true })),
+    { text: t("premium.plans.feature6Premium"), included: true },
+    { text: t("premium.plans.feature7"), included: true },
+    { text: t("premium.plans.feature8"), included: true },
+    { text: t("premium.plans.feature9"), included: true },
+    { text: t("premium.plans.feature10"), included: true },
+  ];
+
+  const PROVINCES: { value: string; labelKey: string }[] = [
+    { value: "Buenos Aires", labelKey: "premium.form.province.buenosAires" },
+    { value: "CABA", labelKey: "premium.form.province.caba" },
+    { value: "Córdoba", labelKey: "premium.form.province.cordoba" },
+    { value: "Santa Fe", labelKey: "premium.form.province.santaFe" },
+    { value: "Mendoza", labelKey: "premium.form.province.mendoza" },
+    { value: "Tucumán", labelKey: "premium.form.province.tucuman" },
+    { value: "Entre Ríos", labelKey: "premium.form.province.entreRios" },
+    { value: "Salta", labelKey: "premium.form.province.salta" },
+    { value: "Otra provincia", labelKey: "premium.form.province.other" },
+  ];
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -97,7 +112,7 @@ export default function PremiumPage() {
             className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-muted hover:text-ink transition-colors"
           >
             <ArrowLeft className="h-4 w-4" />
-            <span>Volver a la página principal</span>
+            <span>{t("premium.backToHome")}</span>
           </Link>
         </div>
 
@@ -105,13 +120,13 @@ export default function PremiumPage() {
         <div className="mx-auto max-w-3xl text-center mb-10">
           <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-400/40 bg-amber-400/15 px-3.5 py-1 text-xs font-bold text-amber-700 dark:text-amber-300 mb-3">
             <Sparkles className="h-3.5 w-3.5 fill-amber-400 text-amber-500 dark:fill-amber-300 dark:text-amber-300" />
-            Plan SugarCoach Premium
+            {t("premium.badge")}
           </span>
           <h1 className="text-3xl font-extrabold tracking-tight text-ink sm:text-4xl md:text-5xl">
-            Todo el potencial de SugarCoach a tu alcance
+            {t("premium.title")}
           </h1>
           <p className="mt-3 text-sm sm:text-base leading-relaxed text-text-secondary">
-            Acompañamiento integral, sincronización familiar en tiempo real y reportes clínicos profesionales.
+            {t("premium.description")}
           </p>
         </div>
 
@@ -126,14 +141,15 @@ export default function PremiumPage() {
               </div>
               <div>
                 <span className="inline-flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-wider text-sky-700 dark:text-sky-300">
-                  Beneficio Federal de Salud · Argentina
+                  {t("premium.banner.badge")}
                 </span>
                 <h2 className="mt-1 text-lg sm:text-xl font-extrabold text-ink">
-                  “Si estás en Argentina podés acceder a cupón de descuento (100%) ingresando acá (Solo para el paciente).”
+                  {t("premium.banner.headline")}
                 </h2>
                 <p className="mt-1.5 text-xs sm:text-sm text-text-secondary leading-relaxed">
-                  Completá el formulario para vincular a tu médico o diabetólogo tratante y activá tu{" "}
-                  <strong className="text-ink font-bold">descuento del 100% válido por 6 meses</strong> para el paciente.
+                  {t("premium.banner.descPrefix")}{" "}
+                  <strong className="text-ink font-bold">{t("premium.banner.descBold")}</strong>{" "}
+                  {t("premium.banner.descSuffix")}
                 </p>
               </div>
             </div>
@@ -143,7 +159,9 @@ export default function PremiumPage() {
                 onClick={() => setShowForm((prev) => !prev)}
                 className="w-full sm:w-auto bg-gradient-to-r from-sky-600 to-blue-600 hover:from-sky-700 hover:to-blue-700 font-bold  !text-white shadow-md"
               >
-                <span className=" !text-white font-bold">{showForm ? "Ocultar formulario" : "Ingresar acá y solicitar cupón"}</span>
+                <span className=" !text-white font-bold">
+                  {showForm ? t("premium.banner.toggleHide") : t("premium.banner.toggleShow")}
+                </span>
                 <ChevronDown className={`ml-2 h-4 w-4 !text-white transition-transform ${showForm ? "rotate-180" : ""}`} />
               </Button>
             </div>
@@ -166,24 +184,24 @@ export default function PremiumPage() {
                     <form onSubmit={handleSubmit} className="space-y-4 max-w-2xl mx-auto">
                       <div className="rounded-2xl bg-base/80 p-4 border border-line/10 dark:bg-black/20 text-center mb-6">
                         <span className="text-xs font-bold text-sky-700 dark:text-sky-300 uppercase tracking-wider block">
-                          Condiciones del beneficio
+                          {t("premium.form.conditionsTitle")}
                         </span>
                         <p className="text-sm font-semibold text-ink mt-1">
-                          Descuento del 100% válido por 6 meses para el usuario/paciente.
+                          {t("premium.form.conditionsDesc")}
                         </p>
                       </div>
 
                       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                         <div>
                           <label className="block text-xs font-bold text-ink mb-1.5">
-                            Nombre y Apellido del paciente *
+                            {t("premium.form.patientNameLabel")}
                           </label>
                           <div className="relative">
                             <User className="absolute left-3 top-3 h-4 w-4 text-muted" />
                             <input
                               type="text"
                               required
-                              placeholder="Ej: Sofía Pérez"
+                              placeholder={t("premium.form.patientNamePlaceholder")}
                               value={formData.patientName}
                               onChange={(e) => setFormData({ ...formData, patientName: e.target.value })}
                               className="w-full rounded-xl border border-line/20 bg-card py-2.5 pl-9 pr-3 text-sm text-ink placeholder:text-muted focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
@@ -193,14 +211,14 @@ export default function PremiumPage() {
 
                         <div>
                           <label className="block text-xs font-bold text-ink mb-1.5">
-                            Email del paciente o tutor *
+                            {t("premium.form.patientEmailLabel")}
                           </label>
                           <div className="relative">
                             <Mail className="absolute left-3 top-3 h-4 w-4 text-muted" />
                             <input
                               type="email"
                               required
-                              placeholder="nombre@correo.com"
+                              placeholder={t("premium.form.patientEmailPlaceholder")}
                               value={formData.patientEmail}
                               onChange={(e) => setFormData({ ...formData, patientEmail: e.target.value })}
                               className="w-full rounded-xl border border-line/20 bg-card py-2.5 pl-9 pr-3 text-sm text-ink placeholder:text-muted focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
@@ -212,14 +230,14 @@ export default function PremiumPage() {
                       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                         <div>
                           <label className="block text-xs font-bold text-ink mb-1.5">
-                            DNI / Documento del paciente *
+                            {t("premium.form.patientDniLabel")}
                           </label>
                           <div className="relative">
                             <FileText className="absolute left-3 top-3 h-4 w-4 text-muted" />
                             <input
                               type="text"
                               required
-                              placeholder="Sin puntos"
+                              placeholder={t("premium.form.patientDniPlaceholder")}
                               value={formData.patientDni}
                               onChange={(e) => setFormData({ ...formData, patientDni: e.target.value })}
                               className="w-full rounded-xl border border-line/20 bg-card py-2.5 pl-9 pr-3 text-sm text-ink placeholder:text-muted focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
@@ -229,22 +247,18 @@ export default function PremiumPage() {
 
                         <div>
                           <label className="block text-xs font-bold text-ink mb-1.5">
-                            Provincia / Residencia en Argentina
+                            {t("premium.form.provinceLabel")}
                           </label>
                           <select
                             value={formData.province}
                             onChange={(e) => setFormData({ ...formData, province: e.target.value })}
                             className="w-full rounded-xl border border-line/20 bg-card py-2.5 px-3 text-sm text-ink focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
                           >
-                            <option value="Buenos Aires">Buenos Aires</option>
-                            <option value="CABA">CABA</option>
-                            <option value="Córdoba">Córdoba</option>
-                            <option value="Santa Fe">Santa Fe</option>
-                            <option value="Mendoza">Mendoza</option>
-                            <option value="Tucumán">Tucumán</option>
-                            <option value="Entre Ríos">Entre Ríos</option>
-                            <option value="Salta">Salta</option>
-                            <option value="Otra provincia">Otra provincia</option>
+                            {PROVINCES.map((p) => (
+                              <option key={p.value} value={p.value}>
+                                {t(p.labelKey)}
+                              </option>
+                            ))}
                           </select>
                         </div>
                       </div>
@@ -254,19 +268,19 @@ export default function PremiumPage() {
                         <div className="mb-2 flex items-center gap-2">
                           <Stethoscope className="h-4 w-4 text-sky-600 dark:text-sky-400" />
                           <span className="text-xs font-extrabold uppercase tracking-wider text-ink">
-                            Datos para relacionar al médico tratante
+                            {t("premium.form.doctorSectionLabel")}
                           </span>
                         </div>
 
                         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                           <div>
                             <label className="block text-xs font-bold text-ink mb-1.5">
-                              Nombre del Médico / Diabetólogo *
+                              {t("premium.form.doctorNameLabel")}
                             </label>
                             <input
                               type="text"
                               required
-                              placeholder="Dr. / Dra. Apellido"
+                              placeholder={t("premium.form.doctorNamePlaceholder")}
                               value={formData.doctorName}
                               onChange={(e) => setFormData({ ...formData, doctorName: e.target.value })}
                               className="w-full rounded-xl border border-line/20 bg-card py-2.5 px-3 text-sm text-ink placeholder:text-muted focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
@@ -275,13 +289,13 @@ export default function PremiumPage() {
 
                           <div>
                             <label className="block text-xs font-bold text-ink mb-1.5">
-                              Hospital, Centro Médico o Matrícula
+                              {t("premium.form.institutionLabel")}
                             </label>
                             <div className="relative">
                               <Building2 className="absolute left-3 top-3 h-4 w-4 text-muted" />
                               <input
                                 type="text"
-                                placeholder="Ej: Hospital Garrahan / Mat. 12345"
+                                placeholder={t("premium.form.institutionPlaceholder")}
                                 value={formData.institutionOrLicense}
                                 onChange={(e) => setFormData({ ...formData, institutionOrLicense: e.target.value })}
                                 className="w-full rounded-xl border border-line/20 bg-card py-2.5 pl-9 pr-3 text-sm text-ink placeholder:text-muted focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
@@ -293,7 +307,7 @@ export default function PremiumPage() {
 
                       <div className="pt-4 flex justify-end">
                         <Button type="submit" variant="gradient" className="w-full sm:w-auto font-bold px-8 !text-white">
-                          <span className=" !text-white font-bold">Activar 6 meses sin cargo</span>
+                          <span className=" !text-white font-bold">{t("premium.form.submit")}</span>
                         </Button>
                       </div>
                     </form>
@@ -304,12 +318,13 @@ export default function PremiumPage() {
                         <Check className="h-6 w-6" />
                       </div>
                       <h3 className="text-xl font-extrabold text-ink">
-                        ¡Beneficio otorgado con éxito!
+                        {t("premium.success.title")}
                       </h3>
                       <p className="text-sm text-text-secondary leading-relaxed">
-                        Registramos a <strong className="text-ink">{formData.patientName}</strong> en relación con el equipo de{" "}
-                        <strong className="text-ink">{formData.doctorName}</strong>. Tu cuenta cuenta con{" "}
-                        <strong className="text-emerald-700 dark:text-emerald-400">100% de descuento durante 6 meses</strong>.
+                        {t("premium.success.descPart1")} <strong className="text-ink">{formData.patientName}</strong>{" "}
+                        {t("premium.success.descPart2")} <strong className="text-ink">{formData.doctorName}</strong>
+                        {t("premium.success.descPart3")}{" "}
+                        <strong className="text-emerald-700 dark:text-emerald-400">{t("premium.success.descPart4")}</strong>.
                       </p>
 
                       <div className="inline-flex items-center gap-2 rounded-2xl border border-line/20 bg-card p-2 px-4 shadow-sm">
@@ -322,12 +337,12 @@ export default function PremiumPage() {
                           className="flex items-center gap-1 rounded-lg bg-base px-2.5 py-1 text-xs font-bold text-ink hover:bg-tint/10"
                         >
                           {copied ? <Check className="h-3.5 w-3.5 text-emerald-600" /> : <Copy className="h-3.5 w-3.5" />}
-                          <span>{copied ? "Copiado" : "Copiar"}</span>
+                          <span>{copied ? t("premium.success.copiedLabel") : t("premium.success.copyLabel")}</span>
                         </button>
                       </div>
 
                       <p className="text-xs text-muted">
-                        Enviamos una copia con las instrucciones de canje en la app a <strong>{formData.patientEmail}</strong>.
+                        {t("premium.success.emailNotePrefix")} <strong>{formData.patientEmail}</strong>.
                       </p>
                     </div>
                   )}
@@ -342,13 +357,13 @@ export default function PremiumPage() {
          * ========================================================================= */}
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-3 items-stretch">
           {/* Tarjeta Plan Basic */}
-          <div className="flex flex-col justify-between rounded-3xl border border-line/15 bg-white p-6 sm:p-7 shadow-xl dark:bg-[#101026] dark:border-white/10">
+          <div className="sc-hover-card overflow-hidden flex flex-col justify-between rounded-3xl border border-line/15 bg-white p-6 sm:p-7 shadow-xl dark:bg-[#101026] dark:border-white/10">
             <div>
               <div className="border-b border-line/10 pb-4">
-                <h3 className="text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">Basic</h3>
+                <h3 className="text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">{t("premium.plans.basicName")}</h3>
                 <div className="mt-1 flex items-baseline gap-1">
                   <span className="text-3xl font-black text-ink sm:text-4xl">$0</span>
-                  <span className="text-xs sm:text-sm font-semibold text-muted">USD / mes</span>
+                  <span className="text-xs sm:text-sm font-semibold text-muted">{t("premium.plans.perMonth")}</span>
                 </div>
               </div>
 
@@ -387,30 +402,30 @@ export default function PremiumPage() {
             <div className="mt-8 pt-4 border-t border-line/10">
               <Link href="#descargar" className="block w-full">
                 <Button variant="outline" size="lg" className="w-full font-bold">
-                  Comenzar gratis
+                  {t("premium.plans.basicCta")}
                 </Button>
               </Link>
               <div className="mt-2.5 text-center text-[11px] text-muted">
-                Sin tarjeta de crédito requerida
+                {t("premium.plans.noCard")}
               </div>
             </div>
           </div>
 
           {/* Tarjeta Plan Premium (Recomendado) */}
-          <div className="relative flex flex-col justify-between rounded-3xl border-2 border-amber-400/50 bg-white p-6 sm:p-7 shadow-2xl shadow-amber-500/5 dark:bg-[#161233] dark:border-amber-400/50">
+          <div className="sc-hover-card overflow-hidden relative flex flex-col justify-between rounded-3xl border-2 border-amber-400/50 bg-white p-6 sm:p-7 shadow-2xl shadow-amber-500/5 dark:bg-[#161233] dark:border-amber-400/50">
             {/* Badge Recomendado flotante */}
             <div className="absolute -top-3.5 right-6 z-10">
               <span className="inline-flex items-center rounded-full bg-gradient-to-r from-amber-400 to-amber-500 px-3.5 py-1 text-[11px] font-extrabold uppercase tracking-wider text-slate-950 shadow-md">
-                Recomendado
+                {t("premium.plans.recommendedBadge")}
               </span>
             </div>
 
             <div>
               <div className="border-b border-line/10 pb-4">
-                <h3 className="text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">Premium</h3>
+                <h3 className="text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">{t("premium.plans.premiumName")}</h3>
                 <div className="mt-1 flex items-baseline gap-1">
                   <span className="text-3xl font-black text-ink sm:text-4xl">$4.99</span>
-                  <span className="text-xs sm:text-sm font-semibold text-muted">USD / mes</span>
+                  <span className="text-xs sm:text-sm font-semibold text-muted">{t("premium.plans.perMonth")}</span>
                 </div>
               </div>
 
@@ -437,12 +452,12 @@ export default function PremiumPage() {
             <div className="mt-8 pt-4 border-t border-line/10">
               <Link href="#descargar" className="block w-full">
                 <Button variant="gradient" size="lg" className="w-full font-bold !text-white shadow-brand-glow">
-                  <span className="!text-white font-bold">Comenzar con SugarCoach</span>
+                  <span className="!text-white font-bold">{t("premium.plans.premiumCta")}</span>
                 </Button>
               </Link>
               <div className="mt-2.5 flex items-center justify-center gap-1.5 text-[11px] text-muted text-center">
                 <ShieldCheck className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
-                <span>Cobro seguro vía App Store & Google Play</span>
+                <span>{t("premium.plans.securePayment")}</span>
               </div>
             </div>
           </div>
@@ -450,38 +465,38 @@ export default function PremiumPage() {
           {/* Columna Lateral: Resumen de Tranquilidad */}
           <div className="flex flex-col justify-between rounded-3xl border border-line/15 bg-slate-50/80 p-6 sm:p-7 shadow-sm dark:bg-[#070D22] dark:border-line/10">
             <div className="space-y-6">
-              <div className="flex items-start gap-3.5">
+              <div className="sc-hover-card overflow-hidden flex items-start gap-3.5">
                 <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#DA44AF]/15 text-[#DA44AF]">
                   <Calendar className="h-5 w-5" />
                 </div>
                 <div>
-                  <h4 className="text-sm font-bold text-ink">Sin permanencia</h4>
+                  <h4 className="text-sm font-bold text-ink">{t("premium.sidebar.noCommitmentTitle")}</h4>
                   <p className="mt-0.5 text-xs text-muted leading-relaxed">
-                    Pausá o cancelá desde la tienda de tu teléfono en 1 toque.
+                    {t("premium.sidebar.noCommitmentDesc")}
                   </p>
                 </div>
               </div>
 
-              <div className="flex items-start gap-3.5">
+              <div className="sc-hover-card overflow-hidden flex items-start gap-3.5">
                 <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#2BC5C7]/15 text-[#2BC5C7]">
                   <Stethoscope className="h-5 w-5" />
                 </div>
                 <div>
-                  <h4 className="text-sm font-bold text-ink">Avalado clínicamente</h4>
+                  <h4 className="text-sm font-bold text-ink">{t("premium.sidebar.clinicalTitle")}</h4>
                   <p className="mt-0.5 text-xs text-muted leading-relaxed">
-                    Métricas internacionales compatibles con sensores y tiras reactivas.
+                    {t("premium.sidebar.clinicalDesc")}
                   </p>
                 </div>
               </div>
 
-              <div className="flex items-start gap-3.5">
+              <div className="sc-hover-card overflow-hidden flex items-start gap-3.5">
                 <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#C45CFF]/15 text-[#C45CFF]">
                   <ShieldCheck className="h-5 w-5" />
                 </div>
                 <div>
-                  <h4 className="text-sm font-bold text-ink">Privacidad garantizada</h4>
+                  <h4 className="text-sm font-bold text-ink">{t("premium.sidebar.privacyTitle")}</h4>
                   <p className="mt-0.5 text-xs text-muted leading-relaxed">
-                    Tus registros de salud están encriptados y nunca se comercializan.
+                    {t("premium.sidebar.privacyDesc")}
                   </p>
                 </div>
               </div>
@@ -489,13 +504,13 @@ export default function PremiumPage() {
 
             <div className="mt-8 rounded-2xl border border-line/15 bg-white/80 p-5 text-center dark:bg-[#0E1530]">
               <span className="text-xs sm:text-sm font-semibold text-muted block">
-                ¿Tenés dudas sobre el plan o la suscripción?
+                {t("premium.sidebar.contactQuestion")}
               </span>
               <a
                 href="mailto:contacto@sugarcoach.app"
                 className="mt-1.5 inline-block text-xs sm:text-sm font-bold text-brand-from hover:underline"
               >
-                Escribinos a contacto@sugarcoach.app
+                {t("premium.sidebar.contactLinkText")}
               </a>
             </div>
           </div>
