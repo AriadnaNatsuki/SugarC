@@ -541,6 +541,22 @@ export const es: Dict = {
   "pro.cta.altPrefix": "¿Prefiere explorar por su cuenta? ",
   "pro.cta.altLink": "Abrir demo interactiva con datos simulados",
   "pro.stickyCta": "Solicitar acceso",
+
+  // ---- DoctorPreview (sección nueva) ----
+  "doctorPreview.title": "Para el equipo médico",
+  "doctorPreview.descriptionLine1": "Cada dato que registra tu paciente",
+  "doctorPreview.descriptionLine2": "llega a tu dashboard al instante",
+  "doctorPreview.appPatientTitle": "App paciente",
+  "doctorPreview.appPatientAlt": "App del paciente",
+  "doctorPreview.realTimeLabel": "Tiempo real",
+  "doctorPreview.available247Label": "Disponible 24/7",
+  "doctorPreview.oneSinglePlaceLabel": "Un solo lugar",
+  "doctorPreview.dashboardDoctorTitle": "Dashboard doctor",
+  "doctorPreview.dashboardAlt": "Dashboard doctor",
+  "doctorPreview.realTimeDesc": "Cada medición se refleja en tu panel apenas el paciente la registra, sin demoras.",
+  "doctorPreview.available247Desc": "El monitoreo no se detiene: seguís la evolución también fuera de horario de consulta.",
+  "doctorPreview.oneSinglePlaceDesc": "Todos tus pacientes conectados, con su historial y alertas, en un único dashboard.",
+  "doctorPreview.ctaLabel": "Más info",
 };
 
 export const en: Dict = {
@@ -1060,6 +1076,22 @@ export const en: Dict = {
   "pro.cta.altPrefix": "Prefer to explore on your own? ",
   "pro.cta.altLink": "Open interactive demo with simulated data",
   "pro.stickyCta": "Request access",
+
+  // ---- DoctorPreview (new section) ----
+  "doctorPreview.title": "For the medical team",
+  "doctorPreview.descriptionLine1": "Every reading your patient logs",
+  "doctorPreview.descriptionLine2": "reaches your dashboard instantly",
+  "doctorPreview.appPatientTitle": "Patient app",
+  "doctorPreview.appPatientAlt": "Patient app",
+  "doctorPreview.realTimeLabel": "Real time",
+  "doctorPreview.available247Label": "Available 24/7",
+  "doctorPreview.oneSinglePlaceLabel": "One single place",
+  "doctorPreview.dashboardDoctorTitle": "Doctor dashboard",
+  "doctorPreview.dashboardAlt": "Doctor dashboard",
+  "doctorPreview.realTimeDesc": "Every reading appears on your panel as soon as your patient logs it, with no delay.",
+  "doctorPreview.available247Desc": "Monitoring never stops: you follow progress even outside appointment hours.",
+  "doctorPreview.oneSinglePlaceDesc": "All your patients connected, with their history and alerts, in a single dashboard.",
+  "doctorPreview.ctaLabel": "Learn more",
 };
 
 export const translations = { es, en };
