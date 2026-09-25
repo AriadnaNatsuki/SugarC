@@ -25,14 +25,14 @@ export function GamificationSection() {
               {t("gamif.description")}
             </p>
             <div className="grid grid-cols-2 gap-space-sm pt-2">
-              <div className="theme-panel-card flex items-center gap-3 rounded-2xl border p-space-md">
+              <div className="sc-hover-card overflow-hidden theme-panel-card flex items-center gap-3 rounded-2xl border p-space-md">
                 <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-amber-400/30 bg-amber-400/20 text-xl font-bold text-accent-yellow">⭐</div>
                 <div>
                   <h4 className="theme-panel-text font-headline-sm text-[16px] font-bold">{t("gamif.points")}</h4>
                   <p className="theme-panel-muted font-body-sm text-[12px]">{t("gamif.pointsDescription")}</p>
                 </div>
               </div>
-              <div className="theme-panel-card flex items-center gap-3 rounded-2xl border p-space-md">
+              <div className="sc-hover-card overflow-hidden theme-panel-card flex items-center gap-3 rounded-2xl border p-space-md">
                 <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-emerald-400/30 bg-emerald-400/20 text-xl font-bold text-emerald-300">🚀</div>
                 <div>
                   <h4 className="theme-panel-text font-headline-sm text-[16px] font-bold">{t("gamif.level")}</h4>
