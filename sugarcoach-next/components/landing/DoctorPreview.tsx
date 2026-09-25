@@ -3,8 +3,11 @@
 import Image from "next/image"
 import { Zap, Clock, LayoutDashboard, ArrowRight } from "lucide-react"
 import { MaterialIcon } from "@/components/ui/MaterialIcon"
+import { useLanguage } from "@/lib/i18n"
 
 export function DoctorPreview() {
+  const { t } = useLanguage()
+
   return (
     <section id="doctor-preview" className="mx-auto max-w-[1200px] px-gutter-mobile py-space-2xl md:px-gutter-tablet lg:px-gutter-desktop">
 
@@ -13,13 +16,13 @@ export function DoctorPreview() {
         {/* Título */}
         <div className="relative z-10 mb-space-2xl text-center">
           <h2 className="theme-panel-text font-display-lg text-display-lg-mobile font-extrabold leading-tight tracking-tight md:text-headline-lg">
-            Para el equipo médico
+            {t("doctorPreview.title")}
           </h2>
 
           <p className="theme-panel-muted mt-space-md font-body-lg text-body-lg">
-            Cada dato que registra tu paciente
+            {t("doctorPreview.descriptionLine1")}
             <br />
-            llega a tu dashboard al instante
+            {t("doctorPreview.descriptionLine2")}
           </p>
         </div>
 
@@ -39,13 +42,13 @@ export function DoctorPreview() {
           <div className="flex flex-col items-center lg:col-span-3">
 
             <h3 className="theme-panel-text mb-space-md font-headline-sm text-[18px] font-bold">
-              App paciente
+              {t("doctorPreview.appPatientTitle")}
             </h3>
 
-            <div className="relative aspect-[9/19] w-full max-w-[280px]">
+            <div className="sc-hover-card overflow-hidden relative aspect-[9/19] w-full max-w-[280px]">
               <Image
                 src="/images/preview_profesionales/celu_main.jpeg"
-                alt="App del paciente"
+                alt={t("doctorPreview.appPatientAlt")}
                 fill
                 className="rounded-[30px] object-contain"
                 sizes="280px"
@@ -60,7 +63,7 @@ export function DoctorPreview() {
             {/* Tiempo real */}
             <div className="flex flex-col items-center">
               <span className="sc-marker mb-1 whitespace-nowrap text-[22px] text-[#DC13A2]">
-                Tiempo real
+                {t("doctorPreview.realTimeLabel")}
               </span>
 
               <ArrowRight
@@ -72,7 +75,7 @@ export function DoctorPreview() {
             {/* Disponible 24/7 */}
             <div className="flex flex-col items-center">
               <span className="sc-marker mb-1 whitespace-nowrap text-[22px] text-[#DC13A2]">
-                Disponible 24/7
+                {t("doctorPreview.available247Label")}
               </span>
 
               <ArrowRight
@@ -84,7 +87,7 @@ export function DoctorPreview() {
             {/* Un solo lugar */}
             <div className="flex flex-col items-center">
               <span className="sc-marker mb-1 whitespace-nowrap text-[22px] text-[#DC13A2]">
-                Un solo lugar
+                {t("doctorPreview.oneSinglePlaceLabel")}
               </span>
 
               <ArrowRight
@@ -99,13 +102,13 @@ export function DoctorPreview() {
           <div className="flex flex-col items-center lg:col-span-6">
 
             <h3 className="theme-panel-text mb-space-md font-headline-sm text-[18px] font-bold">
-              Dashboard doctor
+              {t("doctorPreview.dashboardDoctorTitle")}
             </h3>
 
-            <div className="relative aspect-[1180/820] w-full max-w-[680px]">
+            <div className="sc-hover-card overflow-hidden relative aspect-[1180/820] w-full max-w-[680px]">
               <Image
                 src="/images/preview_profesionales/dashboard_doctor.png"
-                alt="Dashboard doctor"
+                alt={t("doctorPreview.dashboardAlt")}
                 fill
                 className="rounded-[30px] object-contain"
                 sizes="680px"
@@ -120,52 +123,52 @@ export function DoctorPreview() {
         <div className="relative z-10 mt-space-2xl grid gap-space-lg md:grid-cols-3">
 
           {/* Tiempo real */}
-          <div className="theme-panel-card rounded-2xl border p-space-md">
+          <div className="sc-hover-card overflow-hidden theme-panel-card rounded-2xl border p-space-md">
 
             <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-fuchsia-500/15">
               <Zap className="h-5 w-5 text-fuchsia-400" />
             </div>
 
             <h3 className="theme-panel-text mb-3 font-headline-sm text-[18px] font-bold">
-              Tiempo real
+              {t("doctorPreview.realTimeLabel")}
             </h3>
 
             <p className="theme-panel-muted font-body-sm text-body-sm leading-relaxed">
-              Cada medición se refleja en tu panel apenas el paciente la registra, sin demoras.
+              {t("doctorPreview.realTimeDesc")}
             </p>
 
           </div>
 
           {/* Disponible 24/7 */}
-          <div className="theme-panel-card rounded-2xl border p-space-md">
+          <div className="sc-hover-card overflow-hidden theme-panel-card rounded-2xl border p-space-md">
 
             <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-fuchsia-500/15">
               <Clock className="h-5 w-5 text-fuchsia-400" />
             </div>
 
             <h3 className="theme-panel-text mb-3 font-headline-sm text-[18px] font-bold">
-              Disponible 24/7
+              {t("doctorPreview.available247Label")}
             </h3>
 
             <p className="theme-panel-muted font-body-sm text-body-sm leading-relaxed">
-              El monitoreo no se detiene: seguís la evolución también fuera de horario de consulta.
+              {t("doctorPreview.available247Desc")}
             </p>
 
           </div>
 
           {/* Un solo lugar */}
-          <div className="theme-panel-card rounded-2xl border p-space-md">
+          <div className="sc-hover-card overflow-hidden theme-panel-card rounded-2xl border p-space-md">
 
             <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-fuchsia-500/15">
               <LayoutDashboard className="h-5 w-5 text-fuchsia-400" />
             </div>
 
             <h3 className="theme-panel-text mb-3 font-headline-sm text-[18px] font-bold">
-              Un solo lugar
+              {t("doctorPreview.oneSinglePlaceLabel")}
             </h3>
 
             <p className="theme-panel-muted font-body-sm text-body-sm leading-relaxed">
-              Todos tus pacientes conectados, con su historial y alertas, en un único dashboard.
+              {t("doctorPreview.oneSinglePlaceDesc")}
             </p>
 
           </div>
@@ -178,7 +181,7 @@ export function DoctorPreview() {
             className="inline-flex items-center gap-space-xs rounded-full btn-gradient border border-white/20 px-space-xl py-space-sm font-label-lg text-label-lg text-white transition-all"
             href="/profesionales"
           >
-            <span>Más info</span>
+            <span>{t("doctorPreview.ctaLabel")}</span>
 
             <MaterialIcon
               name="arrow_forward"
