@@ -1436,3 +1436,22 @@ html {
 .shot-nav-btn:hover {
   background: var(--c-surface-container-high);
 }
+/* Tarjetas donde el zoom de hover tiene que aplicarse al contenedor
+   entero, no a cada título/párrafo por separado -- evita que el texto
+   ya agrandado se salga del borde de tarjetas chicas (ver DayInLifeSection
+   y cualquier otra grilla de tarjetas con el mismo problema). */
+.sc-hover-card {
+  transition: transform 0.18s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.18s cubic-bezier(0.2, 0, 0, 1);
+}
+.sc-hover-card:hover,
+.sc-hover-card:focus-within {
+  transform: scale(1.06);
+  position: relative;
+  z-index: 15;
+}
+.sc-hover-card h1:hover, .sc-hover-card h2:hover, .sc-hover-card h3:hover,
+.sc-hover-card h4:hover, .sc-hover-card h5:hover,
+.sc-hover-card p:hover, .sc-hover-card li:hover {
+  transform: none;
+  background-color: transparent;
+}
