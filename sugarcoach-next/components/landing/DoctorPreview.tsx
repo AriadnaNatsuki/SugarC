@@ -59,36 +59,36 @@ export function DoctorPreview() {
 
             {/* Tiempo real */}
             <div className="flex flex-col items-center">
-              <span className="sc-marker mb-1 whitespace-nowrap text-[22px] text-[#6C1D79]">
+              <span className="sc-marker mb-1 whitespace-nowrap text-[22px] text-[#DC13A2]">
                 Tiempo real
               </span>
 
               <ArrowRight
-                className="h-10 w-10 text-[#6C1D79]"
+                className="h-10 w-10 text-[#DC13A2]"
                 strokeWidth={3}
               />
             </div>
 
             {/* Disponible 24/7 */}
             <div className="flex flex-col items-center">
-              <span className="sc-marker mb-1 whitespace-nowrap text-[22px] text-[#6C1D79]">
+              <span className="sc-marker mb-1 whitespace-nowrap text-[22px] text-[#DC13A2]">
                 Disponible 24/7
               </span>
 
               <ArrowRight
-                className="h-10 w-10 text-[#6C1D79]"
+                className="h-10 w-10 text-[#DC13A2]"
                 strokeWidth={3}
               />
             </div>
 
             {/* Un solo lugar */}
             <div className="flex flex-col items-center">
-              <span className="sc-marker mb-1 whitespace-nowrap text-[22px] text-[#6C1D79]">
+              <span className="sc-marker mb-1 whitespace-nowrap text-[22px] text-[#DC13A2]">
                 Un solo lugar
               </span>
 
               <ArrowRight
-                className="h-10 w-10 text-[#6C1D79]"
+                className="h-10 w-10 text-[#DC13A2]"
                 strokeWidth={3}
               />
             </div>
