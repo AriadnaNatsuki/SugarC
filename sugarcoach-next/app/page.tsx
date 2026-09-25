@@ -20,7 +20,7 @@ import { Footer } from "@/components/landing/Footer";
 export default function HomePage() {
   return (
     <main className="relative isolate w-full overflow-x-clip bg-bg-deep pt-20 font-body-md ...">
-+     <div aria-hidden className="page-ambient pointer-events-none absolute inset-0 -z-10" />
+     <div aria-hidden className="page-ambient pointer-events-none absolute inset-0 -z-10" />
       <Navbar />
       <Hero />
       <UserTypesSection />
