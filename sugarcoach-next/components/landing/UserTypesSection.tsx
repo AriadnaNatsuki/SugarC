@@ -363,7 +363,7 @@ export function UserTypesSection() {
                           return (
                             <div
                               key={idx}
-                              className="flex flex-col justify-between gap-1 rounded-xl border border-line/10 bg-base/70 p-2.5 transition-colors dark:border-white/[0.06] dark:bg-[#050C22]"
+                              className="sc-hover-card overflow-hidden flex flex-col justify-between gap-1 rounded-xl border border-line/10 bg-base/70 p-2.5 transition-colors dark:border-white/[0.06] dark:bg-[#050C22]"
                             >
                               <div className="flex items-center gap-1.5">
                                 <div
