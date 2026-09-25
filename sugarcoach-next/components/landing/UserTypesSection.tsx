@@ -323,7 +323,7 @@ export function UserTypesSection() {
 
                   {/* Bloque central: ¿Para qué la usás? */}
                   <div
-                    className={`mt-3 rounded-2xl border p-3 transition-colors duration-200 ${
+                    className={`sc-hover-card overflow-hidden mt-3 rounded-2xl border p-3 transition-colors duration-200 ${
                       isActive
                         ? `${pillar.accentBg} ${pillar.accentBorder}`
                         : "bg-base/40 border-line/10 dark:bg-white/[0.02] dark:border-white/[0.06]"
