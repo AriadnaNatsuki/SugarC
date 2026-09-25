@@ -36,7 +36,7 @@ export function StatsSection() {
             <h2 className="font-headline-lg text-headline-lg font-extrabold tracking-tight text-text-primary">{t("stats.title")}</h2>
             <p className="font-body-lg text-body-lg text-text-secondary">{t("stats.description")}</p>
             <div className="flex flex-col gap-space-sm pt-2">
-              <div className="flex items-start gap-3 rounded-2xl border border-border-subtle bg-surface-tier-1 p-space-sm">
+              <div className="sc-hover-card overflow-hidden flex items-start gap-3 rounded-2xl border border-border-subtle bg-surface-tier-1 p-space-sm">
                 <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-secondary/30 bg-secondary/20 font-bold text-secondary">
                   <MaterialIcon name="donut_large" style={{ fontSize: 18 }} />
                 </div>
@@ -45,7 +45,7 @@ export function StatsSection() {
                   <span className="block font-body-sm text-body-sm text-text-secondary">{t("stats.tir.description")}</span>
                 </div>
               </div>
-              <div className="flex items-start gap-3 rounded-2xl border border-border-subtle bg-surface-tier-1 p-space-sm">
+              <div className="sc-hover-card overflow-hidden flex items-start gap-3 rounded-2xl border border-border-subtle bg-surface-tier-1 p-space-sm">
                 <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-primary/30 bg-primary/20 font-bold text-primary">
                   <MaterialIcon name="bar_chart" style={{ fontSize: 18 }} />
                 </div>
