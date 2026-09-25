@@ -290,6 +290,7 @@ export function TestimonialsSection() {
                           }}
                           className={cn(
                             // Card structure
+                            "sc-hover-card overflow-hidden",
                             "relative flex h-full min-h-[280px] flex-col justify-between",
                             "rounded-2xl p-5 sm:p-6",
                             "cursor-pointer select-none",
@@ -308,8 +309,8 @@ export function TestimonialsSection() {
                             "dark:to-[#080E25]/95",
                             "dark:shadow-[0_0_20px_rgba(255,63,180,0.08)]",
 
-                            // Smooth transitions without zoom
-                            "transition-[box-shadow,opacity] duration-300 ease-out",
+                            // Smooth transitions (incluye zoom via .sc-hover-card)
+                            "transition-[box-shadow,opacity,transform] duration-300 ease-out",
 
                             // Active card
                             isActive
