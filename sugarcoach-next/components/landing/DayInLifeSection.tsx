@@ -53,7 +53,7 @@ export function DayInLifeSection() {
             return (
               <div
                 key={item.title}
-                className={`flex items-start gap-4 rounded-2xl border border-border-subtle bg-surface-tier-1 p-space-md transition-all hover:bg-surface-tier-2 ${style.cardHover}`}
+                className={`sc-hover-card flex items-start gap-4 overflow-hidden rounded-2xl border border-border-subtle bg-surface-tier-1 p-space-md transition-all hover:bg-surface-tier-2 ${style.cardHover}`}
               >
                 <div className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border ${style.iconWrap}`}>
                   <MaterialIcon name={ICONS[i]} style={{ fontSize: 24 }} />
