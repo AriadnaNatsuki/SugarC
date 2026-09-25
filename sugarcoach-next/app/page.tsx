@@ -30,7 +30,7 @@ export default function HomePage() {
       <DayInLifeSection />
       <StatsSection />
       <TreatmentSection />
-      <DoctorPreview/>
+      <DoctorPreview />
       <PrivacySection />
       <AboutSection />
       <AwardsSection />

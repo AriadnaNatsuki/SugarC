@@ -36,7 +36,7 @@ export function Navbar() {
   const NAV_LINKS = [
     { href: "/#como-funciona", label: t("nav.comoFunciona") },
     { href: "/#familias", label: t("nav.familias") },
-    { href: "/profesionales", label: t("nav.profesionales") },
+    { href: "/#profesionales", label: t("nav.profesionales") },
     { href: "/#preguntas-frecuentes", label: t("nav.faq") },
   ];
 
