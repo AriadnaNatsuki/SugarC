@@ -30,7 +30,7 @@ export function FaqSection() {
             <div
               key={n}
               className={cn(
-                "faq-item overflow-hidden rounded-2xl border border-border-subtle bg-surface-tier-1 shadow-sm transition-colors",
+                "sc-hover-card faq-item overflow-hidden rounded-2xl border border-border-subtle bg-surface-tier-1 shadow-sm transition-colors",
                 isOpen && "open",
               )}
             >
